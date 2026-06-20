@@ -31,6 +31,7 @@ single dependency.** At company scale that's resilience; at country scale, sover
 | [disc-loader](https://github.com/constantin-jais/disc-loader) | Rust | Planned | Sovereign rich-document ingestion worker/service: Xberg-backed extraction for PDF, Office, OCR, HTML, and archives into canonical text and metadata. |
 | [vault-inspector](https://github.com/constantin-jais/vault-inspector) | Rust | Planned | SQL and database security inspection: Scythe-backed lint/audit/inspect for Postgres, pgvector, RLS, grants, migrations, and CI evidence. |
 | [supply-depot](https://github.com/constantin-jais/supply-depot) | Rust | Planned | Sovereign supply-chain depot: Starmetal-backed registry proxy/cache and policy POC across Cargo, npm, PyPI, and other ecosystems. |
+| [link-cable](https://github.com/constantin-jais/link-cable) | Rust | `v0` · WIP | Rust-first distribution substrate for multi-platform developer tools: forward-only releases, artifact plans, checksums/signatures/provenance, and sovereign install floors. |
 
 _More tools ship from the same discipline — MIT, Rust, ADR-driven, deterministic._
 
