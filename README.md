@@ -2,7 +2,7 @@
 
 I build **resilient systems where machines decide better — without failing silently.**
 
-## One question, ten years
+## One question, one obsession
 
 From genetic algorithms and Monte-Carlo to today's models, I've worked on the same problem:
 **how does a system decide, and how do you trust the decision?** GenAI changed the _cost_ of a
