@@ -26,7 +26,11 @@ single dependency.** At company scale that's resilience; at country scale, sover
 
 | Project                                                           | Lang | Status     | What it is                                                                                                                                                                                                                                                              |
 | ----------------------------------------------------------------- | ---- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Agent-O-Matic](https://github.com/constantin-jais/Agent-O-Matic) | Rust | `v0` · WIP | Deterministic, agent-agnostic **config compiler**: one TOML source → native configs for many AI coding agents, with **safe-write** (never clobber a hand-edit) and **drift detection** (CI gate). A clean-room study of the two subsystems mature tools leave implicit. |
+| [Agent-O-Matic](https://github.com/constantin-jais/Agent-O-Matic) | Rust | `v0` · WIP | Deterministic, agent-agnostic **config compiler and harness**: one TOML source → native configs for many AI coding agents, with **safe-write** (never clobber a hand-edit), **drift detection** (CI gate), and incident/gate orchestration. |
+| [memory-card](https://github.com/constantin-jais/memory-card) | Rust | Planned | Local agentic context layer: code map, repo memory, document/search substrate for coding agents — inspired by basemind, but shaped for the Agent-O-Matic ecosystem. |
+| [disc-loader](https://github.com/constantin-jais/disc-loader) | Rust | Planned | Sovereign rich-document ingestion worker/service: Xberg-backed extraction for PDF, Office, OCR, HTML, and archives into canonical text and metadata. |
+| [vault-inspector](https://github.com/constantin-jais/vault-inspector) | Rust | Planned | SQL and database security inspection: Scythe-backed lint/audit/inspect for Postgres, pgvector, RLS, grants, migrations, and CI evidence. |
+| [supply-depot](https://github.com/constantin-jais/supply-depot) | Rust | Planned | Sovereign supply-chain depot: Starmetal-backed registry proxy/cache and policy POC across Cargo, npm, PyPI, and other ecosystems. |
 
 _More tools ship from the same discipline — MIT, Rust, ADR-driven, deterministic._
 
