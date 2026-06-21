@@ -24,15 +24,19 @@ single dependency.** At company scale that's resilience; at country scale, sover
 
 ## Projects
 
-| Project                                                               | Lang | Status          | What it is                                                                                                                                                                                                                                  |
-| --------------------------------------------------------------------- | ---- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Presto-Matic](https://github.com/constantin-jais/Rumble-LM)          | Rust | `v0.1` · active | Self-hostable collaborative learning platform: AI-generated, source-grounded study content (quiz, flashcards, mind maps) in real-time sessions for 200+ participants. Sovereign/BYO-keys, RGPD-compliant, Clever Cloud default.             |
-| [Agent-O-Matic](https://github.com/constantin-jais/Agent-O-Matic)     | Rust | `v0` · WIP      | Deterministic, agent-agnostic **config compiler and harness**: one TOML source → native configs for many AI coding agents, with **safe-write** (never clobber a hand-edit), **drift detection** (CI gate), and incident/gate orchestration. |
-| [memory-card](https://github.com/constantin-jais/memory-card)         | Rust | Planned         | Local agentic context layer: code map, repo memory, document/search substrate for coding agents — inspired by basemind, but shaped for the Agent-O-Matic ecosystem.                                                                         |
-| [disc-loader](https://github.com/constantin-jais/disc-loader)         | Rust | Planned         | Sovereign rich-document ingestion worker/service: Xberg-backed extraction for PDF, Office, OCR, HTML, and archives into canonical text and metadata.                                                                                        |
-| [vault-inspector](https://github.com/constantin-jais/vault-inspector) | Rust | Planned         | SQL and database security inspection: Scythe-backed lint/audit/inspect for Postgres, pgvector, RLS, grants, migrations, and CI evidence.                                                                                                    |
-| [supply-depot](https://github.com/constantin-jais/supply-depot)       | Rust | Planned         | Sovereign supply-chain depot: Starmetal-backed registry proxy/cache and policy POC across Cargo, npm, PyPI, and other ecosystems.                                                                                                           |
-| [link-cable](https://github.com/constantin-jais/link-cable)           | Rust | `v0` · WIP      | Rust-first distribution substrate for multi-platform developer tools: forward-only releases, artifact plans, checksums/signatures/provenance, and sovereign install floors.                                                                 |
+| Project                                                               | Lang          | Status          | What it is                                                                                                                                                                                                                                  |
+| --------------------------------------------------------------------- | ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [rumble-lm](https://github.com/constantin-jais/Rumble-LM)             | Rust          | `v0.1` · active | Self-hostable collaborative learning platform: AI-generated, source-grounded study content in real-time sessions for 200+ participants. Sovereign/BYO-keys, RGPD-compliant, Clever Cloud default.                                          |
+| [rumble-cos](https://github.com/constantin-jais/rumble-cos)           | Astro/TS      | active          | Public knowledge site: courses, essays, tools, and resources about data, AI, security, and digital sovereignty.                                                                                                                             |
+| [cos-matic](https://github.com/constantin-jais/cos-matic)             | Rust          | `v0` · WIP      | Deterministic, agent-agnostic **config compiler and autonomous code-ops harness**: one TOML source → native configs for many AI coding agents, safe-write, drift detection, and incident/gate orchestration.                               |
+| [wrench-loader](https://github.com/constantin-jais/wrench-loader)     | Rust          | Planned         | Sovereign rich-document ingestion worker/service: Xberg-backed extraction for PDF, Office, OCR, HTML, and archives into canonical text and metadata.                                                                                        |
+| [gear-memory](https://github.com/constantin-jais/gear-memory)         | Rust          | Planned         | Local agentic context layer: code map, repo memory, document/search substrate for coding agents — shaped for the cos-matic ecosystem.                                                                                                       |
+| [gear-depot](https://github.com/constantin-jais/gear-depot)           | Rust          | Planned         | Sovereign supply-chain depot: Starmetal-backed registry proxy/cache and policy POC across Cargo, npm, PyPI, and other ecosystems.                                                                                                           |
+| [gear-cable](https://github.com/constantin-jais/gear-cable)           | Rust          | `v0` · WIP      | Rust-first distribution substrate for multi-platform developer tools: forward-only releases, artifact plans, checksums/signatures/provenance, and sovereign install floors.                                                                 |
+| [vault-inspector](https://github.com/constantin-jais/vault-inspector) | Rust          | Planned         | SQL and database security inspection: Scythe-backed lint/audit/inspect for Postgres, pgvector, RLS, grants, migrations, and CI evidence.                                                                                                    |
+| [rumble-canvas](https://github.com/constantin-jais/Rumble-Canvas)     | product idea  | Planned         | Natural-language UI prototyping connected to real code.                                                                                                                                                                                     |
+| [rumble-crew](https://github.com/constantin-jais/Rumble-Crew)         | product idea  | Planned         | Collaborative board for teams of humans and AI agents.                                                                                                                                                                                      |
+| [rumble-note](https://github.com/constantin-jais/Rumble-Note)         | product idea  | Planned         | Local-first block notes and knowledge base.                                                                                                                                                                                                 |
 
 _More tools ship from the same discipline — MIT, Rust, ADR-driven, deterministic._
 
@@ -40,26 +44,34 @@ _More tools ship from the same discipline — MIT, Rust, ADR-driven, determinist
 
 ```mermaid
 graph TB
-    subgraph product["🎯 Product"]
-        RL["Presto-Matic · rumble-lm<br/>Collaborative Learning App"]
+    subgraph products["🎯 Rumble products"]
+        RL["rumble-lm<br/>Collaborative learning platform"]
+        RC["rumble-cos<br/>Public knowledge site"]
+        RCanvas["rumble-canvas<br/>UI prototyping"]
+        RCrew["rumble-crew<br/>Agent team board"]
+        RNote["rumble-note<br/>Local-first notes"]
     end
-    subgraph agentic["🤖 Agentic Tools"]
-        AOM["agent-o-matic<br/>Config Compiler + Orchestrator"]
-        DL["disc-loader<br/>Document Ingestion Worker"]
-        MC["memory-card<br/>Local Agent Context"]
+    subgraph tools["🛠️ Sovereign tooling"]
+        CM["cos-matic<br/>Agent config + autonomous code-ops"]
+        WL["wrench-loader<br/>Document ingestion worker"]
+        GM["gear-memory<br/>Local agent context"]
     end
-    subgraph devops["🔧 DevOps Tools"]
-        LC["link-cable<br/>Distribution Substrate"]
-        SD["supply-depot<br/>Registry Proxy / Cache"]
-        VI["vault-inspector<br/>Postgres Security Audit"]
+    subgraph infra["⚙️ Infrastructure"]
+        GC["gear-cable<br/>Distribution substrate"]
+        GD["gear-depot<br/>Registry proxy/cache"]
+        VI["vault-inspector<br/>Postgres security audit"]
     end
-    RL --> DL
-    RL --> MC
+    RL --> WL
+    RL --> GM
     RL --> VI
-    RL --> SD
-    RL --> LC
-    AOM --> LC
-    DL --> MC
+    RL --> GD
+    RL --> GC
+    RC --> RL
+    RCanvas --> CM
+    RCrew --> CM
+    RNote --> GM
+    CM --> GC
+    WL --> GM
 ```
 
 ## Reach me
