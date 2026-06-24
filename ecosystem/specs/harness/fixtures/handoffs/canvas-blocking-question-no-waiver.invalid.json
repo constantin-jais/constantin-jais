@@ -1,0 +1,33 @@
+{
+  "format": "canvas.bolt_handoff.v0.1",
+  "kind": "planning_request",
+  "source": {
+    "product": "rumble-canvas",
+    "workspace_id": "workspace-demo",
+    "handoff_id": "handoff-demo-invalid-blocker",
+    "created_by": "actor-owner-demo",
+    "created_at": "2026-06-30T00:00:00Z"
+  },
+  "package": {
+    "package_id": "package-demo",
+    "version": "0.1.0",
+    "package_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+    "items": [{ "section_id": "section-charter", "revision_id": "revision-charter-1", "required": true }]
+  },
+  "planning_scope": { "mode": "full_package", "target_objects": [], "excluded_objects": [], "goal": "Invalid fixture: blocking question without waiver." },
+  "spec_context": { "charter_summary": {}, "roles": [], "journeys": [], "screens": [], "actions": [], "domain_entities": [], "acceptance_criteria": [] },
+  "traceability_links": [{ "source_type": "journey", "source_id": "j1", "target_type": "action", "target_id": "a1", "relation_type": "implements" }],
+  "active_waivers": [],
+  "open_questions": [
+    { "id": "q-blocking", "impact": "blocking", "question": "What data store owns package provenance?", "status": "open" }
+  ],
+  "risks": [],
+  "capability_candidates": [],
+  "constraints": { "sovereignty": "self-hostable", "data_residency": "EU/local-first where applicable", "non_goals": [] },
+  "requested_outputs": ["implementation_plan"],
+  "execution_policy": {
+    "planning_only": true,
+    "allow_execution": false,
+    "requires_human_approval_for_execution": true
+  }
+}

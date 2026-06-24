@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://constantin-jais.github.io/specs/implementation-handoff.v0.1.schema.json",
+  "title": "ImplementationHandoff v0.1",
+  "type": "object",
+  "required": [
+    "format",
+    "kind",
+    "source",
+    "package",
+    "planning_scope",
+    "spec_context",
+    "traceability_links",
+    "active_waivers",
+    "open_questions",
+    "risks",
+    "capability_candidates",
+    "constraints",
+    "requested_outputs",
+    "execution_policy"
+  ],
+  "properties": {
+    "format": { "const": "canvas.bolt_handoff.v0.1" },
+    "kind": { "const": "planning_request" },
+    "source": {
+      "type": "object",
+      "required": ["product", "workspace_id", "handoff_id", "created_by", "created_at"],
+      "properties": {
+        "product": { "type": "string", "minLength": 1 },
+        "workspace_id": { "type": "string", "minLength": 1 },
+        "handoff_id": { "type": "string", "minLength": 1 },
+        "created_by": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "package": {
+      "type": "object",
+      "required": ["package_id", "version", "package_hash", "items"],
+      "properties": {
+        "package_id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "package_hash": { "type": "string", "pattern": "^sha256:[A-Fa-f0-9]{64}$" },
+        "artifact_reference_id": { "type": ["string", "null"] },
+        "items": { "type": "array", "minItems": 1, "items": { "type": "object" } }
+      },
+      "additionalProperties": true
+    },
+    "planning_scope": {
+      "type": "object",
+      "required": ["mode", "target_objects", "excluded_objects", "goal"],
+      "properties": {
+        "mode": { "enum": ["full_package", "slice"] },
+        "target_objects": { "type": "array" },
+        "excluded_objects": { "type": "array" },
+        "goal": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "spec_context": { "type": "object" },
+    "traceability_links": { "type": "array", "minItems": 1, "items": { "type": "object" } },
+    "active_waivers": { "type": "array", "items": { "type": "object" } },
+    "open_questions": { "type": "array", "items": { "type": "object" } },
+    "risks": { "type": "array", "items": { "type": "object" } },
+    "capability_candidates": { "type": "array", "items": { "type": "object" } },
+    "constraints": { "type": "object" },
+    "requested_outputs": { "type": "array", "items": { "type": "string" } },
+    "execution_policy": {
+      "type": "object",
+      "required": ["planning_only", "allow_execution", "requires_human_approval_for_execution"],
+      "properties": {
+        "planning_only": { "const": true },
+        "allow_execution": { "const": false },
+        "requires_human_approval_for_execution": { "const": true }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
