@@ -44,19 +44,18 @@ The portfolio is split by responsibility, not by technology. Each family has a c
 
 ### Rumble — product experiences
 
-**Rumble projects are what people touch.** They turn the lower layers into useful products: learning sessions, notes, prototypes, collaboration boards, and public knowledge surfaces.
+**Rumble projects are what people touch.** They turn the lower layers into useful products: product-conception workspaces, learning sessions, notes, agent boards, and public knowledge surfaces.
 
-They own UX, workflows, and product framing. They should not own raw ingestion, orchestration internals, artifact distribution, or infrastructure truth.
+They own UX, workflows, and product framing. They should not own raw ingestion, orchestration internals, artifact distribution, or infrastructure truth. Product needs should instead create reusable Bolt, Wrench, and Gear capabilities that feed the whole ecosystem.
 
 | Project                                                           | Role | Product boundary |
 | ----------------------------------------------------------------- | ---- | ---------------- |
-| [rumble-lm](https://github.com/constantin-jais/Rumble-LM)         | Learning | Sovereign collaborative learning sessions; not a generic chat app. |
-| [rumble-cos](https://github.com/constantin-jais/rumble-cos)       | Showroom | Public knowledge and project distribution; not a monolithic CMS. |
-| [rumble-canvas](https://github.com/constantin-jais/Rumble-Canvas) | Prototyping | Natural-language UI prototyping connected to code; not a full design suite. |
-| [rumble-paint](https://github.com/constantin-jais/Rumble-Paint)   | Visual design | Visual/spatial UI refinement; not conversational orchestration. |
-| [rumble-crew](https://github.com/constantin-jais/Rumble-Crew)     | Collaboration | Human/agent task visibility; not the orchestration brain. |
-| [rumble-note](https://github.com/constantin-jais/Rumble-Note)     | Knowledge capture | Local-first block notes and capture; not the secure vault or ingestion engine. |
-| [rumble-vault](https://github.com/constantin-jais/Rumble-Vault)   | Secure knowledge | Secure local-first personal knowledge vault; not a duplicate notes app. |
+| [rumble-canvas](https://github.com/constantin-jais/Rumble-Canvas) | Product conception | Turn conversations into specs, screens, and implementation-ready deliverables; not just a design canvas. |
+| [rumble-cos](https://github.com/constantin-jais/rumble-cos)       | Education blog | Personal education and sharing surface for essays, courses, resources, and ecosystem explanations; not a monolithic CMS. |
+| [rumble-feed-mind](https://github.com/constantin-jais/rumble-feed-mind) | Intelligent watch pipeline | Curates high-volume feeds into explainable, reusable knowledge for the harness; not the generic ingestion engine, memory substrate, or AI provider. |
+| [rumble-crew](https://github.com/constantin-jais/Rumble-Crew)     | Agentic teamwork | Humans and agents side by side with tasks, status, blockers, skills, and evidence; not the orchestration brain. |
+| [rumble-lm](https://github.com/constantin-jais/Rumble-LM)         | Learning facilitation | Grounded learning sessions, live activities, and audience engagement; not a generic chat app. |
+| [rumble-note](https://github.com/constantin-jais/Rumble-Note)     | Personal knowledge | Local-first block notes that feed the agentic harness; not the ingestion engine or orchestrator. |
 
 ### Bolt — orchestration and decisions
 
@@ -77,8 +76,8 @@ They do the technical dirty work, but they should not own product strategy, long
 | Project                                                               | Role | Product boundary |
 | --------------------------------------------------------------------- | ---- | ---------------- |
 | [wrench-loader](https://github.com/constantin-jais/wrench-loader)     | Ingestion | Sovereign rich-document extraction to canonical text/metadata; not knowledge management. |
-| [wrench-inspect](https://github.com/constantin-jais/wrench-inspect)   | Inspection | General structural/design/policy validation; not DB-specific security ownership. |
-| [vault-inspector](https://github.com/constantin-jais/vault-inspector) | DB audit | SQL/Postgres/RLS/grants/migration inspection; not a vault application. |
+| `wrench-inspect`                                                     | Inspection | General structural/design/policy validation; planned companion, no public repo yet; not DB-specific security ownership. |
+| [wrench-db-inspect](https://github.com/constantin-jais/wrench-db-inspect) | DB audit | SQL/Postgres/RLS/grants/migration inspection; not a vault application. |
 
 ### Gear — sovereign infrastructure
 
@@ -101,11 +100,10 @@ graph TD
     subgraph Rumble_Layer ["🎯 Rumble (Products)"]
         RL["rumble-lm<br/>Learning Platform"]
         RC["rumble-cos<br/>Showroom"]
-        RCanvas["rumble-canvas<br/>UI Prototyping"]
-        RCrew["rumble-crew<br/>Agent Board"]
+        RFM["rumble-feed-mind<br/>Watch Pipeline"]
+        RCanvas["rumble-canvas<br/>Product Conception"]
+        RCrew["rumble-crew<br/>Agentic Teamwork"]
         RNote["rumble-note<br/>Knowledge Capture"]
-        RVault["rumble-vault<br/>Secure Vault"]
-        RPaint["rumble-paint<br/>Visual Design"]
     end
 
     subgraph Bolt_Layer ["🧠 Bolt (Orchestration)"]
@@ -115,7 +113,7 @@ graph TD
     subgraph Wrench_Layer ["🛠️ Wrench (Tooling)"]
         WL["wrench-loader<br/>Ingestion"]
         WI["wrench-inspect<br/>General Inspection"]
-        VI["vault-inspector<br/>DB Security Evidence"]
+        VI["wrench-db-inspect<br/>DB Security Evidence"]
     end
 
     subgraph Gear_Layer ["⚙️ Gear (Infrastructure)"]
@@ -127,6 +125,7 @@ graph TD
     RCanvas --> CM
     RCrew --> CM
     RL --> CM
+    RFM --> CM
     CM --> WL
     CM --> WI
     CM --> VI
@@ -137,11 +136,10 @@ graph TD
     GC --> GD
     GD --> RL
     GD --> RC
+    GD --> RFM
     GD --> RCanvas
     GD --> RCrew
     GD --> RNote
-    GD --> RVault
-    GD --> RPaint
 ```
 
 ## Reach me
