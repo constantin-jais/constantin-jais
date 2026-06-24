@@ -90,13 +90,9 @@ Current local repository metadata indicates:
 - Rust backend workspace;
 - Axum, SQLx, PostgreSQL, Redis;
 - planned mobile/web client from the existing PRD;
-- license currently set to `AGPL-3.0`.
+- license aligned to `MIT` at workspace level.
 
-The license conflicts with the ecosystem preference for permissive sovereign OSS licensing. Before implementation alignment, decide whether:
-
-1. the project remains outside the MIT-first ecosystem; or
-2. the license changes to MIT/Apache-2.0/MPL-compatible policy; or
-3. AGPL is explicitly accepted as an exception with a documented waiver.
+The product now follows the ecosystem preference for permissive sovereign OSS licensing. Any future license exception must be documented by ADR/waiver.
 
 ## Main Risks
 
@@ -106,7 +102,7 @@ The license conflicts with the ecosystem preference for permissive sovereign OSS
 | Duplicates Wrench ingestion | High | Extract feed parsing/extraction if reused by other products. |
 | Duplicates Gear Memory | High | FeedMind owns UX/triage; Gear owns memory/index substrate. |
 | BYOK secrets mishandled | Critical | Secrets must never appear in logs/exports/handoffs. |
-| AGPL conflicts with ecosystem policy | High | Decide license or waiver before deeper integration. |
+| License drift conflicts with ecosystem policy | Medium | Keep MIT workspace license; document any future exception by ADR/waiver. |
 | US model/provider dependency | High | BYOK plus provider policy; sovereign/local options needed for core truth. |
 
 ## Shared Capability Candidates
@@ -126,5 +122,5 @@ The license conflicts with the ecosystem preference for permissive sovereign OSS
 | Is `rumble-feed-mind` an active Rumble product or a source pipeline feeding other Rumbles? | High | Open |
 | Should feed parsing live in this product or be extracted to Wrench? | High | Open |
 | Should saved items become Gear `Source` first or Rumble `Artifact` first? | High | Open |
-| Is AGPL acceptable, or must the project relicense/receive a waiver? | High | Open |
-| Is Expo/mobile still the target client stack, or should Rumble interactive stack converge on Rust/Dioxus? | High | Open |
+| Is AGPL acceptable, or must the project relicense/receive a waiver? | High | Accepted: workspace license is MIT. |
+| Is Expo/mobile still the target client stack, or should Rumble interactive stack converge on Rust/Dioxus? | High | Accepted: interactive Rumble target is Rust/Dioxus; legacy TS/mobile surfaces are migration references only. |

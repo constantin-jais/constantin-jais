@@ -450,7 +450,7 @@ Do not name a shared brick after a single product unless it truly belongs only t
 | 2026-06-30 | First Canvas-to-Bolt handoff format is `canvas.bolt_handoff.v0.1`, kind `planning_request`. | Bolt needs deterministic structured input; MVP preserves package identity, immutable revisions, traceability, waivers, risks, capability candidates, requested outputs, and forbids automatic execution. | Accepted |
 | 2026-06-30 | `rumble-lm` MVP is a synchronous live session product with first-class activities, citation-gated source grounding, aggregate learning signals, and post-session export. | Keeps the product focused on facilitated collective learning instead of chatbot, quiz-only, or LMS scope. | Accepted |
 | 2026-06-30 | `ImplementationHandoff v0.1` is the P0 contract before Rumble development. | The harness must validate/refuse/plan from structured product intent before product UIs are implemented. | Accepted |
-| 2026-06-30 | `rumble-feed-mind` requires a license/alignment decision before deep integration. | Current local metadata indicates AGPL-3.0, which conflicts with the ecosystem’s permissive-license preference unless explicitly waived. | Open |
+| 2026-06-30 | `rumble-feed-mind` aligns to MIT and Rust/Dioxus convergence. | The product joins the permissive-license Rumble ecosystem; legacy frontend surfaces are migration references, not durable targets. | Accepted |
 | 2026-06-30 | Interactive Rumble products converge on Rust core + Dioxus UI by default. | Avoid frontend fragmentation and keep local-first/native/web products aligned with the Rust-first harness. `rumble-cos` remains Astro as a content site exception. | Accepted |
 
 ---
@@ -492,8 +492,8 @@ Do not name a shared brick after a single product unless it truly belongs only t
 - Is it an active Rumble product or primarily a source pipeline feeding other Rumbles?
 - Should feed parsing/extraction remain product-local or become Wrench capability?
 - Should curated feed items become Gear `Source`, Gear `Artifact`, or both depending on lifecycle?
-- Is AGPL acceptable, or must the project relicense / receive a documented waiver?
-- Should the current Rust backend + mobile/web client target remain, or should interactive Rumble stack converge?
+- How should existing legacy client behavior be migrated toward Dioxus without a big bang?
+- Which feed ingestion responsibilities should move to Wrench after the product slice stabilizes?
 - What BYOK/provider policy is allowed for rule evaluation and explanations?
 
 #### `rumble-lm`
@@ -520,7 +520,7 @@ Do not name a shared brick after a single product unless it truly belongs only t
 4. Implement `cos-matic handoff plan --dry-run <handoff.json>` as a planning-only report.
 5. Add Wrench inspection for traceability coverage, waiver validity, and shared capability extraction.
 6. Define minimal Gear artifact/provenance rules for `SpecPackage` and exported Rumble artifacts.
-7. Resolve `rumble-feed-mind` license/boundary questions before deep integration.
+7. Keep `rumble-feed-mind` MIT/Rust-Dioxus aligned; document any future exception by ADR/waiver.
 8. Align interactive Rumble UI plans on Rust/Dioxus, with ADRs for exceptions.
 9. Only then start product UI development for `rumble-*`.
 
