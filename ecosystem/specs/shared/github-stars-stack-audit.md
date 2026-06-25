@@ -1,0 +1,98 @@
+# GitHub Stars Stack Audit
+
+Date: 2026-06-30
+Source: `https://api.github.com/users/constantin-jais/starred?per_page=100`
+Scope: 80 public starred repositories returned by the GitHub API.
+
+## Method
+
+This table applies the taxonomy from
+`docs/superpowers/specs/2026-06-30-github-stars-stack-audit-design.md`.
+
+Disposition values: `adopt`, `rebuild`, `knowledge`, `reject`, `quarantine`.
+Layer values: `rumble`, `bolt`, `wrench`, `gear`, `cross-layer`, `outside`.
+
+## Audit Table
+
+| repo | disposition | layer | fit | risk | license | language | ecosystem_need | recommended_action |
+| --- | --- | --- | ---: | --- | --- | --- | --- | --- |
+| stoolap/stoolap | adopt | gear | 4 | medium | Apache-2.0 | Rust | local structured storage | Benchmark against SQLite/Turso before any storage decision. |
+| Goldziher/ai-rulez | knowledge | bolt | 4 | low | MIT | Go | cos-matic comparator | Keep as benchmark for config generation, drift, and safe-write behavior. |
+| bevyengine/bevy | knowledge | rumble | 2 | low | Apache-2.0 | Rust | rich interactive surfaces | Keep as rendering/ECS reference only. |
+| nbeaver/why-linux-is-better | knowledge | outside | 1 | medium | NOASSERTION | Makefile | operating-system posture | Use as reading material, not stack input. |
+| tursodatabase/turso | knowledge | gear | 3 | medium | MIT | Rust | embedded SQL and sync concepts | Study local-first SQL trade-offs; avoid hosted Turso lock-in. |
+| tursodatabase/agentfs | rebuild | gear | 4 | high | NOASSERTION | Rust | agent filesystem substrate | Verify license, then extract requirements for Gear memory/filesystem contracts. |
+| rorkai/App-Store-Connect-CLI | knowledge | outside | 1 | low | MIT | Go | Apple release automation | Keep only if native Apple distribution becomes active. |
+| DietrichGebert/ponytail | knowledge | bolt | 3 | medium | MIT | JavaScript | anti-gold-plating agent behavior | Extract behavioral heuristics into docs, not runtime prompts. |
+| headroomlabs-ai/headroom | rebuild | bolt | 4 | medium | Apache-2.0 | Python | tool-output compression | Rebuild or wrap only after measuring token compression versus evidence loss. |
+| xberg-io/html-to-markdown | rebuild | wrench | 4 | low | MIT | HTML | canonical web extraction | Evaluate as reference for Wrench loader HTML normalization. |
+| xberg-io/tree-sitter-language-pack | adopt | wrench | 5 | medium | MIT | Rust | polyglot code parsing | Audit dependency size and grammar coverage before adoption. |
+| xberg-io/liter-llm | knowledge | cross-layer | 3 | high | MIT | Rust | LLM provider abstraction | Use as adapter reference; direct adoption requires provider residency policy. |
+| xberg-io/crawlberg | rebuild | wrench | 4 | medium | MIT | Rust | web crawling and source capture | Use as crawler architecture reference for Wrench loader. |
+| xberg-io/alef | rebuild | gear | 4 | medium | MIT | Rust | multi-language bindings | Study for Gear Cable binding generation and release contracts. |
+| Goldziher/uncomment | knowledge | wrench | 3 | low | MIT | Rust | source-code preprocessing | Keep as small tree-sitter utility reference. |
+| Goldziher/scythe | rebuild | wrench | 4 | low | MIT | Rust | SQL linting and validation | Use as reference for `wrench-db-inspect` SQL analysis. |
+| Goldziher/spikard | knowledge | cross-layer | 2 | medium | MIT | Rust | polyglot web bindings | Keep as architecture reference; no current ecosystem need. |
+| Egonex-AI/Understand-Anything | rebuild | gear | 4 | medium | MIT | TypeScript | code maps and explorable knowledge graph | Rebuild concepts into Gear Memory and Wrench Inspect boundaries. |
+| soxoj/maigret | quarantine | outside | 0 | high | MIT | Python | defensive OSINT threat model | Use only as PII/OSINT risk reference; never integrate. |
+| anondotli/awesome-privacy-tools | knowledge | outside | 2 | low | CC0-1.0 | Unknown | privacy tooling landscape | Mine for sovereign alternatives, not dependencies. |
+| siyuan-note/siyuan | knowledge | rumble | 3 | blocker | AGPL-3.0 | TypeScript | rumble-note product inspiration | Study UX and local-first concepts; AGPL blocks direct integration. |
+| multica-ai/multica | knowledge | bolt | 4 | high | NOASSERTION | Go | agent team workspace | Analyze product model for Rumble Crew and Bolt split; verify license. |
+| karpathy/autoresearch | knowledge | bolt | 3 | high | NOASSERTION | Python | autonomous research loops | Use as cautionary reference for bounded runs and evidence gates. |
+| codecrafters-io/build-your-own-x | knowledge | outside | 2 | medium | NOASSERTION | Markdown | learning-by-rebuild method | Keep as learning source for clean-room rebuild discipline. |
+| emdash-cms/emdash | knowledge | rumble | 3 | low | MIT | TypeScript | rumble-cos CMS alternatives | Study Astro CMS patterns; do not displace current SSG decision. |
+| santifer/career-ops | knowledge | outside | 1 | medium | MIT | JavaScript | workflow automation examples | Keep as agent-workflow reference outside the stack. |
+| ConnectingEurope/eInvoicing-EN16931 | knowledge | wrench | 2 | high | NOASSERTION | XSLT | standards validation examples | Use as EU validation-artifact reference only. |
+| xberg-io/xberg | rebuild | wrench | 4 | medium | MIT | Rust | document intelligence | Use as primary reference for Wrench Loader architecture and contracts. |
+| zama-ai/awesome-zama | knowledge | gear | 2 | high | NOASSERTION | Unknown | privacy-preserving computation | Track FHE concepts; no direct dependency. |
+| max-sixty/worktrunk | knowledge | bolt | 3 | high | NOASSERTION | Rust | agent worktree workflow | Verify license before any rebuild or adoption decision. |
+| hoppscotch/hoppscotch | adopt | wrench | 4 | medium | MIT | TypeScript | API contract testing | Evaluate self-hosted/offline API testing fit for Wrench evidence workflows. |
+| gastownhall/gastown | knowledge | bolt | 3 | low | MIT | Go | multi-agent workspace management | Study orchestration UX and boundaries. |
+| p-e-w/heretic | quarantine | outside | 0 | blocker | AGPL-3.0 | Python | hostile model-behavior reference | Quarantine as unsafe model manipulation material. |
+| agenticnotetaking/arscontexta | knowledge | gear | 3 | medium | MIT | Shell | owned markdown memory | Extract memory-shaping ideas for Gear Memory and Rumble Note. |
+| lfnovo/open-notebook | knowledge | rumble | 4 | low | MIT | TypeScript | source-grounded learning UX | Use as Rumble LM comparator and product inspiration. |
+| bytewax/awesome-public-real-time-datasets | knowledge | outside | 1 | low | CC0-1.0 | Unknown | feed and dataset examples | Keep as sample-source catalog only. |
+| eclipse-biscuit/biscuit | adopt | gear | 5 | low | Apache-2.0 | Rust | capability authorization | Keep as auth primitive candidate for Gear and Bolt consumers. |
+| linagora/twake-workplace | knowledge | rumble | 2 | high | NOASSERTION | Unknown | sovereign collaboration suite | Study EU collaboration posture after license verification. |
+| unum-cloud/USearch | adopt | gear | 4 | medium | Apache-2.0 | C++ | vector and object search | Benchmark for Gear Memory search before adopting native bindings. |
+| suitenumerique/docs | knowledge | rumble | 4 | low | MIT | Python | collaborative docs and notes | Study Suite Numerique product patterns for Rumble Note and Rumble Cos. |
+| elder-plinius/L1B3RT4S | quarantine | outside | 0 | blocker | AGPL-3.0 | Unknown | prompt-injection test corpus | Use only as hostile prompt-injection corpus with explicit containment. |
+| resemble-ai/chatterbox | knowledge | rumble | 3 | medium | MIT | Python | offline TTS and speech UX | Evaluate for local speech features after model/license review. |
+| breschio/drawbridge | knowledge | rumble | 3 | high | NOASSERTION | JavaScript | browser design feedback loop | Study for Rumble Canvas review UX; verify license first. |
+| github/spec-kit | knowledge | bolt | 4 | medium | MIT | Python | spec-driven development | Compare with Rumble Canvas handoff and cos-matic plan flow. |
+| Vanilagy/mediabunny | adopt | rumble | 3 | medium | MPL-2.0 | TypeScript | browser media processing | Consider for media-heavy Rumble workflows only. |
+| simstudioai/sim | knowledge | bolt | 4 | medium | Apache-2.0 | TypeScript | agent orchestration UI | Study central-intelligence UX without adopting hosted assumptions. |
+| mayocream/koharu | reject | outside | 0 | blocker | GPL-3.0 | Rust | none | Reject: domain mismatch and GPL direct-dependency blocker. |
+| MAIF/otoroshi | knowledge | gear | 3 | low | Apache-2.0 | Scala | API gateway and policy | Study EU API-management patterns; no current adoption need. |
+| gradio-app/gradio | knowledge | outside | 2 | medium | Apache-2.0 | Python | ML demo surfaces | Keep as prototyping reference; not production stack substrate. |
+| cjpais/Handy | adopt | wrench | 4 | medium | MIT | Rust | offline speech-to-text | Evaluate for Wrench Loader audio transcription pipeline. |
+| toon-format/toon | adopt | gear | 4 | medium | MIT | TypeScript | compact agent-readable payloads | Evaluate as interchange format for prompts and artifacts. |
+| glittercowboy/taches-cc-resources | knowledge | bolt | 2 | low | MIT | TypeScript | Claude Code workflow references | Mine workflow ideas manually; do not import wholesale. |
+| microsoft/playwright-mcp | adopt | wrench | 4 | medium | Apache-2.0 | TypeScript | browser E2E evidence | Use as browser inspection/testing candidate with MCP boundary review. |
+| OneRedOak/claude-code-workflows | knowledge | bolt | 3 | low | MIT | Unknown | agent workflow patterns | Extract workflow practices into cos-matic docs if useful. |
+| ChromeDevTools/chrome-devtools-mcp | adopt | wrench | 4 | medium | Apache-2.0 | TypeScript | browser diagnostics evidence | Evaluate for Wrench Inspect web diagnostics. |
+| eyaltoledano/claude-task-master | knowledge | bolt | 3 | high | NOASSERTION | JavaScript | task decomposition | Study task model only after license verification. |
+| Fission-AI/OpenSpec | knowledge | bolt | 4 | low | MIT | TypeScript | spec-driven agent workflows | Compare with Rumble Canvas and cos-matic handoff contracts. |
+| EveryInc/compound-engineering-plugin | knowledge | bolt | 3 | low | MIT | TypeScript | agentic engineering workflows | Mine workflow mechanics; keep product boundary separate. |
+| austin-starks/LeadGenGPT | reject | outside | 0 | high | MIT | TypeScript | none | Reject: cold email automation conflicts with PII and trust posture. |
+| contains-studio/agents | knowledge | bolt | 2 | high | NOASSERTION | Unknown | agent configuration examples | Use only as examples after license and prompt-safety review. |
+| imthenachoman/How-To-Secure-A-Linux-Server | knowledge | gear | 3 | medium | CC-BY-SA-4.0 | Unknown | infrastructure hardening | Use as reading source; license blocks direct doc reuse. |
+| bmad-code-org/BMAD-METHOD | knowledge | bolt | 3 | high | NOASSERTION | JavaScript | agent planning method | Compare planning concepts; verify license before reuse. |
+| kizniche/Mycodo | reject | outside | 0 | blocker | GPL-3.0 | Python | none | Reject: IoT domain mismatch and GPL blocker. |
+| ccusage/ccusage | knowledge | gear | 2 | high | NOASSERTION | Rust | usage accounting | Study usage-reporting shape after license verification. |
+| Shubhamsaboo/awesome-llm-apps | knowledge | outside | 2 | low | Apache-2.0 | Python | LLM app landscape | Use as pattern catalog, not stack input. |
+| ashishps1/learn-ai-engineering | knowledge | outside | 2 | blocker | GPL-3.0 | Unknown | AI learning path | Use only as external reading; no reuse. |
+| ripienaar/free-for-dev | reject | outside | 1 | high | NOASSERTION | HTML | none | Reject for stack decisions: free-tier SaaS conflicts with sovereignty filter. |
+| danielmiessler/Fabric | knowledge | bolt | 3 | low | MIT | Go | prompt and workflow patterns | Study prompt pattern organization; do not import prompt packs blindly. |
+| anthropics/claude-cookbooks | knowledge | outside | 2 | medium | MIT | Jupyter Notebook | Claude usage examples | Keep as API example source; not sovereign runtime input. |
+| PostHog/posthog | knowledge | outside | 2 | high | NOASSERTION | Python | product analytics concepts | Study analytics product concepts; no adoption without telemetry spec. |
+| Giskard-AI/giskard-oss | adopt | wrench | 4 | medium | Apache-2.0 | Python | LLM and agent evaluation | Evaluate for Wrench eval evidence and test harnesses. |
+| Hannibal046/Awesome-LLM | knowledge | outside | 2 | low | CC0-1.0 | Unknown | LLM landscape | Use as survey material only. |
+| mlabonne/llm-datasets | knowledge | outside | 2 | high | NOASSERTION | Unknown | post-training dataset landscape | Use as dataset map; verify dataset licenses separately. |
+| decodingai-magazine/llm-twin-course | knowledge | outside | 2 | low | MIT | Python | production RAG learning | Use as learning source for architecture comparisons. |
+| MunGell/awesome-for-beginners | knowledge | outside | 1 | high | NOASSERTION | Unknown | contributor onboarding examples | Keep outside stack; no direct reuse. |
+| unslothai/unsloth | knowledge | gear | 3 | medium | Apache-2.0 | Python | local model training | Study local/open-model operations; no product dependency yet. |
+| offa/android-foss | knowledge | outside | 1 | blocker | GPL-3.0 | Python | Android FOSS landscape | Use only as external catalog. |
+| ihebski/DefaultCreds-cheat-sheet | quarantine | outside | 0 | high | MIT | Python | defensive credential-risk corpus | Use only for defensive checks with strict containment. |
+| LINCnil/Guide-RGPD-du-developpeur | knowledge | gear | 4 | blocker | GPL-3.0 | HTML | RGPD engineering guidance | Read as compliance reference; do not copy text into proprietary docs. |
+| gilbsgilbs/NewPipeSponsorBlock | reject | outside | 0 | blocker | GPL-3.0 | Unknown | none | Reject: domain mismatch and GPL blocker. |
