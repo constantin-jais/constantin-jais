@@ -5,8 +5,19 @@ const REDACTED_DSN: &str = "[REDACTED_DSN]";
 const REDACTED_SECRET: &str = "[REDACTED_SECRET]";
 const REDACTED_ASSIGNMENT: &str = "[REDACTED_SECRET_ASSIGNMENT]";
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct RedactionResult {
+    pub text: String,
+    pub count: usize,
+}
+
 pub fn redact_text(input: &str) -> String {
+    redact_text_with_count(input).text
+}
+
+pub fn redact_text_with_count(input: &str) -> RedactionResult {
     let mut out = input.to_string();
+    let mut count = 0;
     for (pattern, replacement) in [
         (r#"(?i)postgres(?:ql)?://[^\s\"'`<>]+"#, REDACTED_DSN),
         (
@@ -23,25 +34,22 @@ pub fn redact_text(input: &str) -> String {
         ),
     ] {
         let regex = Regex::new(pattern).expect("redaction regex must compile");
+        count += regex.find_iter(&out).count();
         out = regex.replace_all(&out, replacement).to_string();
     }
-    out
+    RedactionResult { text: out, count }
 }
 
-pub fn redact_json_value(value: &mut Value) {
+pub fn redact_json_value(value: &mut Value) -> usize {
     match value {
-        Value::String(s) => *s = redact_text(s),
-        Value::Array(items) => {
-            for item in items {
-                redact_json_value(item);
-            }
+        Value::String(s) => {
+            let result = redact_text_with_count(s);
+            *s = result.text;
+            result.count
         }
-        Value::Object(map) => {
-            for item in map.values_mut() {
-                redact_json_value(item);
-            }
-        }
-        Value::Null | Value::Bool(_) | Value::Number(_) => {}
+        Value::Array(items) => items.iter_mut().map(redact_json_value).sum(),
+        Value::Object(map) => map.values_mut().map(redact_json_value).sum(),
+        Value::Null | Value::Bool(_) | Value::Number(_) => 0,
     }
 }
 
@@ -52,12 +60,13 @@ mod tests {
     #[test]
     fn redacts_common_secret_like_patterns() {
         let input = "postgres://user:pass@example/db token=abc123 sk_test_fixture_redaction_123456 Bearer abc.def";
-        let redacted = redact_text(input);
-        assert!(!redacted.contains("postgres://user"));
-        assert!(!redacted.contains("abc123"));
-        assert!(!redacted.contains("sk_test_fixture_redaction_123456"));
-        assert!(!redacted.contains("Bearer abc.def"));
-        assert!(redacted.contains(REDACTED_DSN));
-        assert!(redacted.contains(REDACTED_SECRET));
+        let result = redact_text_with_count(input);
+        assert!(!result.text.contains("postgres://user"));
+        assert!(!result.text.contains("abc123"));
+        assert!(!result.text.contains("sk_test_fixture_redaction_123456"));
+        assert!(!result.text.contains("Bearer abc.def"));
+        assert!(result.text.contains(REDACTED_DSN));
+        assert!(result.text.contains(REDACTED_SECRET));
+        assert_eq!(result.count, 4);
     }
 }
