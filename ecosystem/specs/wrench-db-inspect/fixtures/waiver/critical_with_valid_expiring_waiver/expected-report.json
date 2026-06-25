@@ -1,0 +1,19 @@
+{
+  "data": {
+    "format": "wrench.db_inspect.report.v0.1",
+    "status": "passed_with_waiver",
+    "summary": { "critical": 1, "high": 0, "medium": 0, "low": 0, "info": 0, "gate_blocked": false },
+    "findings": [
+      {
+        "rule_id": "RLS_REQUIRED_TENANT_TABLE",
+        "category": "rls_policy",
+        "severity": "critical",
+        "confidence": "high",
+        "subject": { "type": "table", "name": "public.session_responses" },
+        "waiver": { "status": "active", "id": "wv_fixture_rls_001" },
+        "gate": { "blocks": false }
+      }
+    ]
+  },
+  "meta": { "schema_version": "0.1", "redaction": { "secrets_or_pii_included": false } }
+}

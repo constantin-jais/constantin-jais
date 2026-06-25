@@ -125,7 +125,17 @@ The specs must be detailed enough for both humans and agents to implement safely
 
 A good spec is not only a feature list. It is a contract between product, architecture, data, services, security, and delivery.
 
-### 4.1 Required Spec Files per Product
+### 4.1 Session Design Principles
+
+Every design session must follow `specs/shared/session-design-principles.md`:
+
+1. avoid dangerous duplication by identifying what the capability centralizes;
+2. strengthen Rumble products without imposing a premature abstract platform;
+3. produce contracts, boundaries, ADR candidates, and acceptance tests before code;
+4. keep sovereignty as a hard filter: no mandatory US SaaS, blocking license, opaque storage, or PII/secrets in logs;
+5. turn starred repositories into design capital for challenge, benchmarks, risks, and justification — not into a raw backlog.
+
+### 4.2 Required Spec Files per Product
 
 Target structure:
 
@@ -421,6 +431,12 @@ Status values:
 | Learning/facilitation analytics | `rumble-lm`, maybe `rumble-cos` | Shared Rumble first | Candidate | Aggregate participation, comprehension, confusion, consensus/divergence; avoid hidden individual profiling. |
 | Export package | `rumble-lm`, `rumble-canvas`, `rumble-cos` | Gear artifact + Rumble UX | Candidate | Audience-scoped export with included data classes, provenance, checksum, and retention/revocation metadata. |
 | Inspector reports | `rumble-canvas`, `rumble-crew`, `rumble-cos`, `rumble-lm` | Wrench Inspect | Candidate | Validate specs, content, design, policy, citation support, privacy, or readiness. |
+| Evidence report | Rumbles, Bolt gates, CI | Wrench Inspect | Candidate | Shared evidence model for API/browser/eval/clean-room checks; emerged from GitHub stars audit but hardens existing Wrench scope. |
+| Agent/run policy gate | `cos-matic`, `rumble-crew`, `rumble-canvas`, Wrench checks | `cos-matic` | Candidate | Versioned gates for secrets, destructive actions, network, license, sovereignty, citations, and human approval. |
+| Source catalog | `rumble-note`, `rumble-feed-mind`, `rumble-lm`, Wrench Loader/Inspect | Gear Memory | Candidate | Catalog over `SourceRef`; avoids separate `gear-source` until extraction criteria are met. |
+| Usage ledger | Bolt runs, Wrench checks, Gear artifacts, Rumble handoffs | Gear Memory first | Candidate | Append-only technical usage events and aggregate projections without behavioral profiling. |
+| Payload projection | Bolt handoffs, Wrench reports, Gear manifests, agent context exports | Gear Depot or shared Gear library | Candidate | Compact projections from canonical JSON/NDJSON; never source of truth. |
+| Release floor | Gear Cable releases and installable tools | Gear Cable | Candidate | Target matrix, install floors, artifact plans, checksum/signature plans, and Depot manifest handoff. |
 
 ### Naming Rules for Shared Bricks
 
@@ -448,10 +464,13 @@ Do not name a shared brick after a single product unless it truly belongs only t
 | 2026-06-30 | High/critical waivers require distinct human Owner + Reviewer approval in Canvas MVP. | Sensitive exceptions must not be self-approved; Bolt/Wrench can rely on explicit approval evidence. | Accepted |
 | 2026-06-30 | Rumble products integrate with Bolt through planning-only `ImplementationHandoff`; MVP Bolt target is `cos-matic`. | Rumbles must submit approved packages and governance context to Bolt without direct execution; `cos-matic` returns plans, gates, statuses, or auditable refusals. | Accepted |
 | 2026-06-30 | First Canvas-to-Bolt handoff format is `canvas.bolt_handoff.v0.1`, kind `planning_request`. | Bolt needs deterministic structured input; MVP preserves package identity, immutable revisions, traceability, waivers, risks, capability candidates, requested outputs, and forbids automatic execution. | Accepted |
-| 2026-06-30 | `rumble-lm` MVP is a synchronous live session product with first-class activities, citation-gated source grounding, aggregate learning signals, and post-session export. | Keeps the product focused on facilitated collective learning instead of chatbot, quiz-only, or LMS scope. | Accepted |
+| 2026-06-30 | `rumble-lm` MVP is a synchronous live session product with first-class activities, citation-gated source grounding, aggregate learning signals, and post-session export. | Keeps the product focused on facilitated collective learning instead of chatbot, quiz-only, or LMS scope. See `specs/rumble-lm/14-source-grounded-product-slice.md` and `specs/rumble-lm/15-contracts-v0.1.md`. | Accepted |
+| 2026-06-30 | `rumble-lm` consumes Wrench Loader, Gear Memory/Gear artifacts, Bolt, and Biscuit rather than duplicating ingestion, memory, orchestration, artifacts, or delegated authorization. | The P0 slice needs contracts before code and must avoid dangerous local reimplementation while keeping product UX in Rumble. Owner review: `specs/rumble-lm/16-contract-review-pack.md`; stub path: `specs/rumble-lm/17-p0-stub-implementation-plan.md`. | Accepted |
 | 2026-06-30 | `ImplementationHandoff v0.1` is the P0 contract before Rumble development. | The harness must validate/refuse/plan from structured product intent before product UIs are implemented. | Accepted |
+| 2026-06-30 | Bolt P0 hardening remains inside `cos-matic`; no premature `bolt-runner`. | Current needs are handoff validation, planning-only runs, gates, refusals, evidence references, idempotency, and audit. A new repo is justified only by a durable runtime/service boundary. | Proposed |
 | 2026-06-30 | `rumble-feed-mind` aligns to MIT and Rust/Dioxus convergence. | The product joins the permissive-license Rumble ecosystem; legacy frontend surfaces are migration references, not durable targets. | Accepted |
 | 2026-06-30 | Interactive Rumble products converge on Rust core + Dioxus UI by default. | Avoid frontend fragmentation and keep local-first/native/web products aligned with the Rust-first harness. `rumble-cos` remains Astro as a content site exception. | Accepted |
+| 2026-06-30 | Starred-repo-derived project ideas strengthen existing repositories first instead of creating new repos. | Avoid roadmap debt and contract fragmentation: evidence/browser/eval/clean-room harden Wrench Inspect; policy hardens `cos-matic`; source catalog and usage ledger harden Gear Memory; payload projection hardens Gear Depot/Gear libs; release floor hardens Gear Cable. See ADR 0022. | Accepted |
 
 ---
 
@@ -515,14 +534,16 @@ Do not name a shared brick after a single product unless it truly belongs only t
 ### Immediate next actions
 
 1. Treat `ImplementationHandoff v0.1` as the P0 harness contract.
-2. Add JSON fixtures for valid/invalid handoffs.
-3. Implement `cos-matic handoff validate <handoff.json>` as a no-execution validator.
-4. Implement `cos-matic handoff plan --dry-run <handoff.json>` as a planning-only report.
-5. Add Wrench inspection for traceability coverage, waiver validity, and shared capability extraction.
-6. Define minimal Gear artifact/provenance rules for `SpecPackage` and exported Rumble artifacts.
-7. Keep `rumble-feed-mind` MIT/Rust-Dioxus aligned; document any future exception by ADR/waiver.
-8. Align interactive Rumble UI plans on Rust/Dioxus, with ADRs for exceptions.
-9. Only then start product UI development for `rumble-*`.
+2. Use `specs/harness/01-bolt-cosmatic-hardening.md` as the Bolt/cos-matic hardening doctrine.
+3. Add JSON fixtures for valid/invalid handoffs.
+4. Implement `cos-matic handoff validate <handoff.json>` as a no-execution validator.
+5. Implement `cos-matic handoff plan --dry-run <handoff.json>` as a planning-only report.
+6. Add structured refusal, typed gates, idempotency, and minimal audit events to Bolt P0.
+7. Add Wrench inspection for traceability coverage, waiver validity, and shared capability extraction.
+8. Define minimal Gear artifact/provenance rules for `SpecPackage` and exported Rumble artifacts.
+9. Keep `rumble-feed-mind` MIT/Rust-Dioxus aligned; document any future exception by ADR/waiver.
+10. Align interactive Rumble UI plans on Rust/Dioxus, with ADRs for exceptions.
+11. Only then start product UI development for `rumble-*`.
 
 ### Definition of Done for a Product Spec
 

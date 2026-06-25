@@ -1,0 +1,35 @@
+{
+  "data": {
+    "format": "wrench.db_inspect.report.v0.1",
+    "status": "failed",
+    "summary": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "info": 0,
+      "gate_blocked": true
+    },
+    "findings": [
+      {
+        "rule_id": "DROP_COLUMN_DANGEROUS",
+        "category": "migration_safety",
+        "severity": "high",
+        "confidence": "high",
+        "subject": {
+          "type": "table",
+          "name": "public.tasks"
+        },
+        "gate": {
+          "blocks": true
+        }
+      }
+    ]
+  },
+  "meta": {
+    "schema_version": "0.1",
+    "redaction": {
+      "secrets_or_pii_included": false
+    }
+  }
+}

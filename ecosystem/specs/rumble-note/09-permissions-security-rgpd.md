@@ -224,6 +224,20 @@ Support local deletion/purge with caveat that tombstones may preserve IDs for au
 - Never include tokens in export/handoff/logs.
 - Warn when URL locators appear to contain token-like query parameters.
 
+## Future Biscuit Delegation Mapping
+
+MVP Note is single-owner local, so it does not need broad collaborative delegated authorization yet. Future collaborative modes must use the shared contract `../shared/contracts/delegated-authorization-biscuit.v0.1.md` instead of workspace-local custom tokens.
+
+| Future Note operation | Shared Biscuit action | Required scope facts | Product-local checks |
+| --- | --- | --- | --- |
+| Read selected note/source package | `source:read` | `organization`, `workspace`, `resource("note_package", package_id)` or `source_ref` | Explicit package manifest; no full workspace access; privacy labels enforced. |
+| Attach imported source | `source:attach` | `organization`, `workspace`, optional `source_ref` | User approval; import scope selected; provenance retained. |
+| Create handoff/export | `export:create` or `handoff:prepare` | `organization`, `workspace`, `resource("note_package", package_id)` | Preview completed; private/sensitive/no-handoff overrides have reasons. |
+| Submit handoff | `handoff:submit` | `organization`, `workspace`, `resource("handoff", handoff_id)`, payload hash attenuation | Planning/context-only policy; downstream target receives package only. |
+| Manage collaborators | `member:manage` | `organization`, `workspace`, `actor($id, "human")` | Future owner/collaborator policy; no silent sync expansion. |
+
+Note must never issue a token that grants general workspace read access to downstream harness consumers. Delegation is package/manifest-scoped.
+
 ## Open Security Questions
 
 - Exact secure storage mechanism for downstream credentials.

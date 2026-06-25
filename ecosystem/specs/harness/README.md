@@ -19,14 +19,36 @@ Rumble spec package
 → only then implementation work
 ```
 
+## P0 Doctrine
+
+Bolt P0 is hardened inside `cos-matic`; no separate `bolt-runner` exists until a runtime/service boundary becomes impossible to hold in the current harness.
+
+References:
+
+- [`01-bolt-cosmatic-hardening.md`](01-bolt-cosmatic-hardening.md)
+- [`02-bolt-evidence-gated-planning.md`](02-bolt-evidence-gated-planning.md)
+- [`cosmatic-planning.v0.1.schema.json`](cosmatic-planning.v0.1.schema.json)
+
+Bolt centralizes the agentic primitives that Rumbles must not reimplement locally:
+
+```text
+handoff → validate → planning_run → plan/refusal → gate → evidence_ref → audit
+```
+
+P0 remains planning-only. Any implementation execution requires a later explicit human gate.
+
 ## P0 Work Items
 
 | Priority | Item | Owner layer | Output |
 | --- | --- | --- | --- |
 | P0 | `ImplementationHandoff v0.1` contract | Shared / Bolt seam | `specs/shared/contracts/implementation-handoff.v0.1.md` |
+| P0 | Bolt/cos-matic hardening doctrine | Bolt / `cos-matic` | `specs/harness/01-bolt-cosmatic-hardening.md` |
 | P0 | Handoff validator | Bolt / `cos-matic` | CLI validates/refuses payloads |
-| P0 | Dry-run planner | Bolt / `cos-matic` | Planning report, no execution |
+| P0 | Dry-run planner | Bolt / `cos-matic` | `PlanReport`, no execution |
+| P0 | Evidence-gated planning contract | Bolt / `cos-matic` | `cosmatic.planning_bundle.v0.1` schema + fixtures |
 | P0 | Minimal fixtures | Shared specs | valid/invalid JSON examples |
+| P0 | Refusal model | Bolt / `cos-matic` | structured reason codes, findings, remediation |
+| P0 | Gate model | Bolt / `cos-matic` | typed gates for human approval, sovereignty, Wrench reports, artifact integrity |
 | P0 | Traceability checker | Wrench Inspect | coverage report |
 | P0 | Waiver policy checker | Bolt + Wrench | accepted/refused gates |
 | P0 | SpecPackage artifact rules | Gear candidate | hash/provenance/export rules |
@@ -58,8 +80,35 @@ A Rumble product can enter implementation only when:
 ```bash
 cosmatic handoff validate specs/harness/fixtures/handoffs/canvas-minimal.valid.json
 cosmatic handoff validate specs/harness/fixtures/handoffs/canvas-minimal.valid.json --json
+wrench-inspect handoff inspect specs/harness/fixtures/handoffs/canvas-minimal.valid.json --json
 cosmatic handoff plan specs/harness/fixtures/handoffs/canvas-minimal.valid.json --dry-run
 cosmatic handoff plan specs/harness/fixtures/handoffs/canvas-minimal.valid.json --dry-run --json
 ```
 
-Warning fixtures should exit successfully but emit warnings. Invalid fixtures should fail.
+Recommended pre-execution evidence flow:
+
+```text
+1. cosmatic handoff validate --json   # Bolt boundary refusal/safety gate
+2. wrench-inspect handoff inspect --json # Wrench quality/compliance evidence
+3. cosmatic handoff plan --dry-run --json # Bolt planning report, no execution
+```
+
+## Canonical Vertical P0 Proof Command
+
+From the ecosystem repository root:
+
+```bash
+python3 specs/harness/run_vertical_p0.py --output specs/harness/proofs/vertical-p0.proof.json
+```
+
+The proof must show:
+
+- `validate.success: true`;
+- `inspect.no_critical_finding: true`;
+- `plan.dry_run_only: true`;
+- `gear_contract_validation.success: true`;
+- `human_approval_placeholder.required: true` with no execution performed.
+
+Warning fixtures should exit successfully but emit warnings. Invalid fixtures should fail once the corresponding Bolt P0 refusal code is implemented.
+
+New contract-first fixtures may temporarily expose `cos-matic` gaps; that is intentional evidence for the next hardening implementation slice, not permission to weaken the contract.

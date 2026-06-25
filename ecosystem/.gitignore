@@ -1,0 +1,3 @@
+# Generated proof JSON files are CI/runtime artifacts.
+specs/harness/proofs/*.json
+specs/rumble-feed-mind/proofs/*.json

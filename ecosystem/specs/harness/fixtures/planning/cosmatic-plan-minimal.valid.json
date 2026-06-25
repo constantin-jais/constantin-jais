@@ -1,0 +1,130 @@
+{
+  "format": "cosmatic.planning_bundle.v0.1",
+  "planning_requests": [
+    {
+      "format": "cosmatic.planning_request.v0.1",
+      "planning_request_id": "plan_req_01",
+      "handoff_ref": {
+        "handoff_id": "handoff-demo-valid",
+        "payload_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "package_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "actor_ref": "actor-owner-demo",
+      "workspace_ref": "workspace-demo",
+      "dry_run": true,
+      "allow_execution": false,
+      "requested_outputs": ["implementation_plan", "test_plan", "risk_review"],
+      "evidence_ref_ids": ["ev_handoff_01", "ev_wrench_01", "ev_gear_source_01", "ev_biscuit_01"],
+      "authorization_ref": "ev_biscuit_01",
+      "created_at": "2026-06-30T00:00:00Z"
+    }
+  ],
+  "evidence_refs": [
+    {
+      "evidence_ref_id": "ev_handoff_01",
+      "kind": "implementation_handoff",
+      "producer": "rumble-canvas",
+      "ref": "handoff-demo-valid",
+      "hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status": "passed",
+      "state": "active",
+      "provenance_ref": "prov_handoff_01",
+      "safe_summary": "Planning-only handoff validated.",
+      "metadata": { "planning_only": true }
+    },
+    {
+      "evidence_ref_id": "ev_wrench_01",
+      "kind": "wrench_inspect_report",
+      "producer": "wrench-inspect",
+      "ref": "report_traceability_01",
+      "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "status": "passed",
+      "state": "active",
+      "provenance_ref": "prov_wrench_01",
+      "safe_summary": "Traceability and privacy checks passed with no critical findings.",
+      "metadata": { "critical_findings": 0 }
+    },
+    {
+      "evidence_ref_id": "ev_gear_source_01",
+      "kind": "gear_source_ref",
+      "producer": "gear-memory",
+      "ref": "src_context_01",
+      "hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "status": "passed",
+      "state": "active",
+      "provenance_ref": "prov_source_01",
+      "safe_summary": "Source context is active and hash-pinned.",
+      "metadata": {}
+    },
+    {
+      "evidence_ref_id": "ev_biscuit_01",
+      "kind": "biscuit_authorization",
+      "producer": "shared-auth",
+      "ref": "authz_ref_01",
+      "hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "status": "passed",
+      "state": "active",
+      "provenance_ref": "prov_authz_01",
+      "safe_summary": "Delegated planning right verified.",
+      "metadata": { "right": "bolt:plan" }
+    }
+  ],
+  "gate_results": [
+    {
+      "gate_result_id": "gate_wrench_01",
+      "gate_type": "wrench_report_passed",
+      "target_ref": "ev_wrench_01",
+      "state": "gate_passed",
+      "severity": "info",
+      "findings": [],
+      "created_at": "2026-06-30T00:00:01Z"
+    },
+    {
+      "gate_result_id": "gate_sovereignty_01",
+      "gate_type": "sovereignty_policy",
+      "target_ref": "plan_req_01",
+      "state": "gate_passed",
+      "severity": "info",
+      "findings": [],
+      "created_at": "2026-06-30T00:00:01Z"
+    }
+  ],
+  "run_intents": [
+    {
+      "run_intent_id": "run_intent_01",
+      "intent_type": "planning_only",
+      "planning_request_id": "plan_req_01",
+      "execution_allowed": false,
+      "requires_human_approval": true,
+      "created_at": "2026-06-30T00:00:01Z"
+    }
+  ],
+  "plan_reports": [
+    {
+      "format": "cosmatic.plan_report.v0.1",
+      "plan_report_id": "plan_report_01",
+      "planning_request_id": "plan_req_01",
+      "status": "plan_ready",
+      "dry_run_only": true,
+      "evidence_ref_ids": ["ev_handoff_01", "ev_wrench_01", "ev_gear_source_01"],
+      "gate_result_ids": ["gate_wrench_01", "gate_sovereignty_01"],
+      "summary": "Dry-run implementation plan generated from active evidence refs.",
+      "steps": [
+        { "step_id": "step_01", "title": "Review approved package and traceability", "kind": "review", "depends_on": [] },
+        { "step_id": "step_02", "title": "Implement MVP slice under tests", "kind": "implement", "depends_on": ["step_01"] },
+        { "step_id": "step_03", "title": "Run acceptance and privacy tests", "kind": "test", "depends_on": ["step_02"] }
+      ],
+      "created_at": "2026-06-30T00:00:02Z"
+    }
+  ],
+  "audit_events": [
+    {
+      "event_id": "audit_01",
+      "event_type": "planning.plan_ready",
+      "actor_ref": "actor-owner-demo",
+      "target_ref": "plan_report_01",
+      "created_at": "2026-06-30T00:00:02Z",
+      "metadata": { "dry_run_only": true }
+    }
+  ]
+}

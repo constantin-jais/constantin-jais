@@ -2,6 +2,11 @@
 
 Status: Draft — MVP product defaults accepted unless marked Open/Discuss.
 
+P0 source-grounded product slice: [`14-source-grounded-product-slice.md`](./14-source-grounded-product-slice.md).  
+Initial contract shapes: [`15-contracts-v0.1.md`](./15-contracts-v0.1.md).  
+Owner review pack: [`16-contract-review-pack.md`](./16-contract-review-pack.md).  
+Stub-first implementation plan: [`17-p0-stub-implementation-plan.md`](./17-p0-stub-implementation-plan.md).
+
 ## Product Decisions
 
 | Question | Impact | Decision / Default | Status |
@@ -34,6 +39,8 @@ Status: Draft — MVP product defaults accepted unless marked Open/Discuss.
 | Who validates citation support? | Medium | Facilitator final validation; Wrench validator advisory. | Accepted for MVP |
 | What is minimum provenance? | High | type, title, source ref, revision/hash if available, chunk location. | Accepted for MVP |
 | Can generated content use uncited model knowledge? | High | Not when marked source-grounded; must be unsupported/facilitator-authored otherwise. | Accepted for MVP |
+| Should Rumble LM own durable ingestion/search/memory? | High | No. Rumble stores source-set refs/snapshots only; Wrench owns extraction and Gear Memory owns source refs/chunks/provenance/retrieval handles. | Accepted for MVP |
+| Should citation support validation be fully automated? | Medium | No. Wrench provides advisory support evidence; facilitator validation remains the publication/export gate in P0. | Accepted for MVP |
 
 ## Live Session
 
@@ -58,8 +65,8 @@ Status: Draft — MVP product defaults accepted unless marked Open/Discuss.
 
 | Question | Impact | Decision / Default | Status |
 | --- | --- | --- | --- |
-| Are individual learner analytics stored? | High | No hidden individual profiling in MVP. | Accepted for MVP |
-| Are quiz scores persistent? | Medium | Only if quiz correctness enabled and policy allows. | Accepted for MVP |
+| Are individual learner analytics stored? | High | No hidden individual profiling in MVP; no cross-session learner profile or hidden score graph. | Accepted for MVP |
+| Are quiz scores persistent? | Medium | Only if quiz correctness enabled, explicitly disclosed, and policy allows retention. | Accepted for MVP |
 | Are analytics exportable? | Medium | Aggregate analytics only by default. | Accepted for MVP |
 
 ## Architecture and Shared Capabilities
@@ -70,12 +77,19 @@ Status: Draft — MVP product defaults accepted unless marked Open/Discuss.
 | Event/audit log owner? | High | Gear candidate; Rumble DB acceptable for first MVP if explicit. | Open |
 | Should waiver/gate be shared with Canvas? | Medium | Yes as candidate for generated-content validation exceptions. | Discuss |
 | Should summaries/exports be Gear artifacts? | Medium | Yes candidate, with Rumble UX ownership. | Accepted for MVP |
-| Which generation backend is allowed? | High | Deployment policy decides; no hard-coded provider. | Open |
+| Should Rumble LM define its own delegated token format? | High | No. Delegated rights use the shared Biscuit authorization contract with attenuated, time-bounded tokens. | Accepted for MVP |
+| Which generation backend is allowed? | High | Deployment policy decides; no hard-coded provider; provider policy must prevent silent third-party transmission. | Open |
+| What exact contracts are still needed before implementation? | High | Initial v0.1 shapes exist in `15-contracts-v0.1.md`; owner review questions are prepared in `16-contract-review-pack.md`. | Discuss |
+| Can implementation start before real lower-layer integrations? | High | Yes only as contract-preserving stubs following `17-p0-stub-implementation-plan.md`; real integration still requires owner review. | Discuss |
 
 ## Next Spec Work
 
 1. Decide retention defaults.
-2. Decide whether first implementation stubs Wrench/Gear/Bolt or integrates real capabilities.
-3. Decide live transport ownership after first implementation slice.
-4. Review security/RGPD with actual deployment context.
-5. Promote architecture-wide ownership decisions to `specs/shared/decision-log.md` when accepted.
+2. Review `SourceGroundedGenerationRequest` schema with Bolt using `16-contract-review-pack.md`.
+3. Review citation support validation result shape with Wrench using `16-contract-review-pack.md`.
+4. Review export artifact manifest shape with Gear using `16-contract-review-pack.md`.
+5. Review LM-specific Biscuit caveats/facts and authorizer tests using `16-contract-review-pack.md`.
+6. If reviews are not complete, implement only the stub-first slice in `17-p0-stub-implementation-plan.md`.
+7. Decide live transport ownership after first implementation slice.
+8. Review security/RGPD with actual deployment context.
+9. Promote architecture-wide ownership decisions to `specs/shared/decision-log.md` when accepted.

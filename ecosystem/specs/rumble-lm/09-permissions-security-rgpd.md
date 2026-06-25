@@ -167,6 +167,23 @@ Audit logs must not contain secrets, raw source content, or raw response content
 - Generation providers must be policy-controlled; no silent third-party transmission.
 - Dependency choices should prefer open-source licenses compatible with the ecosystem policy.
 
+## Biscuit Delegation Mapping
+
+LM uses the shared contract `../shared/contracts/delegated-authorization-biscuit.v0.1.md` for bounded session/source/export delegation. Guest/join ephemeral UX tokens may remain session-scoped for browser participation only; any service-to-service, cross-product, export, source, or delegated internal authorization must use Biscuit unless an external constraint is documented.
+
+| LM operation | Shared Biscuit action | Required scope facts | Product-local checks |
+| --- | --- | --- | --- |
+| Import or attach session sources | `source:attach` | `organization`, `workspace`, `resource("session", session_id)`, optional `source_ref` | Facilitator/admin policy; source provenance and retention rules. |
+| Read source or cited excerpt | `source:read` | `organization`, `workspace`, `resource("source", source_ref)` or `source_ref` | Session assignment; participant published-state visibility; no private source leakage. |
+| Generate activity/summary via delegated service | `run:request` or future narrower action if routed through Bolt | `organization`, `workspace`, `resource("session", session_id)`, `purpose("source_grounded_generation")` | Facilitator permission; citation/validation requirements; provider policy. |
+| Manage participants | `participant:manage` | `organization`, `workspace`, `resource("session", session_id)`, `actor($id, "human")` | Admin/facilitator policy; invite/join mode; privacy notice. |
+| Create export | `export:create` | `organization`, `workspace`, `resource("session", session_id)` or `artifact_ref` | Audience declared; privacy blockers pass; response visibility rules respected. |
+| Read/download export | `export:read` | `organization`, `workspace`, `artifact_ref` | Audience and retention/revocation policy. |
+| Revoke export | `export:revoke` | `organization`, `workspace`, `artifact_ref` | Export backend supports revocation metadata; downloaded files cannot be recalled. |
+| Export audit | `audit:export` | `organization`, `workspace`, `resource("session", session_id)` | Admin/facilitator policy; no raw responses in audit metadata. |
+
+LM authorizers must never infer content access from admin metadata access alone.
+
 ## Compliance Open Points
 
 - Final shared identity/auth model.

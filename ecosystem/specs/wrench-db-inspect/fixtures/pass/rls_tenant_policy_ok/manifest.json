@@ -1,0 +1,25 @@
+{
+  "data": {
+    "format": "wrench.db_inspect.manifest.v0.1",
+    "product": "rumble-lm",
+    "tenant": { "canonical_name": "organization", "column": "organization_id" },
+    "roles": {
+      "app": ["rumble_app"],
+      "readonly": ["rumble_readonly"],
+      "migration": ["rumble_migrator"]
+    },
+    "tables": [
+      {
+        "name": "public.session_responses",
+        "classification": "tenant_scoped",
+        "contains_personal_data": true,
+        "contains_embeddings": false
+      }
+    ],
+    "waivers": []
+  },
+  "meta": {
+    "schema_version": "0.1",
+    "generated_at": "2026-06-30T00:00:00Z"
+  }
+}

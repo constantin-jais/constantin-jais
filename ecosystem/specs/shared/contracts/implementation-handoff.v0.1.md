@@ -1,7 +1,8 @@
 # Contract — ImplementationHandoff v0.1
 
 Status: Draft / P0 harness contract.  
-Schema: `implementation-handoff.v0.1.schema.json`.
+Schema: `implementation-handoff.v0.1.schema.json`.  
+Refusal codes: `bolt-refusal-codes.v0.1.md`.
 
 ## Purpose
 
@@ -182,6 +183,10 @@ specs/harness/fixtures/handoffs/canvas-blocking-question-no-waiver.invalid.json
 specs/harness/fixtures/handoffs/canvas-high-risk-no-waiver.invalid.json
 specs/harness/fixtures/handoffs/canvas-expired-waiver.invalid.json
 specs/harness/fixtures/handoffs/canvas-capability-missing-owner.warning.json
+specs/harness/fixtures/handoffs/canvas-same-id-different-hash.invalid.json
+specs/harness/fixtures/handoffs/canvas-missing-wrench-report.gate.json
+specs/harness/fixtures/handoffs/canvas-sovereignty-violation.invalid.json
+specs/harness/fixtures/handoffs/canvas-artifact-missing-hash.invalid.json
 ```
 
 ## CLI Target

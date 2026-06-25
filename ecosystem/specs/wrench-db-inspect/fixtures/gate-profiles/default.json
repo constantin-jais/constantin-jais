@@ -1,0 +1,92 @@
+{
+  "data": {
+    "format": "wrench.db_inspect.gate_profiles.v0.1",
+    "profiles": {
+      "local": {
+        "default_actions": {
+          "critical": "block",
+          "high": "warn",
+          "medium": "warn",
+          "low": "warn",
+          "info": "ignore"
+        },
+        "category_overrides": {},
+        "rule_overrides": {},
+        "waivers": {
+          "allow_active": true,
+          "block_expired": false,
+          "require_owner": true,
+          "require_reviewer": false,
+          "require_expiry": true
+        }
+      },
+      "pull_request": {
+        "default_actions": {
+          "critical": "block",
+          "high": "block",
+          "medium": "warn",
+          "low": "warn",
+          "info": "ignore"
+        },
+        "category_overrides": {},
+        "rule_overrides": {},
+        "waivers": {
+          "allow_active": true,
+          "block_expired": true,
+          "require_owner": true,
+          "require_reviewer": true,
+          "require_expiry": true
+        }
+      },
+      "protected_branch": {
+        "default_actions": {
+          "critical": "block",
+          "high": "block",
+          "medium": "warn",
+          "low": "warn",
+          "info": "ignore"
+        },
+        "category_overrides": {
+          "inspection_integrity": "block"
+        },
+        "rule_overrides": {
+          "TABLE_CLASSIFICATION_REQUIRED": "block"
+        },
+        "waivers": {
+          "allow_active": true,
+          "block_expired": true,
+          "require_owner": true,
+          "require_reviewer": true,
+          "require_expiry": true
+        }
+      },
+      "release": {
+        "default_actions": {
+          "critical": "block",
+          "high": "block",
+          "medium": "warn",
+          "low": "warn",
+          "info": "ignore"
+        },
+        "category_overrides": {
+          "inspection_integrity": "block",
+          "manifest_coverage": "block"
+        },
+        "rule_overrides": {
+          "TABLE_CLASSIFICATION_REQUIRED": "block"
+        },
+        "waivers": {
+          "allow_active": true,
+          "block_expired": true,
+          "require_owner": true,
+          "require_reviewer": true,
+          "require_expiry": true
+        }
+      }
+    }
+  },
+  "meta": {
+    "schema_version": "0.1",
+    "generated_at": "2026-06-30T00:00:00Z"
+  }
+}

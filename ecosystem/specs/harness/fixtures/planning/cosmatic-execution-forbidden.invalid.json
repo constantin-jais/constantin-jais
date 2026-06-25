@@ -1,0 +1,42 @@
+{
+  "format": "cosmatic.planning_bundle.v0.1",
+  "planning_requests": [
+    {
+      "format": "cosmatic.planning_request.v0.1",
+      "planning_request_id": "plan_req_bad_execution",
+      "handoff_ref": {
+        "handoff_id": "handoff-bad-execution",
+        "payload_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "package_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "actor_ref": "actor-owner-demo",
+      "workspace_ref": "workspace-demo",
+      "dry_run": true,
+      "allow_execution": true,
+      "requested_outputs": ["implementation_plan"],
+      "evidence_ref_ids": [],
+      "authorization_ref": null,
+      "created_at": "2026-06-30T00:00:00Z"
+    }
+  ],
+  "refusal_reports": [
+    {
+      "format": "cosmatic.refusal_report.v0.1",
+      "refusal_id": "refusal_execution_01",
+      "target_ref": "plan_req_bad_execution",
+      "reason_code": "execution_policy_forbidden",
+      "severity": "critical",
+      "findings": [
+        {
+          "code": "allow_execution_true",
+          "severity": "critical",
+          "message": "Bolt P0 planning requests must not authorize execution.",
+          "target_ref": "plan_req_bad_execution",
+          "path": "$.planning_requests[0].allow_execution"
+        }
+      ],
+      "remediation": ["Set allow_execution=false and request human-gated execution in a future lifecycle."],
+      "created_at": "2026-06-30T00:00:01Z"
+    }
+  ]
+}

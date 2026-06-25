@@ -1,0 +1,56 @@
+{
+  "format": "cosmatic.planning_bundle.v0.1",
+  "evidence_refs": [
+    {
+      "evidence_ref_id": "ev_gear_stale_01",
+      "kind": "gear_source_ref",
+      "producer": "gear-memory",
+      "ref": "src_context_stale_01",
+      "hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "status": "warning",
+      "state": "stale",
+      "provenance_ref": "prov_source_stale_01",
+      "safe_summary": "Source context is stale and must be refreshed before planning.",
+      "metadata": {}
+    }
+  ],
+  "gate_results": [
+    {
+      "gate_result_id": "gate_freshness_01",
+      "gate_type": "gear_context_fresh",
+      "target_ref": "ev_gear_stale_01",
+      "state": "gate_refused",
+      "severity": "high",
+      "findings": [
+        {
+          "code": "gear_ref_stale",
+          "severity": "high",
+          "message": "Gear context is stale and cannot be treated as current truth.",
+          "target_ref": "ev_gear_stale_01",
+          "path": "$.evidence_refs[0].state"
+        }
+      ],
+      "created_at": "2026-06-30T00:00:01Z"
+    }
+  ],
+  "refusal_reports": [
+    {
+      "format": "cosmatic.refusal_report.v0.1",
+      "refusal_id": "refusal_stale_01",
+      "target_ref": "ev_gear_stale_01",
+      "reason_code": "stale_context",
+      "severity": "high",
+      "findings": [
+        {
+          "code": "gear_ref_stale",
+          "severity": "high",
+          "message": "Refresh or revalidate the Gear source reference before planning.",
+          "target_ref": "ev_gear_stale_01",
+          "path": "$.evidence_refs[0].state"
+        }
+      ],
+      "remediation": ["Refresh the source or rerun Wrench/Gear indexing before requesting a plan."],
+      "created_at": "2026-06-30T00:00:02Z"
+    }
+  ]
+}

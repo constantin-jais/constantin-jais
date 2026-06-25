@@ -1,0 +1,150 @@
+{
+  "schema": "rumble_lm.p0_source_grounded_session_fixture.v0.1",
+  "fixtureId": "rumble-lm-p0-invalid-001",
+  "workspaceId": "workspace-eu-001",
+  "session": {
+    "sessionId": "session-p0-invalid-001",
+    "status": "Synthesized",
+    "objective": "Fixture intentionally invalid",
+    "facilitatorActorId": "actor-facilitator-001",
+    "analyticsMode": "individual_profiles",
+    "providerPolicyRef": "provider-policy-unspecified",
+    "createdAt": "2026-06-30T00:00:00Z"
+  },
+  "sourceSet": {
+    "sourceSetId": "source-set-p0-invalid-001",
+    "revision": 1,
+    "status": "Open",
+    "owner": "rumble-lm-durable-memory",
+    "sourceRefs": []
+  },
+  "generationRequest": {
+    "schema": "rumble_lm.source_grounded_generation_request.v0.1",
+    "requestId": "generation-request-p0-invalid-001",
+    "purpose": "activity_generation",
+    "sourceSet": {
+      "sourceSetId": "source-set-p0-invalid-001",
+      "revision": 1,
+      "required": false
+    },
+    "constraints": {
+      "activityTypes": ["Quiz"],
+      "citationRequired": true,
+      "unsupportedClaimsAllowed": true,
+      "providerPolicyRef": "provider-policy-unspecified"
+    },
+    "delegationRef": "delegation:generation:invalid"
+  },
+  "activities": [
+    {
+      "activityId": "activity-invalid-001",
+      "type": "Quiz",
+      "status": "Published",
+      "generated": true,
+      "sourceSetRevision": 1,
+      "groundingMode": "SourceGrounded",
+      "claims": [
+        {
+          "claimId": "claim-invalid-001",
+          "text": "Unsupported generated claim presented as grounded.",
+          "claimClass": "SourceDerived",
+          "citationRefs": ["citation-invalid-001"]
+        }
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "citationId": "citation-invalid-001",
+      "targetType": "Activity",
+      "targetId": "activity-invalid-001",
+      "sourceRef": "missing-source-ref",
+      "sourceChunkRef": "missing-source-chunk-ref",
+      "sourceRevision": 1,
+      "quote": "Weak unrelated quote.",
+      "supportLevel": "Weak",
+      "status": "Validated",
+      "validatedBy": "actor-facilitator-001",
+      "validatedAt": "2026-06-30T00:10:00Z"
+    }
+  ],
+  "responses": {
+    "mode": "named_individual_scores",
+    "rawResponsesIncludedInFixture": true,
+    "aggregateResults": [],
+    "crossSessionLearnerProfileCreated": true
+  },
+  "summary": {
+    "summaryId": "summary-invalid-001",
+    "audience": "Participants",
+    "status": "Validated",
+    "claims": [
+      {
+        "claimId": "claim-summary-invalid-001",
+        "claimClass": "SourceDerived",
+        "text": "Summary repeats unsupported claim.",
+        "citationRefs": ["citation-invalid-001"]
+      }
+    ],
+    "privacyGate": "passed",
+    "validatedBy": "actor-facilitator-001",
+    "validatedAt": "2026-06-30T00:20:00Z"
+  },
+  "exportManifest": {
+    "schema": "rumble_lm.session_export_artifact_manifest.v0.1",
+    "exportId": "export-invalid-001",
+    "format": "Markdown",
+    "audience": "Participants",
+    "includedDataClasses": [
+      "session_metadata",
+      "private_responses",
+      "validated_summary"
+    ],
+    "excludedDataClasses": [],
+    "artifactRef": "gear-artifact:rumble-lm-session-export:invalid",
+    "checksum": null,
+    "validation": {
+      "privacyGate": "passed",
+      "citationGate": "passed",
+      "validatedAt": "2026-06-30T00:21:00Z"
+    },
+    "revocation": {
+      "revocationRef": null,
+      "revokedAt": null
+    }
+  },
+  "delegations": [
+    {
+      "delegationRef": "delegation:generation:invalid",
+      "holder": "bolt",
+      "action": "run:request",
+      "facts": {
+        "organization": "org-eu-001",
+        "workspace": "workspace-eu-999",
+        "session": "session-p0-invalid-001",
+        "sourceSetRevision": 1,
+        "purpose": "source_grounded_generation",
+        "citationRequired": true
+      },
+      "expiresAt": null,
+      "revocationRef": null,
+      "forbiddenCapabilities": []
+    }
+  ],
+  "auditLogSample": [
+    {
+      "eventName": "response.submitted",
+      "metadata": {
+        "rawResponse": "Alice answered with personal medical information",
+        "bearerToken": "secret-token-value"
+      }
+    }
+  ],
+  "sovereignty": {
+    "mandatoryUsSaas": true,
+    "opaqueStorage": true,
+    "blockingLicenseDependency": true,
+    "silentThirdPartyModelFallback": true,
+    "piiInLogs": true
+  }
+}

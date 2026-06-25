@@ -198,6 +198,22 @@ Persist:
 
 ---
 
+## Biscuit Delegation Mapping
+
+Canvas uses the shared contract `../shared/contracts/delegated-authorization-biscuit.v0.1.md` for delegated actions.
+
+| Canvas operation | Shared Biscuit action | Required scope facts | Product-local checks |
+| --- | --- | --- | --- |
+| Prepare Bolt handoff | `handoff:prepare` | `organization`, `workspace`, `actor`, `resource("spec_package", package_id)` | Actor is Owner or delegated Editor; package belongs to workspace. |
+| Submit validated handoff | `handoff:submit` | `organization`, `workspace`, `resource("implementation_handoff", handoff_id)`, optional `artifact_ref`, `payload_hash` attenuation | Handoff is validated; package is approved/immutable; execution policy is planning-only. |
+| Propose waiver | `waiver:propose` | `organization`, `workspace`, `resource("waiver", waiver_id)` | Target exists; actor can see target. |
+| Approve waiver | `waiver:approve` | `organization`, `workspace`, `actor($id, "human")`, `resource("waiver", waiver_id)` | Owner approval; high/critical requires distinct human Reviewer. |
+| Export spec package | `export:create` | `organization`, `workspace`, `resource("spec_package", package_id)` | Export policy and visibility checks pass. |
+| Read package/source refs | `source:read` / `export:read` | `source_ref` or `artifact_ref` where applicable | Viewer/export permissions still checked locally. |
+| Manage workspace members | `member:manage` | `organization`, `workspace`, `actor($id, "human")` | Owner role; last owner cannot be removed. |
+
+Canvas must never map any MVP action to `run:request`. Canvas handoff remains planning-only even if a delegated token is otherwise valid.
+
 ## Non-Goals
 
 - No direct implementation execution from Canvas MVP.

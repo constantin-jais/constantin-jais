@@ -5,7 +5,7 @@
 | Question | Impact | Owner | Status |
 | --- | --- | --- | --- |
 | Should `workspace` be a shared Rumble primitive or a Gear-level tenant/context primitive? | High | Architecture | Open |
-| Should `source` and `artifact` be separate concepts everywhere? | High | Architecture | Open |
+| Should `source` and `artifact` be separate concepts everywhere? | High | Architecture | Accepted: separate lifecycle roles; an object may be both over time. See decision log `Source and artifact are lifecycle roles`. |
 | What is the minimum shared identity/auth model across all Rumbles? | High | Security/Product | Open |
 | What shared policy decides who can approve high/critical waivers across products? | High | Security/Product | Partially accepted for Canvas MVP: distinct human Owner + Reviewer; cross-product policy remains open. |
 | Which products require local-first behavior from day one? | High | Product | Open |
@@ -47,10 +47,10 @@
 | Question | Impact | Status |
 | --- | --- | --- |
 | Is it an active Rumble product or primarily a source pipeline feeding other Rumbles? | High | Open |
-| Should feed parsing/extraction stay product-local or become Wrench capability? | High | Open |
-| Is AGPL acceptable, or must the project relicense / receive a documented waiver? | High | Open |
-| Should current Rust backend + Expo client remain, or should interactive Rumble stack converge? | High | Open |
-| What is the minimum curated-item export/handoff format? | High | Open |
+| Should feed parsing/extraction stay product-local or become Wrench capability? | High | Accepted: RSS/Atom/JSON Feed parsing and normalization belong in `wrench-loader` P0; polling/rules/curation remain FeedMind/Bolt. |
+| Is AGPL acceptable, or must the project relicense / receive a documented waiver? | High | Accepted: workspace license is MIT; future exceptions need ADR/waiver. |
+| Should current Rust backend + Expo client remain, or should interactive Rumble stack converge? | High | Accepted: Rust-first/Dioxus convergence; legacy TypeScript/mobile surfaces are migration references only. |
+| What is the minimum curated-item export/handoff format? | High | Drafted: `contracts/curated-item-export.v0.1.md`; FeedMind product instantiation remains open. |
 
 ### rumble-lm
 
@@ -61,7 +61,7 @@
 | How are citations and grounding verified? | High | Accepted for MVP: generated source-grounded claims require citation resolution; facilitator final validation, Wrench validator advisory. |
 | What retention defaults apply to raw responses, summaries, exports, and audit events? | High | Open |
 | Should live participation/presence become shared Rumble/Gear infrastructure after MVP? | Medium | Open |
-| Which generation backend policy is allowed per deployment? | High | Open |
+| Which generation backend policy is allowed per deployment? | High | Drafted shared policy: `contracts/provider-byok-policy.v0.1.md`; LM deployment-specific policy remains open. |
 
 ### rumble-note
 

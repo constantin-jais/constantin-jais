@@ -1,0 +1,76 @@
+{
+  "format": "canvas.bolt_handoff.v0.1",
+  "kind": "planning_request",
+  "source": {
+    "product": "rumble-canvas",
+    "workspace_id": "workspace-demo",
+    "handoff_id": "handoff-demo-sovereignty-violation",
+    "created_by": "actor-owner-demo",
+    "created_at": "2026-06-30T00:00:00Z"
+  },
+  "package": {
+    "package_id": "package-demo",
+    "version": "0.1.0",
+    "package_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "artifact_reference_id": null,
+    "items": [
+      {
+        "section_id": "section-charter",
+        "revision_id": "revision-charter-1",
+        "required": true
+      }
+    ]
+  },
+  "planning_scope": {
+    "mode": "full_package",
+    "target_objects": [],
+    "excluded_objects": [],
+    "goal": "Invalid fixture: implementation plan would require mandatory non-sovereign SaaS for core truth."
+  },
+  "spec_context": {
+    "charter_summary": {},
+    "roles": [],
+    "journeys": [],
+    "screens": [],
+    "actions": [],
+    "domain_entities": [],
+    "acceptance_criteria": []
+  },
+  "traceability_links": [
+    {
+      "source_type": "journey",
+      "source_id": "j1",
+      "target_type": "action",
+      "target_id": "a1",
+      "relation_type": "implements"
+    }
+  ],
+  "active_waivers": [],
+  "open_questions": [],
+  "risks": [],
+  "capability_candidates": [
+    {
+      "id": "capability-hosted-core-truth",
+      "name": "Hosted opaque workflow database",
+      "status": "candidate",
+      "proposed_owner_layer": "gear"
+    }
+  ],
+  "constraints": {
+    "sovereignty": "violated: mandatory US SaaS and opaque storage for core truth",
+    "data_residency": "unknown/non-EU",
+    "non_goals": [],
+    "requires_external_saas": true,
+    "forbidden_dependencies": ["mandatory-us-saas-core-truth"],
+    "pii_in_logs_allowed": true
+  },
+  "requested_outputs": ["implementation_plan"],
+  "execution_policy": {
+    "planning_only": true,
+    "allow_execution": false,
+    "requires_human_approval_for_execution": true
+  },
+  "expected_refusal": {
+    "reason_code": "sovereignty_policy_violation"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "format": "wrench.loader.contract_bundle.v0.1",
+  "extraction_requests": [
+    {
+      "format": "wrench.extraction_request.v0.1",
+      "request_id": "req_scanned_pdf_bad",
+      "actor_ref": "actor_local_owner",
+      "workspace_ref": "workspace_demo",
+      "input": {
+        "kind": "file_ref",
+        "ref": "file_scanned_pdf_01",
+        "media_type": "application/pdf",
+        "content_hash": "sha256:4000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "policy": {
+        "allowed_media_types": ["application/pdf"],
+        "max_bytes": 1000000,
+        "network": "disabled",
+        "ocr": "disabled",
+        "stt": "disabled",
+        "pii_mode": "detect",
+        "secret_mode": "detect",
+        "prompt_injection_mode": "detect"
+      },
+      "requested_outputs": ["canonical_document"]
+    }
+  ],
+  "canonical_documents": [
+    {
+      "format": "wrench.canonical_source_document.v0.1",
+      "document_id": "csd_scanned_pdf_bad",
+      "source": {
+        "input_type": "pdf",
+        "uri": null,
+        "filename": "scan.pdf",
+        "media_type": "application/pdf",
+        "size_bytes": 1000,
+        "content_hash": "sha256:4000000000000000000000000000000000000000000000000000000000000000",
+        "retrieved_at": "2026-06-30T00:00:00Z"
+      },
+      "canonical": {
+        "title": null,
+        "language": null,
+        "text": "OCR text should not exist when ocr=disabled",
+        "markdown": "OCR text should not exist when ocr=disabled",
+        "structure": [],
+        "chunks": []
+      },
+      "metadata": {},
+      "security": {
+        "classification": "internal",
+        "prompt_injection": { "detected": false, "findings": [] },
+        "pii": { "detected": false, "categories": [], "findings": [] },
+        "secrets": { "detected": false, "findings": [] },
+        "active_content_removed": true
+      },
+      "quality": {
+        "extraction_status": "ok",
+        "confidence": 0.8,
+        "warnings": [],
+        "unsupported_features": []
+      },
+      "provenance": {
+        "tool": "wrench-loader",
+        "tool_version": "0.1.0",
+        "pipeline_id": "pipeline_pdf_default_v1",
+        "started_at": "2026-06-30T00:00:00Z",
+        "completed_at": "2026-06-30T00:00:01Z",
+        "input_refs": ["file_scanned_pdf_01"],
+        "output_hash": "sha256:5000000000000000000000000000000000000000000000000000000000000000"
+      }
+    }
+  ]
+}

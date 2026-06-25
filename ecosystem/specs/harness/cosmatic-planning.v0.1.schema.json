@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://constantin-jais.github.io/specs/cosmatic-planning.v0.1.schema.json",
+  "title": "cos-matic Planning v0.1 Contracts",
+  "type": "object",
+  "required": ["format"],
+  "properties": {
+    "format": { "const": "cosmatic.planning_bundle.v0.1" },
+    "planning_requests": { "type": "array", "items": { "$ref": "#/$defs/planning_request" } },
+    "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/evidence_ref" } },
+    "gate_results": { "type": "array", "items": { "$ref": "#/$defs/gate_result" } },
+    "plan_reports": { "type": "array", "items": { "$ref": "#/$defs/plan_report" } },
+    "run_intents": { "type": "array", "items": { "$ref": "#/$defs/run_intent" } },
+    "refusal_reports": { "type": "array", "items": { "$ref": "#/$defs/refusal_report" } },
+    "audit_events": { "type": "array", "items": { "$ref": "#/$defs/audit_event" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "minLength": 1 },
+    "sha256": { "type": "string", "pattern": "^sha256:[A-Fa-f0-9]{64}$" },
+    "timestamp": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$" },
+    "safe_metadata": {
+      "type": "object",
+      "propertyNames": { "not": { "pattern": "(?i)^(secret|token|password|credential|api[_-]?key|raw[_-]?log|email|phone|.*[_-](secret|token|password|credential|api[_-]?key|raw[_-]?log|email|phone)([_-]?(value|text|raw|body))?)$" } },
+      "additionalProperties": { "type": ["string", "number", "boolean", "null", "array", "object"] }
+    },
+    "finding": {
+      "type": "object",
+      "required": ["code", "severity", "message"],
+      "properties": {
+        "code": { "$ref": "#/$defs/id" },
+        "severity": { "enum": ["info", "warning", "high", "critical"] },
+        "message": { "type": "string", "minLength": 1 },
+        "target_ref": { "type": ["string", "null"] },
+        "path": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "planning_request": {
+      "type": "object",
+      "required": ["format", "planning_request_id", "handoff_ref", "actor_ref", "workspace_ref", "dry_run", "allow_execution", "requested_outputs", "evidence_ref_ids", "created_at"],
+      "properties": {
+        "format": { "const": "cosmatic.planning_request.v0.1" },
+        "planning_request_id": { "$ref": "#/$defs/id" },
+        "handoff_ref": {
+          "type": "object",
+          "required": ["handoff_id", "payload_hash", "package_hash"],
+          "properties": {
+            "handoff_id": { "$ref": "#/$defs/id" },
+            "payload_hash": { "$ref": "#/$defs/sha256" },
+            "package_hash": { "$ref": "#/$defs/sha256" }
+          },
+          "additionalProperties": false
+        },
+        "actor_ref": { "$ref": "#/$defs/id" },
+        "workspace_ref": { "$ref": "#/$defs/id" },
+        "dry_run": { "const": true },
+        "allow_execution": { "const": false },
+        "requested_outputs": { "type": "array", "minItems": 1, "items": { "enum": ["implementation_plan", "task_breakdown", "risk_review", "test_plan", "shared_capability_extraction_review"] } },
+        "evidence_ref_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "authorization_ref": { "type": ["string", "null"] },
+        "created_at": { "$ref": "#/$defs/timestamp" }
+      },
+      "additionalProperties": false
+    },
+    "evidence_ref": {
+      "type": "object",
+      "required": ["evidence_ref_id", "kind", "producer", "ref", "hash", "status", "state", "provenance_ref", "safe_summary"],
+      "properties": {
+        "evidence_ref_id": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["implementation_handoff", "wrench_loader_report", "wrench_inspect_report", "gear_source_ref", "gear_memory_entry", "gear_code_map", "gear_artifact_ref", "biscuit_authorization", "human_approval"] },
+        "producer": { "type": "string", "minLength": 1 },
+        "ref": { "$ref": "#/$defs/id" },
+        "hash": { "$ref": "#/$defs/sha256" },
+        "status": { "enum": ["passed", "warning", "failed", "quarantined", "missing", "not_applicable"] },
+        "state": { "enum": ["active", "stale", "deleted", "anonymized", "revoked", "unknown"] },
+        "provenance_ref": { "$ref": "#/$defs/id" },
+        "safe_summary": { "type": "string", "minLength": 1 },
+        "metadata": { "$ref": "#/$defs/safe_metadata" }
+      },
+      "additionalProperties": false
+    },
+    "gate_result": {
+      "type": "object",
+      "required": ["gate_result_id", "gate_type", "target_ref", "state", "severity", "findings", "created_at"],
+      "properties": {
+        "gate_result_id": { "$ref": "#/$defs/id" },
+        "gate_type": { "enum": ["human_approval", "execution_permission", "risk_waiver", "artifact_integrity", "wrench_report_passed", "gear_context_fresh", "biscuit_right_present", "sovereignty_policy", "traceability_threshold", "capability_owner_assigned"] },
+        "target_ref": { "$ref": "#/$defs/id" },
+        "state": { "enum": ["gate_required", "gate_approved", "gate_refused", "gate_expired", "gate_superseded", "gate_passed"] },
+        "severity": { "enum": ["info", "warning", "high", "critical"] },
+        "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+        "created_at": { "$ref": "#/$defs/timestamp" }
+      },
+      "additionalProperties": false
+    },
+    "run_intent": {
+      "type": "object",
+      "required": ["run_intent_id", "intent_type", "planning_request_id", "execution_allowed", "requires_human_approval", "created_at"],
+      "properties": {
+        "run_intent_id": { "$ref": "#/$defs/id" },
+        "intent_type": { "const": "planning_only" },
+        "planning_request_id": { "$ref": "#/$defs/id" },
+        "execution_allowed": { "const": false },
+        "requires_human_approval": { "const": true },
+        "created_at": { "$ref": "#/$defs/timestamp" }
+      },
+      "additionalProperties": false
+    },
+    "plan_report": {
+      "type": "object",
+      "required": ["format", "plan_report_id", "planning_request_id", "status", "dry_run_only", "evidence_ref_ids", "gate_result_ids", "summary", "steps", "created_at"],
+      "properties": {
+        "format": { "const": "cosmatic.plan_report.v0.1" },
+        "plan_report_id": { "$ref": "#/$defs/id" },
+        "planning_request_id": { "$ref": "#/$defs/id" },
+        "status": { "enum": ["plan_ready", "blocked", "planning_failed"] },
+        "dry_run_only": { "const": true },
+        "evidence_ref_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "gate_result_ids": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "summary": { "type": "string", "minLength": 1 },
+        "steps": { "type": "array", "items": { "type": "object", "required": ["step_id", "title", "kind"], "properties": { "step_id": { "$ref": "#/$defs/id" }, "title": { "type": "string", "minLength": 1 }, "kind": { "enum": ["inspect", "implement", "test", "review", "package", "approve"] }, "depends_on": { "type": "array", "items": { "$ref": "#/$defs/id" } } }, "additionalProperties": false } },
+        "created_at": { "$ref": "#/$defs/timestamp" }
+      },
+      "additionalProperties": false
+    },
+    "refusal_report": {
+      "type": "object",
+      "required": ["format", "refusal_id", "target_ref", "reason_code", "severity", "findings", "remediation", "created_at"],
+      "properties": {
+        "format": { "const": "cosmatic.refusal_report.v0.1" },
+        "refusal_id": { "$ref": "#/$defs/id" },
+        "target_ref": { "$ref": "#/$defs/id" },
+        "reason_code": { "enum": ["execution_policy_forbidden", "stale_context", "deleted_or_revoked_context", "quarantined_evidence", "missing_required_evidence", "invalid_waiver", "missing_authorization_right", "sovereignty_policy_blocked", "handoff_hash_conflict", "unsafe_metadata"] },
+        "severity": { "enum": ["info", "warning", "high", "critical"] },
+        "findings": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/finding" } },
+        "remediation": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "created_at": { "$ref": "#/$defs/timestamp" }
+      },
+      "additionalProperties": false
+    },
+    "audit_event": {
+      "type": "object",
+      "required": ["event_id", "event_type", "actor_ref", "target_ref", "created_at", "metadata"],
+      "properties": {
+        "event_id": { "$ref": "#/$defs/id" },
+        "event_type": { "enum": ["planning.requested", "planning.validated", "planning.refused", "planning.gate_required", "planning.plan_ready", "planning.failed"] },
+        "actor_ref": { "$ref": "#/$defs/id" },
+        "target_ref": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "metadata": { "$ref": "#/$defs/safe_metadata" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

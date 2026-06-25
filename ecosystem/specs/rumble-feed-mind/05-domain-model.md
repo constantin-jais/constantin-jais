@@ -146,4 +146,4 @@ Current repository includes Rust backend and web/mobile client history. Ecosyste
 
 - Rust core/backend aligns.
 - Existing web/mobile client must either migrate toward Dioxus or receive an ADR exception.
-- License AGPL requires relicensing or explicit waiver before core integration.
+- Workspace license is MIT; future license exceptions require ADR/waiver before core integration.

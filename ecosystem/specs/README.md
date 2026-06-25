@@ -1,6 +1,6 @@
-# Rumble Product Specifications
+# Ecosystem Specifications
 
-This directory contains the product specifications for the active Rumble products.
+This directory contains the product specifications for active Rumble products and selected shared Bolt/Wrench/Gear capability specs.
 
 The goal is not to write static documentation. The goal is to create implementation-ready product contracts that connect:
 
@@ -24,6 +24,13 @@ The goal is not to write static documentation. The goal is to create implementat
 | `rumble-lm` | Drafting | Source-grounded learning and facilitation platform. |
 | `rumble-note` | Drafting | Local-first block-based personal knowledge system. |
 
+## Shared Tooling Specs
+
+| Capability | Spec status | Purpose |
+| --- | --- | --- |
+| `wrench-loader` | Proposed | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports. |
+| `wrench-db-inspect` | Draft | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, and tenant isolation evidence. |
+
 ## Spec Rule
 
 Every product spec must identify when a need is product-specific and when it should become a shared capability.
@@ -32,8 +39,9 @@ Shared capabilities are logged in:
 
 - `shared/shared-capabilities.md`
 
-Decisions and unresolved questions are logged in:
+Session doctrine, decisions, and unresolved questions are logged in:
 
+- `shared/session-design-principles.md`
 - `shared/decision-log.md`
 - `shared/open-questions.md`
 

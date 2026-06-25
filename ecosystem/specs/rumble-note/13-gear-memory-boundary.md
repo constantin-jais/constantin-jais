@@ -81,5 +81,5 @@ Purpose: deterministic export from personal notes to Canvas/LM/Crew/Gear without
 | Question | Impact | Status |
 | --- | --- | --- |
 | Should NoteContextExport use the same artifact envelope as SpecPackage? | High | Open |
-| Should Gear Memory index all local notes or only explicit exports? | High | Open |
-| How are deleted/anonymized blocks propagated to indexes/exports? | High | Open |
+| Should Gear Memory index all local notes or only explicit exports? | High | Decided for P0: explicit exports or explicitly granted local projections only. |
+| How are deleted/anonymized blocks propagated to indexes/exports? | High | Decided for Gear indexes: source state propagates to memory entries and retrieval indexes; export retention remains product policy. |

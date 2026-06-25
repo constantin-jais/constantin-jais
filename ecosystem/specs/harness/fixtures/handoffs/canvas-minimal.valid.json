@@ -28,6 +28,7 @@
     "goal": "Produce a planning-only implementation breakdown for the approved MVP slice."
   },
   "spec_context": {
+    "pii_classification": "low: demo IDs and role/screen/action names only; no participant, email, free_text, raw responses, secrets, or private source content",
     "charter_summary": {
       "mission": "Validate a product-to-harness flow before product UI development."
     },
@@ -47,16 +48,40 @@
       { "id": "entity-implementation-handoff", "name": "ImplementationHandoff" }
     ],
     "acceptance_criteria": [
-      "Given an approved package, when Owner requests handoff, then cos-matic validates planning-only payload."
+      {
+        "id": "acceptance-planning-only-validation",
+        "text": "Given an approved package, when Owner requests handoff, then cos-matic validates planning-only payload."
+      }
     ]
   },
   "traceability_links": [
     {
       "source_type": "journey",
       "source_id": "journey-create-package",
+      "target_type": "screen",
+      "target_id": "screen-packages",
+      "relation_type": "requires"
+    },
+    {
+      "source_type": "screen",
+      "source_id": "screen-packages",
       "target_type": "action",
       "target_id": "action-request-handoff",
       "relation_type": "implements"
+    },
+    {
+      "source_type": "action",
+      "source_id": "action-request-handoff",
+      "target_type": "acceptance_criteria",
+      "target_id": "acceptance-planning-only-validation",
+      "relation_type": "tests"
+    },
+    {
+      "source_type": "action",
+      "source_id": "action-request-handoff",
+      "target_type": "capability_candidate",
+      "target_id": "capability-implementation-handoff",
+      "relation_type": "extracts_to_candidate"
     }
   ],
   "active_waivers": [],
@@ -64,7 +89,10 @@
   "risks": [],
   "capability_candidates": [
     {
+      "id": "capability-implementation-handoff",
       "name": "Implementation handoff",
+      "origin_type": "action",
+      "origin_id": "action-request-handoff",
       "proposed_owner_layer": "bolt",
       "status": "accepted"
     }

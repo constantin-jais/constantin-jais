@@ -1,0 +1,47 @@
+{
+  "format": "feedmind.curated_item_export.v0.1",
+  "export_id": "export-demo-no-handoff",
+  "origin_product": "rumble-feed-mind",
+  "created_by": "actor-owner-demo",
+  "created_at": "2026-06-30T00:00:00Z",
+  "purpose": "note_context",
+  "privacy_classification": "no_handoff",
+  "item": {
+    "item_id": "item-private",
+    "title": "Private item",
+    "content_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "source_url_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "source_ref": {
+    "source_id": "source:item-private",
+    "source_type": "feed_item",
+    "origin_product": "rumble-feed-mind",
+    "content_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "provenance_id": "provenance:export-demo-no-handoff"
+  },
+  "curation": {
+    "decision": "saved",
+    "reason": "Should not export.",
+    "curated_by": "actor-owner-demo",
+    "curated_at": "2026-06-30T00:00:00Z"
+  },
+  "rule_evidence": [],
+  "constraints": {
+    "contains_raw_private_content": false,
+    "contains_secrets": false,
+    "contains_byok_material": false,
+    "allow_downstream_execution": false
+  },
+  "artifact_ref": {
+    "artifact_id": "artifact:export-demo-no-handoff",
+    "artifact_type": "curated_export",
+    "hash": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+    "manifest_ref": "manifest:export-demo-no-handoff"
+  },
+  "provenance_ref": {
+    "provenance_id": "provenance:export-demo-no-handoff",
+    "operation": "exported",
+    "timestamp": "2026-06-30T00:00:00Z"
+  },
+  "expected_refusal": { "reason_code": "no_handoff_export_forbidden" }
+}

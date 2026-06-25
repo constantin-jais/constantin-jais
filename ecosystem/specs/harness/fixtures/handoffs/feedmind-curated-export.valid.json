@@ -1,0 +1,170 @@
+{
+  "format": "canvas.bolt_handoff.v0.1",
+  "kind": "planning_request",
+  "source": {
+    "product": "rumble-feed-mind",
+    "workspace_id": "workspace-demo",
+    "handoff_id": "handoff-feedmind-curated-export",
+    "created_by": "actor-owner-demo",
+    "created_at": "2026-06-30T00:00:00Z"
+  },
+  "package": {
+    "package_id": "package-feedmind-curated-export",
+    "version": "0.1.0",
+    "package_hash": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+    "artifact_reference_id": "artifact:package-feedmind-curated-export",
+    "artifact_hash": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+    "items": [
+      {
+        "section_id": "curated-item-export-contract",
+        "revision_id": "v0.1",
+        "required": true
+      },
+      {
+        "section_id": "provider-byok-policy",
+        "revision_id": "v0.1",
+        "required": true
+      }
+    ]
+  },
+  "planning_scope": {
+    "mode": "full_package",
+    "target_objects": ["CuratedItemExport", "ProviderByokPolicy"],
+    "excluded_objects": ["product_ui", "execution"],
+    "goal": "Plan implementation tasks for FeedMind CuratedItemExport and provider/BYOK hardening without execution."
+  },
+  "spec_context": {
+    "pii_classification": "low: demo IDs, safe labels, hashes, no raw feed private content, no BYOK material, no payment identifiers",
+    "charter_summary": {
+      "mission": "Export curated feed items as safe, source-grounded context for the ecosystem."
+    },
+    "roles": [
+      { "id": "role-owner", "name": "Owner" },
+      { "id": "role-curator", "name": "Curator" }
+    ],
+    "journeys": [
+      { "id": "journey-export-curated-item", "name": "Export curated item" }
+    ],
+    "screens": [
+      { "id": "screen-export-builder", "name": "Export Builder" }
+    ],
+    "actions": [
+      { "id": "action-preview-curated-export", "name": "Preview CuratedItemExport" },
+      { "id": "action-validate-provider-policy", "name": "Validate provider policy" }
+    ],
+    "domain_entities": [
+      { "id": "entity-curated-item-export", "name": "CuratedItemExport" },
+      { "id": "entity-provider-policy", "name": "ProviderPolicy" }
+    ],
+    "acceptance_criteria": [
+      {
+        "id": "acceptance-export-no-secrets",
+        "text": "CuratedItemExport contains no secrets, BYOK material, payment identifiers, session tokens, or downstream execution permission."
+      },
+      {
+        "id": "acceptance-provider-policy-fail-closed",
+        "text": "Provider-backed features fail closed unless Provider/BYOK policy is accepted."
+      }
+    ]
+  },
+  "traceability_links": [
+    {
+      "source_type": "journey",
+      "source_id": "journey-export-curated-item",
+      "target_type": "screen",
+      "target_id": "screen-export-builder",
+      "relation_type": "requires"
+    },
+    {
+      "source_type": "screen",
+      "source_id": "screen-export-builder",
+      "target_type": "action",
+      "target_id": "action-preview-curated-export",
+      "relation_type": "implements"
+    },
+    {
+      "source_type": "action",
+      "source_id": "action-preview-curated-export",
+      "target_type": "acceptance_criteria",
+      "target_id": "acceptance-export-no-secrets",
+      "relation_type": "tests"
+    },
+    {
+      "source_type": "action",
+      "source_id": "action-validate-provider-policy",
+      "target_type": "acceptance_criteria",
+      "target_id": "acceptance-provider-policy-fail-closed",
+      "relation_type": "tests"
+    }
+  ],
+  "active_waivers": [
+    {
+      "id": "waiver-feedmind-advisories-2026-09-30",
+      "status": "accepted",
+      "rationale": "Temporary dependency advisory waiver accepted by ADR 0005; no UI expansion; expires 2026-09-30.",
+      "expires_at": "2026-09-30T00:00:00Z",
+      "approved_by": "actor-owner-demo",
+      "reviewed_by": "actor-reviewer-demo",
+      "target_ids": ["risk-advisory-waiver"]
+    }
+  ],
+  "open_questions": [],
+  "risks": [
+    {
+      "id": "risk-advisory-waiver",
+      "category": "dependency_advisory",
+      "severity": "medium",
+      "status": "accepted",
+      "description": "Temporary advisory waivers exist and expire on 2026-09-30."
+    }
+  ],
+  "capability_candidates": [
+    {
+      "id": "capability-curated-item-export",
+      "name": "CuratedItemExport",
+      "origin_type": "action",
+      "origin_id": "action-preview-curated-export",
+      "proposed_owner_layer": "discuss",
+      "status": "accepted"
+    },
+    {
+      "id": "capability-provider-byok-policy",
+      "name": "Provider/BYOK policy",
+      "origin_type": "action",
+      "origin_id": "action-validate-provider-policy",
+      "proposed_owner_layer": "discuss",
+      "status": "accepted"
+    }
+  ],
+  "constraints": {
+    "sovereignty": "self-hostable core; Stripe optional adapter only; local/EU provider default",
+    "data_residency": "EU/local-first where applicable",
+    "non_goals": [
+      "No product UI expansion in this handoff",
+      "No implementation execution",
+      "No mandatory Stripe dependency"
+    ],
+    "requires_external_saas": false,
+    "pii_in_logs_allowed": false
+  },
+  "requested_outputs": [
+    "implementation_plan",
+    "task_breakdown",
+    "risk_review",
+    "test_plan",
+    "shared_capability_extraction_review"
+  ],
+  "artifact_refs": [
+    {
+      "artifact_id": "artifact:package-feedmind-curated-export",
+      "artifact_type": "spec_package",
+      "hash": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+      "manifest_ref": "manifest:package-feedmind-curated-export"
+    }
+  ],
+  "execution_policy": {
+    "planning_only": true,
+    "allow_execution": false,
+    "requires_human_approval_for_execution": true
+  }
+}

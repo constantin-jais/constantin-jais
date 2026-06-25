@@ -42,7 +42,7 @@ Layer values: `rumble`, `bolt`, `wrench`, `gear`, `cross-layer`, `outside`.
 | codecrafters-io/build-your-own-x | knowledge | outside | 2 | medium | NOASSERTION | Markdown | learning-by-rebuild method | Keep as learning source for clean-room rebuild discipline. |
 | emdash-cms/emdash | knowledge | rumble | 3 | low | MIT | TypeScript | rumble-cos CMS alternatives | Study Astro CMS patterns; do not displace current SSG decision. |
 | santifer/career-ops | knowledge | outside | 1 | medium | MIT | JavaScript | workflow automation examples | Keep as agent-workflow reference outside the stack. |
-| ConnectingEurope/eInvoicing-EN16931 | knowledge | wrench | 2 | high | NOASSERTION | XSLT | standards validation examples | Use as EU validation-artifact reference only. |
+| ConnectingEurope/eInvoicing-EN16931 | reject | outside | 0 | high | NOASSERTION | XSLT | none | Drop: no useful stack inspiration or implementation value for the current ecosystem. |
 | xberg-io/xberg | rebuild | wrench | 4 | medium | MIT | Rust | document intelligence | Use as primary reference for Wrench Loader architecture and contracts. |
 | zama-ai/awesome-zama | knowledge | gear | 2 | high | NOASSERTION | Unknown | privacy-preserving computation | Track FHE concepts; no direct dependency. |
 | max-sixty/worktrunk | knowledge | bolt | 3 | high | NOASSERTION | Rust | agent worktree workflow | Verify license before any rebuild or adoption decision. |
@@ -96,3 +96,23 @@ Layer values: `rumble`, `bolt`, `wrench`, `gear`, `cross-layer`, `outside`.
 | ihebski/DefaultCreds-cheat-sheet | quarantine | outside | 0 | high | MIT | Python | defensive credential-risk corpus | Use only for defensive checks with strict containment. |
 | LINCnil/Guide-RGPD-du-developpeur | knowledge | gear | 4 | blocker | GPL-3.0 | HTML | RGPD engineering guidance | Read as compliance reference; do not copy text into proprietary docs. |
 | gilbsgilbs/NewPipeSponsorBlock | reject | outside | 0 | blocker | GPL-3.0 | Unknown | none | Reject: domain mismatch and GPL blocker. |
+
+## Follow-up Integration Decision
+
+ADR: `adrs/0022-starred-repos-strengthen-existing-repos.md`.
+
+The project-shaped ideas that emerged from this audit are not new repository candidates by default. They harden existing repositories first:
+
+| Emerging idea | Integration target | Notes |
+| --- | --- | --- |
+| EvidenceOps | `wrench-inspect` | Shared evidence report model for API/browser/eval/clean-room checks. |
+| Browser Lab | `wrench-inspect` | Sandboxed collector; disposable profiles, allowlists, and redaction required. |
+| Eval Lab | `wrench-inspect` | Evidence collector for source grounding, citation support, agent/LLM regressions, and refusal behavior. |
+| Clean-room Auditor | `wrench-inspect` | License, sovereignty, stack-fit, forbidden-reuse, and ADR decision support. |
+| Policy Pack | `cos-matic` | Policy gates and refusal explanations; not a separate Bolt runtime. |
+| Source Vault | `gear-memory` | Source catalog over `SourceRef`; no separate `gear-source` until extraction criteria are met. |
+| Usage Ledger | `gear-memory` | Technical usage events and aggregate projections; no behavioral analytics. |
+| Payload / Compact Contracts | `gear-depot` or shared Gear library | Compact projections from canonical JSON/NDJSON; never canonical truth. |
+| Release Floor | `gear-cable` | Target matrix, install floors, release plans, checksum/signature plans. |
+
+Extraction into a new repository requires multiple real consumers, a stable contract, clear ownership, and dedicated security/license/sovereignty checks.

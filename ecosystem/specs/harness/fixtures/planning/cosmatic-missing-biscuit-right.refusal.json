@@ -1,0 +1,56 @@
+{
+  "format": "cosmatic.planning_bundle.v0.1",
+  "evidence_refs": [
+    {
+      "evidence_ref_id": "ev_biscuit_missing_01",
+      "kind": "biscuit_authorization",
+      "producer": "shared-auth",
+      "ref": "authz_ref_missing_right",
+      "hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "status": "failed",
+      "state": "active",
+      "provenance_ref": "prov_authz_failed_01",
+      "safe_summary": "Delegated right bolt:plan is missing or invalid.",
+      "metadata": { "required_right": "bolt:plan" }
+    }
+  ],
+  "gate_results": [
+    {
+      "gate_result_id": "gate_authz_01",
+      "gate_type": "biscuit_right_present",
+      "target_ref": "ev_biscuit_missing_01",
+      "state": "gate_refused",
+      "severity": "critical",
+      "findings": [
+        {
+          "code": "missing_bolt_plan_right",
+          "severity": "critical",
+          "message": "The delegated authorization does not contain the required planning right.",
+          "target_ref": "ev_biscuit_missing_01",
+          "path": "$.evidence_refs[0].status"
+        }
+      ],
+      "created_at": "2026-06-30T00:00:01Z"
+    }
+  ],
+  "refusal_reports": [
+    {
+      "format": "cosmatic.refusal_report.v0.1",
+      "refusal_id": "refusal_authz_01",
+      "target_ref": "ev_biscuit_missing_01",
+      "reason_code": "missing_authorization_right",
+      "severity": "critical",
+      "findings": [
+        {
+          "code": "missing_bolt_plan_right",
+          "severity": "critical",
+          "message": "Provide a valid attenuated authorization for bolt:plan.",
+          "target_ref": "ev_biscuit_missing_01",
+          "path": "$.evidence_refs[0].status"
+        }
+      ],
+      "remediation": ["Request a valid Biscuit delegation with the required right and scope."],
+      "created_at": "2026-06-30T00:00:02Z"
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "schema": "rumble_lm.p0_source_grounded_session_fixture.v0.1",
+  "fixtureId": "rumble-lm-p0-valid-001",
+  "workspaceId": "workspace-eu-001",
+  "session": {
+    "sessionId": "session-p0-001",
+    "status": "Synthesized",
+    "objective": "Comprendre les frontières source-grounded de Rumble LM",
+    "facilitatorActorId": "actor-facilitator-001",
+    "analyticsMode": "aggregate_only",
+    "providerPolicyRef": "provider-policy-eu-self-hosted-or-approved",
+    "createdAt": "2026-06-30T00:00:00Z"
+  },
+  "sourceSet": {
+    "sourceSetId": "source-set-p0-001",
+    "revision": 1,
+    "status": "Locked",
+    "owner": "rumble-lm-selection-only",
+    "sourceRefs": [
+      {
+        "sourceRef": "gear-source:rumble-lm-charter:sha256-001",
+        "sourceChunkRefs": [
+          "gear-source-chunk:rumble-lm-charter:001",
+          "gear-source-chunk:rumble-lm-charter:002"
+        ],
+        "provenance": {
+          "owner": "gear-memory",
+          "producedBy": "wrench-loader",
+          "title": "Product Charter — rumble-lm",
+          "type": "markdown",
+          "hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "extractedAt": "2026-06-30T00:01:00Z",
+          "extractorVersion": "wrench-loader.v0.1",
+          "warnings": []
+        }
+      }
+    ]
+  },
+  "generationRequest": {
+    "schema": "rumble_lm.source_grounded_generation_request.v0.1",
+    "requestId": "generation-request-p0-001",
+    "purpose": "activity_generation",
+    "sourceSet": {
+      "sourceSetId": "source-set-p0-001",
+      "revision": 1,
+      "required": true
+    },
+    "constraints": {
+      "activityTypes": ["Quiz", "Reflection"],
+      "citationRequired": true,
+      "unsupportedClaimsAllowed": true,
+      "providerPolicyRef": "provider-policy-eu-self-hosted-or-approved"
+    },
+    "delegationRef": "delegation:generation:001"
+  },
+  "activities": [
+    {
+      "activityId": "activity-p0-quiz-001",
+      "type": "Quiz",
+      "status": "Published",
+      "generated": true,
+      "sourceSetRevision": 1,
+      "groundingMode": "SourceGrounded",
+      "claims": [
+        {
+          "claimId": "claim-activity-001",
+          "text": "Rumble LM owns session workflow and must not own durable ingestion.",
+          "claimClass": "SourceDerived",
+          "citationRefs": ["citation-activity-001"]
+        }
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "citationId": "citation-activity-001",
+      "targetType": "Activity",
+      "targetId": "activity-p0-quiz-001",
+      "sourceRef": "gear-source:rumble-lm-charter:sha256-001",
+      "sourceChunkRef": "gear-source-chunk:rumble-lm-charter:001",
+      "sourceRevision": 1,
+      "quote": "Rumble products express real user needs while consuming lower-layer capabilities.",
+      "supportLevel": "Strong",
+      "status": "Validated",
+      "validatedBy": "actor-facilitator-001",
+      "validatedAt": "2026-06-30T00:10:00Z"
+    }
+  ],
+  "responses": {
+    "mode": "aggregate_only",
+    "rawResponsesIncludedInFixture": false,
+    "aggregateResults": [
+      {
+        "activityId": "activity-p0-quiz-001",
+        "responseCount": 12,
+        "distribution": {
+          "correct": 10,
+          "needs_review": 2
+        }
+      }
+    ],
+    "crossSessionLearnerProfileCreated": false
+  },
+  "summary": {
+    "summaryId": "summary-p0-001",
+    "audience": "Participants",
+    "status": "Validated",
+    "claims": [
+      {
+        "claimId": "claim-summary-001",
+        "claimClass": "SourceDerived",
+        "text": "The session confirmed that source-grounded generation must remain citation-gated.",
+        "citationRefs": ["citation-activity-001"]
+      }
+    ],
+    "privacyGate": "passed",
+    "validatedBy": "actor-facilitator-001",
+    "validatedAt": "2026-06-30T00:20:00Z"
+  },
+  "exportManifest": {
+    "schema": "rumble_lm.session_export_artifact_manifest.v0.1",
+    "exportId": "export-p0-001",
+    "format": "Markdown",
+    "audience": "Participants",
+    "includedDataClasses": [
+      "session_metadata",
+      "activities",
+      "aggregate_results",
+      "validated_summary",
+      "citations",
+      "source_provenance"
+    ],
+    "excludedDataClasses": [
+      "private_responses",
+      "facilitator_only_notes"
+    ],
+    "artifactRef": "gear-artifact:rumble-lm-session-export:001",
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "validation": {
+      "privacyGate": "passed",
+      "citationGate": "passed",
+      "validatedAt": "2026-06-30T00:21:00Z"
+    },
+    "revocation": {
+      "revocationRef": "revocation:export-p0-001",
+      "revokedAt": null
+    }
+  },
+  "delegations": [
+    {
+      "delegationRef": "delegation:source-import:001",
+      "holder": "wrench-loader",
+      "action": "source:attach",
+      "facts": {
+        "organization": "org-eu-001",
+        "workspace": "workspace-eu-001",
+        "session": "session-p0-001",
+        "purpose": "source_import"
+      },
+      "expiresAt": "2026-06-30T01:00:00Z",
+      "revocationRef": "revocation:source-import:001",
+      "forbiddenCapabilities": ["response:read", "export:create", "activity:publish"]
+    },
+    {
+      "delegationRef": "delegation:generation:001",
+      "holder": "bolt",
+      "action": "run:request",
+      "facts": {
+        "organization": "org-eu-001",
+        "workspace": "workspace-eu-001",
+        "session": "session-p0-001",
+        "sourceSetRevision": 1,
+        "purpose": "source_grounded_generation",
+        "citationRequired": true
+      },
+      "expiresAt": "2026-06-30T01:00:00Z",
+      "revocationRef": "revocation:generation:001",
+      "forbiddenCapabilities": ["activity:publish", "citation:validate", "export:create"]
+    },
+    {
+      "delegationRef": "delegation:export:001",
+      "holder": "gear-depot",
+      "action": "export:create",
+      "facts": {
+        "organization": "org-eu-001",
+        "workspace": "workspace-eu-001",
+        "session": "session-p0-001",
+        "audience": "Participants",
+        "dataClassesAllowed": [
+          "session_metadata",
+          "activities",
+          "aggregate_results",
+          "validated_summary",
+          "citations",
+          "source_provenance"
+        ]
+      },
+      "expiresAt": "2026-06-30T01:00:00Z",
+      "revocationRef": "revocation:export:001",
+      "forbiddenCapabilities": ["source:read_all", "private_response:read"]
+    }
+  ],
+  "auditLogSample": [
+    {
+      "eventName": "response.submitted",
+      "metadata": {
+        "activityRunId": "activity-run-p0-001",
+        "responseCountAfterSubmit": 12
+      }
+    },
+    {
+      "eventName": "export.generated",
+      "metadata": {
+        "exportId": "export-p0-001",
+        "artifactRef": "gear-artifact:rumble-lm-session-export:001"
+      }
+    }
+  ],
+  "sovereignty": {
+    "mandatoryUsSaas": false,
+    "opaqueStorage": false,
+    "blockingLicenseDependency": false,
+    "silentThirdPartyModelFallback": false,
+    "piiInLogs": false
+  }
+}

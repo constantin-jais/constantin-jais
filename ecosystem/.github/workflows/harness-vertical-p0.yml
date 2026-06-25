@@ -1,0 +1,61 @@
+name: Harness Vertical P0
+
+on:
+  pull_request:
+    paths:
+      - "specs/harness/**"
+      - "specs/shared/contracts/implementation-handoff.v0.1.*"
+      - ".github/workflows/harness-vertical-p0.yml"
+  push:
+    branches: [main]
+    paths:
+      - "specs/harness/**"
+      - "specs/shared/contracts/implementation-handoff.v0.1.*"
+      - ".github/workflows/harness-vertical-p0.yml"
+  workflow_dispatch:
+
+jobs:
+  vertical-p0:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ecosystem specs
+        uses: actions/checkout@v4
+        with:
+          path: ecosystem
+
+      - name: Checkout cos-matic
+        uses: actions/checkout@v4
+        with:
+          repository: constantin-jais/cos-matic
+          path: cos-matic
+
+      - name: Checkout wrench-inspect
+        uses: actions/checkout@v4
+        with:
+          repository: constantin-jais/wrench-inspect
+          path: wrench-inspect
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Check JSON fixtures and schemas
+        working-directory: ecosystem
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          for path in pathlib.Path('specs').rglob('*.json'):
+              json.loads(path.read_text())
+              print(f'ok {path}')
+          PY
+
+      - name: Run planning-only vertical proof
+        working-directory: ecosystem
+        run: |
+          python3 specs/harness/run_vertical_p0.py \
+            --output specs/harness/proofs/vertical-p0.proof.json
+
+      - name: Upload vertical proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertical-p0-proof
+          path: ecosystem/specs/harness/proofs/vertical-p0.proof.json

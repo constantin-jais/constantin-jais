@@ -1,0 +1,119 @@
+{
+  "format": "gear.memory.v0.1",
+  "source_refs": [
+    {
+      "source_id": "src_note_export_01",
+      "source_type": "note_block",
+      "origin_product": "rumble-note",
+      "uri": "local://note-export/export_01/block_01",
+      "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+      "provenance_id": "prov_import_01",
+      "state": "active",
+      "created_at": "2026-06-30T00:00:00Z",
+      "metadata": {
+        "privacy": "normal"
+      }
+    },
+    {
+      "source_id": "src_repo_01",
+      "source_type": "file",
+      "origin_product": "wrench-loader",
+      "uri": "git://local/repo?rev=abc123",
+      "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000002",
+      "provenance_id": "prov_import_02",
+      "state": "active",
+      "created_at": "2026-06-30T00:00:00Z",
+      "metadata": {}
+    }
+  ],
+  "memory_entries": [
+    {
+      "memory_entry_id": "mem_01",
+      "source_ref": "src_note_export_01",
+      "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+      "index_state": "indexed",
+      "index_metadata": {
+        "schema_version": "memory-entry.v0.1",
+        "chunk_count": 1,
+        "embedding_model_ref": null,
+        "indexed_at": "2026-06-30T00:01:00Z"
+      },
+      "created_at": "2026-06-30T00:00:30Z"
+    }
+  ],
+  "event_log_entries": [
+    {
+      "event_id": "evt_01",
+      "event_type": "memory.indexed",
+      "actor_ref": "actor_local_owner",
+      "target_ref": "mem_01",
+      "provenance_id": "prov_index_01",
+      "metadata": {
+        "index": "full_text"
+      },
+      "created_at": "2026-06-30T00:01:00Z"
+    }
+  ],
+  "code_maps": [
+    {
+      "code_map_id": "cm_01",
+      "root_source_ref": "src_repo_01",
+      "scope": {
+        "repo_ref": "repo_local_demo",
+        "revision": "git:abc123",
+        "paths": ["src/"]
+      },
+      "parser_refs": ["tree-sitter:rust@0.0.0-demo"],
+      "symbols": [
+        {
+          "symbol_id": "sym_main",
+          "kind": "function",
+          "name": "demo::main",
+          "source_ref": "src_repo_01",
+          "range": {
+            "start_line": 1,
+            "end_line": 3
+          },
+          "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        }
+      ],
+      "edges": [],
+      "state": "active",
+      "created_at": "2026-06-30T00:02:00Z"
+    }
+  ],
+  "provenance_records": [
+    {
+      "provenance_id": "prov_import_01",
+      "actor_ref": "actor_local_owner",
+      "operation": "imported",
+      "inputs": [],
+      "outputs": ["src_note_export_01"],
+      "tool_ref": "rumble-note.context-export.v0.1",
+      "timestamp": "2026-06-30T00:00:00Z",
+      "metadata": {}
+    },
+    {
+      "provenance_id": "prov_import_02",
+      "actor_ref": "actor_local_owner",
+      "operation": "imported",
+      "inputs": [],
+      "outputs": ["src_repo_01"],
+      "tool_ref": "wrench-loader.demo",
+      "timestamp": "2026-06-30T00:00:00Z",
+      "metadata": {}
+    },
+    {
+      "provenance_id": "prov_index_01",
+      "actor_ref": "actor_local_owner",
+      "operation": "indexed",
+      "inputs": ["src_note_export_01"],
+      "outputs": ["mem_01"],
+      "tool_ref": "gear-memory.full-text.v0.1",
+      "timestamp": "2026-06-30T00:01:00Z",
+      "metadata": {
+        "offline": true
+      }
+    }
+  ]
+}

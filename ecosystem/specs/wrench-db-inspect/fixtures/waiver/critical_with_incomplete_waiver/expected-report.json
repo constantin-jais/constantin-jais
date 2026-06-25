@@ -1,0 +1,39 @@
+{
+  "data": {
+    "format": "wrench.db_inspect.report.v0.1",
+    "status": "failed",
+    "summary": {
+      "critical": 1,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0,
+      "gate_blocked": true
+    },
+    "findings": [
+      {
+        "rule_id": "WAIVER_INVALID",
+        "category": "manifest_coverage",
+        "severity": "medium",
+        "confidence": "high",
+        "subject": {
+          "type": "waiver",
+          "name": "wv_fixture_critical_with_incomplete_waiver"
+        },
+        "waiver": {
+          "accepted_by_gate": false
+        },
+        "gate": {
+          "blocks": true,
+          "action": "block"
+        }
+      }
+    ]
+  },
+  "meta": {
+    "schema_version": "0.1",
+    "redaction": {
+      "secrets_or_pii_included": false
+    }
+  }
+}

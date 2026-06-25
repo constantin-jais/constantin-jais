@@ -386,6 +386,23 @@ Default target: self-hostable and EU/local deployment compatible. Do not require
 
 ---
 
+## Biscuit Delegation Mapping
+
+Crew uses the shared contract `../shared/contracts/delegated-authorization-biscuit.v0.1.md` for delegated run, approval, evidence, log, export, and membership rights.
+
+| Crew operation | Shared Biscuit action | Required scope facts | Product-local checks |
+| --- | --- | --- | --- |
+| Request Bolt run | `run:request` | `organization`, `workspace`, `actor`, `resource("task", task_id)`, optional `run_ref` after creation | `execution_mode=trusted_execution`; integration healthy; actor is Owner, Agent Supervisor, or delegated human; task risk/approval policy passes. |
+| Cancel run | `run:cancel` | `organization`, `workspace`, `resource("run", run_ref)` | Actor can supervise/cancel; external run state allows cancellation. |
+| Rerun | `run:rerun` | `organization`, `workspace`, `resource("run", previous_run_ref)` | Failed/superseded run requires human recovery decision by default. |
+| Decide gate | `approval:decide` | `organization`, `workspace`, `actor($id, "human")`, `resource("approval", approval_id)` | Reviewer/Owner/policy-delegated human; stale target checks pass. |
+| Review evidence | `approval:decide` or `export:read` depending operation | `artifact_ref` or local evidence ref | Evidence hash/provenance exists; reviewer is allowed; evidence not superseded. |
+| Read raw runtime log | `log:raw:read` | `organization`, `workspace`, `actor($id, "human")`, `resource("runtime_log", log_id)`, `run_ref` | Raw logs enabled; privileged role; confirmation; redaction/TTL policy; critical audit event. |
+| Export audit/evidence | `audit:export` / `export:create` | `organization`, `workspace`, `resource("workspace"|"task", id)` | Export permission; redaction policy; raw logs excluded unless separate privileged flow. |
+| Manage members | `member:manage` | `organization`, `workspace`, `actor($id, "human")` | Owner role; last owner protection. |
+
+Agent identities and runtime service accounts may emit projected events through trusted integration, but cannot hold delegated approval rights.
+
 ## Open Questions
 
 | Question | Impact | Status |

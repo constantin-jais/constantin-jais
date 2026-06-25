@@ -10,7 +10,9 @@ Acceptance tests should prove the complete MVP loop:
 create session → import sources → generate/select activities → validate citations → run live → collect responses → synthesize → export/archive
 ```
 
-Tests are organized by product behavior, permissions, domain invariants, API contracts, privacy, and resilience.
+Tests are organized by product behavior, permissions, domain invariants, API contracts, privacy, grounding, delegated authorization, sovereignty, and resilience.
+
+The detailed P0 source-grounded slice is defined in [`14-source-grounded-product-slice.md`](./14-source-grounded-product-slice.md).
 
 ## Scenario Tests
 
@@ -41,6 +43,13 @@ Then the two successful sources are available in the source set
 And the failed source shows an actionable reason
 And successful sources are not rolled back.
 
+### Scenario: Source Import Creates Provenance
+
+Given a facilitator imports a supported source
+When Wrench extraction succeeds and Gear returns source/chunk refs
+Then Rumble shows the source in the session source set
+And the source has provenance, revision/hash where available, extractor metadata, and extraction warnings.
+
 ### Scenario: Activity Generation Creates Citation Candidates
 
 Given a ready source set
@@ -48,6 +57,12 @@ When the facilitator generates quiz and reflection activities
 Then draft activities are created
 And source-derived prompts/options have citation candidates
 And no generated activity is published automatically.
+
+### Scenario: Source-Grounded Generation Requires Source Set
+
+Given a facilitator requests source-grounded generation
+When no ready source set exists
+Then the generation request is refused with an actionable `source_set_required` blocker.
 
 ### Scenario: Run Live Activity
 
@@ -99,12 +114,25 @@ And privacy blockers are resolved
 Then the facilitator can validate the summary
 And the session becomes `Synthesized`.
 
+### Scenario: Weak Citation Cannot Satisfy Grounding
+
+Given Wrench marks citation support as `Weak` or `Contradicted`
+When the facilitator tries to use it for mandatory source grounding
+Then validation requires citation replacement, claim edit, or explicit unsupported marking.
+
+### Scenario: Source Revision Stales Citations
+
+Given an activity cites source set revision 1
+When the source is removed or replaced in revision 2
+Then dependent citations become `Stale`
+And publication/preparation gates fail until re-reviewed.
+
 ### Scenario: Export Session
 
 Given a session is `Synthesized`
 When the facilitator exports a participant-facing Markdown artifact
 Then the export includes only allowed data classes
-And records format, audience, actor, timestamp, included data, and artifact reference.
+And records format, audience, actor, timestamp, included data, artifact reference, checksum, and validation/citation references.
 
 ### Scenario: Archive Session
 
@@ -190,12 +218,30 @@ And a follow-up session can be created instead.
 
 - Anonymous-to-participants mode hides identities from participant views.
 - Aggregate-only mode prevents individual response display.
+- Default analytics show aggregate counts/distributions/themes only and create no cross-session individual score/profile.
 - Response content is absent from audit log metadata.
 - Participant-facing export excludes facilitator-only notes.
 - Deletion/anonymization workflow removes or masks participant identity according to policy.
 - Permission denied responses do not reveal hidden session content.
 - Join links expire or follow configured access policy.
 - CSRF-protected writes reject missing/invalid CSRF token when cookie-authenticated.
+- Structured logs never contain raw source excerpts, participant responses, bearer tokens, or secrets.
+
+## Delegated Authorization Tests
+
+- A Rumble-to-Wrench import token is scoped to workspace/session/source operation, has expiry, and cannot read participant responses or export artifacts.
+- A Rumble-to-Gear source persistence token can write source refs/provenance for the pinned source set but cannot publish activities.
+- A Bolt generation token can read only the authorized source set revision and cannot publish or validate content.
+- A Gear export token is constrained by audience, export ID, included data classes, checksum requirement, and revocation reference.
+- A token with mismatched workspace/session facts is rejected before product policy evaluation.
+- Raw Biscuit tokens and bearer headers are absent from logs and audit metadata.
+
+## Sovereignty / Dependency Tests
+
+- Source-grounded P0 flow works without mandatory US SaaS dependency.
+- Provider policy blocks silent third-party model fallback.
+- Production dependencies for P0 have acceptable licenses under ecosystem policy.
+- Exports and source refs are inspectable through open contracts rather than opaque storage identifiers only.
 
 ## Screen Smoke Tests
 
@@ -224,6 +270,22 @@ And a follow-up session can be created instead.
 - Failed response submission logs state/reason, not response content.
 - Export failure logs format/audience/reason, not private content.
 
+## Contract Fixture Tests
+
+Before product UI implementation, owner review must use [`16-contract-review-pack.md`](./16-contract-review-pack.md). If real integrations are not ready, implementation must follow [`17-p0-stub-implementation-plan.md`](./17-p0-stub-implementation-plan.md).
+
+The fixture-only P0 proof must pass:
+
+```bash
+python3 ecosystem/specs/rumble-lm/run_p0_contract.py
+```
+
+Acceptance:
+
+- `fixtures/p0-source-grounded-session.valid.json` passes validation.
+- `fixtures/p0-source-grounded-session.invalid.json` fails with expected grounding, privacy, delegation, and sovereignty findings.
+- `proofs/p0-contract.proof.json` records that no UI, provider, Wrench, Gear, Bolt, or Biscuit runtime was called.
+
 ## MVP Definition of Done
 
 - End-to-end scenario passes for one source-grounded live session.
@@ -231,3 +293,4 @@ And a follow-up session can be created instead.
 - Citation gating prevents unsupported generated content from being silently published.
 - Participant response privacy is enforced in results, summary, and export.
 - Export artifact is generated with traceable metadata.
+- Fixture-only P0 contract proof is green before implementation starts.
