@@ -445,6 +445,8 @@ mod tests {
         }
         assert!(json_report.contains("[REDACTED_DSN]"));
         assert!(json_report.contains("[REDACTED_SECRET]"));
+        let json: serde_json::Value = serde_json::from_str(&json_report).unwrap();
+        assert_eq!(json["data"]["metrics"]["redactions_applied_count"], 2);
     }
 
     #[test]

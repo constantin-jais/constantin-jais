@@ -73,6 +73,7 @@ These ensure the inspector remains safe to run and share.
 | `mutating_operation_count` | Live inspection attempts DDL/DML or row reads. | 0. |
 | `redaction_status` | `meta.redaction.secrets_or_pii_included` remains false. | Always false for accepted CI artifact. |
 | `redaction_regression_pass` | Fake DSN/token/password fixtures and synthetic future evidence snippets are absent from JSON/Markdown reports. | 100%. |
+| `redactions_applied_count` | Number of final report string redactions applied. Useful for detecting accidental evidence leakage before publish. | Tracked; unexpected non-zero requires review. |
 
 ### 5. Adoption and Anti-Duplication Metrics
 
@@ -113,7 +114,8 @@ Future reports should include safe aggregate metrics under `data.metrics`:
       "waiver_count": 1,
       "waiver_invalid_count": 0,
       "blocking_finding_count": 0,
-      "parser_error_count": 0
+      "parser_error_count": 0,
+      "redactions_applied_count": 0
     }
   },
   "meta": {
