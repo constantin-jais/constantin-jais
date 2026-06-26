@@ -1,6 +1,6 @@
 use crate::{
     finding::Finding, gate_profile::GateProfiles, manifest::ManifestData,
-    redaction::redact_json_value, redaction::redact_text,
+    redaction::redact_json_value, redaction::redact_text_with_count,
 };
 use serde_json::{Value, json};
 use std::path::PathBuf;
@@ -70,7 +70,7 @@ pub fn render_report(
                     { "kind": "schema_dump", "path": schema_path.display().to_string() }
                 ]
             },
-            "metrics": metrics(manifest, findings, profile, gate_profiles),
+            "metrics": metrics(manifest, findings, profile, gate_profiles, 0),
             "findings": findings_json
         },
         "meta": {
@@ -81,7 +81,8 @@ pub fn render_report(
         }
     });
 
-    redact_json_value(&mut report);
+    let redactions_applied_count = redact_json_value(&mut report);
+    report["data"]["metrics"]["redactions_applied_count"] = json!(redactions_applied_count);
     serde_json::to_string_pretty(&report).map_err(|e| format!("cannot render report JSON: {e}"))
 }
 
@@ -138,7 +139,7 @@ pub fn render_markdown_report(
         }
     }
     out.push_str("\nReports intentionally omit row data, raw embeddings, prompts, credentials, DSNs, and PII.\n");
-    redact_text(&out)
+    redact_text_with_count(&out).text
 }
 
 fn metrics(
@@ -146,6 +147,7 @@ fn metrics(
     findings: &[Finding],
     profile: &str,
     gate_profiles: &GateProfiles,
+    redactions_applied_count: usize,
 ) -> Value {
     let tenant_table_count = manifest
         .tables
@@ -199,7 +201,8 @@ fn metrics(
         "report_secret_leak_count": 0,
         "report_pii_leak_count": 0,
         "raw_embedding_leak_count": 0,
-        "mutating_operation_count": 0
+        "mutating_operation_count": 0,
+        "redactions_applied_count": redactions_applied_count
     })
 }
 
