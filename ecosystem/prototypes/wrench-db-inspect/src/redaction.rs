@@ -11,10 +11,6 @@ pub struct RedactionResult {
     pub count: usize,
 }
 
-pub fn redact_text(input: &str) -> String {
-    redact_text_with_count(input).text
-}
-
 pub fn redact_text_with_count(input: &str) -> RedactionResult {
     let mut out = input.to_string();
     let mut count = 0;
