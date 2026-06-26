@@ -25,6 +25,8 @@ single dependency.** At company scale that's resilience; at country scale, sover
 
 ## Ecosystem doctrine
 
+This ecosystem is also a personal forge: a place to learn, build robust working tools, and improve the process by which ideas become specifications, inspected plans, evidence, memory, and better next iterations. The Rumble projects are dojos, not startups to rank by market potential.
+
 The projects are organized as four isolated but composable layers:
 
 - **Rumble — Products:** what users see and use.
@@ -40,7 +42,9 @@ That means a product can call an extractor without becoming one; an orchestrator
 
 ## Projects
 
-The portfolio is split by responsibility, not by technology. Each family has a clear job in the chain: **Rumble creates the user experience, Bolt coordinates decisions, Wrench provides callable capabilities, and Gear supplies the sovereign substrate.**
+The portfolio is split by responsibility, not by technology. Each family has a clear job in the chain: **Rumble creates learning pressure through real product-shaped experiences, Bolt coordinates decisions, Wrench provides callable capabilities and critique, and Gear supplies the sovereign substrate.**
+
+Current ecosystem status is tracked in [`ecosystem/status.md`](ecosystem/status.md); the target self-improving loop is described in [`ecosystem/loop.md`](ecosystem/loop.md).
 
 ### Rumble — product experiences
 

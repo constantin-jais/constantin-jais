@@ -77,7 +77,8 @@ The prototype is healthy when:
 - reports do not include row data, raw embeddings, prompts, credentials, DSNs, or PII;
 - redaction fixtures with fake DSNs/tokens/comments do not leak those strings into JSON or Markdown reports;
 - final report rendering redacts DSN/token/password-like patterns even if future evidence snippets accidentally contain them;
-- JSON reports expose `data.metrics.redactions_applied_count` for review.
+- JSON reports expose `data.metrics.redactions_applied_count` and `meta.redaction.applied` for review;
+- in `release`, `meta.redaction.applied=true` sets the report-level gate to blocked.
 
 Broader success metrics for the project are defined in `../../specs/wrench-db-inspect/success-metrics.md`.
 

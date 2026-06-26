@@ -15,13 +15,23 @@ No external product inspirations are listed here. Inspirations may be used priva
 
 ## 1. North Star
 
-The ecosystem exists to build sovereign, deterministic, agent-readable products where user-facing needs generate reusable capabilities.
+The ecosystem exists to build sovereign, deterministic, agent-readable tools and products where user-facing needs generate reusable capabilities.
+
+It is primarily a personal forge for intellectual enjoyment, learning, process quality, and robust working tools. The first-order goal is not market traction or startup-style prioritization. Rumble projects are dojos: they create real constraints for improving the stack, but the reliable process is more important than any single Rumble product.
+
+The center of gravity is:
+
+```text
+idea → specification → inspection → planning → controlled execution → evidence → memory → improvement
+```
 
 The product layer does not hard-code everything. Instead:
 
 > Rumble products express real user needs. Repeated needs become shared primitives. Shared primitives are placed in Bolt, Wrench, Gear, or a shared Rumble layer according to ownership.
 
 This keeps products useful, the harness reusable, and the architecture resistant to scope creep.
+
+Current cross-project status lives in `status.md`. The target self-improving process loop lives in `loop.md`.
 
 ---
 
@@ -64,7 +74,19 @@ Use these tests whenever a feature is ambiguous:
 
 If two products need the same thing, do not duplicate it blindly. Identify the primitive and decide where it belongs.
 
-### 2.3 Strategic Directives
+### 2.3 Documentation Ownership and Anti-Duplication
+
+Documentation is part of the architecture. To avoid dispersion:
+
+- `overview.md` owns stable doctrine, layer boundaries, and architecture rules.
+- `status.md` owns current maturity, next quality steps, and verification commands.
+- `loop.md` owns the target idea-to-proof-to-memory process loop.
+- `specs/shared/` owns reusable contracts, shared capabilities, decisions, and open questions.
+- Product/tool repository READMEs own local usage, local boundary, and local commands only.
+- Repository ADRs own repo-local decisions; cross-project decisions belong in `specs/shared/decision-log.md`.
+- A Rumble spec may express the need for a primitive, but must not duplicate the owner primitive if it belongs in Bolt, Wrench, or Gear.
+
+### 2.4 Strategic Directives
 
 - **Single responsibility:** one repository, one primary responsibility, one layer.
 - **No hidden ownership:** each README/spec must state what the project does not do.

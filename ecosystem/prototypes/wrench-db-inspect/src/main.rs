@@ -78,20 +78,16 @@ fn run_cli(args: &[String]) -> Result<i32, String> {
     let markdown_report = render_markdown_report(&manifest, &findings, &profile, &gate_profiles);
 
     if let Some(path) = report_path {
-        write_output(&path, report, "report")?;
+        write_output(&path, report.json.clone(), "report")?;
     } else {
-        println!("{report}");
+        println!("{}", report.json);
     }
 
     if let Some(path) = report_md_path {
         write_output(&path, markdown_report, "markdown report")?;
     }
 
-    Ok(if gate_profiles.gate_blocked(&profile, &findings) {
-        1
-    } else {
-        0
-    })
+    Ok(if report.blocks { 1 } else { 0 })
 }
 
 fn take_path(args: &[String], i: &mut usize) -> Option<PathBuf> {
@@ -408,7 +404,7 @@ mod tests {
         );
         let manifest_path = PathBuf::from("manifest.json");
         let schema_path = PathBuf::from("schema.sql");
-        let json_report = render_report(
+        let rendered = render_report(
             &manifest,
             &[finding],
             "protected_branch",
@@ -417,6 +413,7 @@ mod tests {
             &schema_path,
         )
         .unwrap();
+        let json_report = rendered.json;
         let md_report = render_markdown_report(
             &manifest,
             &[Finding::new(
@@ -447,6 +444,38 @@ mod tests {
         assert!(json_report.contains("[REDACTED_SECRET]"));
         let json: serde_json::Value = serde_json::from_str(&json_report).unwrap();
         assert_eq!(json["data"]["metrics"]["redactions_applied_count"], 2);
+        assert_eq!(json["meta"]["redaction"]["applied"], true);
+    }
+
+    #[test]
+    fn release_blocks_when_report_redaction_was_applied() {
+        use crate::{finding::Finding, report::render_report};
+        let (_, manifest) = fixture("pass/rls_tenant_policy_ok");
+        let gate_profiles = GateProfiles::builtin();
+        let finding = Finding::new(
+            "REDACTION_TEST",
+            "inspection_integrity",
+            "high",
+            "sql_snippet",
+            "postgres://fixture_user:fixture_password@localhost/db",
+        );
+        let rendered = render_report(
+            &manifest,
+            &[finding],
+            "release",
+            &gate_profiles,
+            &PathBuf::from("manifest.json"),
+            &PathBuf::from("schema.sql"),
+        )
+        .unwrap();
+        assert!(rendered.blocks);
+        let json: serde_json::Value = serde_json::from_str(&rendered.json).unwrap();
+        assert_eq!(json["meta"]["redaction"]["applied"], true);
+        assert_eq!(json["data"]["summary"]["gate_blocked"], true);
+        assert_eq!(
+            json["data"]["report_gate"]["reason"],
+            "redaction applied in release requires review"
+        );
     }
 
     #[test]
@@ -481,6 +510,8 @@ mod tests {
         assert_eq!(code, 0);
         let json_report = fs::read_to_string(report).unwrap();
         let md_report = fs::read_to_string(report_md).unwrap();
+        let json: serde_json::Value = serde_json::from_str(&json_report).unwrap();
+        assert_eq!(json["meta"]["redaction"]["applied"], false);
         for forbidden in [
             "sk_test_fixture_redaction_123456",
             "fixture_password",

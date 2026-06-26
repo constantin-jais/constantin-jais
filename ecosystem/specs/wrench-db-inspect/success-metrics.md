@@ -71,7 +71,7 @@ These ensure the inspector remains safe to run and share.
 | `report_pii_leak_count` | PII or row/free-text content detected in reports. | 0. |
 | `raw_embedding_leak_count` | Raw vectors or source text emitted in reports. | 0. |
 | `mutating_operation_count` | Live inspection attempts DDL/DML or row reads. | 0. |
-| `redaction_status` | `meta.redaction.secrets_or_pii_included` remains false. | Always false for accepted CI artifact. |
+| `redaction_status` | `meta.redaction.secrets_or_pii_included` remains false and `meta.redaction.applied` indicates whether final-pass redaction changed the report. | Always no secrets/PII; `applied=true` blocks/requires review in release. |
 | `redaction_regression_pass` | Fake DSN/token/password fixtures and synthetic future evidence snippets are absent from JSON/Markdown reports. | 100%. |
 | `redactions_applied_count` | Number of final report string redactions applied. Useful for detecting accidental evidence leakage before publish. | Tracked; unexpected non-zero requires review. |
 

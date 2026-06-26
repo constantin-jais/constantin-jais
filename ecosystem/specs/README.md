@@ -1,8 +1,8 @@
 # Ecosystem Specifications
 
-This directory contains the product specifications for active Rumble products and selected shared Bolt/Wrench/Gear capability specs.
+This directory contains the product specifications for active Rumble dojos and selected shared Bolt/Wrench/Gear capability specs.
 
-The goal is not to write static documentation. The goal is to create implementation-ready product contracts that connect:
+The goal is not to write static documentation or rank products by business potential. The goal is to create implementation-ready learning and process contracts that connect:
 
 - product intent;
 - roles and permissions;
@@ -13,16 +13,16 @@ The goal is not to write static documentation. The goal is to create implementat
 - security/RGPD constraints;
 - shared Bolt/Wrench/Gear capabilities.
 
-## Active Products
+## Active Rumble Dojos
 
-| Product | Spec status | Purpose |
-| --- | --- | --- |
-| `rumble-canvas` | Drafting / harness producer | Product-conception workspace: conversations → decisions → specs → packages → handoffs. |
-| `rumble-cos` | Not started | Education and sharing blog. |
-| `rumble-crew` | Drafting | Human/agent teamwork workspace. |
-| `rumble-feed-mind` | Drafting / needs license-stack decision | Intelligent feed/watch pipeline producing curated knowledge for the harness. |
-| `rumble-lm` | Drafting | Source-grounded learning and facilitation platform. |
-| `rumble-note` | Drafting | Local-first block-based personal knowledge system. |
+| Product | Spec status | Learning role | Purpose |
+| --- | --- | --- | --- |
+| `rumble-canvas` | `contract-first` / harness producer | Specification, ambiguity, decisions, traceability, handoff. | Product-conception workspace: conversations → decisions → specs → packages → handoffs. |
+| `rumble-cos` | `usable` public site / ecosystem spec incomplete | Transmission, clarity, publication, public documentation. | Education and sharing blog. |
+| `rumble-crew` | `contract-first` | Human/agent tasks, approvals, evidence, recovery. | Human/agent teamwork workspace. |
+| `rumble-feed-mind` | `dojo` / ready for scoped implementation planning | Watch pipeline, ingestion pressure, rules, BYOK, export. | Intelligent feed/watch pipeline producing curated knowledge for the harness. |
+| `rumble-lm` | `contract-first` / P0 stub | Pedagogy, citations, live sessions, grounding. | Source-grounded learning and facilitation platform. |
+| `rumble-note` | `contract-first` | Local-first PKM, privacy, memory exports. | Local-first block-based personal knowledge system. |
 
 ## Shared Tooling Specs
 
@@ -34,6 +34,8 @@ The goal is not to write static documentation. The goal is to create implementat
 ## Spec Rule
 
 Every product spec must identify when a need is product-specific and when it should become a shared capability.
+
+Do not copy shared primitive definitions into each Rumble spec. Link to the shared contract/registry and document only the product-specific instantiation, constraints, and open questions.
 
 Shared capabilities are logged in:
 

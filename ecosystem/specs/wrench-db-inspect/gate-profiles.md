@@ -92,6 +92,7 @@ A finding should include the resolved gate decision:
 - Waiver acceptance is part of the profile, not hidden rule code.
 - Bolt may select a profile and consume `summary.gate_blocked`; Bolt must not reinterpret raw SQL.
 - Reports must remain safe: no secrets, PII, raw embeddings, row data, prompts, or DSNs.
+- In `release`, `meta.redaction.applied=true` must block or require review because it means unsafe evidence reached final rendering.
 
 ## Acceptance Tests To Add
 
@@ -100,4 +101,5 @@ A finding should include the resolved gate decision:
 - Given a profile override promotes a P1 rule to `block`, a `medium` finding blocks.
 - Given an expired waiver in `release`, the gate blocks with reason `waiver expired` and emits `WAIVER_INVALID`.
 - Given an incomplete waiver in `release`, the gate blocks with reason such as `waiver missing reviewer` and emits `WAIVER_INVALID`.
+- Given `meta.redaction.applied=true` in `release`, the gate blocks with reason `redaction applied in release requires review`.
 - Given invalid profile config, CLI exits `2` and emits no misleading pass report.

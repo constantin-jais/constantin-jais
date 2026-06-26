@@ -5,6 +5,11 @@ use crate::{
 use serde_json::{Value, json};
 use std::path::PathBuf;
 
+pub struct RenderedReport {
+    pub json: String,
+    pub blocks: bool,
+}
+
 pub fn render_report(
     manifest: &ManifestData,
     findings: &[Finding],
@@ -12,9 +17,9 @@ pub fn render_report(
     gate_profiles: &GateProfiles,
     manifest_path: &PathBuf,
     schema_path: &PathBuf,
-) -> Result<String, String> {
+) -> Result<RenderedReport, String> {
     let blocked = gate_profiles.gate_blocked(profile, findings);
-    let status = status(findings, blocked);
+    let initial_status = status(findings, blocked);
 
     let findings_json: Vec<Value> = findings
         .iter()
@@ -53,7 +58,7 @@ pub fn render_report(
     let mut report = json!({
         "data": {
             "format": "wrench.db_inspect.report.v0.1",
-            "status": status,
+            "status": initial_status,
             "summary": {
                 "critical": findings.iter().filter(|f| f.severity == "critical").count(),
                 "high": findings.iter().filter(|f| f.severity == "high").count(),
@@ -82,8 +87,27 @@ pub fn render_report(
     });
 
     let redactions_applied_count = redact_json_value(&mut report);
+    let redaction_release_block = profile == "release" && redactions_applied_count > 0;
+    let final_blocked = blocked || redaction_release_block;
     report["data"]["metrics"]["redactions_applied_count"] = json!(redactions_applied_count);
-    serde_json::to_string_pretty(&report).map_err(|e| format!("cannot render report JSON: {e}"))
+    report["meta"]["redaction"]["applied"] = json!(redactions_applied_count > 0);
+    report["data"]["summary"]["gate_blocked"] = json!(final_blocked);
+    report["data"]["status"] = json!(status(findings, final_blocked));
+    report["data"]["report_gate"] = json!({
+        "blocks": redaction_release_block,
+        "profile": profile,
+        "reason": if redaction_release_block {
+            "redaction applied in release requires review"
+        } else {
+            "no report-level gate block"
+        }
+    });
+    let json = serde_json::to_string_pretty(&report)
+        .map_err(|e| format!("cannot render report JSON: {e}"))?;
+    Ok(RenderedReport {
+        json,
+        blocks: final_blocked,
+    })
 }
 
 pub fn render_markdown_report(

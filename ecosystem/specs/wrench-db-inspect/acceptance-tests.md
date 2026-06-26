@@ -144,6 +144,8 @@ And `meta.redaction.secrets_or_pii_included = false`.
 
 Forbidden regression strings include fixture-only values such as `sk_test_fixture_redaction_123456`, `fixture_password`, and `postgres://fixture_user`.
 
+When profile is `release` and final report rendering applies redaction, the report-level gate must block with reason `redaction applied in release requires review`.
+
 ## Bolt/CI Acceptance
 
 A Bolt gate consuming the report must:
