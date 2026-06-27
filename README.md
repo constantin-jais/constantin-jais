@@ -67,7 +67,6 @@ They do the technical dirty work, but they should not own product strategy, long
 | Project                                                               | Role | Product boundary |
 | --------------------------------------------------------------------- | ---- | ---------------- |
 | [wrench-loader](https://github.com/constantin-jais/wrench-loader)     | Ingestion | Sovereign rich-document extraction to canonical text/metadata; not knowledge management. |
-| `wrench-inspect`                                                     | Inspection | General structural/design/policy validation; planned companion, no public repo yet; not DB-specific security ownership. |
 | [wrench-db-inspect](https://github.com/constantin-jais/wrench-db-inspect) | DB audit | SQL/Postgres/RLS/grants/migration inspection; not a vault application. |
 
 ### Gear — sovereign infrastructure
