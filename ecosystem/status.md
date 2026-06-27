@@ -17,6 +17,12 @@ Rumble projects are dojos: they create real constraints and product-shaped press
 
 Delivery maturity is now a harness contract too: see `specs/harness/03-rumble-delivery-maturity.md` and `specs/harness/rumble-delivery-maturity.v0.1.schema.json`.
 
+Real current claims live in `maturity/*.json` and are checked with:
+
+```bash
+cosmatic maturity report ecosystem/maturity
+```
+
 | Status | Meaning |
 | --- | --- |
 | `speculative` | Idea or exploration, not stable yet. |
@@ -71,7 +77,7 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 
 | Project | Commands |
 | --- | --- |
-| `constantin-jais` | `bash ecosystem/specs/ci-validate-contracts.sh`; `python3 ecosystem/specs/validate_spec_schemas.py`; `python3 ecosystem/specs/harness/run_vertical_p0.py --output ecosystem/specs/harness/proofs/vertical-p0.proof.json` |
+| `constantin-jais` | `bash ecosystem/specs/ci-validate-contracts.sh`; `python3 ecosystem/specs/validate_spec_schemas.py`; `python3 ecosystem/specs/harness/run_vertical_p0.py --output ecosystem/specs/harness/proofs/vertical-p0.proof.json`; `cosmatic maturity report ecosystem/maturity` |
 | `cos-matic` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `gear-cable` | `cargo test --workspace --all-targets` |
 | `gear-depot` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |

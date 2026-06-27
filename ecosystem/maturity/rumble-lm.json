@@ -1,0 +1,78 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "rumble-lm",
+    "layer": "Rumble",
+    "role": "Pedagogy, citations, live sessions, grounding, and aggregate analytics dojo.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-06-30T00:00:00Z",
+  "current_level": "R1",
+  "target_level": "R10",
+  "next_level": "R2",
+  "promotion_candidate": {
+    "from": "R1",
+    "to": "R2",
+    "status": "blocked",
+    "blocked_by": [
+      "portable-core compile gate is not yet declared",
+      "retention defaults remain open",
+      "CitationValidation contract is not yet implemented"
+    ]
+  },
+  "axes": {
+    "spec": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/rumble-lm/00-product-charter.md"] },
+    "contracts": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/rumble-lm/15-contracts-v0.1.md", "rumble-lm/crates/core/src/p0_contract.rs"] },
+    "core": { "level": "R1", "status": "warn", "evidence": ["rumble-lm/crates/core/src/p0_contract.rs"], "notes": "Contract stub exists; durable product core is not complete." },
+    "security": { "level": "R1", "status": "warn", "evidence": ["ecosystem/specs/shared/contracts/delegated-authorization-biscuit.v0.1.md"] },
+    "ux": { "level": "R0", "status": "blocked", "evidence": [] },
+    "persistence": { "level": "R0", "status": "blocked", "evidence": [] },
+    "orchestration": { "level": "R1", "status": "warn", "evidence": ["ecosystem/specs/harness/02-bolt-evidence-gated-planning.md"] },
+    "inspection": { "level": "R0", "status": "warn", "evidence": [], "notes": "CitationValidation is still open." },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "blocked", "evidence": [] },
+    "commercial_readiness": { "level": "R0", "status": "blocked", "evidence": [], "notes": "Commercializable is long-term ambition, not current claim." },
+    "learning_yield": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/shared/open-questions.md"] }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "proof",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "none",
+    "self_hosted": "planned",
+    "cloud_eu": "planned"
+  },
+  "evidence": [
+    { "kind": "contract", "ref": "ecosystem/specs/rumble-lm/15-contracts-v0.1.md", "status": "present" },
+    { "kind": "fixture", "ref": "ecosystem/specs/rumble-lm/fixtures/p0-source-grounded-session.valid.json", "status": "passing" },
+    { "kind": "command", "ref": "python3 ecosystem/specs/rumble-lm/run_p0_contract.py", "status": "passing" }
+  ],
+  "learning_yield": [
+    {
+      "kind": "extracted_contract",
+      "description": "Source-grounded session boundary clarified Rumble/Bolt/Wrench/Gear responsibilities.",
+      "owner": "rumble-lm"
+    },
+    {
+      "kind": "strengthened_primitive",
+      "description": "Delegated authorization pressure strengthened the shared Biscuit contract.",
+      "owner": "shared-auth"
+    }
+  ],
+  "extraction_pressure": [
+    {
+      "capability": "Provider/BYOK policy",
+      "seen_in": ["rumble-lm", "rumble-feed-mind"],
+      "suggested_owner": "Shared security",
+      "status": "candidate"
+    }
+  ],
+  "open_questions": [
+    "Retention defaults are still open.",
+    "CitationValidation evidence format remains open."
+  ],
+  "risk_notes": [
+    "Do not treat the P0 stub as a full product runtime."
+  ]
+}

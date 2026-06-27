@@ -1,0 +1,78 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "rumble-feed-mind",
+    "layer": "Rumble",
+    "role": "Watch pipeline, feed curation, rules, BYOK, export, and harness handoff dojo.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-06-30T00:00:00Z",
+  "current_level": "R1",
+  "target_level": "R10",
+  "next_level": "R2",
+  "promotion_candidate": {
+    "from": "R1",
+    "to": "R2",
+    "status": "blocked",
+    "blocked_by": [
+      "runtime CuratedItemExport tests are missing",
+      "logging classification for feed/user/provider data is not yet enforced",
+      "dependency advisory waivers must be removed or renewed before release"
+    ]
+  },
+  "axes": {
+    "spec": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/rumble-feed-mind/00-product-charter.md"] },
+    "contracts": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/shared/contracts/curated-item-export.v0.1.md", "ecosystem/specs/shared/contracts/provider-byok-policy.v0.1.md"] },
+    "core": { "level": "R1", "status": "warn", "evidence": ["rumble-feed-mind/Cargo.toml"], "notes": "Rust workspace exists; portable core maturity still needs a declared compile/test gate." },
+    "security": { "level": "R1", "status": "warn", "evidence": ["rumble-feed-mind/docs/adr/0004-auth-boundary-jwt-session-biscuit-delegation.md", "rumble-feed-mind/docs/readiness-audit.md"] },
+    "ux": { "level": "R0", "status": "warn", "evidence": ["rumble-feed-mind/apps/web-rs/README.md"], "notes": "Rust UI target exists but is not claimed usable." },
+    "persistence": { "level": "R1", "status": "warn", "evidence": ["rumble-feed-mind/crates/storage/Cargo.toml"] },
+    "orchestration": { "level": "R1", "status": "warn", "evidence": ["ecosystem/specs/rumble-feed-mind/verify_handoff_planning.py"] },
+    "inspection": { "level": "R1", "status": "warn", "evidence": ["ecosystem/specs/rumble-feed-mind/verify_curated_item_export.py"] },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "warn", "evidence": ["rumble-feed-mind/docs/readiness-audit.md"] },
+    "commercial_readiness": { "level": "R0", "status": "blocked", "evidence": [], "notes": "Commercializable is long-term ambition, not current claim." },
+    "learning_yield": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/shared/contracts/curated-item-export.v0.1.md"] }
+  },
+  "platform_readiness": {
+    "cli": "proof",
+    "api": "proof",
+    "web": "planned",
+    "desktop": "planned",
+    "mobile": "planned",
+    "self_hosted": "planned",
+    "cloud_eu": "planned"
+  },
+  "evidence": [
+    { "kind": "contract", "ref": "ecosystem/specs/shared/contracts/curated-item-export.v0.1.md", "status": "present" },
+    { "kind": "proof", "ref": "ecosystem/specs/rumble-feed-mind/proofs/curated-item-export.proof.json", "status": "passing" },
+    { "kind": "doc", "ref": "rumble-feed-mind/docs/readiness-audit.md", "status": "present" }
+  ],
+  "learning_yield": [
+    {
+      "kind": "extracted_contract",
+      "description": "CuratedItemExport made feed-to-harness handoff explicit and reusable.",
+      "owner": "rumble-feed-mind"
+    },
+    {
+      "kind": "strengthened_primitive",
+      "description": "Feed parsing pressure strengthened Wrench Loader ownership for RSS/Atom/JSON Feed parsing.",
+      "owner": "wrench-loader"
+    }
+  ],
+  "extraction_pressure": [
+    {
+      "capability": "Feed ingestion",
+      "seen_in": ["rumble-feed-mind", "rumble-note", "rumble-cos"],
+      "suggested_owner": "Wrench",
+      "status": "accepted"
+    }
+  ],
+  "open_questions": [
+    "How are advisory waivers removed before release?",
+    "Which Rust UI target becomes the first usable surface?"
+  ],
+  "risk_notes": [
+    "Do not let product-local feed parsing become a duplicated shared extractor."
+  ]
+}
