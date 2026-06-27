@@ -27,7 +27,9 @@ References:
 
 - [`01-bolt-cosmatic-hardening.md`](01-bolt-cosmatic-hardening.md)
 - [`02-bolt-evidence-gated-planning.md`](02-bolt-evidence-gated-planning.md)
+- [`03-rumble-delivery-maturity.md`](03-rumble-delivery-maturity.md)
 - [`cosmatic-planning.v0.1.schema.json`](cosmatic-planning.v0.1.schema.json)
+- [`rumble-delivery-maturity.v0.1.schema.json`](rumble-delivery-maturity.v0.1.schema.json)
 
 Bolt centralizes the agentic primitives that Rumbles must not reimplement locally:
 
@@ -36,6 +38,8 @@ handoff → validate → planning_run → plan/refusal → gate → evidence_ref
 ```
 
 P0 remains planning-only. Any implementation execution requires a later explicit human gate.
+
+Rumble delivery maturity is also contract-first: commercializable, multi-platform ambition is represented as verifiable maturity claims, not as business prioritization.
 
 ## P0 Work Items
 
@@ -52,6 +56,7 @@ P0 remains planning-only. Any implementation execution requires a later explicit
 | P0 | Traceability checker | Wrench Inspect | coverage report |
 | P0 | Waiver policy checker | Bolt + Wrench | accepted/refused gates |
 | P0 | SpecPackage artifact rules | Gear candidate | hash/provenance/export rules |
+| P0 | Rumble delivery maturity claims | Harness / Bolt consumes | `rumble.delivery_maturity.v0.1` schema + valid/invalid fixtures |
 
 ## Definition of Ready for Rumble Development
 
@@ -83,6 +88,12 @@ cosmatic handoff validate specs/harness/fixtures/handoffs/canvas-minimal.valid.j
 wrench-inspect handoff inspect specs/harness/fixtures/handoffs/canvas-minimal.valid.json --json
 cosmatic handoff plan specs/harness/fixtures/handoffs/canvas-minimal.valid.json --dry-run
 cosmatic handoff plan specs/harness/fixtures/handoffs/canvas-minimal.valid.json --dry-run --json
+```
+
+Maturity contract smoke fixtures:
+
+```bash
+python3 specs/validate_spec_schemas.py
 ```
 
 Recommended pre-execution evidence flow:

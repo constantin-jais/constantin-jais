@@ -15,6 +15,8 @@ Rumble projects are dojos: they create real constraints and product-shaped press
 
 ## Maturity vocabulary
 
+Delivery maturity is now a harness contract too: see `specs/harness/03-rumble-delivery-maturity.md` and `specs/harness/rumble-delivery-maturity.v0.1.schema.json`.
+
 | Status | Meaning |
 | --- | --- |
 | `speculative` | Idea or exploration, not stable yet. |
@@ -29,6 +31,13 @@ Sub-statuses describe the current increment, not the whole project:
 ```text
 P0 contract · P1 CLI proof · P2 local persistence · P3 inspection integrated
 P4 orchestration integrated · P5 minimal UI · P6 reproducible release
+```
+
+Rumble delivery levels describe long-term product maturity:
+
+```text
+R0 spec · R1 contract · R2 portable-core · R3 local-workflow · R4 service-api
+R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-release · R10 commercializable
 ```
 
 ## Project cockpit
@@ -62,7 +71,7 @@ P4 orchestration integrated · P5 minimal UI · P6 reproducible release
 
 | Project | Commands |
 | --- | --- |
-| `constantin-jais` | `bash ecosystem/specs/ci-validate-contracts.sh`; `python3 ecosystem/specs/harness/run_vertical_p0.py --output ecosystem/specs/harness/proofs/vertical-p0.proof.json` |
+| `constantin-jais` | `bash ecosystem/specs/ci-validate-contracts.sh`; `python3 ecosystem/specs/validate_spec_schemas.py`; `python3 ecosystem/specs/harness/run_vertical_p0.py --output ecosystem/specs/harness/proofs/vertical-p0.proof.json` |
 | `cos-matic` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `gear-cable` | `cargo test --workspace --all-targets` |
 | `gear-depot` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |

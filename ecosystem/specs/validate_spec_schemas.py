@@ -58,7 +58,14 @@ SUITES = [
         schema=SPECS / "harness" / "cosmatic-planning.v0.1.schema.json",
         fixtures=SPECS / "harness" / "fixtures" / "planning",
     ),
+    Suite(
+        name="rumble-delivery-maturity",
+        schema=SPECS / "harness" / "rumble-delivery-maturity.v0.1.schema.json",
+        fixtures=SPECS / "harness" / "fixtures" / "maturity",
+    ),
 ]
+
+LEVEL_ORDER = {f"R{i}": i for i in range(11)}
 
 
 def load_json(path: Path) -> Any:
@@ -98,6 +105,49 @@ def has_timestamp_without_offset(obj: Any) -> bool:
     return False
 
 
+def has_maturity_semantic_violation(obj: Any) -> bool:
+    if not isinstance(obj, dict) or obj.get("format") != "rumble.delivery_maturity.v0.1":
+        return False
+
+    current = LEVEL_ORDER.get(obj.get("current_level", ""), -1)
+    target = LEVEL_ORDER.get(obj.get("target_level", ""), -1)
+    next_level = LEVEL_ORDER.get(obj.get("next_level", obj.get("current_level", "")), current)
+    if current < 0 or target < 0 or target < current or next_level < current:
+        return True
+
+    axes = obj.get("axes", {})
+    core = axes.get("core", {}) if isinstance(axes, dict) else {}
+    security = axes.get("security", {}) if isinstance(axes, dict) else {}
+    release = axes.get("release", {}) if isinstance(axes, dict) else {}
+
+    core_level = LEVEL_ORDER.get(core.get("level", ""), -1) if isinstance(core, dict) else -1
+    core_status = core.get("status") if isinstance(core, dict) else None
+    security_status = security.get("status") if isinstance(security, dict) else None
+    release_status = release.get("status") if isinstance(release, dict) else None
+
+    # R7 mobile must not be claimed without a non-duplicated portable core,
+    # except for projects explicitly marked as non-applicable static content sites
+    # below R7.
+    if current >= 7 and (core_level < 2 or core_status in {"blocked", "not_applicable"}):
+        return True
+
+    # Commercializable maturity cannot hide security/release/open-question gaps.
+    if current >= 10:
+        if security_status != "pass" or release_status != "pass":
+            return True
+        if obj.get("open_questions"):
+            return True
+
+    promotion = obj.get("promotion_candidate")
+    if isinstance(promotion, dict):
+        if promotion.get("status") == "blocked" and not promotion.get("blocked_by"):
+            return True
+        if promotion.get("status") == "pass" and promotion.get("blocked_by"):
+            return True
+
+    return False
+
+
 def has_ocr_text_without_policy(obj: Any) -> bool:
     requests = obj.get("extraction_requests", []) if isinstance(obj, dict) else []
     ocr_disabled = any(
@@ -123,6 +173,7 @@ def semantic_negative_guard(path: Path, obj: Any) -> bool:
         or has_invalid_hash(obj)
         or has_timestamp_without_offset(obj)
         or has_ocr_text_without_policy(obj)
+        or has_maturity_semantic_violation(obj)
         or "execution-forbidden" in path.name
     )
 

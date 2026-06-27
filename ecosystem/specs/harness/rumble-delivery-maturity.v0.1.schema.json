@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://constantin-jais.github.io/ecosystem/schemas/rumble-delivery-maturity.v0.1.schema.json",
+  "title": "Rumble Delivery Maturity v0.1",
+  "type": "object",
+  "required": [
+    "format",
+    "project",
+    "claimed_at",
+    "current_level",
+    "target_level",
+    "axes",
+    "platform_readiness",
+    "evidence",
+    "learning_yield"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "rumble.delivery_maturity.v0.1" },
+    "project": {
+      "type": "object",
+      "required": ["name", "layer", "role", "maturity_mode"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "pattern": "^rumble-[a-z0-9-]+$" },
+        "layer": { "const": "Rumble" },
+        "role": { "type": "string", "minLength": 8 },
+        "maturity_mode": {
+          "type": "string",
+          "enum": ["speculative", "contract-first", "dojo", "usable", "trusted", "retired"]
+        }
+      }
+    },
+    "claimed_at": { "type": "string", "format": "date-time" },
+    "current_level": { "$ref": "#/$defs/level" },
+    "target_level": { "$ref": "#/$defs/level" },
+    "next_level": { "$ref": "#/$defs/level" },
+    "promotion_candidate": {
+      "type": "object",
+      "required": ["from", "to", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "from": { "$ref": "#/$defs/level" },
+        "to": { "$ref": "#/$defs/level" },
+        "status": { "type": "string", "enum": ["pass", "warn", "blocked"] },
+        "blocked_by": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 4 },
+          "default": []
+        }
+      }
+    },
+    "axes": {
+      "type": "object",
+      "required": [
+        "spec",
+        "contracts",
+        "core",
+        "security",
+        "ux",
+        "persistence",
+        "orchestration",
+        "inspection",
+        "release",
+        "operations",
+        "commercial_readiness",
+        "learning_yield"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "spec": { "$ref": "#/$defs/axis" },
+        "contracts": { "$ref": "#/$defs/axis" },
+        "core": { "$ref": "#/$defs/axis" },
+        "security": { "$ref": "#/$defs/axis" },
+        "ux": { "$ref": "#/$defs/axis" },
+        "persistence": { "$ref": "#/$defs/axis" },
+        "orchestration": { "$ref": "#/$defs/axis" },
+        "inspection": { "$ref": "#/$defs/axis" },
+        "release": { "$ref": "#/$defs/axis" },
+        "operations": { "$ref": "#/$defs/axis" },
+        "commercial_readiness": { "$ref": "#/$defs/axis" },
+        "learning_yield": { "$ref": "#/$defs/axis" }
+      }
+    },
+    "platform_readiness": {
+      "type": "object",
+      "required": ["cli", "api", "web", "desktop", "mobile", "self_hosted", "cloud_eu"],
+      "additionalProperties": false,
+      "properties": {
+        "cli": { "$ref": "#/$defs/platform_state" },
+        "api": { "$ref": "#/$defs/platform_state" },
+        "web": { "$ref": "#/$defs/platform_state" },
+        "desktop": { "$ref": "#/$defs/platform_state" },
+        "mobile": { "$ref": "#/$defs/platform_state" },
+        "self_hosted": { "$ref": "#/$defs/platform_state" },
+        "cloud_eu": { "$ref": "#/$defs/platform_state" }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidence_ref" }
+    },
+    "learning_yield": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["kind", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "generated_capability",
+              "extracted_contract",
+              "strengthened_primitive",
+              "open_question_closed",
+              "shortcut_prevented",
+              "evidence_produced"
+            ]
+          },
+          "description": { "type": "string", "minLength": 8 },
+          "owner": { "type": "string", "minLength": 2 }
+        }
+      }
+    },
+    "extraction_pressure": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["capability", "seen_in", "suggested_owner", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "capability": { "type": "string", "minLength": 3 },
+          "seen_in": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "type": "string", "minLength": 3 }
+          },
+          "suggested_owner": { "type": "string", "enum": ["Rumble", "Bolt", "Wrench", "Gear", "Shared security"] },
+          "status": { "type": "string", "enum": ["candidate", "accepted", "rejected"] }
+        }
+      },
+      "default": []
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 6 },
+      "default": []
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 6 },
+      "default": []
+    }
+  },
+  "$defs": {
+    "level": {
+      "type": "string",
+      "enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"]
+    },
+    "axis": {
+      "type": "object",
+      "required": ["level", "status", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "level": { "$ref": "#/$defs/level" },
+        "status": { "type": "string", "enum": ["pass", "warn", "blocked", "not_applicable"] },
+        "evidence": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3 },
+          "default": []
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "platform_state": {
+      "type": "string",
+      "enum": ["none", "planned", "proof", "usable", "trusted"]
+    },
+    "evidence_ref": {
+      "type": "object",
+      "required": ["kind", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["doc", "contract", "schema", "fixture", "command", "proof", "wrench_report", "gear_artifact", "adr", "decision", "release_artifact"]
+        },
+        "ref": { "type": "string", "minLength": 3 },
+        "status": { "type": "string", "enum": ["present", "passing", "warning", "blocked"] },
+        "hash": { "type": "string", "pattern": "^sha256:[A-Fa-f0-9]{64}$" }
+      }
+    }
+  }
+}

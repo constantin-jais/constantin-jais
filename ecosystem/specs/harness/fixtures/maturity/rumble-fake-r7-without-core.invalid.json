@@ -1,0 +1,54 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "rumble-fake",
+    "layer": "Rumble",
+    "role": "Invalid fixture demonstrating forbidden mobile shortcut without core.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-06-30T00:00:00Z",
+  "current_level": "R7",
+  "target_level": "R10",
+  "next_level": "R8",
+  "promotion_candidate": {
+    "from": "R6",
+    "to": "R7",
+    "status": "pass"
+  },
+  "axes": {
+    "spec": { "level": "R1", "status": "pass", "evidence": ["README.md"] },
+    "contracts": { "level": "R0", "status": "blocked", "evidence": [] },
+    "core": { "level": "R0", "status": "blocked", "evidence": [] },
+    "security": { "level": "R0", "status": "blocked", "evidence": [] },
+    "ux": { "level": "R7", "status": "pass", "evidence": ["mobile/demo"] },
+    "persistence": { "level": "R0", "status": "blocked", "evidence": [] },
+    "orchestration": { "level": "R0", "status": "blocked", "evidence": [] },
+    "inspection": { "level": "R0", "status": "blocked", "evidence": [] },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "blocked", "evidence": [] },
+    "commercial_readiness": { "level": "R0", "status": "blocked", "evidence": [] },
+    "learning_yield": { "level": "R0", "status": "blocked", "evidence": [] }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "none",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "proof",
+    "self_hosted": "none",
+    "cloud_eu": "none"
+  },
+  "evidence": [
+    { "kind": "doc", "ref": "README.md", "status": "present" }
+  ],
+  "learning_yield": [
+    {
+      "kind": "shortcut_prevented",
+      "description": "This fixture should be rejected because mobile is claimed without portable core.",
+      "owner": "harness"
+    }
+  ],
+  "risk_notes": [
+    "Business logic exists only in a mobile shell."
+  ]
+}

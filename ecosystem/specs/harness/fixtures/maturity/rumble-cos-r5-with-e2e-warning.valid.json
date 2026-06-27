@@ -1,0 +1,68 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "rumble-cos",
+    "layer": "Rumble",
+    "role": "Transmission, clarity, public documentation, and educational publishing surface.",
+    "maturity_mode": "usable"
+  },
+  "claimed_at": "2026-06-30T00:00:00Z",
+  "current_level": "R5",
+  "target_level": "R9",
+  "next_level": "R6",
+  "promotion_candidate": {
+    "from": "R5",
+    "to": "R6",
+    "status": "blocked",
+    "blocked_by": [
+      "desktop packaging is not relevant until a native shell is intentionally required",
+      "Playwright e2e is warning locally because browsers/mobile selectors need cleanup"
+    ]
+  },
+  "axes": {
+    "spec": { "level": "R0", "status": "warn", "evidence": ["ecosystem/specs/rumble-cos/00-product-charter.md"] },
+    "contracts": { "level": "R0", "status": "warn", "evidence": [], "notes": "Public static site does not yet need deep product contracts." },
+    "core": { "level": "R0", "status": "not_applicable", "evidence": [], "notes": "Astro static site exception." },
+    "security": { "level": "R5", "status": "pass", "evidence": ["docs/adr/0001-rendu-ssg-pur.md"] },
+    "ux": { "level": "R5", "status": "pass", "evidence": ["README.md", "content-planning/README.md"] },
+    "persistence": { "level": "R5", "status": "pass", "evidence": ["content/"] },
+    "orchestration": { "level": "R0", "status": "not_applicable", "evidence": [] },
+    "inspection": { "level": "R4", "status": "warn", "evidence": ["tests/seo.spec.ts", "tests/navigation.spec.ts"] },
+    "release": { "level": "R5", "status": "warn", "evidence": ["package.json"] },
+    "operations": { "level": "R5", "status": "pass", "evidence": ["docs/adr/0005-stack-astro-conservee.md"] },
+    "commercial_readiness": { "level": "R3", "status": "warn", "evidence": ["README.md"], "notes": "Public site is usable, but support/onboarding/commercial posture is not claimed." },
+    "learning_yield": { "level": "R5", "status": "pass", "evidence": ["README.md"] }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "none",
+    "web": "usable",
+    "desktop": "none",
+    "mobile": "usable",
+    "self_hosted": "usable",
+    "cloud_eu": "usable"
+  },
+  "evidence": [
+    { "kind": "doc", "ref": "README.md", "status": "present" },
+    { "kind": "command", "ref": "bun run check", "status": "passing" },
+    { "kind": "command", "ref": "bun run test", "status": "warning" }
+  ],
+  "learning_yield": [
+    {
+      "kind": "evidence_produced",
+      "description": "Static publishing surface exposes ecosystem lessons without adding backend workflow scope.",
+      "owner": "rumble-cos"
+    },
+    {
+      "kind": "shortcut_prevented",
+      "description": "Astro static exception prevents unnecessary Rust UI migration for a public content site.",
+      "owner": "architecture"
+    }
+  ],
+  "open_questions": [
+    "Should ecosystem learnings get a dedicated publication workflow?"
+  ],
+  "risk_notes": [
+    "Do not turn the public site into an internal CMS or workflow backend."
+  ]
+}
