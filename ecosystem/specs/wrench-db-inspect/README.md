@@ -15,6 +15,7 @@ It produces safe CI/Bolt evidence for humans and agents. It does not execute mig
 - Use **Inputs** and **JSON Report Contract** to implement integrations.
 - Use **Avoiding False Positives and Silent Bypass** before changing rule severity.
 - Use **Bolt/CI Gate Integration** for pipeline behavior.
+- Use `ci-integration.md` for concrete Bolt/CI commands, artifacts, and rollout.
 - Use `gate-profiles.md` to understand configurable blocking policy.
 - Use `acceptance-tests.md`, `fixtures/`, and `success-metrics.md` to verify implementation quality.
 
@@ -22,10 +23,15 @@ Companion contracts:
 
 - `acceptance-tests.md` defines fixture-driven acceptance criteria before implementation.
 - `success-metrics.md` defines how to measure implementation success and adoption quality.
-- `gate-profiles.md` defines the future configurable CI/Bolt blocking policy.
+- `gate-profiles.md` defines the configurable CI/Bolt blocking policy.
+- `ci-integration.md` defines command-line integration, report artifacts, exit codes, and rollout.
 - `fixtures/` contains sanitized SQL/manifest/report contract cases.
 - `adr/0002-db-security-manifest-required.md` requires DB security manifests for Postgres Rumbles.
 - `adr/0003-live-db-readonly-optional.md` keeps live DB inspection optional and read-only.
+- `adr/0004-prototype-to-dedicated-repo.md` proposes extracting the prototype into a dedicated repo.
+- `extraction-readiness.md` defines the checklist before extraction.
+- `pilot-plan.md` defines how to pilot the inspector on the first real Rumble.
+- `pilots/rumble-lm/` contains the initial pilot workspace.
 - `../../prototypes/wrench-db-inspect/` contains a Rust prototype for the first fixture gates.
 
 ## Mission

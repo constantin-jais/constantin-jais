@@ -82,6 +82,31 @@ The prototype is healthy when:
 
 Broader success metrics for the project are defined in `../../specs/wrench-db-inspect/success-metrics.md`.
 
+## Extraction
+
+This prototype is temporary. Extraction criteria for the dedicated repository are documented in `../../specs/wrench-db-inspect/extraction-readiness.md` and ADR `../../specs/wrench-db-inspect/adr/0004-prototype-to-dedicated-repo.md`.
+
+Do not copy this code into Rumbles. If a Rumble needs a new DB-security behavior, add a shared fixture/rule here or in the future dedicated repo.
+
+## CI/Bolt Integration
+
+The integration contract is documented in `../../specs/wrench-db-inspect/ci-integration.md`. The first rollout plan is documented in `../../specs/wrench-db-inspect/pilot-plan.md`.
+
+Prototype command shape:
+
+```text
+wrench-db-inspect run \
+  --manifest <manifest.json> \
+  --schema-dump <schema.sql> \
+  --migrations <migrations-dir> \
+  --profile protected_branch \
+  --gate-profile-config <profiles.json> \
+  --report-json <report.json> \
+  --report-md <report.md>
+```
+
+CI should consume `data.summary.gate_blocked`, `data.findings[*].gate`, `data.report_gate`, and `meta.redaction`; it should not re-parse raw SQL.
+
 ## Run tests
 
 ```text
