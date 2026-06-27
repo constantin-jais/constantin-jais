@@ -1,33 +1,20 @@
-# Hey 👋 I'm Constantin
+Hey 👋 I'm Constantin
 
-I build **resilient systems where machines decide better — without failing silently.**
+I build **resilient Rust systems for trustworthy AI, sovereign tooling, and auditable automation**.
 
-## One question, one obsession
+My work sits at the intersection of:
 
-From genetic algorithms and Monte-Carlo to today's models, I've worked on the same problem:
-**how does a system decide, and how do you trust the decision?** GenAI changed the _cost_ of a
-machine decision, not its _nature_. The hard part was never the model — it's distribution,
-adoption, and trust: teams, ops, and regulators only secure what they understand.
+- **Rust backend & CLI tooling**
+- **agentic systems and AI orchestration**
+- **deterministic, auditable infrastructure**
+- **sovereign / self-hostable software**
+- **security, supply-chain, and regulated environments**
 
-That conviction has a root. I came up in **critical embedded systems** — real-time, close to
-the hardware (C, VHDL), zero-error tolerance, where a single undetected fault is not an option.
-The principle I took from it: **a system is robust only with multiple supply lines — never a
-single dependency.** At company scale that's resilience; at country scale, sovereignty.
-
-## How that shows up in the code
-
-- **Determinism over magic.** Reproducible outputs, no silent overwrites, no hidden state.
-- **Multiple supply lines.** MIT, self-hostable, no vendor lock-in. Solution A, backup B,
-  challenger C.
-- **Decisions are written down.** Every non-obvious choice gets an ADR, so the _why_ is
-  auditable — not just the _what_.
-- **Isolated responsibility.** Each repository owns one layer and one job; composition beats scope creep.
+I come from **critical embedded systems** — C, VHDL, real-time constraints, zero-error tolerance — and I now apply the same discipline to AI-era software: no silent failures, no hidden state, no unnecessary lock-in.
 
 ## Ecosystem doctrine
 
-This ecosystem is also a personal forge: a place to learn, build robust working tools, and improve the process by which ideas become specifications, inspected plans, evidence, memory, and better next iterations. The Rumble projects are dojos, not startups to rank by market potential.
-
-The projects are organized as four isolated but composable layers:
+My forge is organized as four isolated but composable layers:
 
 - **Rumble — Products:** what users see and use.
 - **Bolt — Orchestration:** how intent becomes safe execution.
