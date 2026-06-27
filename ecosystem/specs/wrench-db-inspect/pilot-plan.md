@@ -68,6 +68,43 @@ ecosystem/specs/wrench-db-inspect/pilots/<rumble-name>/
   fixture-candidates.md
 ```
 
+## Pilot Manifest Example
+
+Concrete examples aligned with the current `rumble-lm` data model are available at:
+
+```text
+ecosystem/specs/wrench-db-inspect/examples/security-manifest.rumble-lm.example.json
+ecosystem/specs/wrench-db-inspect/examples/schema.rumble-lm.pass.sql
+ecosystem/specs/wrench-db-inspect/examples/schema.rumble-lm.fail.sql
+```
+
+Important mapping: `rumble-lm` uses `workspace_id` as product-local tenant boundary. The manifest maps it to canonical `organization` tenancy.
+
+Expected prototype behavior can be verified with:
+
+```text
+cd ecosystem/prototypes/wrench-db-inspect
+./run-lm-examples.sh
+```
+
+Manual commands:
+
+```text
+# pass example: exit 0
+wrench-db-inspect run \
+  --manifest ecosystem/specs/wrench-db-inspect/examples/security-manifest.rumble-lm.example.json \
+  --schema-dump ecosystem/specs/wrench-db-inspect/examples/schema.rumble-lm.pass.sql \
+  --profile protected_branch \
+  --gate-profile-config ecosystem/specs/wrench-db-inspect/fixtures/gate-profiles/default.json
+
+# fail example: exit 1, missing RLS + GRANT ALL on public.responses
+wrench-db-inspect run \
+  --manifest ecosystem/specs/wrench-db-inspect/examples/security-manifest.rumble-lm.example.json \
+  --schema-dump ecosystem/specs/wrench-db-inspect/examples/schema.rumble-lm.fail.sql \
+  --profile protected_branch \
+  --gate-profile-config ecosystem/specs/wrench-db-inspect/fixtures/gate-profiles/default.json
+```
+
 ## Pilot Manifest Minimal Shape
 
 ```json
@@ -174,6 +211,33 @@ Exit criteria:
 - No redaction applied in release reports.
 - Coverage metrics are acceptable.
 - Bolt records JSON report as gate evidence.
+
+## Known Prototype Limitations For LM-Derived Tenant Schemas
+
+The current prototype can use the LM manifest as a classification source, but it does not yet fully prove tenant isolation for tables whose tenant boundary is derived through foreign-key paths.
+
+Examples:
+
+- `source_sets` derives tenant from `session_id -> sessions.workspace_id`.
+- `source_set_items` derives tenant from `source_set_id -> source_sets.session_id -> sessions.workspace_id`.
+- `activity_options` derives tenant from `activity_id -> activities.session_id -> sessions.workspace_id`.
+- `participants`, `responses`, `citations`, `summaries`, and `exports` derive tenant from `session_id -> sessions.workspace_id`.
+
+Current limitation:
+
+- `tenant_derivation` is documented in the manifest but not structurally validated.
+- The prototype checks RLS/forced RLS/grants at table level, but does not yet prove that each policy joins through the declared derivation path.
+- The prototype does not yet verify FK constraints, join conditions, or policy expressions for derived tenant tables.
+- Therefore, a minimal pass schema proves that the manifest and table-level P0 gates work, not that all LM derived-tenant policies are production-safe.
+
+Required before production LM release gate:
+
+- Parse and validate FK/relationship metadata for every `tenant_derivation` path.
+- Require RLS policies on derived tables to constrain access through the declared path.
+- Add fixtures for broken derivation paths and missing FK/policy joins.
+- Promote derived-tenant policy proof to P0 for `release` once false positives are acceptable.
+
+Until then, LM pilot findings for derived-tenant tables must be reviewed by a human security reviewer before release.
 
 ## Triage Rules
 

@@ -31,6 +31,7 @@ Companion contracts:
 - `adr/0004-prototype-to-dedicated-repo.md` proposes extracting the prototype into a dedicated repo.
 - `extraction-readiness.md` defines the checklist before extraction.
 - `pilot-plan.md` defines how to pilot the inspector on the first real Rumble.
+- `examples/security-manifest.rumble-lm.example.json` seeds the first LM manifest.
 - `pilots/rumble-lm/` contains the initial pilot workspace.
 - `../../prototypes/wrench-db-inspect/` contains a Rust prototype for the first fixture gates.
 

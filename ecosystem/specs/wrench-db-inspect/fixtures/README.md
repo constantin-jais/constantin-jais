@@ -35,3 +35,5 @@ Fixtures must not contain real secrets, DSNs, row data, raw embeddings, prompts,
 | `warn/view_without_tenant_filter` | P1 warning for view reading tenant table without explicit tenant filter. |
 | `warn/function_without_tenant_filter` | P1 warning for function reading tenant table without explicit tenant filter. |
 | `redaction/secret_like_sql_comments` | Regression fixture ensuring fake DSN/token/comment content does not leak into JSON/Markdown reports. |
+| `pending/tenant_derivation_missing_fk` | Pending/xfail fixture: derived tenant path declared in manifest but not backed by FK evidence. Not run until derivation validation exists. |
+| `pending/tenant_derivation_policy_without_join` | Pending/xfail fixture: FK exists but RLS policy does not enforce declared tenant derivation. Not run until derivation validation exists. |

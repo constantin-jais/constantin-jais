@@ -146,6 +146,21 @@ Forbidden regression strings include fixture-only values such as `sk_test_fixtur
 
 When profile is `release` and final report rendering applies redaction, the report-level gate must block with reason `redaction applied in release requires review`.
 
+## Pending Tenant-Derivation Acceptance Tests
+
+These fixtures are intentionally not part of `run-fixtures.sh` until derived-tenant validation is implemented.
+
+| Fixture | Future expected status | Required future rule |
+| --- | --- | --- |
+| `pending/tenant_derivation_missing_fk` | `failed` in `release` | `TENANT_DERIVATION_FK_REQUIRED` |
+| `pending/tenant_derivation_policy_without_join` | `failed` in `release` | `TENANT_DERIVATION_POLICY_REQUIRED` |
+
+Future acceptance:
+
+- Given a table declares `tenant_derivation`, the inspector validates the relationship path is backed by FK/relationship evidence.
+- Given a derived table has RLS, the inspector validates the policy constrains access through the declared tenant path.
+- Given derived-tenant validation is unsupported in `release`, the gate must fail closed or require explicit waiver.
+
 ## Bolt/CI Acceptance
 
 A Bolt gate consuming the report must:

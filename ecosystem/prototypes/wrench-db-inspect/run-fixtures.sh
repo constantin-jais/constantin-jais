@@ -63,4 +63,6 @@ if grep -R -E 'sk_test_fixture_redaction_123456|fixture_password|postgres://fixt
   exit 1
 fi
 
+"$ROOT/run-lm-examples.sh"
+
 echo "Reports: $OUT"

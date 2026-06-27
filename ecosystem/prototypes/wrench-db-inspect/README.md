@@ -70,7 +70,8 @@ Current P1 warning rules:
 The prototype is healthy when:
 
 - `cargo test` passes;
-- `./run-fixtures.sh` passes all fixtures, including release-profile expired/incomplete waiver cases and separate `WAIVER_INVALID` accounting;
+- `./run-fixtures.sh` passes all fixtures, including release-profile expired/incomplete waiver cases, separate `WAIVER_INVALID` accounting, and LM examples;
+- `./run-lm-examples.sh` verifies the concrete `rumble-lm` manifest/schema examples;
 - generated JSON reports parse successfully;
 - P0 fail fixtures exit `1`;
 - pass/waiver/warn fixtures exit `0`;
@@ -81,6 +82,14 @@ The prototype is healthy when:
 - in `release`, `meta.redaction.applied=true` sets the report-level gate to blocked.
 
 Broader success metrics for the project are defined in `../../specs/wrench-db-inspect/success-metrics.md`.
+
+## Known Prototype Limitations
+
+For `rumble-lm` examples, many tables derive tenancy through FK paths such as `responses.session_id -> sessions.workspace_id`.
+
+The prototype currently validates manifest classification and table-level P0 gates (RLS enabled/forced, grants, dangerous migrations), but it does not yet prove that derived-tenant RLS policies correctly join through declared FK paths. The LM pass example is therefore a contract smoke test, not a production proof of all derived tenant isolation.
+
+See `../../specs/wrench-db-inspect/pilot-plan.md` for the required production hardening.
 
 ## Extraction
 
@@ -112,6 +121,7 @@ CI should consume `data.summary.gate_blocked`, `data.findings[*].gate`, `data.re
 ```text
 cargo test
 ./run-fixtures.sh
+./run-lm-examples.sh
 ```
 
 ## Run a fixture

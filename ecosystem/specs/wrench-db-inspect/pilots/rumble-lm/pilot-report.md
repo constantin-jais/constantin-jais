@@ -12,7 +12,10 @@ Phase 0 — Dry Contract Review.
 
 ## Required Inputs
 
-- `db/security-manifest.json`
+- Example manifest seed: `ecosystem/specs/wrench-db-inspect/examples/security-manifest.rumble-lm.example.json`
+- Pass schema example: `ecosystem/specs/wrench-db-inspect/examples/schema.rumble-lm.pass.sql`
+- Fail schema example: `ecosystem/specs/wrench-db-inspect/examples/schema.rumble-lm.fail.sql`
+- Product manifest: `db/security-manifest.json`
 - sanitized `target/schema.sql`
 - `db/migrations` if available
 - gate profile config
