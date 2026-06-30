@@ -6,7 +6,7 @@ Status: Draft accepted for P0/P1 prototype scoping.
 
 `wrench-db-inspect` is the shared Wrench inspector for PostgreSQL database security evidence across Rumble products. It centralizes checks that would be dangerous to duplicate locally: tenant isolation, RLS, grants, unsafe migrations, `pgvector` leakage, and DB-adapter safety signals.
 
-It produces safe CI/Bolt evidence for humans and agents. It does not execute migrations, proxy database traffic, store credentials, replace application authorization, or become an ORM.
+It produces safe CI/Bolt/harness evidence for humans and agents. It does not execute migrations, proxy database traffic, store credentials, replace application authorization, or become an ORM.
 
 ## How To Read This Spec
 
@@ -16,6 +16,7 @@ It produces safe CI/Bolt evidence for humans and agents. It does not execute mig
 - Use **Avoiding False Positives and Silent Bypass** before changing rule severity.
 - Use **Bolt/CI Gate Integration** for pipeline behavior.
 - Use `ci-integration.md` for concrete Bolt/CI commands, artifacts, and rollout.
+- Use `forge-harness-integration.md` to wire the inspector into `rumble-*` forge scaffolds and harness gates.
 - Use `gate-profiles.md` to understand configurable blocking policy.
 - Use `acceptance-tests.md`, `fixtures/`, `success-metrics.md`, and `completeness-plan.md` to verify implementation quality and remaining work.
 
@@ -26,6 +27,7 @@ Companion contracts:
 - `completeness-plan.md` maps each rule to required fixtures, gates, and pre-production gaps.
 - `gate-profiles.md` defines the configurable CI/Bolt blocking policy.
 - `ci-integration.md` defines command-line integration, report artifacts, exit codes, and rollout.
+- `forge-harness-integration.md` defines how `rumble-*` builds expose DB-inspection evidence to the forge/harness.
 - `fixtures/` contains sanitized SQL/manifest/report contract cases.
 - `contracts/manifest.v0.1.schema.json` and `contracts/report.v0.1.schema.json` define the JSON contracts.
 - `scripts/validate-json-contracts.py` validates fixture/example manifests and expected reports offline.
@@ -42,9 +44,9 @@ Companion contracts:
 
 `wrench-db-inspect` is a Wrench-layer inspector for database security evidence. It validates PostgreSQL-oriented SQL, migrations, schema dumps, read-only live database metadata, `pgvector` usage, grants, row-level security, and tenant-isolation conventions for Rumble products.
 
-It exists to produce deterministic CI gates and readable reports for humans and agents. It strengthens every Rumble without owning runtime access, migrations, application authorization, credentials, or product policy.
+It exists to produce deterministic CI/harness gates and readable reports for humans and agents. It strengthens every Rumble without owning runtime access, migrations, application authorization, credentials, or product policy.
 
-Success is measured by reduced duplicated DB-security logic in Rumbles, high tenant/RLS/grant coverage, low false positives, zero report leakage, and reliable Bolt/CI gate evidence. See `success-metrics.md`.
+Success is measured by reduced duplicated DB-security logic in Rumbles, high tenant/RLS/grant coverage, low false positives, zero report leakage, and reliable Bolt/CI/harness gate evidence. See `success-metrics.md` and `forge-harness-integration.md`.
 
 Tenant means `organization` unless a product spec explicitly maps a stronger local name to the same boundary.
 
@@ -327,7 +329,7 @@ All JSON reports use the envelope `{ data, meta }`.
 
 ## Bolt/CI Gate Integration
 
-`wrench-db-inspect` produces evidence; Bolt decides sequencing and gate policy.
+`wrench-db-inspect` produces evidence; Bolt/CI/harness decide sequencing and gate policy. Product repos should not reimplement the checks locally.
 
 Recommended command shape:
 
@@ -358,7 +360,7 @@ Gate profiles:
 - `protected_branch`: block critical/high and parser/integrity uncertainty over P0 areas.
 - `release`: protected-branch rules plus no expired waiver and no unknown tenant classification.
 
-Bolt consumes the JSON report as an artifact reference, reads `summary.gate_blocked`, verifies `meta.redaction.secrets_or_pii_included=false`, and records finding IDs as gate evidence. Bolt must not re-interpret raw SQL; it can require rerun, waiver, or human approval.
+Bolt/harness consumes the JSON report as an artifact reference, reads `summary.gate_blocked`, verifies `meta.redaction.secrets_or_pii_included=false`, and records finding IDs as gate evidence. Bolt/harness must not re-interpret raw SQL; it can require rerun, waiver, or human approval. See `forge-harness-integration.md` for the `rumble-*` scaffold and observable gate mapping.
 
 ## Test Strategy With SQL Fixtures
 

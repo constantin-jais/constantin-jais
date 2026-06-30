@@ -1,6 +1,6 @@
 # Wrench DB Inspect Completeness Plan
 
-This document defines how `wrench-db-inspect` moves from prototype to pre-production candidate without relying on informal confidence.
+This document defines how `wrench-db-inspect` moves from prototype to pre-production candidate without relying on informal confidence. Completeness includes both rule correctness and integration into forge/harness evidence for `rumble-*` builds.
 
 ## Completion rule
 
@@ -53,6 +53,8 @@ No P0/P1 rule should be promoted without an executable fixture.
 ### P0 blockers
 
 - Validate against a real sanitized `rumble-lm` schema dump and manifest.
+- Add the forge/harness scaffold hook so every Postgres-backed `rumble-*` produces manifest, sanitized schema dump, and `wrench-db-inspect` report artifacts.
+- Ensure non-Postgres `rumble-*` products explicitly mark DB inspection as not applicable.
 
 ### P1 robustness
 
@@ -64,7 +66,7 @@ No P0/P1 rule should be promoted without an executable fixture.
 
 - Add `cargo clippy -- -D warnings` to CI.
 - Add snapshot tests for canonical reports.
-- Move prototype to dedicated repository once `rumble-lm` pilot is clean.
+- Move prototype to dedicated repository once `rumble-lm` pilot and forge/harness integration are clean.
 
 ## Completeness gates
 
@@ -84,4 +86,6 @@ Additionally:
 - no report may contain secrets, DSNs, row data, prompt/source text, raw embeddings, or PII;
 - all P0/P1 rules must appear in this matrix;
 - all known parser limitations must be documented with either a fixture or an explicit non-goal;
-- release profile must block critical/high findings, invalid waivers, active report redaction, and tenant derivation failures.
+- release profile must block critical/high findings, invalid waivers, active report redaction, and tenant derivation failures;
+- `forge-harness-integration.md` gates must be mapped to harness observability for Postgres-backed `rumble-*` products;
+- recurring product findings must become shared fixtures/rules or bounded waivers, never product-local DB-security check duplication.

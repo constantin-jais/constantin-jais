@@ -262,7 +262,8 @@ Pilot succeeds when:
 - 0 release waivers expired/incomplete.
 - False positives are documented as fixtures.
 - No Rumble-local RLS/grant/migration check duplicates the tool.
-- Bolt/CI consumes report contract instead of raw SQL.
+- Bolt/CI/harness consumes report contract instead of raw SQL.
+- Forge scaffold expectations are validated against `forge-harness-integration.md`.
 
 ## Stop Conditions
 
@@ -273,6 +274,16 @@ Stop or pause the pilot if:
 - product schema intent is not documented;
 - a Rumble starts copying the prototype logic locally;
 - live DB access is proposed as mandatory.
+
+## Forge/Harness Feedback
+
+The pilot must prove that DB inspection becomes part of the product build flow:
+
+- Postgres-backed products produce `db/security-manifest.json`, sanitized `target/schema.sql`, and report artifacts.
+- Non-Postgres products explicitly mark DB inspection as not applicable.
+- Harness gates are derived from the JSON report fields, not raw SQL.
+- Product findings become shared fixtures/rules or bounded waivers.
+- No `rumble-*` product owns separate DB-security rule logic.
 
 ## Outputs Back To Shared Tool
 
