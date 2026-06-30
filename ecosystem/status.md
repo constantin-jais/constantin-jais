@@ -5,6 +5,8 @@ Purpose: one human/agent-readable cockpit for the Rumble / Bolt / Wrench / Gear 
 
 This ecosystem is not prioritized as a startup portfolio. It is a personal process forge for learning, trustworthy workflows, sovereign tooling, and high-quality agent-readable systems.
 
+Build notes are written only when a concrete artifact creates useful public learning; see [`build-notes.md`](build-notes.md).
+
 The process is the product:
 
 ```text
