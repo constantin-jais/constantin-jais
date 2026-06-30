@@ -1,6 +1,12 @@
-Hey 👋 I'm Constantin
+# Hey 👋 I'm Constantin
 
-I build **resilient Rust systems for trustworthy AI, sovereign tooling, and auditable automation**.
+[![Spec contracts](https://github.com/constantin-jais/constantin-jais/actions/workflows/spec-contracts.yml/badge.svg?branch=main)](https://github.com/constantin-jais/constantin-jais/actions/workflows/spec-contracts.yml)
+[![Forge health](https://github.com/constantin-jais/constantin-jais/actions/workflows/forge-health.yml/badge.svg?branch=main)](https://github.com/constantin-jais/constantin-jais/actions/workflows/forge-health.yml)
+
+I build **product-shaped tools for learning, knowledge work, agentic teamwork, and trustworthy automation** — backed by a deterministic, sovereign forge stack.
+
+The user-facing layer is **Rumble**. The lower layers exist to make those products reliable:
+**Bolt** coordinates safe execution, **Wrench** inspects and validates, and **Gear** provides memory, distribution, provenance, and supply-chain control.
 
 My work sits at the intersection of:
 
@@ -10,11 +16,73 @@ My work sits at the intersection of:
 - **sovereign / self-hostable software**
 - **security, supply-chain, and regulated environments**
 
-I come from **critical embedded systems** — C, VHDL, real-time constraints, zero-error tolerance — and I now apply the same discipline to AI-era software: no silent failures, no hidden state, no unnecessary lock-in.
+## What to look at first
+
+| Product / tool | What it is for | Status | Usable today? |
+| --- | --- | --- | --- |
+| [rumble-cos](https://github.com/constantin-jais/rumble-cos) | Public education and knowledge surface | usable | yes |
+| [rumble-feed-mind](https://github.com/constantin-jais/rumble-feed-mind) | RSS/feed intelligence pipeline for reusable knowledge | dojo | locally / experimental |
+| [cos-matic](https://github.com/constantin-jais/cos-matic) | Deterministic config compiler and agentic code-ops harness | usable | yes, technical users |
+| [wrench-db-inspect](https://github.com/constantin-jais/wrench-db-inspect) | SQL/Postgres/RLS/grants/migration inspection | dojo | locally / experimental |
+| [gear-cable](https://github.com/constantin-jais/gear-cable) | Reproducible release and artifact wiring | contract-first | not yet |
+
+## Dogfooding
+
+This repository is part of the forge dogfooding loop: the ecosystem should use its own tools to make specs, maturity, contracts, releases, and product documentation observable.
+
+Current visible evidence:
+
+- spec-contract workflows validate ecosystem JSON schemas and fixtures;
+- forge-health checks track repository workflow conventions;
+- ecosystem status documents maturity and known limits across the stack.
+
+Expected next evidence:
+
+- link more generated reports and command transcripts from the ecosystem cockpit;
+- make cross-repository release and provenance evidence easier to inspect.
+
+Dogfooding claims should stay backed by visible commands, fixtures, CI workflows, generated reports, or linked docs.
+
+## Product maturity
+
+| Rumble product | Purpose | Status | Scale-ready? |
+| --- | --- | --- | --- |
+| [rumble-cos](https://github.com/constantin-jais/rumble-cos) | Education blog and public knowledge surface | usable | partially |
+| [rumble-feed-mind](https://github.com/constantin-jais/rumble-feed-mind) | Intelligent watch pipeline | dojo | no |
+| [rumble-lm](https://github.com/constantin-jais/Rumble-LM) | Grounded learning sessions and facilitation | contract-first | no |
+| [rumble-canvas](https://github.com/constantin-jais/Rumble-Canvas) | Product-conception workspace | contract-first | no |
+| [rumble-crew](https://github.com/constantin-jais/Rumble-Crew) | Agentic teamwork board | contract-first | no |
+| [rumble-note](https://github.com/constantin-jais/Rumble-Note) | Local-first personal knowledge | contract-first | no |
+
+**Status legend:** `speculative` = idea/exploration · `contract-first` = contracts/specs before full runtime · `dojo` = active experimentation surface · `usable` = useful for a real local workflow · `trusted` = tested, documented, gated, reproducible enough for routine use. “Scale-ready” means multi-user deployment, observability, and security hardening are in place.
+
+## Why there is a stack underneath
+
+From genetic algorithms and Monte-Carlo to today's models, I've worked on the same problem:
+**how does a system decide, and how do you trust the decision?** GenAI changed the _cost_ of a
+machine decision, not its _nature_. The hard part was never the model — it's distribution,
+adoption, and trust: teams, ops, and regulators only secure what they understand.
+
+That conviction has a root. I came up in **critical embedded systems** — real-time, close to
+the hardware (C, VHDL), zero-error tolerance, where a single undetected fault is not an option.
+The principle I took from it: **a system is robust only with multiple supply lines — never a
+single dependency.** At company scale that's resilience; at country scale, sovereignty.
+
+## Forge principles
+
+- **Products first.** Rumble projects are what people touch; the stack exists to make them reliable.
+- **Determinism over magic.** Reproducible outputs, no silent overwrites, no hidden state.
+- **Multiple supply lines.** MIT, self-hostable, no vendor lock-in. Solution A, backup B,
+  challenger C.
+- **Decisions are written down.** Every non-obvious choice gets an ADR, so the _why_ is
+  auditable — not just the _what_.
+- **Isolated responsibility.** Each repository owns one layer and one job; composition beats scope creep.
 
 ## Ecosystem doctrine
 
-My forge is organized as four isolated but composable layers:
+This ecosystem is also a personal forge: a place to learn, build robust working tools, and improve the process by which ideas become specifications, inspected plans, evidence, memory, releases, provenance, and better next iterations. The Rumble projects are dojos until they are explicitly marked usable or trusted.
+
+The projects are organized as four isolated but composable layers:
 
 - **Rumble — Products:** what users see and use.
 - **Bolt — Orchestration:** how intent becomes safe execution.
@@ -29,7 +97,7 @@ That means a product can call an extractor without becoming one; an orchestrator
 
 ## Projects
 
-The portfolio is split by responsibility, not by technology. Each family has a clear job in the chain: **Rumble creates learning pressure through real product-shaped experiences, Bolt coordinates decisions, Wrench provides callable capabilities and critique, and Gear supplies the sovereign substrate.**
+The portfolio is split by responsibility, not by technology. Each family has a clear job in the chain: **Rumble creates learning pressure through real product-shaped experiences, Bolt coordinates decisions, Wrench provides callable capabilities and critique, and Gear supplies the sovereign forge substrate.**
 
 Current ecosystem status is tracked in [`ecosystem/status.md`](ecosystem/status.md); the target self-improving loop is described in [`ecosystem/loop.md`](ecosystem/loop.md).
 
@@ -102,7 +170,6 @@ graph TD
 
     subgraph Wrench_Layer ["🛠️ Wrench (Tooling)"]
         WL["wrench-loader<br/>Ingestion"]
-        WI["wrench-inspect<br/>General Inspection"]
         VI["wrench-db-inspect<br/>DB Security Evidence"]
     end
 
@@ -117,10 +184,8 @@ graph TD
     RL --> CM
     RFM --> CM
     CM --> WL
-    CM --> WI
     CM --> VI
     WL --> GM
-    WI --> GM
     VI --> GM
     GM --> GD
     GC --> GD
