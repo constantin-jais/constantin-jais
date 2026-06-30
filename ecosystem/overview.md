@@ -204,6 +204,7 @@ Shared contracts live under:
 ```text
 specs/shared/contracts/
   implementation-handoff.v0.1.md
+  app-store-release.v0.1.md
 ```
 
 ### 4.2 Product Charter Requirements
@@ -459,6 +460,7 @@ Status values:
 | Usage ledger | Bolt runs, Wrench checks, Gear artifacts, Rumble handoffs | Gear Memory first | Candidate | Append-only technical usage events and aggregate projections without behavioral profiling. |
 | Payload projection | Bolt handoffs, Wrench reports, Gear manifests, agent context exports | Gear Depot or shared Gear library | Candidate | Compact projections from canonical JSON/NDJSON; never source of truth. |
 | Release floor | Gear Cable releases and installable tools | Gear Cable | Candidate | Target matrix, install floors, artifact plans, checksum/signature plans, and Depot manifest handoff. |
+| App Store release adapter | iOS-capable `rumble-*` products | Gear Cable | Accepted | Stable Gear Cable channel around pinned `rorkai/App-Store-Connect-CLI` (`asc 2.5.0`); product pipelines call `app-store-release.v0.1` actions, not upstream CLI flags directly. |
 
 ### Naming Rules for Shared Bricks
 
@@ -493,6 +495,7 @@ Do not name a shared brick after a single product unless it truly belongs only t
 | 2026-06-30 | `rumble-feed-mind` aligns to MIT and Rust/Dioxus convergence. | The product joins the permissive-license Rumble ecosystem; legacy frontend surfaces are migration references, not durable targets. | Accepted |
 | 2026-06-30 | Interactive Rumble products converge on Rust core + Dioxus UI by default. | Avoid frontend fragmentation and keep local-first/native/web products aligned with the Rust-first harness. `rumble-cos` remains Astro as a content site exception. | Accepted |
 | 2026-06-30 | Starred-repo-derived project ideas strengthen existing repositories first instead of creating new repos. | Avoid roadmap debt and contract fragmentation: evidence/browser/eval/clean-room harden Wrench Inspect; policy hardens `cos-matic`; source catalog and usage ledger harden Gear Memory; payload projection hardens Gear Depot/Gear libs; release floor hardens Gear Cable. See ADR 0022. | Accepted |
+| 2026-07-01 | `rumble-*` iOS publication adopts `rorkai/App-Store-Connect-CLI` through the Gear Cable `app-store-release.v0.1` channel adapter, pinned initially to `asc 2.5.0`. | The CLI is trusted, but product pipelines must stay decoupled from upstream flag changes; release jobs remain reproducible, checksum-verified, telemetry-disabled by default, and manually gated for App Store submission. | Accepted |
 
 ---
 

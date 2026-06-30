@@ -21,7 +21,7 @@ GRANT SELECT, INSERT, UPDATE ON public.sessions TO rumble_lm_app;
 
 CREATE TABLE public.source_sets (
   id uuid PRIMARY KEY,
-  session_id uuid NOT NULL,
+  session_id uuid NOT NULL REFERENCES public.sessions(id),
   revision integer NOT NULL,
   status text NOT NULL,
   created_by text,
@@ -29,11 +29,22 @@ CREATE TABLE public.source_sets (
 );
 ALTER TABLE public.source_sets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.source_sets FORCE ROW LEVEL SECURITY;
+CREATE POLICY source_sets_tenant_all ON public.source_sets TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = source_sets.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = source_sets.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.source_sets TO rumble_lm_app;
 
 CREATE TABLE public.source_set_items (
   id uuid PRIMARY KEY,
-  source_set_id uuid NOT NULL,
+  source_set_id uuid NOT NULL REFERENCES public.source_sets(id),
   source_ref text NOT NULL,
   title_snapshot text,
   provenance_snapshot jsonb,
@@ -41,11 +52,24 @@ CREATE TABLE public.source_set_items (
 );
 ALTER TABLE public.source_set_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.source_set_items FORCE ROW LEVEL SECURITY;
+CREATE POLICY source_set_items_tenant_all ON public.source_set_items TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.source_sets ss, public.sessions s
+    WHERE ss.id = source_set_items.source_set_id
+      AND s.id = ss.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.source_sets ss, public.sessions s
+    WHERE ss.id = source_set_items.source_set_id
+      AND s.id = ss.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.source_set_items TO rumble_lm_app;
 
 CREATE TABLE public.activities (
   id uuid PRIMARY KEY,
-  session_id uuid NOT NULL,
+  session_id uuid NOT NULL REFERENCES public.sessions(id),
   type text NOT NULL,
   title text NOT NULL,
   prompt text,
@@ -61,11 +85,22 @@ CREATE TABLE public.activities (
 );
 ALTER TABLE public.activities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.activities FORCE ROW LEVEL SECURITY;
+CREATE POLICY activities_tenant_all ON public.activities TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = activities.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = activities.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.activities TO rumble_lm_app;
 
 CREATE TABLE public.activity_options (
   id uuid PRIMARY KEY,
-  activity_id uuid NOT NULL,
+  activity_id uuid NOT NULL REFERENCES public.activities(id),
   label text NOT NULL,
   value text NOT NULL,
   is_correct boolean,
@@ -74,11 +109,24 @@ CREATE TABLE public.activity_options (
 );
 ALTER TABLE public.activity_options ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.activity_options FORCE ROW LEVEL SECURITY;
+CREATE POLICY activity_options_tenant_all ON public.activity_options TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.activities a, public.sessions s
+    WHERE a.id = activity_options.activity_id
+      AND s.id = a.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.activities a, public.sessions s
+    WHERE a.id = activity_options.activity_id
+      AND s.id = a.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.activity_options TO rumble_lm_app;
 
 CREATE TABLE public.activity_runs (
   id uuid PRIMARY KEY,
-  session_id uuid NOT NULL,
+  session_id uuid NOT NULL REFERENCES public.sessions(id),
   activity_id uuid NOT NULL,
   status text NOT NULL,
   started_by text,
@@ -86,11 +134,22 @@ CREATE TABLE public.activity_runs (
 );
 ALTER TABLE public.activity_runs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.activity_runs FORCE ROW LEVEL SECURITY;
+CREATE POLICY activity_runs_tenant_all ON public.activity_runs TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = activity_runs.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = activity_runs.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.activity_runs TO rumble_lm_app;
 
 CREATE TABLE public.participants (
   id uuid PRIMARY KEY,
-  session_id uuid NOT NULL,
+  session_id uuid NOT NULL REFERENCES public.sessions(id),
   actor_ref text,
   display_name text,
   join_mode text NOT NULL,
@@ -99,11 +158,22 @@ CREATE TABLE public.participants (
 );
 ALTER TABLE public.participants ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.participants FORCE ROW LEVEL SECURITY;
+CREATE POLICY participants_tenant_all ON public.participants TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = participants.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = participants.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.participants TO rumble_lm_app;
 
 CREATE TABLE public.responses (
   id uuid PRIMARY KEY,
-  session_id uuid NOT NULL,
+  session_id uuid NOT NULL REFERENCES public.sessions(id),
   activity_id uuid NOT NULL,
   activity_run_id uuid NOT NULL,
   participant_id uuid NOT NULL,
@@ -115,11 +185,22 @@ CREATE TABLE public.responses (
 );
 ALTER TABLE public.responses ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.responses FORCE ROW LEVEL SECURITY;
+CREATE POLICY responses_tenant_all ON public.responses TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = responses.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = responses.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.responses TO rumble_lm_app;
 
 CREATE TABLE public.citations (
   id uuid PRIMARY KEY,
-  session_id uuid NOT NULL,
+  session_id uuid NOT NULL REFERENCES public.sessions(id),
   target_type text NOT NULL,
   target_id uuid NOT NULL,
   source_ref text NOT NULL,
@@ -132,11 +213,22 @@ CREATE TABLE public.citations (
 );
 ALTER TABLE public.citations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.citations FORCE ROW LEVEL SECURITY;
+CREATE POLICY citations_tenant_all ON public.citations TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = citations.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = citations.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.citations TO rumble_lm_app;
 
 CREATE TABLE public.summaries (
   id uuid PRIMARY KEY,
-  session_id uuid NOT NULL,
+  session_id uuid NOT NULL REFERENCES public.sessions(id),
   audience text NOT NULL,
   status text NOT NULL,
   revision integer NOT NULL,
@@ -146,11 +238,22 @@ CREATE TABLE public.summaries (
 );
 ALTER TABLE public.summaries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.summaries FORCE ROW LEVEL SECURITY;
+CREATE POLICY summaries_tenant_all ON public.summaries TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = summaries.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = summaries.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.summaries TO rumble_lm_app;
 
 CREATE TABLE public.exports (
   id uuid PRIMARY KEY,
-  session_id uuid NOT NULL,
+  session_id uuid NOT NULL REFERENCES public.sessions(id),
   format text NOT NULL,
   audience text NOT NULL,
   included_data_json jsonb NOT NULL,
@@ -162,6 +265,17 @@ CREATE TABLE public.exports (
 );
 ALTER TABLE public.exports ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.exports FORCE ROW LEVEL SECURITY;
+CREATE POLICY exports_tenant_all ON public.exports TO rumble_lm_app
+  USING (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = exports.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ))
+  WITH CHECK (EXISTS (
+    SELECT 1 FROM public.sessions s
+    WHERE s.id = exports.session_id
+      AND s.workspace_id = current_setting('app.workspace_id', true)::uuid
+  ));
 GRANT SELECT, INSERT, UPDATE ON public.exports TO rumble_lm_app;
 
 CREATE TABLE public.audit_events (

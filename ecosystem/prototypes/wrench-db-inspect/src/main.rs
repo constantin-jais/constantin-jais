@@ -60,7 +60,7 @@ fn run_cli(args: &[String]) -> Result<i32, String> {
     let mut schema_raw = fs::read_to_string(&schema_path)
         .map_err(|e| format!("cannot read schema {}: {e}", schema_path.display()))?;
     if let Some(path) = migrations_path {
-        schema_raw.push_str("\n");
+        schema_raw.push('\n');
         schema_raw.push_str(&read_migrations(&path)?);
     }
 

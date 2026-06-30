@@ -107,6 +107,18 @@ impl GateProfiles {
         protected
             .category_overrides
             .insert("manifest_coverage".to_string(), "block".to_string());
+        protected.rule_overrides.insert(
+            "TENANT_DERIVATION_FK_REQUIRED".to_string(),
+            "block".to_string(),
+        );
+        protected.rule_overrides.insert(
+            "TENANT_DERIVATION_POLICY_REQUIRED".to_string(),
+            "block".to_string(),
+        );
+        protected.rule_overrides.insert(
+            "TENANT_DERIVATION_PATH_UNSUPPORTED".to_string(),
+            "block".to_string(),
+        );
         profiles.insert("release".to_string(), protected);
         Self { profiles }
     }

@@ -17,15 +17,18 @@ It produces safe CI/Bolt evidence for humans and agents. It does not execute mig
 - Use **Bolt/CI Gate Integration** for pipeline behavior.
 - Use `ci-integration.md` for concrete Bolt/CI commands, artifacts, and rollout.
 - Use `gate-profiles.md` to understand configurable blocking policy.
-- Use `acceptance-tests.md`, `fixtures/`, and `success-metrics.md` to verify implementation quality.
+- Use `acceptance-tests.md`, `fixtures/`, `success-metrics.md`, and `completeness-plan.md` to verify implementation quality and remaining work.
 
 Companion contracts:
 
 - `acceptance-tests.md` defines fixture-driven acceptance criteria before implementation.
 - `success-metrics.md` defines how to measure implementation success and adoption quality.
+- `completeness-plan.md` maps each rule to required fixtures, gates, and pre-production gaps.
 - `gate-profiles.md` defines the configurable CI/Bolt blocking policy.
 - `ci-integration.md` defines command-line integration, report artifacts, exit codes, and rollout.
 - `fixtures/` contains sanitized SQL/manifest/report contract cases.
+- `contracts/manifest.v0.1.schema.json` and `contracts/report.v0.1.schema.json` define the JSON contracts.
+- `scripts/validate-json-contracts.py` validates fixture/example manifests and expected reports offline.
 - `adr/0002-db-security-manifest-required.md` requires DB security manifests for Postgres Rumbles.
 - `adr/0003-live-db-readonly-optional.md` keeps live DB inspection optional and read-only.
 - `adr/0004-prototype-to-dedicated-repo.md` proposes extracting the prototype into a dedicated repo.

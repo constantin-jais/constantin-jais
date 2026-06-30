@@ -73,7 +73,10 @@
           "manifest_coverage": "block"
         },
         "rule_overrides": {
-          "TABLE_CLASSIFICATION_REQUIRED": "block"
+          "TABLE_CLASSIFICATION_REQUIRED": "block",
+          "TENANT_DERIVATION_FK_REQUIRED": "block",
+          "TENANT_DERIVATION_POLICY_REQUIRED": "block",
+          "TENANT_DERIVATION_PATH_UNSUPPORTED": "block"
         },
         "waivers": {
           "allow_active": true,

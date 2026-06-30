@@ -9,7 +9,7 @@
 | What is the minimum shared identity/auth model across all Rumbles? | High | Security/Product | Open |
 | What shared policy decides who can approve high/critical waivers across products? | High | Security/Product | Partially accepted for Canvas MVP: distinct human Owner + Reviewer; cross-product policy remains open. |
 | Which products require local-first behavior from day one? | High | Product | Open |
-| Should specs live in root `specs/` or inside each product repository? | Medium | Architecture | Open |
+| Should specs live in root `specs/` or inside each product repository? | Medium | Architecture | Accepted: ecosystem-level specs and shared contracts live in `constantin-jais/ecosystem/specs/`; repo-local docs describe usage, implementation, ADRs, runbooks, and local commands only. |
 | Should specs be written in English, French, or mixed by audience? | Medium | Product | Open |
 
 ## Product-Level

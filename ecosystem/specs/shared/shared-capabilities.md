@@ -64,6 +64,7 @@ Status values:
 | RuntimeLog | `rumble-crew` | Gear artifact/log substrate + Rumble privileged viewer | Candidate | Sensitive log reference/access primitive with TTL, redaction, non-indexing, audit access event; no raw secrets in Gear metadata. |
 | RecoveryDecision | `rumble-crew`, later agentic workflows | Rumble UX + Bolt retry/cancel seam | Candidate | Human decision after failed run: rerun, reassign, fail, cancel. |
 | Release floor | Gear Cable releases, native/desktop Rumble distributions, installable Wrench/Gear tools | Gear Cable | Candidate | Target matrix, minimum OS/runtime constraints, artifact plans, checksum/signature plans, and manifest handoff to Gear Depot. Not a registry/cache. |
+| App Store release adapter | iOS-capable `rumble-*` products | Gear Cable | Accepted | Stable Gear Cable channel around pinned `rorkai/App-Store-Connect-CLI` (`asc 2.5.0`); product pipelines call `app-store-release.v0.1` actions, not upstream CLI flags directly. |
 
 ## Naming Rules
 

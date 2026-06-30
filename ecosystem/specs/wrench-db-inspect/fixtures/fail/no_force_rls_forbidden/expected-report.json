@@ -1,0 +1,16 @@
+{
+  "data": {
+    "format": "wrench.db_inspect.report.v0.1",
+    "status": "failed",
+    "summary": {
+      "gate_blocked": true
+    },
+    "findings": []
+  },
+  "meta": {
+    "schema_version": "0.1",
+    "redaction": {
+      "secrets_or_pii_included": false
+    }
+  }
+}

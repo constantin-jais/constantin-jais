@@ -37,9 +37,17 @@ Every product spec must identify when a need is product-specific and when it sho
 
 Do not copy shared primitive definitions into each Rumble spec. Link to the shared contract/registry and document only the product-specific instantiation, constraints, and open questions.
 
+`constantin-jais/ecosystem/specs/` is the canonical ecosystem specification root. Do not create or edit a parallel root-level `Documents/specs/` tree; use repository-local `docs/` only for local usage, ADRs, runbooks, implementation notes, and commands.
+
 Shared capabilities are logged in:
 
 - `shared/shared-capabilities.md`
+
+Shared contracts and release runbooks include:
+
+- `shared/contracts/implementation-handoff.v0.1.md`
+- `shared/contracts/app-store-release.v0.1.md`
+- `shared/runbooks/ios-appstore-release.md`
 
 Session doctrine, decisions, and unresolved questions are logged in:
 

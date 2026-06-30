@@ -4,17 +4,17 @@
     "status": "failed",
     "summary": {
       "critical": 0,
-      "high": 1,
-      "medium": 0,
+      "high": 0,
+      "medium": 1,
       "low": 0,
       "info": 0,
       "gate_blocked": true
     },
     "findings": [
       {
-        "rule_id": "TENANT_DERIVATION_FK_REQUIRED",
+        "rule_id": "TENANT_DERIVATION_POLICY_REQUIRED",
         "category": "tenant_isolation",
-        "severity": "high",
+        "severity": "medium",
         "confidence": "high",
         "subject": {
           "type": "table",
@@ -26,15 +26,15 @@
             "fact": "tenant_derivation=session_id -> public.sessions.workspace_id"
           },
           {
-            "kind": "schema_fact",
-            "fact": "missing foreign key responses.session_id -> sessions.id"
+            "kind": "policy_fact",
+            "fact": "policy does not constrain through declared tenant derivation"
           }
         ],
         "gate": {
           "blocks": true,
           "profile": "release",
           "action": "block",
-          "reason": "derived tenant path is not backed by FK evidence"
+          "reason": "derived tenant policy does not enforce organization/workspace isolation"
         }
       }
     ]

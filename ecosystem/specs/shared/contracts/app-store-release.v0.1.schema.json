@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rumble.local/contracts/app-store-release.v0.1.schema.json",
+  "title": "App Store Release Contract v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "app", "release"],
+  "properties": {
+    "version": {
+      "const": "app-store-release.v0.1"
+    },
+    "app": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "bundle_id", "app_store_id", "primary_locale"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^rumble-[a-z0-9-]+$"
+        },
+        "bundle_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "app_store_id": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "primary_locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2}-[A-Z]{2}$"
+        }
+      }
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ipa_path", "metadata_path", "screenshots_path"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Marketing version to publish. If omitted in CI, the Gear Cable wrapper may infer it from ios-vX.Y.Z tags.",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+([-.+][A-Za-z0-9.-]+)?$"
+        },
+        "ipa_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metadata_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "screenshots_path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manual_submit_review": {
+          "type": "boolean",
+          "default": true
+        },
+        "append_only": {
+          "type": "boolean",
+          "default": true
+        },
+        "requires_human_approval": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "upstream": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cli_version": {
+          "type": "string",
+          "minLength": 1,
+          "default": "2.5.0"
+        },
+        "compatibility_profile": {
+          "type": "string",
+          "default": "asc-2.5.0"
+        }
+      }
+    }
+  }
+}

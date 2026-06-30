@@ -225,9 +225,12 @@ Examples:
 
 Current limitation:
 
-- `tenant_derivation` is documented in the manifest but not structurally validated.
-- The prototype checks RLS/forced RLS/grants at table level, but does not yet prove that each policy joins through the declared derivation path.
-- The prototype does not yet verify FK constraints, join conditions, or policy expressions for derived tenant tables.
+- `tenant_derivation` is parsed and conservatively validated for supported one-hop and multi-hop FK paths.
+- Release profile blocks the current prototype rules `TENANT_DERIVATION_FK_REQUIRED` and `TENANT_DERIVATION_POLICY_REQUIRED`.
+- Multi-hop LM derivations are not yet production-proven.
+- The prototype now extracts FK and policy facts structurally from `sqlparser` where supported, including inline and table-level FKs.
+- Policy proof now traverses the AST expression for `EXISTS` subqueries, parent-child join equality chains, and `current_setting('app.workspace_id', ...)` tenant equality.
+- It remains conservative and pattern-based; broader SQL policy forms should be validated against a real LM schema before production release.
 - Therefore, a minimal pass schema proves that the manifest and table-level P0 gates work, not that all LM derived-tenant policies are production-safe.
 
 Required before production LM release gate:

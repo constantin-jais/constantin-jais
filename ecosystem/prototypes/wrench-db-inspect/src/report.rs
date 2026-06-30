@@ -3,7 +3,7 @@ use crate::{
     redaction::redact_json_value, redaction::redact_text_with_count,
 };
 use serde_json::{Value, json};
-use std::path::PathBuf;
+use std::path::Path;
 
 pub struct RenderedReport {
     pub json: String,
@@ -15,8 +15,8 @@ pub fn render_report(
     findings: &[Finding],
     profile: &str,
     gate_profiles: &GateProfiles,
-    manifest_path: &PathBuf,
-    schema_path: &PathBuf,
+    manifest_path: &Path,
+    schema_path: &Path,
 ) -> Result<RenderedReport, String> {
     let blocked = gate_profiles.gate_blocked(profile, findings);
     let initial_status = status(findings, blocked);

@@ -18,12 +18,18 @@ pub struct ManifestData {
 pub struct ManifestRoles {
     #[serde(default)]
     pub app: Vec<String>,
+    #[serde(default)]
+    pub readonly: Vec<String>,
+    #[serde(default)]
+    pub migration: Vec<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
 pub struct TableSpec {
     pub name: String,
     pub classification: String,
+    pub tenant_column: Option<String>,
+    pub tenant_derivation: Option<String>,
     #[serde(default)]
     pub contains_embeddings: bool,
 }

@@ -16,7 +16,7 @@
     "status": "blocked",
     "blocked_by": [
       "desktop packaging is not relevant until a native shell is intentionally required",
-      "Playwright e2e is warning locally because browsers/mobile selectors need cleanup"
+      "operational runbook and publication workflow guarantees are still limited"
     ]
   },
   "axes": {
@@ -44,8 +44,9 @@
   },
   "evidence": [
     { "kind": "doc", "ref": "rumble-cos/README.md", "status": "present" },
-    { "kind": "command", "ref": "bun run check", "status": "passing" },
-    { "kind": "command", "ref": "bun run test", "status": "warning" }
+    { "kind": "command", "ref": "npm run check", "status": "passing" },
+    { "kind": "command", "ref": "npm run build", "status": "passing" },
+    { "kind": "command", "ref": "npm run test -- --project=chromium", "status": "passing" }
   ],
   "learning_yield": [
     {

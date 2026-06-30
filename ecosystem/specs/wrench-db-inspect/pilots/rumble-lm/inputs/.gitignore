@@ -1,0 +1,4 @@
+# Product-provided pilot inputs. Keep real dumps/reports out unless explicitly sanitized.
+*
+!.gitignore
+!README.md

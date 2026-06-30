@@ -1,0 +1,71 @@
+name: Forge health
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/forge.md"
+      - "ecosystem/forge-health.md"
+      - "ecosystem/status.md"
+      - ".github/workflows/forge-health.yml"
+  pull_request:
+    paths:
+      - "docs/forge.md"
+      - "ecosystem/forge-health.md"
+      - "ecosystem/status.md"
+      - ".github/workflows/forge-health.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 7 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  stack-conventions:
+    name: Stack workflow conventions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Local forge docs and maturity criteria exist
+        run: |
+          set -euo pipefail
+          test -s docs/forge.md
+          test -s ecosystem/forge-health.md
+          test -s ecosystem/status.md
+          grep -q "## Promotion criteria" ecosystem/status.md
+          grep -q "trusted.*scale-ready" ecosystem/status.md
+      - name: Local workflow actions are SHA-pinned
+        run: |
+          set -euo pipefail
+          if grep -RInE 'uses: [^#]+@(v[0-9]+|stable|main|master|cargo-[a-z-]+)' .github/workflows; then
+            echo "::error::local workflow action is not pinned to a commit SHA"
+            exit 1
+          fi
+      - name: Public workflow inventory smoke
+        run: |
+          set -euo pipefail
+          repos=(
+            cos-matic
+            wrench-db-inspect
+            wrench-loader
+            gear-memory
+            gear-depot
+            gear-cable
+            rumble-feed-mind
+            rumble-lm
+            rumble-cos
+          )
+          for repo in "${repos[@]}"; do
+            echo "== $repo =="
+            if ! curl -fsSL "https://api.github.com/repos/constantin-jais/${repo}/contents/.github/workflows/security.yml" >/dev/null; then
+              echo "::warning::${repo} is missing .github/workflows/security.yml on default branch"
+            fi
+            if curl -fsSL "https://api.github.com/repos/constantin-jais/${repo}/contents/.github/workflows/ci.yml" >/dev/null; then
+              echo "ci.yml: ok"
+            elif curl -fsSL "https://api.github.com/repos/constantin-jais/${repo}/contents/.github/workflows/rust-ci.yml" >/dev/null; then
+              echo "rust-ci.yml: ok"
+            else
+              echo "::warning::${repo} is missing ci.yml/rust-ci.yml on default branch"
+            fi
+          done

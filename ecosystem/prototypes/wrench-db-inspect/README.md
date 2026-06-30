@@ -87,7 +87,7 @@ Broader success metrics for the project are defined in `../../specs/wrench-db-in
 
 For `rumble-lm` examples, many tables derive tenancy through FK paths such as `responses.session_id -> sessions.workspace_id`.
 
-The prototype currently validates manifest classification and table-level P0 gates (RLS enabled/forced, grants, dangerous migrations), but it does not yet prove that derived-tenant RLS policies correctly join through declared FK paths. The LM pass example is therefore a contract smoke test, not a production proof of all derived tenant isolation.
+The prototype validates manifest classification, table-level P0 gates (RLS enabled/forced, grants, dangerous migrations), and conservative `tenant_derivation` paths using structured FK/policy facts where `sqlparser` supports them. Policy expressions are traversed as AST for supported `EXISTS`/join/current-setting patterns, including multi-hop FK chains. Broader policy forms are still not production-proven. The LM pass example is therefore a contract smoke test, not a production proof of all derived tenant isolation.
 
 See `../../specs/wrench-db-inspect/pilot-plan.md` for the required production hardening.
 

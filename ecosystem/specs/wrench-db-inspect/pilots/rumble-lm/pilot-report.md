@@ -1,6 +1,6 @@
 # rumble-lm — Wrench DB Inspect Pilot Report
 
-Status: Not started.
+Status: Ready for product inputs.
 
 ## Pilot Goal
 
@@ -8,17 +8,20 @@ Validate `wrench-db-inspect` against `rumble-lm` database security needs: sessio
 
 ## Current Phase
 
-Phase 0 — Dry Contract Review.
+Phase 1 — Product input intake prepared; waiting for sanitized schema dump and product manifest.
 
 ## Required Inputs
 
 - Example manifest seed: `ecosystem/specs/wrench-db-inspect/examples/security-manifest.rumble-lm.example.json`
 - Pass schema example: `ecosystem/specs/wrench-db-inspect/examples/schema.rumble-lm.pass.sql`
 - Fail schema example: `ecosystem/specs/wrench-db-inspect/examples/schema.rumble-lm.fail.sql`
-- Product manifest: `db/security-manifest.json`
-- sanitized `target/schema.sql`
-- `db/migrations` if available
-- gate profile config
+- Product manifest: `inputs/security-manifest.json` or external `MANIFEST=...`
+- sanitized schema dump: `inputs/schema.sql` or external `SCHEMA_DUMP=...`
+- optional sanitized migrations: `inputs/migrations` or external `MIGRATIONS=...`
+- gate profile config: `fixtures/gate-profiles/default.json`
+- Pilot runbook: `product-input-checklist.md`
+- Sanitized schema export guide: `sanitized-schema-export.md`
+- Executable script: `run-pilot.sh`
 
 ## Initial Risk Focus
 
@@ -30,7 +33,7 @@ Phase 0 — Dry Contract Review.
 
 ## Pilot Findings Summary
 
-To be filled after first run.
+No real product schema dump is present in this repository. Findings remain pending until `run-pilot.sh` is executed with sanitized product inputs.
 
 | Severity | Count | Notes |
 | --- | ---: | --- |
@@ -41,10 +44,11 @@ To be filled after first run.
 
 ## Decisions Needed
 
-- Confirm actual table list and classifications.
-- Confirm DB roles naming.
+- Confirm actual table list and classifications against `product-input-checklist.md`.
+- Confirm DB roles naming for app, readonly, and migration roles.
 - Confirm whether embeddings are in MVP or post-MVP.
-- Confirm whether audit tables are tenant-scoped or audit/system with tenant attribution.
+- Confirm whether audit tables are tenant-scoped or `audit_system` with tenant attribution.
+- Confirm whether real multi-hop tenant derivation policies match the supported AST proof pattern; broaden fixtures if the schema uses different safe SQL forms.
 
 ## Exit Criteria
 

@@ -46,7 +46,10 @@
   "evidence": [
     { "kind": "contract", "ref": "ecosystem/specs/shared/contracts/curated-item-export.v0.1.md", "status": "present" },
     { "kind": "proof", "ref": "ecosystem/specs/rumble-feed-mind/proofs/curated-item-export.proof.json", "status": "passing" },
-    { "kind": "doc", "ref": "rumble-feed-mind/docs/readiness-audit.md", "status": "present" }
+    { "kind": "doc", "ref": "rumble-feed-mind/docs/readiness-audit.md", "status": "present" },
+    { "kind": "doc", "ref": "rumble-feed-mind/README.md#quickstart", "status": "present" },
+    { "kind": "command", "ref": "cargo run -p feedmind-cli -- opml-summary --file examples/demo.opml", "status": "passing" },
+    { "kind": "command", "ref": "cargo run -p feedmind-cli -- evaluate-rule --article examples/demo-article.json --rule examples/demo-rule.json", "status": "passing" }
   ],
   "learning_yield": [
     {

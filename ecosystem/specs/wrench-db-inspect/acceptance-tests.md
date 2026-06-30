@@ -42,6 +42,7 @@ For every fixture run:
 | `pass/rls_tenant_policy_ok` | `passed` | false | none blocking |
 | `fail/rls_missing_on_tenant_table` | `failed` | true | `RLS_REQUIRED_TENANT_TABLE` |
 | `fail/grant_all_to_app_role` | `failed` | true | `GRANT_ALL_ON_TENANT_TABLE` |
+| `fail/grant_to_unknown_role` | `failed` | true | `GRANT_TO_UNKNOWN_ROLE` |
 | `fail/pgvector_global_embedding_leak` | `failed` | true | `PGVECTOR_TENANT_FILTER_REQUIRED` |
 | `unknown/unclassified_table` | `failed` for `protected_branch` | true | `TABLE_CLASSIFICATION_REQUIRED` |
 | `waiver/critical_with_valid_expiring_waiver` | `passed_with_waiver` | false | `RLS_REQUIRED_TENANT_TABLE` marked waived |
@@ -49,8 +50,14 @@ For every fixture run:
 | `waiver/critical_with_incomplete_waiver` with `release` | `failed` | true | waiver reason `missing reviewer` |
 | `fail/rls_not_forced_on_tenant_table` | `failed` | true | `FORCE_RLS_REQUIRED_TENANT_TABLE` |
 | `fail/disable_rls_migration` | `failed` | true | `DISABLE_RLS_FORBIDDEN` |
+| `fail/set_row_security_off` | `failed` | true | `SET_ROW_SECURITY_OFF_FORBIDDEN` |
 | `fail/dangerous_drop_table` | `failed` | true | `DROP_TABLE_DANGEROUS` |
 | `fail/dangerous_drop_column` | `failed` | true | `DROP_COLUMN_DANGEROUS` |
+| `fail/drop_policy_dangerous` | `failed` | true | `DROP_POLICY_DANGEROUS` |
+| `fail/drop_constraint_dangerous` | `failed` | true | `DROP_CONSTRAINT_DANGEROUS` |
+| `fail/drop_foreign_key_dangerous` | `failed` | true | `DROP_FOREIGN_KEY_DANGEROUS` |
+| `fail/no_force_rls_forbidden` | `failed` | true | `NO_FORCE_RLS_FORBIDDEN` |
+| `fail/drop_not_null_dangerous` | `failed` | true | `ALTER_COLUMN_DROP_NOT_NULL_DANGEROUS` |
 | `fail/truncate_dangerous` | `failed` | true | `TRUNCATE_DANGEROUS` |
 | `fail/unqualified_delete` | `failed` | true | `UNQUALIFIED_DELETE_DANGEROUS` |
 | `fail/unqualified_update` | `failed` | true | `UNQUALIFIED_UPDATE_DANGEROUS` |
@@ -58,6 +65,10 @@ For every fixture run:
 | `warn/tenant_column_nullable` | `passed` | false | `TENANT_COLUMN_NOT_NULL_REQUIRED` medium |
 | `warn/view_without_tenant_filter` | `passed` | false | `VIEW_TENANT_FILTER_REQUIRED` medium |
 | `warn/function_without_tenant_filter` | `passed` | false | `FUNCTION_TENANT_FILTER_REQUIRED` medium |
+| `fail/grant_all_schema_dangerous` | `failed` | true | `GRANT_ALL_ON_SCHEMA_DANGEROUS` |
+| `fail/grant_all_tables_in_schema_dangerous` | `failed` | true | `GRANT_ALL_TABLES_IN_SCHEMA_DANGEROUS` |
+| `fail/grant_all_public_dangerous` | `failed` | true | `GRANT_ALL_TO_PUBLIC_DANGEROUS` |
+| `fail/default_privileges_grant_all_dangerous` | `failed` | true | `DEFAULT_PRIVILEGES_GRANT_ALL_DANGEROUS` |
 
 ## Scenario Tests
 
@@ -120,7 +131,7 @@ And `gate.reason` explains the waiver defect without exposing sensitive content.
 
 ### AT-008 — Dangerous migrations block CI
 
-Given a migration disables RLS, drops a table/column, truncates data, or runs `DELETE`/`UPDATE` without a `WHERE` clause,
+Given a migration disables RLS, disables forced RLS, sets `row_security = off`, drops an RLS policy, drops a table/column/constraint, drops `NOT NULL`, truncates data, or runs `DELETE`/`UPDATE` without a `WHERE` clause,
 When the inspector runs with `protected_branch`,
 Then it emits the matching `migration_safety` finding,
 And exit code is `1`.
@@ -146,20 +157,26 @@ Forbidden regression strings include fixture-only values such as `sk_test_fixtur
 
 When profile is `release` and final report rendering applies redaction, the report-level gate must block with reason `redaction applied in release requires review`.
 
-## Pending Tenant-Derivation Acceptance Tests
+## Tenant-Derivation Acceptance Tests
 
-These fixtures are intentionally not part of `run-fixtures.sh` until derived-tenant validation is implemented.
+These fixtures are part of `run-fixtures.sh` in `release` profile. The validation is conservative/prototype-level and should be hardened before production release.
 
-| Fixture | Future expected status | Required future rule |
+| Fixture | Expected status | Required rule |
 | --- | --- | --- |
-| `pending/tenant_derivation_missing_fk` | `failed` in `release` | `TENANT_DERIVATION_FK_REQUIRED` |
-| `pending/tenant_derivation_policy_without_join` | `failed` in `release` | `TENANT_DERIVATION_POLICY_REQUIRED` |
+| `pass/tenant_derivation_table_level_fk_ok` | `passed` in `release` | none |
+| `pass/tenant_derivation_reversed_equality_ok` | `passed` in `release` | none |
+| `pass/tenant_derivation_multihop_ok` | `passed` in `release` | none |
+| `fail/tenant_derivation_wrong_setting` | `failed` in `release` | `TENANT_DERIVATION_POLICY_REQUIRED` |
+| `fail/tenant_derivation_path_invalid` | `failed` in `release` | `TENANT_DERIVATION_PATH_UNSUPPORTED` |
+| `fail/tenant_derivation_multihop_policy_missing` | `failed` in `release` | `TENANT_DERIVATION_POLICY_REQUIRED` |
+| `fail/tenant_derivation_missing_fk` | `failed` in `release` | `TENANT_DERIVATION_FK_REQUIRED` |
+| `fail/tenant_derivation_policy_without_join` | `failed` in `release` | `TENANT_DERIVATION_POLICY_REQUIRED` |
 
-Future acceptance:
+Acceptance:
 
-- Given a table declares `tenant_derivation`, the inspector validates the relationship path is backed by FK/relationship evidence.
-- Given a derived table has RLS, the inspector validates the policy constrains access through the declared tenant path.
-- Given derived-tenant validation is unsupported in `release`, the gate must fail closed or require explicit waiver.
+- Given a table declares `tenant_derivation`, the inspector validates the relationship path is backed by FK/relationship evidence for supported one-hop and multi-hop paths.
+- Given a derived table has RLS, the inspector validates the policy constrains access through the declared tenant path for supported one-hop and multi-hop paths.
+- Given derived-tenant validation cannot prove safety in `release`, the gate blocks or requires explicit waiver.
 
 ## Bolt/CI Acceptance
 
