@@ -107,13 +107,14 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 
 | Project | Layer | Learning role | Maturity | Current increment | Status / next quality step |
 | --- | --- | --- | --- | --- | --- |
-| `rumble-canvas` | Rumble | Specification, ambiguity, decisions, traceability, handoff. | `contract-first` | P0 contract | Canonical first harness package path exists in specs/fixtures. Next: full `SpecPackage` schema and Wrench completeness checks. |
+| `rumble-canvas` | Rumble | Specification, ambiguity, decisions, traceability, handoff. | `contract-first` | P0 contract | Public repo has hygiene + Rust quality gates. Next: full `SpecPackage` schema and Wrench completeness checks. |
 | `rumble-feed-mind` | Rumble | Watch pipeline, feed curation, rules, BYOK, export/handoff. | `dojo` | P0 contract + P1 Rust proof | Dedicated `contracts.yml` proves fixture-based `CuratedItemExport`; `demo-curate-live` exists for manual feed checks. Next: adversarial log audit, advisory waiver removal, Wrench/Gear integration. |
 | `rumble-lm` | Rumble | Pedagogy, citations, live sessions, grounding, aggregate analytics. | `contract-first` | P0 contract stub | Core/server stub validates boundaries. Next: `CitationValidation`, retention defaults, provider policy instantiation. |
-| `rumble-note` | Rumble | Local-first PKM, private blocks, personal memory exports. | `contract-first` | P0 specs | Specs exist, runtime not present locally. Next: minimal block model and `NoteContextExport` privacy contract. |
-| `rumble-crew` | Rumble | Human/agent tasks, approvals, evidence, run recovery. | `contract-first` | P0 specs | Specs exist, runtime not present locally. Next: `AgentTaskRequest` lifecycle and human approval policy. |
-| `rumble-cos` | Rumble | Transmission, clarity, public explanation, documentation publishing. | `usable` | P5 minimal UI | Astro static site is usable; audit moderate and Astro check are green. Next: publishing runbook adoption and deployed-site smoke. |
-| `cos-matic` | Bolt | Deterministic orchestration, gates, plans, safe writes, evidence. | `usable` | P4 orchestration integrated | Local harness and tests pass. Next: keep planning/refusal/evidence gates hardened before runtime expansion. |
+| `rumble-note` | Rumble | Local-first PKM, private blocks, personal memory exports. | `contract-first` | P0 specs | Public placeholder repo is governed by hygiene checks; runtime not present locally. Next: minimal block model and `NoteContextExport` privacy contract. |
+| `rumble-crew` | Rumble | Human/agent tasks, approvals, evidence, run recovery. | `contract-first` | P0 specs | Public placeholder repo is governed by hygiene checks. Next: `AgentTaskRequest` lifecycle and human approval policy. |
+| `rumble-cos` | Rumble | Transmission, clarity, public explanation, documentation publishing. | `usable` | P5 minimal UI | Public Astro static site is usable, protected, and audit/check gates are green. Next: publishing runbook adoption and deployed-site smoke. |
+| `bolt-harness` | Bolt | Public harness execution/governance surface. | `contract-first` | P0 hygiene | Public repo has `Harness hygiene` protection. Next: keep live sandbox fenced and evidence-producing. |
+| `bolt-cos-matic` | Bolt | Deterministic orchestration, gates, plans, safe writes, evidence. | `usable` | P4 orchestration integrated | Renamed from `cos-matic`; local harness and tests pass. Next: keep planning/refusal/evidence gates hardened before runtime expansion. |
 | `wrench-loader` | Wrench | Ingestion reliability, canonical extraction, hostile-content evidence. | `dojo` | P1 CLI proof | CLI/contracts/fixtures exist. Next: parser hardening for PDF/Office/feed/code under license/security gates. |
 | `wrench-inspect` | Wrench | General critique, policy/design/spec inspection, evidence reports. | `speculative` | P0 placement | No local repo yet; capability is intentionally kept as a Wrench owner in shared registry. Next: evidence report model before repo split. |
 | `wrench-db-inspect` | Wrench | Database security gates, RLS/grants/migration/pgvector evidence. | `dojo` | P1 CLI proof | Specialized DB inspector exists. Next: address clippy debt in the current codebase and decide integration as CI gate. |
@@ -135,13 +136,17 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 | Project | Commands |
 | --- | --- |
 | `constantin-jais` | `bash ecosystem/specs/ci-validate-contracts.sh`; `python3 ecosystem/specs/validate_spec_schemas.py`; `python3 ecosystem/specs/harness/run_vertical_p0.py --output ecosystem/specs/harness/proofs/vertical-p0.proof.json`; `cosmatic maturity report ecosystem/maturity` |
-| `cos-matic` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `bolt-cos-matic` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `bolt-harness` | `python3 scripts/harness_hygiene.py` when present; otherwise GitHub `Harness hygiene` workflow |
 | `gear-cable` | `cargo test --workspace --all-targets` |
 | `gear-depot` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `gear-memory` | `cargo test --workspace --all-targets` |
+| `rumble-canvas` | `cargo fmt --all --check`; `cargo check --workspace --all-targets`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `rumble-cos` | `npm run check`; `npm run build`; `npm audit --audit-level=moderate`; `npm run test -- --project=chromium` |
+| `rumble-crew` | GitHub `Repository hygiene` workflow |
 | `rumble-feed-mind` | `cargo fmt --all --check`; `cargo clippy --workspace --all-targets --all-features -- -D warnings`; `cargo test --workspace`; `cargo run -p feedmind-cli -- demo-curate --opml examples/demo.opml --article examples/demo-article.json --rule examples/demo-rule.json --output out/curated.json`; `cargo run -p feedmind-cli -- validate-curated-export --file out/curated.json`; `diff -u examples/expected-curated-export.json out/curated.json` |
 | `rumble-lm` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `rumble-note` | GitHub `Repository hygiene` workflow |
 | `wrench-db-inspect` | `cargo test --workspace --all-targets`; prototype: `cd constantin-jais/ecosystem/prototypes/wrench-db-inspect && cargo test` |
 | `wrench-loader` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 
