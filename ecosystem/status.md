@@ -108,11 +108,11 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 | Project | Layer | Learning role | Maturity | Current increment | Status / next quality step |
 | --- | --- | --- | --- | --- | --- |
 | `rumble-canvas` | Rumble | Specification, ambiguity, decisions, traceability, handoff. | `contract-first` | P0 contract | Canonical first harness package path exists in specs/fixtures. Next: full `SpecPackage` schema and Wrench completeness checks. |
-| `rumble-feed-mind` | Rumble | Watch pipeline, feed curation, rules, BYOK, export/handoff. | `dojo` | P0 contract + P1 Rust proof | Ready for scoped implementation planning. Next: runtime tests for `CuratedItemExport`, logging classification, advisory waiver removal. |
+| `rumble-feed-mind` | Rumble | Watch pipeline, feed curation, rules, BYOK, export/handoff. | `dojo` | P0 contract + P1 Rust proof | Dedicated `contracts.yml` proves fixture-based `CuratedItemExport`; `demo-curate-live` exists for manual feed checks. Next: adversarial log audit, advisory waiver removal, Wrench/Gear integration. |
 | `rumble-lm` | Rumble | Pedagogy, citations, live sessions, grounding, aggregate analytics. | `contract-first` | P0 contract stub | Core/server stub validates boundaries. Next: `CitationValidation`, retention defaults, provider policy instantiation. |
 | `rumble-note` | Rumble | Local-first PKM, private blocks, personal memory exports. | `contract-first` | P0 specs | Specs exist, runtime not present locally. Next: minimal block model and `NoteContextExport` privacy contract. |
 | `rumble-crew` | Rumble | Human/agent tasks, approvals, evidence, run recovery. | `contract-first` | P0 specs | Specs exist, runtime not present locally. Next: `AgentTaskRequest` lifecycle and human approval policy. |
-| `rumble-cos` | Rumble | Transmission, clarity, public explanation, documentation publishing. | `usable` | P5 minimal UI | Astro static site is usable. Next: publish concise learning notes from real Rumble/Bolt/Wrench/Gear usage and keep e2e smoke stable. |
+| `rumble-cos` | Rumble | Transmission, clarity, public explanation, documentation publishing. | `usable` | P5 minimal UI | Astro static site is usable; audit moderate and Astro check are green. Next: publishing runbook adoption and deployed-site smoke. |
 | `cos-matic` | Bolt | Deterministic orchestration, gates, plans, safe writes, evidence. | `usable` | P4 orchestration integrated | Local harness and tests pass. Next: keep planning/refusal/evidence gates hardened before runtime expansion. |
 | `wrench-loader` | Wrench | Ingestion reliability, canonical extraction, hostile-content evidence. | `dojo` | P1 CLI proof | CLI/contracts/fixtures exist. Next: parser hardening for PDF/Office/feed/code under license/security gates. |
 | `wrench-inspect` | Wrench | General critique, policy/design/spec inspection, evidence reports. | `speculative` | P0 placement | No local repo yet; capability is intentionally kept as a Wrench owner in shared registry. Next: evidence report model before repo split. |
@@ -139,15 +139,15 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 | `gear-cable` | `cargo test --workspace --all-targets` |
 | `gear-depot` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `gear-memory` | `cargo test --workspace --all-targets` |
-| `rumble-cos` | `npm run check`; `npm run build`; `npm run test -- --project=chromium` |
-| `rumble-feed-mind` | `cargo fmt --all --check`; `cargo clippy --workspace --all-targets --all-features -- -D warnings`; `cargo test --workspace` |
+| `rumble-cos` | `npm run check`; `npm run build`; `npm audit --audit-level=moderate`; `npm run test -- --project=chromium` |
+| `rumble-feed-mind` | `cargo fmt --all --check`; `cargo clippy --workspace --all-targets --all-features -- -D warnings`; `cargo test --workspace`; `cargo run -p feedmind-cli -- demo-curate --opml examples/demo.opml --article examples/demo-article.json --rule examples/demo-rule.json --output out/curated.json`; `cargo run -p feedmind-cli -- validate-curated-export --file out/curated.json`; `diff -u examples/expected-curated-export.json out/curated.json` |
 | `rumble-lm` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `wrench-db-inspect` | `cargo test --workspace --all-targets`; prototype: `cd constantin-jais/ecosystem/prototypes/wrench-db-inspect && cargo test` |
 | `wrench-loader` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 
 ## Current quality caveats
 
-- `rumble-cos` keeps a moderate npm advisory through `@astrojs/check`/`yaml`; high severity audit is green without `npm audit fix --force`.
+- `rumble-cos` uses an npm override (`yaml@2.9.0`) to keep `npm audit --audit-level=moderate` green without `npm audit fix --force`.
 - `wrench-db-inspect` current codebase has known clippy warnings when run with `-D warnings`; tests are green.
 - Rumble specs should not imply runtime maturity when only contracts/fixtures exist.
 - Provider/BYOK, delegated auth, evidence storage, and retention policies must remain explicit before trusted status.

@@ -1,0 +1,12 @@
+# Require human review on security, release, and supply-chain boundaries.
+* @constantin-jais
+
+.github/workflows/ @constantin-jais
+.github/CODEOWNERS @constantin-jais
+SECURITY.md @constantin-jais
+Cargo.toml @constantin-jais
+Cargo.lock @constantin-jais
+package.json @constantin-jais
+package-lock.json @constantin-jais
+deny.toml @constantin-jais
+.cargo/audit.toml @constantin-jais

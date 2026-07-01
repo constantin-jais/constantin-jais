@@ -127,7 +127,7 @@ Rumble projects own product experience, workflows, screens, and user-facing mean
 | --- | --- | --- |
 | `wrench-loader` | Rich-document ingestion and canonical extraction. | Not a knowledge product. |
 | `wrench-inspect` | General structural, design, and policy inspection. | Not a domain-specific DB security owner. |
-| `wrench-db-inspect` | SQL/database security inspection: Postgres, pgvector, RLS, grants, migrations, CI evidence. | Not a user-facing vault app, secrets manager, or replacement for `wrench-inspect`. |
+| `wrench-db-inspect` | SQL/database security inspection and forge/harness evidence for Postgres-backed `rumble-*`: pgvector, RLS, grants, migrations, tenant isolation. | Not a user-facing vault app, secrets manager, ORM, DB proxy, migration runner, or replacement for `wrench-inspect`. |
 
 Naming clarification: `wrench-db-inspect` belongs to the Wrench tooling layer after the rename from `vault-inspector`. The former `vault-inspector` name was retired to remove ambiguity while preserving the same scope boundary.
 
@@ -454,7 +454,7 @@ Status values:
 | Learning/facilitation analytics | `rumble-lm`, maybe `rumble-cos` | Shared Rumble first | Candidate | Aggregate participation, comprehension, confusion, consensus/divergence; avoid hidden individual profiling. |
 | Export package | `rumble-lm`, `rumble-canvas`, `rumble-cos` | Gear artifact + Rumble UX | Candidate | Audience-scoped export with included data classes, provenance, checksum, and retention/revocation metadata. |
 | Inspector reports | `rumble-canvas`, `rumble-crew`, `rumble-cos`, `rumble-lm` | Wrench Inspect | Candidate | Validate specs, content, design, policy, citation support, privacy, or readiness. |
-| Evidence report | Rumbles, Bolt gates, CI | Wrench Inspect | Candidate | Shared evidence model for API/browser/eval/clean-room checks; emerged from GitHub stars audit but hardens existing Wrench scope. |
+| Evidence report | Rumbles, Bolt gates, CI/harness | Wrench Inspect + domain Wrench inspectors | Candidate | Shared evidence model for API/browser/eval/clean-room/DB checks; `wrench-db-inspect` produces the DB-security specialization consumed by the forge/harness. |
 | Agent/run policy gate | `cos-matic`, `rumble-crew`, `rumble-canvas`, Wrench checks | `cos-matic` | Candidate | Versioned gates for secrets, destructive actions, network, license, sovereignty, citations, and human approval. |
 | Source catalog | `rumble-note`, `rumble-feed-mind`, `rumble-lm`, Wrench Loader/Inspect | Gear Memory | Candidate | Catalog over `SourceRef`; avoids separate `gear-source` until extraction criteria are met. |
 | Usage ledger | Bolt runs, Wrench checks, Gear artifacts, Rumble handoffs | Gear Memory first | Candidate | Append-only technical usage events and aggregate projections without behavioral profiling. |

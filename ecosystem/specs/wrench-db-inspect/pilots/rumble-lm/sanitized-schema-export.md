@@ -71,4 +71,4 @@ for f in j['data']['findings']:
 PY
 ```
 
-Do not attach reports to CI/Bolt evidence until `open-findings.md` and `false-positive-notes.md` are updated.
+Do not attach reports to CI/Bolt/harness evidence until `open-findings.md` and `false-positive-notes.md` are updated.

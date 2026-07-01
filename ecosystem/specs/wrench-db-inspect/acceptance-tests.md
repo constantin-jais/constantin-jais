@@ -4,7 +4,7 @@ Status: Draft contract before implementation.
 
 ## Scope
 
-These acceptance tests define the minimum behavior expected from `wrench-db-inspect` before any production use as a Bolt/CI gate.
+These acceptance tests define the minimum behavior expected from `wrench-db-inspect` before any production use as a Bolt/CI/harness gate.
 
 The tests are fixture-driven and must be runnable offline. They must not require a live database, network service, SaaS, secrets, or personal data.
 
@@ -178,12 +178,14 @@ Acceptance:
 - Given a derived table has RLS, the inspector validates the policy constrains access through the declared tenant path for supported one-hop and multi-hop paths.
 - Given derived-tenant validation cannot prove safety in `release`, the gate blocks or requires explicit waiver.
 
-## Bolt/CI Acceptance
+## Bolt/CI/Harness Acceptance
 
-A Bolt gate consuming the report must:
+A Bolt/CI/harness gate consuming the report must:
 
 - trust `summary.gate_blocked` and exit code, not reinterpret raw SQL;
 - attach the JSON report as evidence artifact;
+- expose typed gates/metrics as described in `forge-harness-integration.md`;
 - require human security review for critical/high waivers;
 - fail if `meta.redaction.secrets_or_pii_included != false`;
+- fail release if `meta.redaction.applied=true`;
 - fail if the report format version is unsupported.

@@ -4,7 +4,7 @@ Status: Proposed.
 
 ## Context
 
-`wrench-db-inspect` now has a working prototype, fixtures, gate profiles, redaction behavior, and CI/Bolt integration contracts inside the ecosystem control-plane repository.
+`wrench-db-inspect` now has a working prototype, fixtures, gate profiles, redaction behavior, and CI/Bolt/harness integration contracts inside the ecosystem control-plane repository.
 
 Keeping implementation code indefinitely inside `ecosystem/prototypes` would blur responsibilities. The ecosystem repository should remain the strategic/spec control plane, while `wrench-db-inspect` should become a Wrench tool repository that can version, test, release, and integrate independently.
 

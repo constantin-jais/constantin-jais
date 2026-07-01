@@ -23,13 +23,13 @@
     "spec": { "level": "R0", "status": "warn", "evidence": ["ecosystem/specs/rumble-cos/00-product-charter.md"] },
     "contracts": { "level": "R0", "status": "warn", "evidence": [], "notes": "Public static site does not yet need deep product contracts." },
     "core": { "level": "R0", "status": "not_applicable", "evidence": [], "notes": "Astro static site exception." },
-    "security": { "level": "R5", "status": "pass", "evidence": ["rumble-cos/docs/adr/0001-rendu-ssg-pur.md"] },
+    "security": { "level": "R5", "status": "pass", "evidence": ["rumble-cos/docs/adr/0001-rendu-ssg-pur.md", "rumble-cos/docs/security-advisories.md"] },
     "ux": { "level": "R5", "status": "pass", "evidence": ["rumble-cos/README.md", "rumble-cos/content-planning/README.md"] },
     "persistence": { "level": "R5", "status": "pass", "evidence": ["rumble-cos/src/content.config.ts"] },
     "orchestration": { "level": "R0", "status": "not_applicable", "evidence": [] },
     "inspection": { "level": "R4", "status": "warn", "evidence": ["rumble-cos/tests/seo.spec.ts", "rumble-cos/tests/navigation.spec.ts"] },
     "release": { "level": "R5", "status": "warn", "evidence": ["rumble-cos/package.json"] },
-    "operations": { "level": "R5", "status": "pass", "evidence": ["rumble-cos/docs/adr/0005-stack-astro-conservee.md"] },
+    "operations": { "level": "R5", "status": "pass", "evidence": ["rumble-cos/docs/adr/0005-stack-astro-conservee.md", "rumble-cos/docs/publishing.md"] },
     "commercial_readiness": { "level": "R3", "status": "warn", "evidence": ["rumble-cos/README.md"], "notes": "Public site is usable, but support/onboarding/commercial posture is not claimed." },
     "learning_yield": { "level": "R5", "status": "pass", "evidence": ["rumble-cos/README.md"] }
   },
@@ -44,8 +44,9 @@
   },
   "evidence": [
     { "kind": "doc", "ref": "rumble-cos/README.md", "status": "present" },
-    { "kind": "command", "ref": "npm run check", "status": "passing" },
+    { "kind": "command", "ref": "npm run check", "status": "passing", "notes": "0 errors, 0 warnings, 0 hints" },
     { "kind": "command", "ref": "npm run build", "status": "passing" },
+    { "kind": "command", "ref": "npm audit --audit-level=moderate", "status": "passing" },
     { "kind": "command", "ref": "npm run test -- --project=chromium", "status": "passing" }
   ],
   "learning_yield": [

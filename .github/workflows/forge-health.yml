@@ -7,12 +7,18 @@ on:
       - "docs/forge.md"
       - "ecosystem/forge-health.md"
       - "ecosystem/status.md"
+      - "ecosystem/maturity/*.json"
+      - "SECURITY.md"
+      - ".github/CODEOWNERS"
       - ".github/workflows/forge-health.yml"
   pull_request:
     paths:
       - "docs/forge.md"
       - "ecosystem/forge-health.md"
       - "ecosystem/status.md"
+      - "ecosystem/maturity/*.json"
+      - "SECURITY.md"
+      - ".github/CODEOWNERS"
       - ".github/workflows/forge-health.yml"
   workflow_dispatch:
   schedule:
@@ -33,6 +39,8 @@ jobs:
           test -s docs/forge.md
           test -s ecosystem/forge-health.md
           test -s ecosystem/status.md
+          test -s SECURITY.md
+          test -s .github/CODEOWNERS
           grep -q "## Promotion criteria" ecosystem/status.md
           grep -q "trusted.*scale-ready" ecosystem/status.md
       - name: Local workflow actions are SHA-pinned
@@ -67,5 +75,11 @@ jobs:
               echo "rust-ci.yml: ok"
             else
               echo "::warning::${repo} is missing ci.yml/rust-ci.yml on default branch"
+            fi
+            if ! curl -fsSL "https://api.github.com/repos/constantin-jais/${repo}/contents/SECURITY.md" >/dev/null; then
+              echo "::warning::${repo} is missing SECURITY.md on default branch"
+            fi
+            if ! curl -fsSL "https://api.github.com/repos/constantin-jais/${repo}/contents/.github/CODEOWNERS" >/dev/null; then
+              echo "::warning::${repo} is missing .github/CODEOWNERS on default branch"
             fi
           done

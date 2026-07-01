@@ -14,8 +14,8 @@ It produces safe CI/Bolt/harness evidence for humans and agents. It does not exe
 - Use **P0/P1/P2 Scope** to decide which rules block, warn, or remain advisory.
 - Use **Inputs** and **JSON Report Contract** to implement integrations.
 - Use **Avoiding False Positives and Silent Bypass** before changing rule severity.
-- Use **Bolt/CI Gate Integration** for pipeline behavior.
-- Use `ci-integration.md` for concrete Bolt/CI commands, artifacts, and rollout.
+- Use **Bolt/CI/Harness Gate Integration** for pipeline behavior.
+- Use `ci-integration.md` for concrete Bolt/CI/harness commands, artifacts, and rollout.
 - Use `forge-harness-integration.md` to wire the inspector into `rumble-*` forge scaffolds and harness gates.
 - Use `gate-profiles.md` to understand configurable blocking policy.
 - Use `acceptance-tests.md`, `fixtures/`, `success-metrics.md`, and `completeness-plan.md` to verify implementation quality and remaining work.
@@ -25,7 +25,7 @@ Companion contracts:
 - `acceptance-tests.md` defines fixture-driven acceptance criteria before implementation.
 - `success-metrics.md` defines how to measure implementation success and adoption quality.
 - `completeness-plan.md` maps each rule to required fixtures, gates, and pre-production gaps.
-- `gate-profiles.md` defines the configurable CI/Bolt blocking policy.
+- `gate-profiles.md` defines the configurable CI/Bolt/harness blocking policy.
 - `ci-integration.md` defines command-line integration, report artifacts, exit codes, and rollout.
 - `forge-harness-integration.md` defines how `rumble-*` builds expose DB-inspection evidence to the forge/harness.
 - `fixtures/` contains sanitized SQL/manifest/report contract cases.
@@ -327,7 +327,7 @@ All JSON reports use the envelope `{ data, meta }`.
 - Support allowlists only through manifest entries with justification, owner, reviewer, and expiry.
 - Run differential checks between migrations and schema dumps to detect drift or missing migration coverage.
 
-## Bolt/CI Gate Integration
+## Bolt/CI/Harness Gate Integration
 
 `wrench-db-inspect` produces evidence; Bolt/CI/harness decide sequencing and gate policy. Product repos should not reimplement the checks locally.
 
@@ -422,4 +422,4 @@ Database isolation failures are high-impact and require specialized parsing, sch
 - Rumble specs can call both inspectors: `wrench-inspect` for product/spec readiness and `wrench-db-inspect` for database security.
 - `wrench-db-inspect` may emit findings that `wrench-inspect` references, but it does not judge product UX, journeys, screens, or business completeness.
 - `wrench-inspect` may verify that a product declares DB security requirements, but it does not parse SQL/RLS/grants as the source of truth.
-- Bolt gates should keep separate evidence artifacts so DB security waivers cannot silently waive unrelated product readiness failures.
+- Bolt/harness gates should keep separate evidence artifacts so DB security waivers cannot silently waive unrelated product readiness failures.

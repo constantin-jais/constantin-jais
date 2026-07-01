@@ -13,7 +13,7 @@ Metrics are aggregate and report-level only. They must not include row data, raw
 `wrench-db-inspect` is successful when:
 
 1. Rumbles stop implementing local DB-security checks for RLS, grants, migrations, `pgvector`, and tenant isolation.
-2. CI/Bolt can block high-risk DB changes with deterministic, explainable evidence.
+2. CI/Bolt/harness can block high-risk DB changes with deterministic, explainable evidence.
 3. Product teams get useful remediation without excessive false positives.
 4. Reports remain safe to share with humans and agents.
 5. The tool stays an inspector, not an ORM, migration runner, proxy, vault, or runtime policy engine.
@@ -37,7 +37,7 @@ These measure whether the inspector sees enough of the DB security surface.
 
 ### 2. Gate Effectiveness Metrics
 
-These measure whether CI/Bolt gates catch important problems at the right moment.
+These measure whether CI/Bolt/harness gates catch important problems at the right moment.
 
 | Metric | Meaning | Initial target |
 | --- | --- | --- |
@@ -84,7 +84,9 @@ These measure whether the shared tool prevents risky local reinvention.
 | `rumble_db_manifest_adoption` | Rumbles with Postgres that provide DB security manifest. | 100% before release gates. |
 | `local_db_security_check_count` | Product-local scripts duplicating RLS/grant/migration checks. | Trend toward 0 or wrappers only. |
 | `shared_fixture_reuse_count` | Rumbles adding issues as shared fixtures instead of local-only tests. | Increasing. |
-| `bolt_gate_integration_count` | Bolt/CI pipelines consuming JSON report as evidence. | All Postgres-backed Rumbles. |
+| `bolt_gate_integration_count` | Bolt/CI/harness pipelines consuming JSON report as evidence. | All Postgres-backed Rumbles. |
+| `forge_scaffold_coverage` | Postgres-backed `rumble-*` scaffolds include manifest, sanitized schema dump, and report artifact steps. | 100% before release gates. |
+| `db_inspect_not_applicable_declared_count` | Non-Postgres `rumble-*` products explicitly declare DB inspection as not applicable. | 100% for non-Postgres Rumbles. |
 | `manual_security_review_reduction` | Repeated manual DB review items automated by the inspector. | Increasing without losing quality. |
 
 ### 6. Performance and Operability Metrics
@@ -141,13 +143,15 @@ Future reports should include safe aggregate metrics under `data.metrics`:
 - Manifest coverage required for every non-system table.
 - Unknown P0 analysis state fails closed.
 - Reports include coverage metrics and safe redaction metadata.
-- Bolt consumes report artifacts without re-parsing SQL.
+- Bolt/harness consumes report artifacts without re-parsing SQL.
+- Forge scaffold emits manifest/schema/report artifacts for Postgres-backed products.
 
 ### Production-Ready
 
 - False positive rate reviewed and acceptable.
 - Critical escape rate remains 0 over multiple release cycles.
 - Rumbles no longer maintain divergent DB-security scripts.
+- Harness typed gates from `forge-harness-integration.md` are active for all Postgres-backed products.
 - Gate profiles are explicit, versioned, reviewed, and auditable.
 - Live DB inspection, if enabled, is read-only and optional.
 

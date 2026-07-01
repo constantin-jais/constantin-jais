@@ -4,7 +4,7 @@ Status: Draft contract; implemented in the prototype through `--gate-profile-con
 
 ## Purpose
 
-Gate profiles define when a finding blocks CI/Bolt. They keep `wrench-db-inspect` focused on producing evidence while allowing Bolt/CI to choose strictness by context.
+Gate profiles define when a finding blocks CI/Bolt/harness. They keep `wrench-db-inspect` focused on producing evidence while allowing Bolt/CI/harness to choose strictness by context.
 
 Without explicit profiles, the tool would either be too strict for local/PR work or too lax for protected branches/releases. Profiles also prevent each Rumble from inventing local blocking logic.
 
@@ -90,7 +90,7 @@ A finding should include the resolved gate decision:
 - `medium` P1 findings should start as warnings to measure false positives before promotion.
 - Unknown P0 analysis state must not pass silently.
 - Waiver acceptance is part of the profile, not hidden rule code.
-- Bolt may select a profile and consume `summary.gate_blocked`; Bolt must not reinterpret raw SQL.
+- Bolt/harness may select a profile and consume `summary.gate_blocked`; Bolt/harness must not reinterpret raw SQL.
 - Reports must remain safe: no secrets, PII, raw embeddings, row data, prompts, or DSNs.
 - In `release`, `meta.redaction.applied=true` must block or require review because it means unsafe evidence reached final rendering.
 

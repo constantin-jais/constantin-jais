@@ -15,8 +15,8 @@
     "to": "R2",
     "status": "blocked",
     "blocked_by": [
-      "runtime CuratedItemExport tests are missing",
-      "logging classification for feed/user/provider data is not yet enforced",
+      "demo-curate-live is manual and network-dependent; CI remains fixture-based by design",
+      "logging classification has a CI smoke but still needs adversarial audit across API/worker failure paths",
       "dependency advisory waivers must be removed or renewed before release"
     ]
   },
@@ -24,13 +24,13 @@
     "spec": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/rumble-feed-mind/00-product-charter.md"] },
     "contracts": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/shared/contracts/curated-item-export.v0.1.md", "ecosystem/specs/shared/contracts/provider-byok-policy.v0.1.md"] },
     "core": { "level": "R1", "status": "warn", "evidence": ["rumble-feed-mind/Cargo.toml"], "notes": "Rust workspace exists; portable core maturity still needs a declared compile/test gate." },
-    "security": { "level": "R1", "status": "warn", "evidence": ["rumble-feed-mind/docs/adr/0004-auth-boundary-jwt-session-biscuit-delegation.md", "rumble-feed-mind/docs/readiness-audit.md"] },
+    "security": { "level": "R1", "status": "warn", "evidence": ["rumble-feed-mind/docs/adr/0004-auth-boundary-jwt-session-biscuit-delegation.md", "rumble-feed-mind/docs/readiness-audit.md", "rumble-feed-mind/docs/logging-classification.md"] },
     "ux": { "level": "R0", "status": "warn", "evidence": ["rumble-feed-mind/apps/web-rs/README.md"], "notes": "Rust UI target exists but is not claimed usable." },
     "persistence": { "level": "R1", "status": "warn", "evidence": ["rumble-feed-mind/crates/storage/Cargo.toml"] },
     "orchestration": { "level": "R1", "status": "warn", "evidence": ["ecosystem/specs/rumble-feed-mind/verify_handoff_planning.py"] },
-    "inspection": { "level": "R1", "status": "warn", "evidence": ["ecosystem/specs/rumble-feed-mind/verify_curated_item_export.py"] },
+    "inspection": { "level": "R1", "status": "warn", "evidence": ["ecosystem/specs/rumble-feed-mind/verify_curated_item_export.py", "rumble-feed-mind/.github/workflows/contracts.yml"] },
     "release": { "level": "R0", "status": "blocked", "evidence": [] },
-    "operations": { "level": "R0", "status": "warn", "evidence": ["rumble-feed-mind/docs/readiness-audit.md"] },
+    "operations": { "level": "R0", "status": "warn", "evidence": ["rumble-feed-mind/docs/readiness-audit.md", "rumble-feed-mind/docs/runbook.md"] },
     "commercial_readiness": { "level": "R0", "status": "blocked", "evidence": [], "notes": "Commercializable is long-term ambition, not current claim." },
     "learning_yield": { "level": "R1", "status": "pass", "evidence": ["ecosystem/specs/shared/contracts/curated-item-export.v0.1.md"] }
   },
@@ -49,7 +49,12 @@
     { "kind": "doc", "ref": "rumble-feed-mind/docs/readiness-audit.md", "status": "present" },
     { "kind": "doc", "ref": "rumble-feed-mind/README.md#quickstart", "status": "present" },
     { "kind": "command", "ref": "cargo run -p feedmind-cli -- opml-summary --file examples/demo.opml", "status": "passing" },
-    { "kind": "command", "ref": "cargo run -p feedmind-cli -- evaluate-rule --article examples/demo-article.json --rule examples/demo-rule.json", "status": "passing" }
+    { "kind": "command", "ref": "cargo run -p feedmind-cli -- evaluate-rule --article examples/demo-article.json --rule examples/demo-rule.json", "status": "passing" },
+    { "kind": "command", "ref": "cargo run -p feedmind-cli -- demo-curate --opml examples/demo.opml --article examples/demo-article.json --rule examples/demo-rule.json --output out/curated.json", "status": "passing" },
+    { "kind": "workflow", "ref": "rumble-feed-mind/.github/workflows/contracts.yml", "status": "present" },
+    { "kind": "command", "ref": "cargo run -p feedmind-cli -- validate-curated-export --file out/curated.json", "status": "passing" },
+    { "kind": "command", "ref": "cargo run -p feedmind-cli -- demo-curate-live --feed-url <feed> --rule examples/demo-rule.json --output out/live-curated.json", "status": "manual" },
+    { "kind": "test", "ref": "feedmind-cli::tests::demo_curate_builds_expected_curated_item_export", "status": "passing" }
   ],
   "learning_yield": [
     {

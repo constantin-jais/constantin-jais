@@ -12,6 +12,10 @@ Objectif : construire une forge souveraine, auditable et reproductible sans publ
 
 ## Règles communes
 
+- `SECURITY.md` et `.github/CODEOWNERS` présents sur les repos publics, avec revue humaine sur workflows, releases et dépendances.
+- Branch protection à appliquer après merge selon `docs/branch-protection.md`.
+- Secret scanning baseline documentée dans `docs/secret-scanning.md` ; le grep CI est un smoke, pas un audit complet d'historique.
+- Vérification release selon `docs/release-verification.md` avant toute promotion de maturité release.
 - Permissions GitHub Actions minimales : `contents: read` par défaut.
 - CI de base sans secret.
 - Release uniquement manuelle ou tag-based.

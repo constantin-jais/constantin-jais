@@ -72,4 +72,4 @@ The product-dependent pilot is complete when:
 - [ ] all tenant-scoped tables have RLS enabled and forced;
 - [ ] all derived tenant paths are proven by FK-chain and policy-chain evidence, or triaged as unsupported safe SQL forms requiring a fixture/rule update;
 - [ ] pgvector/embedding tables are either absent or tenant-filtered before vector ranking;
-- [ ] reports are reviewed and safe to attach as CI/Bolt evidence.
+- [ ] reports are reviewed and safe to attach as CI/Bolt/harness evidence.

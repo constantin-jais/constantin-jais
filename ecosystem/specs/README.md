@@ -29,7 +29,7 @@ The goal is not to write static documentation or rank products by business poten
 | Capability | Spec status | Purpose |
 | --- | --- | --- |
 | `wrench-loader` | Proposed | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports. |
-| `wrench-db-inspect` | Draft | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, and tenant isolation evidence. |
+| `wrench-db-inspect` | Draft/prototype | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, tenant isolation, and forge/harness evidence for Postgres-backed `rumble-*`. |
 
 ## Spec Rule
 

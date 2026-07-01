@@ -1,4 +1,4 @@
-# Wrench DB Inspect — Bolt/CI Integration
+# Wrench DB Inspect — Bolt/CI/Harness Integration
 
 Status: Draft integration contract.
 
