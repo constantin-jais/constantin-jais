@@ -2,9 +2,9 @@
 
 Date: 2026-07-02
 Source project: `meilisearch/meilisearch` v1.48.3 (Community Edition MIT; Enterprise Edition files under BSL 1.1) — <https://github.com/meilisearch/meilisearch>
-Decision: **pending review** — proposed posture is inspiration-first: no immediate `adopt`, the server stays out of the forge runtime, and objective adoption triggers are documented per element for future arbitration.
+Decision: **inspiration-first, accepted 2026-07-02** — no immediate `adopt`; the search server stays out of the forge runtime behind the objective adoption triggers of E16. See the 2026-07-02 entries in `decision-log.md`.
 Scope: personal forge ecosystem only. Professional workspaces are out of scope.
-Review: **Proposed 2026-07-02** — verdicts below await review; the implementation gate stays closed until ratification is recorded in `decision-log.md`.
+Review: **Accepted 2026-07-02** — all proposed verdicts ratified ("go all"); the five open questions are resolved below. The implementation gate is lifted for the candidate increments listed in "First increment", each behind its own factual gate.
 
 ## Why this document
 
@@ -33,7 +33,7 @@ Unlike the codebase-memory-mcp exercise, no global inspiration-only decision was
 
 ## Element map
 
-All dispositions are **proposed**, pending review.
+All dispositions below were proposed and **accepted on 2026-07-02**.
 
 | #   | Element                                                                                          | What it is / solves                                    | Layer              | Disposition                    | Recommended action                                                                                                                                                                                                                                                          |
 | --- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------ | ------------------ | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,15 +120,15 @@ If triggered: self-hosted Community Edition only, MIT perimeter verified, versio
 
 ## First increment
 
-None in this lot. The implementation gate stays closed until this spec is reviewed. Candidate first increments after ratification, in dependency order: (a) FTS5 rung design note/ADR in `gear-memory` once P1 is merged (E3+E6); (b) feed-mind `search` on its elected DB (landing map row 2); (c) Biscuit `search_scope` pattern note in the shared contract (E18, demand-driven).
+None shipped in this lot; the gate lifted on 2026-07-02. Candidate increments, in dependency order, each behind its own factual gate: (a) FTS5 rung design note/ADR in `gear-memory` once P1 is merged (E3+E6); (b) feed-mind `search` on its elected DB (landing map row 2, after the storage election); (c) Biscuit `search_scope` pattern note in the shared contract (E18, demand-driven — first multi-user search surface).
 
-## Open questions (proposed)
+## Open questions — resolved 2026-07-02
 
-1. **FTS ranking depth**: start rung 2 with explained `bm25()` plus stable tiebreaks, and introduce the full ordered-rule cascade (E3) only if result quality disappoints — or specify the cascade from day one?
-2. **Factory-wide search owner**: multi-root read fan-out as a `gear-memory` CLI mode (gear capability, factory usage per ADR 0023) — or does a dedicated Wrench evidence tool emerge later? Proposed: CLI mode, revisit on evidence-report demand.
-3. **Feed-mind sequencing**: `search` lands on the product's elected DB; when is the storage election scheduled?
-4. **Charabia trigger**: is "real multi-script content in an indexed product" the right adoption trigger (E5), or should fr/en stay a hard assumption until a product says otherwise?
-5. **Stars-audit traceability**: add a retroactive `meilisearch/meilisearch` row to `github-stars-stack-audit.md` pointing at this spec (as the USearch row does for vector), or is this spec sufficient?
+1. **FTS ranking depth** → start rung 2 with **explained `bm25()` plus stable tiebreaks**; the ordered-rule cascade (E3) is introduced only if result quality disappoints. The cascade stays the documented reference design.
+2. **Factory-wide search owner** → **`gear-memory` CLI multi-root read fan-out** (gear capability, factory usage per ADR 0023); revisit only if a dedicated evidence report emerges.
+3. **Feed-mind sequencing** → `search` lands on the product's elected DB, **after** the storage election; no new component for a dojo.
+4. **Charabia trigger** → confirmed: **real multi-script content in an indexed product**; fr/en stays the default assumption until a product says otherwise.
+5. **Stars-audit traceability** → **yes**: retroactive `meilisearch/meilisearch` row added to `github-stars-stack-audit.md`, pointing at this spec.
 
 ## Sources
 

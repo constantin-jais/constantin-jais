@@ -1,6 +1,6 @@
 # ADR 0031 — Governance as Code for Branch Policies
 
-Status: Proposed
+Status: Accepted
 Date: 2026-07-02
 Decision owner: Ecosystem Architecture
 
