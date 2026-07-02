@@ -34,14 +34,21 @@ python3 -m unittest discover ecosystem/governance             # unit tests (pure
 1. Create a fine-grained PAT: Settings → Developer settings → Fine-grained
    tokens — Repository access: the forge repos; Permissions: Administration
    (Read and write); expiration 90 days.
-2. Add it as the `FORGE_ADMIN_TOKEN` secret of this repository
-   (Settings → Secrets and variables → Actions).
-3. First convergence, from your session (or let the `governance` workflow
-   apply on the next push to `main` touching `ecosystem/governance/`):
+2. Add it as the `FORGE_ADMIN_TOKEN` secret of this repository. With the
+   token in your clipboard (macOS):
 
    ```sh
-   python3 ecosystem/governance/forge_policy.py apply
+   pbpaste | gh secret set FORGE_ADMIN_TOKEN --repo constantin-jais/constantin-jais
    ```
+
+   Do NOT rely on `gh secret set`'s interactive prompt from a harness `!`
+   command: without a TTY it reads an empty stdin and silently stores an
+   empty secret (bitten 2026-07-02). UI alternative: Settings → Secrets and
+   variables → Actions.
+
+3. First convergence: Actions → `Governance` → Run workflow (the `apply`
+   job runs on `workflow_dispatch` and on every push to `main` touching
+   `ecosystem/governance/`).
 
 Renewal: when the PAT expires, generate a new one and update the secret —
 the weekly drift check fails loudly when the token dies.
