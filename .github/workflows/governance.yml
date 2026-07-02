@@ -14,6 +14,11 @@ on:
       - "ecosystem/governance/**"
       - ".github/workflows/governance.yml"
   workflow_dispatch:
+    inputs:
+      dump_repo:
+        description: "OWNER/NAME to dump (onboarding aid); leave empty to apply the policy"
+        required: false
+        default: ""
   schedule:
     - cron: "43 6 * * 2"
 
@@ -74,10 +79,11 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     # push to main (merged policy change) or manual dispatch (bootstrap,
-    # re-convergence) - matching the runbook in ecosystem/governance/README.md
+    # re-convergence) - matching the runbook in ecosystem/governance/README.md.
+    # A dispatch carrying dump_repo is an onboarding dump, not an apply.
     if: >-
       (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
-      github.event_name == 'workflow_dispatch'
+      (github.event_name == 'workflow_dispatch' && inputs.dump_repo == '')
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -93,3 +99,25 @@ jobs:
             exit 0
           fi
           python3 ecosystem/governance/forge_policy.py apply
+
+  dump:
+    name: Dump live state (onboarding)
+    needs: tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && inputs.dump_repo != ''
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Dump rulesets, legacy protection, and settings of the target repo
+        env:
+          GH_TOKEN: ${{ secrets.FORGE_ADMIN_TOKEN }}
+          DUMP_REPO: ${{ inputs.dump_repo }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::error::FORGE_ADMIN_TOKEN not configured - dump needs it (bootstrap: ecosystem/governance/README.md)"
+            exit 1
+          fi
+          python3 ecosystem/governance/forge_policy.py dump --repo "${DUMP_REPO}"
