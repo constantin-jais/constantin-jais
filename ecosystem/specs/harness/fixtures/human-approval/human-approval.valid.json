@@ -1,0 +1,18 @@
+{
+  "format": "bolt.human_approval.v0.1",
+  "approval_id": "approval_handoff_h_01",
+  "subject": {
+    "kind": "handoff_package",
+    "ref": "h",
+    "hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "decision": "approved",
+  "approved_by": "operator-demo",
+  "approved_at": "2026-07-02T00:00:00Z",
+  "expires_at": "2099-12-31T00:00:00Z",
+  "signature": {
+    "algorithm": "ed25519",
+    "public_key_ref": "human-operator-demo-key-01",
+    "value": "ed25519:89c87acb4c2638ff090100f54c47b2983dd379ef99ac354ab4137b3f5b481e653c988358f0e92a399987a54555da1d6258b772aaa05ffb605071c25a611b7e0d"
+  }
+}

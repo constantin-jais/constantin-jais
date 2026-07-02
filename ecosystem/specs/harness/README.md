@@ -15,7 +15,7 @@ Rumble spec package
 → cos-matic dry-run plan
 → Wrench inspection reports
 → Gear artifact/provenance references
-→ human approval
+→ registry-backed human approval
 → only then implementation work
 ```
 
@@ -30,6 +30,8 @@ References:
 - [`03-rumble-delivery-maturity.md`](03-rumble-delivery-maturity.md)
 - [`04-stack-validation-tooling.md`](04-stack-validation-tooling.md)
 - [`cosmatic-planning.v0.1.schema.json`](cosmatic-planning.v0.1.schema.json)
+- [`human-approval.v0.1.schema.json`](human-approval.v0.1.schema.json)
+- [`approval-key-registry.v0.1.schema.json`](approval-key-registry.v0.1.schema.json)
 - [`rumble-delivery-maturity.v0.1.schema.json`](rumble-delivery-maturity.v0.1.schema.json)
 
 Bolt centralizes the agentic primitives that Rumbles must not reimplement locally:

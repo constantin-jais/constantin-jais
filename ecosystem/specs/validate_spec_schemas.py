@@ -49,9 +49,14 @@ SUITES = [
         fixtures=SPECS / "gear" / "fixtures" / "memory",
     ),
     Suite(
-        name="wrench-loader",
-        schema=SPECS / "wrench-loader" / "wrench-loader.v0.1.schema.json",
-        fixtures=SPECS / "wrench-loader" / "fixtures",
+        name="gear-artifact-manifest",
+        schema=SPECS / "gear" / "artifact-manifest.v0.1.schema.json",
+        fixtures=SPECS / "gear" / "fixtures" / "artifacts",
+    ),
+    Suite(
+        name="gear-loader",
+        schema=SPECS / "gear-loader" / "gear-loader.v0.1.schema.json",
+        fixtures=SPECS / "gear-loader" / "fixtures",
     ),
     Suite(
         name="cosmatic-planning",
@@ -59,9 +64,41 @@ SUITES = [
         fixtures=SPECS / "harness" / "fixtures" / "planning",
     ),
     Suite(
+        name="human-approval",
+        schema=SPECS / "harness" / "human-approval.v0.1.schema.json",
+        fixtures=SPECS / "harness" / "fixtures" / "human-approval",
+    ),
+    Suite(
+        name="approval-key-registry",
+        schema=SPECS / "harness" / "approval-key-registry.v0.1.schema.json",
+        fixtures=SPECS / "harness" / "fixtures" / "approval-key-registry",
+    ),
+    Suite(
+        name="wrench-evidence-report",
+        schema=SPECS / "wrench" / "evidence-report.v0.1.schema.json",
+        fixtures=SPECS / "wrench" / "fixtures" / "evidence",
+    ),
+    Suite(
         name="rumble-delivery-maturity",
         schema=SPECS / "harness" / "rumble-delivery-maturity.v0.1.schema.json",
         fixtures=SPECS / "harness" / "fixtures" / "maturity",
+    ),
+    Suite(
+        name="stack-project-maturity",
+        schema=SPECS / "harness" / "stack-project-maturity.v0.1.schema.json",
+        fixtures=SPECS / "harness" / "fixtures" / "stack-maturity",
+    ),
+    Suite(
+        name="stack-target-version",
+        schema=SPECS / "harness" / "stack-target-version.v0.1.schema.json",
+        fixtures=SPECS / "harness" / "fixtures" / "target-version",
+    ),
+    Suite(
+        name="stack-project-maturity-claims",
+        schema=SPECS / "harness" / "stack-project-maturity.v0.1.schema.json",
+        fixtures=ROOT / "ecosystem" / "maturity" / "stack",
+        pass_suffixes=(".json",),
+        fail_suffixes=(),
     ),
 ]
 
@@ -102,6 +139,22 @@ def has_timestamp_without_offset(obj: Any) -> bool:
         if key.endswith("_at") or key == "timestamp":
             if isinstance(value, str) and "T" in value and not RFC3339_OFFSET.match(value):
                 return True
+    return False
+
+
+def has_duplicate_approval_key_ref(obj: Any) -> bool:
+    if not isinstance(obj, dict) or obj.get("format") != "bolt.approval_key_registry.v0.1":
+        return False
+    seen: set[str] = set()
+    for key in obj.get("keys", []):
+        if not isinstance(key, dict):
+            continue
+        key_ref = key.get("public_key_ref")
+        if not isinstance(key_ref, str):
+            continue
+        if key_ref in seen:
+            return True
+        seen.add(key_ref)
     return False
 
 
@@ -173,6 +226,7 @@ def semantic_negative_guard(path: Path, obj: Any) -> bool:
         or has_invalid_hash(obj)
         or has_timestamp_without_offset(obj)
         or has_ocr_text_without_policy(obj)
+        or has_duplicate_approval_key_ref(obj)
         or has_maturity_semantic_violation(obj)
         or "execution-forbidden" in path.name
     )
