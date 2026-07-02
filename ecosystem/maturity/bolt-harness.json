@@ -1,0 +1,77 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "bolt-harness",
+    "layer": "Bolt",
+    "role": "Harness substrate and proof benchmarks for orchestration engine designs.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_level": "R1",
+  "target_level": "R9",
+  "next_level": "R2",
+  "promotion_candidate": {
+    "from": "R1",
+    "to": "R2",
+    "status": "blocked",
+    "blocked_by": [
+      "Harness responsibility boundary vs engine code not yet clarified",
+      "proof benchmark criteria need finalization"
+    ]
+  },
+  "axes": {
+    "spec": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/harness/"]
+    },
+    "contracts": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/harness/01-bolt-cosmatic-hardening.md"]
+    },
+    "core": { "level": "R1", "status": "warn", "evidence": [] },
+    "security": { "level": "R1", "status": "warn", "evidence": [] },
+    "ux": { "level": "R0", "status": "not_applicable", "evidence": [] },
+    "persistence": {
+      "level": "R0",
+      "status": "not_applicable",
+      "evidence": []
+    },
+    "orchestration": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/harness/fixtures/planning/"]
+    },
+    "inspection": { "level": "R0", "status": "blocked", "evidence": [] },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "blocked", "evidence": [] },
+    "commercial_readiness": {
+      "level": "R0",
+      "status": "blocked",
+      "evidence": []
+    },
+    "learning_yield": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/harness/"]
+    }
+  },
+  "platform_readiness": {
+    "cli": "proof",
+    "api": "proof",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "none",
+    "self_hosted": "proof",
+    "cloud_eu": "none"
+  },
+  "evidence": [],
+  "learning_yield": [],
+  "open_questions": [
+    "Should bolt-harness be a separate repository or remain inside cos-matic?"
+  ],
+  "risk_notes": [
+    "Do not absorb engine code; keep as proof/validation substrate only."
+  ]
+}

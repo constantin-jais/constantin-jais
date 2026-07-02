@@ -1,0 +1,67 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "portal-android",
+    "layer": "Portal",
+    "role": "Android publication bridge via platform-specific runtime.",
+    "maturity_mode": "frozen"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_level": "R4",
+  "target_level": "R9",
+  "next_level": "R5",
+  "promotion_candidate": {
+    "from": "R4",
+    "to": "R5",
+    "status": "blocked",
+    "blocked_by": [
+      "Locally unverifiable; mirrors portal-apple approach for Android parity"
+    ]
+  },
+  "axes": {
+    "spec": { "level": "R4", "status": "pass", "evidence": [] },
+    "contracts": { "level": "R4", "status": "warn", "evidence": [] },
+    "core": { "level": "R4", "status": "warn", "evidence": [] },
+    "security": { "level": "R4", "status": "warn", "evidence": [] },
+    "ux": { "level": "R4", "status": "warn", "evidence": [] },
+    "persistence": { "level": "R4", "status": "warn", "evidence": [] },
+    "orchestration": {
+      "level": "R0",
+      "status": "not_applicable",
+      "evidence": []
+    },
+    "inspection": { "level": "R4", "status": "warn", "evidence": [] },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "blocked", "evidence": [] },
+    "commercial_readiness": {
+      "level": "R0",
+      "status": "blocked",
+      "evidence": []
+    },
+    "learning_yield": { "level": "R4", "status": "pass", "evidence": [] }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "none",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "proof",
+    "self_hosted": "none",
+    "cloud_eu": "none"
+  },
+  "evidence": [],
+  "learning_yield": [
+    {
+      "kind": "architectural_skeleton",
+      "description": "Architectural skeleton present; mirrors portal-apple approach for platform parity.",
+      "owner": "portal-android"
+    }
+  ],
+  "open_questions": [
+    "Should Android bridge use platform-specific Kotlin or remain Rust-forward?"
+  ],
+  "risk_notes": [
+    "Locally unverifiable; requires Android environment for validation.",
+    "Frozen status; architectural skeleton in place for Android parity."
+  ]
+}
