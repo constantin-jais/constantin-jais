@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://constantin-jais.github.io/ecosystem/schemas/human-approval.v0.1.schema.json",
+  "title": "Bolt HumanApproval v0.1",
+  "type": "object",
+  "required": [
+    "format",
+    "approval_id",
+    "subject",
+    "decision",
+    "approved_by",
+    "approved_at",
+    "expires_at",
+    "signature"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "bolt.human_approval.v0.1" },
+    "approval_id": { "type": "string", "minLength": 1 },
+    "subject": {
+      "type": "object",
+      "required": ["kind", "ref", "hash"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "handoff_package" },
+        "ref": { "type": "string", "minLength": 1 },
+        "hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "decision": { "enum": ["approved", "rejected"] },
+    "approved_by": { "type": "string", "minLength": 1 },
+    "approved_at": { "$ref": "#/$defs/timestamp" },
+    "expires_at": { "$ref": "#/$defs/timestamp" },
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "public_key_ref", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": { "const": "ed25519" },
+        "public_key_ref": { "type": "string", "minLength": 1 },
+        "value": {
+          "type": "string",
+          "pattern": "^ed25519:[A-Fa-f0-9]{128}$"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[A-Fa-f0-9]{64}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    }
+  }
+}
