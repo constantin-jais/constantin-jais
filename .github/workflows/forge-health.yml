@@ -1,5 +1,9 @@
 name: Forge health
 
+# The "Stack workflow conventions" job is a required status check on main.
+# Required checks must run on EVERY pull request or the merge waits forever
+# on an `expected` check (ADR 0031). So: no `paths:` filter on pull_request;
+# an in-job guard no-ops quickly when nothing relevant changed.
 on:
   push:
     branches: [main]
@@ -10,16 +14,8 @@ on:
       - "ecosystem/maturity/*.json"
       - "SECURITY.md"
       - ".github/CODEOWNERS"
-      - ".github/workflows/forge-health.yml"
+      - ".github/workflows/**"
   pull_request:
-    paths:
-      - "docs/forge.md"
-      - "ecosystem/forge-health.md"
-      - "ecosystem/status.md"
-      - "ecosystem/maturity/*.json"
-      - "SECURITY.md"
-      - ".github/CODEOWNERS"
-      - ".github/workflows/forge-health.yml"
   workflow_dispatch:
   schedule:
     - cron: "17 7 * * 1"
@@ -33,7 +29,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+      - name: Detect relevant changes
+        id: relevant
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch --no-tags origin "${{ github.base_ref }}"
+          if git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- \
+            docs/forge.md \
+            ecosystem/forge-health.md \
+            ecosystem/status.md \
+            'ecosystem/maturity/*.json' \
+            SECURITY.md \
+            .github/CODEOWNERS \
+            .github/workflows/ \
+            | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No forge-health-relevant paths changed; reporting success."
+          fi
       - name: Local forge docs and maturity criteria exist
+        if: steps.relevant.outputs.changed == 'true'
         run: |
           set -euo pipefail
           test -s docs/forge.md
@@ -44,6 +66,7 @@ jobs:
           grep -q "## Promotion criteria" ecosystem/status.md
           grep -q "trusted.*scale-ready" ecosystem/status.md
       - name: Local workflow actions are SHA-pinned
+        if: steps.relevant.outputs.changed == 'true'
         run: |
           set -euo pipefail
           if grep -RInE 'uses: [^#]+@(v[0-9]+|stable|main|master|cargo-[a-z-]+)' .github/workflows; then
@@ -51,6 +74,7 @@ jobs:
             exit 1
           fi
       - name: Public workflow inventory smoke
+        if: steps.relevant.outputs.changed == 'true'
         run: |
           set -euo pipefail
           repos=(

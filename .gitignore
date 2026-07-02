@@ -1,2 +1,3 @@
 .venv-spec-contracts/
 **/target/
+__pycache__/
