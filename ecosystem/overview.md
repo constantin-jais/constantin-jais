@@ -96,7 +96,7 @@ Documentation is part of the architecture. To avoid dispersion:
 - **Offline-first where possible:** network access may improve the experience, but must not be required for core truth.
 - **Evidence over claims:** specs, tests, ADRs, provenance, and audit logs matter more than informal trust.
 - **Product demand drives platform work:** Bolt/Wrench/Gear bricks should be justified by at least one concrete Rumble need, preferably more than one.
-- **Interactive Rumble convergence:** interactive Rumble products should converge on Rust core + Dioxus UI unless an ADR/waiver justifies an exception. `rumble-cos` remains Astro because it is a public content site.
+- **Interactive Rumble convergence (D7, ADR 0030):** interactive Rumble products share a Rust core and render their **web** surface with **Leptos**. **Native** targets (iOS/Android/macOS) go through `portal-*` (Rust core + UniFFI + SwiftUI/Compose), not the web framework. **Desktop** is the Leptos web shell wrapped in Tauri 2. `rumble-cos` remains Astro until its D6 rebuild onto the Leptos shell. The earlier "Rust core + Dioxus UI by default" doctrine is superseded; Dioxus is retired as the web shell.
 
 ---
 
@@ -578,7 +578,7 @@ Do not name a shared brick after a single product unless it truly belongs only t
 7. Add Wrench inspection for traceability coverage, waiver validity, and shared capability extraction.
 8. Define minimal Gear artifact/provenance rules for `SpecPackage` and exported Rumble artifacts.
 9. Keep `rumble-feed-mind` MIT/Rust-Dioxus aligned; document any future exception by ADR/waiver.
-10. Align interactive Rumble UI plans on Rust/Dioxus, with ADRs for exceptions.
+10. Align interactive Rumble web UI on Leptos (D7, ADR 0030); native via portal/UniFFI; desktop via Tauri. Migrate lm's Dioxus web surface and feed-mind's legacy Next.js toward the Leptos shell.
 11. Only then start product UI development for `rumble-*`.
 
 ### Definition of Done for a Product Spec

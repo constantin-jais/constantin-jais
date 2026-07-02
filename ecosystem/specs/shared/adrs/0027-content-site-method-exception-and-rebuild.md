@@ -9,13 +9,13 @@ Related decision: D6 (decision-log)
 
 `rumble-cos` (the public content site) is currently built with Astro, an exception to the Rust+Dioxus/Leptos doctrine for interactive Rumbles. Astro was chosen for rapid content iteration and static-first performance. However, maintaining two UI frameworks (Astro + Rust) creates toolchain friction and risks fragmentation.
 
-A rebuild of `rumble-cos` using the elected web shell (Dioxus or Leptos winner from ADR 0024) is planned but not immediate. The current Astro site must remain live during the transition; content and redirects are migration assets, not throwaway work.
+A rebuild of `rumble-cos` using the elected web shell (Leptos, per ADR 0030) is planned but not immediate. The current Astro site must remain live during the transition; content and redirects are migration assets, not throwaway work.
 
 This ADR formalizes the exception, the rebuild path, and the transition sequencing.
 
 ## Decision
 
-1. **Exception status**: `rumble-cos` continues to use Astro until the web-shell election (ADR 0024 spike) is complete and a replacement passes all quality gates (E2E tests, performance, accessibility, SEO).
+1. **Exception status**: `rumble-cos` continues to use Astro until a Leptos replacement (web-shell election settled in ADR 0030) passes all quality gates (E2E tests, performance, accessibility, SEO).
 
 2. **Rebuild scope** (after web-shell election):
    - Port content model (structured data, frontmatter) to new framework without loss.
@@ -76,7 +76,7 @@ Rejected. Creates permanent framework inconsistency and prevents framework-level
 
 ## Required follow-up
 
-- Complete ADR 0024 web-shell E2E spike (Dioxus vs. Leptos).
+- Web-shell election settled: Leptos (ADR 0030). Spikes complete.
 - Structure COS content model for export (Markdown + YAML frontmatter or JSON).
 - Plan COS rebuild as separate Github issue/epic with gates and milestones.
 - Document current Astro performance baseline (Lighthouse, Core Web Vitals).
