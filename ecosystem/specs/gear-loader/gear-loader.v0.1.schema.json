@@ -1,29 +1,58 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://constantin-jais.github.io/specs/wrench-loader.v0.1.schema.json",
-  "title": "Wrench Loader v0.1 Contracts",
+  "$id": "https://constantin-jais.github.io/specs/gear-loader.v0.1.schema.json",
+  "title": "Gear Loader v0.1 Contracts",
   "type": "object",
   "required": ["format"],
   "properties": {
     "format": { "const": "wrench.loader.contract_bundle.v0.1" },
-    "extraction_requests": { "type": "array", "items": { "$ref": "#/$defs/extraction_request" } },
-    "canonical_documents": { "type": "array", "items": { "$ref": "#/$defs/canonical_source_document" } },
-    "gear_source_candidates": { "type": "array", "items": { "$ref": "#/$defs/gear_source_candidate" } },
-    "loader_evidence_reports": { "type": "array", "items": { "$ref": "#/$defs/loader_evidence_report" } }
+    "extraction_requests": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/extraction_request" }
+    },
+    "canonical_documents": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/canonical_source_document" }
+    },
+    "gear_source_candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/gear_source_candidate" }
+    },
+    "loader_evidence_reports": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/loader_evidence_report" }
+    }
   },
   "additionalProperties": false,
   "$defs": {
     "id": { "type": "string", "minLength": 1 },
     "sha256": { "type": "string", "pattern": "^sha256:[A-Fa-f0-9]{64}$" },
-    "timestamp": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$" },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
     "safe_metadata": {
       "type": "object",
-      "propertyNames": { "not": { "pattern": "(?i)^(secret|token|password|credential|api[_-]?key|raw[_-]?log|email|phone|.*[_-](secret|token|password|credential|api[_-]?key|raw[_-]?log|email|phone)([_-]?(value|text|raw|body))?)$" } },
-      "additionalProperties": { "type": ["string", "number", "boolean", "null", "array", "object"] }
+      "propertyNames": {
+        "not": {
+          "pattern": "(?i)^(secret|token|password|credential|api[_-]?key|raw[_-]?log|email|phone|.*[_-](secret|token|password|credential|api[_-]?key|raw[_-]?log|email|phone)([_-]?(value|text|raw|body))?)$"
+        }
+      },
+      "additionalProperties": {
+        "type": ["string", "number", "boolean", "null", "array", "object"]
+      }
     },
     "extraction_request": {
       "type": "object",
-      "required": ["format", "request_id", "actor_ref", "workspace_ref", "input", "policy", "requested_outputs"],
+      "required": [
+        "format",
+        "request_id",
+        "actor_ref",
+        "workspace_ref",
+        "input",
+        "policy",
+        "requested_outputs"
+      ],
       "properties": {
         "format": { "const": "wrench.extraction_request.v0.1" },
         "request_id": { "$ref": "#/$defs/id" },
@@ -33,43 +62,105 @@
           "type": "object",
           "required": ["kind", "ref"],
           "properties": {
-            "kind": { "enum": ["file_ref", "url", "inline_text", "feed_ref", "artifact_ref"] },
+            "kind": {
+              "enum": [
+                "file_ref",
+                "url",
+                "inline_text",
+                "feed_ref",
+                "artifact_ref"
+              ]
+            },
             "ref": { "$ref": "#/$defs/id" },
             "media_type": { "type": ["string", "null"] },
-            "content_hash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] }
+            "content_hash": {
+              "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+            }
           },
           "additionalProperties": false
         },
         "policy": {
           "type": "object",
-          "required": ["allowed_media_types", "max_bytes", "network", "ocr", "stt", "pii_mode", "secret_mode", "prompt_injection_mode"],
+          "required": [
+            "allowed_media_types",
+            "max_bytes",
+            "network",
+            "ocr",
+            "stt",
+            "pii_mode",
+            "secret_mode",
+            "prompt_injection_mode"
+          ],
           "properties": {
-            "allowed_media_types": { "type": "array", "items": { "type": "string" } },
+            "allowed_media_types": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
             "max_bytes": { "type": "integer", "minimum": 1 },
             "network": { "enum": ["disabled", "single_url", "bounded_crawl"] },
             "ocr": { "enum": ["disabled", "enabled"] },
             "stt": { "enum": ["disabled", "enabled"] },
             "pii_mode": { "enum": ["detect", "redact", "block"] },
             "secret_mode": { "enum": ["detect", "redact", "block"] },
-            "prompt_injection_mode": { "enum": ["detect", "quarantine_on_high"] }
+            "prompt_injection_mode": {
+              "enum": ["detect", "quarantine_on_high"]
+            }
           },
           "additionalProperties": false
         },
-        "requested_outputs": { "type": "array", "minItems": 1, "items": { "enum": ["canonical_document", "evidence_report", "gear_source_candidate"] } }
+        "requested_outputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "canonical_document",
+              "evidence_report",
+              "gear_source_candidate"
+            ]
+          }
+        }
       },
       "additionalProperties": false
     },
     "canonical_source_document": {
       "type": "object",
-      "required": ["format", "document_id", "source", "canonical", "metadata", "security", "quality", "provenance"],
+      "required": [
+        "format",
+        "document_id",
+        "source",
+        "canonical",
+        "metadata",
+        "security",
+        "quality",
+        "provenance"
+      ],
       "properties": {
         "format": { "const": "wrench.canonical_source_document.v0.1" },
         "document_id": { "$ref": "#/$defs/id" },
         "source": {
           "type": "object",
-          "required": ["input_type", "media_type", "size_bytes", "content_hash", "retrieved_at"],
+          "required": [
+            "input_type",
+            "media_type",
+            "size_bytes",
+            "content_hash",
+            "retrieved_at"
+          ],
           "properties": {
-            "input_type": { "enum": ["file", "url", "feed_item", "transcript", "markdown", "html", "pdf", "office", "code", "text"] },
+            "input_type": {
+              "enum": [
+                "file",
+                "url",
+                "feed_item",
+                "transcript",
+                "markdown",
+                "html",
+                "pdf",
+                "office",
+                "code",
+                "text"
+              ]
+            },
             "uri": { "type": ["string", "null"] },
             "filename": { "type": ["string", "null"] },
             "media_type": { "type": "string", "minLength": 1 },
@@ -87,7 +178,10 @@
             "language": { "type": ["string", "null"] },
             "text": { "type": "string" },
             "markdown": { "type": "string" },
-            "structure": { "type": "array", "items": { "$ref": "#/$defs/block" } },
+            "structure": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/block" }
+            },
             "chunks": { "type": "array", "items": { "$ref": "#/$defs/chunk" } }
           },
           "additionalProperties": false
@@ -104,7 +198,19 @@
       "required": ["block_id", "type", "text"],
       "properties": {
         "block_id": { "$ref": "#/$defs/id" },
-        "type": { "enum": ["heading", "paragraph", "list", "table", "code", "quote", "image", "audio_segment", "feed_metadata"] },
+        "type": {
+          "enum": [
+            "heading",
+            "paragraph",
+            "list",
+            "table",
+            "code",
+            "quote",
+            "image",
+            "audio_segment",
+            "feed_metadata"
+          ]
+        },
         "text": { "type": "string" },
         "markdown": { "type": ["string", "null"] },
         "source_span": {
@@ -122,10 +228,20 @@
     },
     "chunk": {
       "type": "object",
-      "required": ["chunk_id", "block_ids", "text", "token_estimate", "citation_label"],
+      "required": [
+        "chunk_id",
+        "block_ids",
+        "text",
+        "token_estimate",
+        "citation_label"
+      ],
       "properties": {
         "chunk_id": { "$ref": "#/$defs/id" },
-        "block_ids": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" } },
+        "block_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" }
+        },
         "text": { "type": "string" },
         "token_estimate": { "type": "integer", "minimum": 0 },
         "citation_label": { "type": "string" }
@@ -134,9 +250,23 @@
     },
     "security": {
       "type": "object",
-      "required": ["classification", "prompt_injection", "pii", "secrets", "active_content_removed"],
+      "required": [
+        "classification",
+        "prompt_injection",
+        "pii",
+        "secrets",
+        "active_content_removed"
+      ],
       "properties": {
-        "classification": { "enum": ["public", "internal", "personal_data", "sensitive", "secret_suspected"] },
+        "classification": {
+          "enum": [
+            "public",
+            "internal",
+            "personal_data",
+            "sensitive",
+            "secret_suspected"
+          ]
+        },
         "prompt_injection": { "$ref": "#/$defs/finding_group" },
         "pii": { "$ref": "#/$defs/finding_group" },
         "secrets": { "$ref": "#/$defs/finding_group" },
@@ -156,20 +286,38 @@
     },
     "quality": {
       "type": "object",
-      "required": ["extraction_status", "confidence", "warnings", "unsupported_features"],
+      "required": [
+        "extraction_status",
+        "confidence",
+        "warnings",
+        "unsupported_features"
+      ],
       "properties": {
-        "extraction_status": { "enum": ["ok", "partial", "failed", "quarantined"] },
+        "extraction_status": {
+          "enum": ["ok", "partial", "failed", "quarantined"]
+        },
         "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
         "warnings": { "type": "array", "items": { "type": "string" } },
-        "unsupported_features": { "type": "array", "items": { "type": "string" } }
+        "unsupported_features": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
       },
       "additionalProperties": false
     },
     "loader_provenance": {
       "type": "object",
-      "required": ["tool", "tool_version", "pipeline_id", "started_at", "completed_at", "input_refs", "output_hash"],
+      "required": [
+        "tool",
+        "tool_version",
+        "pipeline_id",
+        "started_at",
+        "completed_at",
+        "input_refs",
+        "output_hash"
+      ],
       "properties": {
-        "tool": { "const": "wrench-loader" },
+        "tool": { "const": "gear-loader" },
         "tool_version": { "type": "string", "minLength": 1 },
         "pipeline_id": { "$ref": "#/$defs/id" },
         "started_at": { "$ref": "#/$defs/timestamp" },
@@ -181,12 +329,30 @@
     },
     "gear_source_candidate": {
       "type": "object",
-      "required": ["format", "canonical_document_ref", "source_type", "origin_product", "content_hash", "provenance", "indexing_hints"],
+      "required": [
+        "format",
+        "canonical_document_ref",
+        "source_type",
+        "origin_product",
+        "content_hash",
+        "provenance",
+        "indexing_hints"
+      ],
       "properties": {
         "format": { "const": "wrench.gear_source_candidate.v0.1" },
         "canonical_document_ref": { "$ref": "#/$defs/id" },
-        "source_type": { "enum": ["file", "url", "feed_item", "transcript", "document", "dataset", "artifact"] },
-        "origin_product": { "const": "wrench-loader" },
+        "source_type": {
+          "enum": [
+            "file",
+            "url",
+            "feed_item",
+            "transcript",
+            "document",
+            "dataset",
+            "artifact"
+          ]
+        },
+        "origin_product": { "const": "gear-loader" },
         "content_hash": { "$ref": "#/$defs/sha256" },
         "provenance": { "$ref": "#/$defs/safe_metadata" },
         "indexing_hints": {
@@ -204,13 +370,27 @@
     },
     "loader_evidence_report": {
       "type": "object",
-      "required": ["format", "report_id", "request_id", "canonical_document_id", "status", "input_evidence", "pipeline_evidence", "extraction_evidence", "security_evidence", "policy_evidence", "outputs"],
+      "required": [
+        "format",
+        "report_id",
+        "request_id",
+        "canonical_document_id",
+        "status",
+        "input_evidence",
+        "pipeline_evidence",
+        "extraction_evidence",
+        "security_evidence",
+        "policy_evidence",
+        "outputs"
+      ],
       "properties": {
         "format": { "const": "wrench.loader_evidence_report.v0.1" },
         "report_id": { "$ref": "#/$defs/id" },
         "request_id": { "$ref": "#/$defs/id" },
         "canonical_document_id": { "$ref": "#/$defs/id" },
-        "status": { "enum": ["passed", "passed_with_warnings", "failed", "quarantined"] },
+        "status": {
+          "enum": ["passed", "passed_with_warnings", "failed", "quarantined"]
+        },
         "input_evidence": { "$ref": "#/$defs/safe_metadata" },
         "pipeline_evidence": { "$ref": "#/$defs/safe_metadata" },
         "extraction_evidence": { "$ref": "#/$defs/safe_metadata" },

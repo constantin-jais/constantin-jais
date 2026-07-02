@@ -1,11 +1,11 @@
-# Wrench Loader — Canonical Ingestion Scope
+# Gear Loader — Canonical Ingestion Scope
 
 Status: Proposed.
 Date: 2026-06-30.
 
 ## Mission
 
-`wrench-loader` is the Wrench canonical ingestion and extraction brick for the Rumble / Bolt / Wrench / Gear ecosystem.
+`gear-loader` is the Gear canonical ingestion and extraction brick for the Rumble / Bolt / Wrench / Gear ecosystem.
 
 It turns hostile or heterogeneous inputs into deterministic, auditable, source-grounded canonical content that Rumble products can use and Gear can store/index.
 
@@ -15,19 +15,19 @@ It is not a knowledge product, not durable memory, not a crawler brain, not a fe
 
 The GitHub stars audit positions these projects as inspiration only:
 
-| Inspiration | What to learn | What not to copy |
-| --- | --- | --- |
-| `xberg-io/xberg` | Document-intelligence architecture, extraction report shape, modular loader idea. | No direct product clone; no upstream contract naming as ecosystem contract. |
-| `xberg-io/html-to-markdown` | Deterministic HTML cleanup and readable Markdown projection. | Do not make Markdown the only truth; keep structured blocks and provenance. |
-| `xberg-io/crawlberg` | URL capture, fetch policy, crawl frontier constraints, evidence around fetched pages. | Do not let Wrench decide what to crawl next; Bolt/Rumble owns intent/scheduling. |
-| `cjpais/Handy` | Offline speech-to-text option for audio/transcript ingestion. | Do not make STT a hidden cloud dependency; no unreviewed model/license import. |
-| `xberg-io/tree-sitter-language-pack` | Polyglot code parsing and syntax-aware chunking. | Do not turn Loader into a code intelligence product; only extract/code-normalize. |
+| Inspiration                          | What to learn                                                                         | What not to copy                                                                  |
+| ------------------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `xberg-io/xberg`                     | Document-intelligence architecture, extraction report shape, modular loader idea.     | No direct product clone; no upstream contract naming as ecosystem contract.       |
+| `xberg-io/html-to-markdown`          | Deterministic HTML cleanup and readable Markdown projection.                          | Do not make Markdown the only truth; keep structured blocks and provenance.       |
+| `xberg-io/crawlberg`                 | URL capture, fetch policy, crawl frontier constraints, evidence around fetched pages. | Do not let Wrench decide what to crawl next; Bolt/Rumble owns intent/scheduling.  |
+| `cjpais/Handy`                       | Offline speech-to-text option for audio/transcript ingestion.                         | Do not make STT a hidden cloud dependency; no unreviewed model/license import.    |
+| `xberg-io/tree-sitter-language-pack` | Polyglot code parsing and syntax-aware chunking.                                      | Do not turn Loader into a code intelligence product; only extract/code-normalize. |
 
 License rule: direct dependencies must remain MIT / Apache-2.0 / BSD / ISC / MPL-2.0 compatible. AGPL, SSPL, BSL, proprietary dependencies, and unverified model licenses are blocked.
 
 ## Product Demand
 
-`wrench-loader` is justified by repeated needs:
+`gear-loader` is justified by repeated needs:
 
 - `rumble-note`: import documents/sources without becoming an ingestion engine.
 - `rumble-lm`: build source sets for sessions, activities, summaries, and citations.
@@ -43,37 +43,37 @@ License rule: direct dependencies must remain MIT / Apache-2.0 / BSD / ISC / MPL
 
 P0 is the minimal surface needed to stop Rumble products from reimplementing ingestion.
 
-| Format / input | P0 decision | Reason |
-| --- | --- | --- |
-| HTML | In scope. | Needed by URLs, feeds, COS, LM, Note. Normalize DOM, main content, links, metadata, and Markdown projection. |
-| Markdown | In scope. | Native agent-readable format, notes/specs/blog/source packages. Preserve frontmatter and headings. |
-| PDF | In scope. | Common source format for learning/research. Extract text, pages, metadata; OCR only when explicitly enabled. |
-| Office documents | In scope for `.docx`, `.pptx`, `.xlsx` text/tables metadata. | Common user uploads. Prefer open parsers and safe archive handling. Legacy binary Office is P1/quarantine unless safe parser exists. |
-| Feeds | In scope for RSS/Atom/JSON Feed parsing and item normalization. | `rumble-feed-mind`, Note and COS need reusable feed source normalization. Polling strategy remains Rumble/Bolt. |
-| URLs | In scope for single-URL fetch and bounded capture. | Needed by all source-grounded products. Respect fetch policy, robots policy setting, content-type allowlist, size/time limits. |
-| Code | In scope for repository/file snippets as source extraction, syntax-aware chunking where available. | Needed for specs, agents, Canvas, Note. No deep code graph ownership. |
-| Plain text | In scope. | Baseline fallback and test fixture format. |
+| Format / input   | P0 decision                                                                                        | Reason                                                                                                                               |
+| ---------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| HTML             | In scope.                                                                                          | Needed by URLs, feeds, COS, LM, Note. Normalize DOM, main content, links, metadata, and Markdown projection.                         |
+| Markdown         | In scope.                                                                                          | Native agent-readable format, notes/specs/blog/source packages. Preserve frontmatter and headings.                                   |
+| PDF              | In scope.                                                                                          | Common source format for learning/research. Extract text, pages, metadata; OCR only when explicitly enabled.                         |
+| Office documents | In scope for `.docx`, `.pptx`, `.xlsx` text/tables metadata.                                       | Common user uploads. Prefer open parsers and safe archive handling. Legacy binary Office is P1/quarantine unless safe parser exists. |
+| Feeds            | In scope for RSS/Atom/JSON Feed parsing and item normalization.                                    | `rumble-feed-mind`, Note and COS need reusable feed source normalization. Polling strategy remains Rumble/Bolt.                      |
+| URLs             | In scope for single-URL fetch and bounded capture.                                                 | Needed by all source-grounded products. Respect fetch policy, robots policy setting, content-type allowlist, size/time limits.       |
+| Code             | In scope for repository/file snippets as source extraction, syntax-aware chunking where available. | Needed for specs, agents, Canvas, Note. No deep code graph ownership.                                                                |
+| Plain text       | In scope.                                                                                          | Baseline fallback and test fixture format.                                                                                           |
 
 ### P1 — valuable but gated
 
-| Format / input | P1 decision | Reason |
-| --- | --- | --- |
-| Audio / STT | P1 behind explicit consent and model/license review. | Useful for LM sessions and notes, but high privacy and model risk. Prefer offline/local STT or sovereign STT. |
-| Images / OCR | P1 behind explicit OCR flag. | Useful for scanned PDFs/screenshots, but expensive and error-prone. Produce confidence and bounding evidence. |
-| Archives | P1 for safe archive expansion. | Useful upload shape, but hostile-archive risk requires strict limits. |
-| EPUB | P1. | Useful for learning sources; not required for first shared pipeline. |
-| Video transcript extraction | P1 only via existing transcript files or local extraction. | Avoid platform lock-in and proprietary APIs. |
-| Sitemap / bounded crawl | P1. | Should be a bounded extraction primitive, not an autonomous crawler. |
+| Format / input              | P1 decision                                                | Reason                                                                                                        |
+| --------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Audio / STT                 | P1 behind explicit consent and model/license review.       | Useful for LM sessions and notes, but high privacy and model risk. Prefer offline/local STT or sovereign STT. |
+| Images / OCR                | P1 behind explicit OCR flag.                               | Useful for scanned PDFs/screenshots, but expensive and error-prone. Produce confidence and bounding evidence. |
+| Archives                    | P1 for safe archive expansion.                             | Useful upload shape, but hostile-archive risk requires strict limits.                                         |
+| EPUB                        | P1.                                                        | Useful for learning sources; not required for first shared pipeline.                                          |
+| Video transcript extraction | P1 only via existing transcript files or local extraction. | Avoid platform lock-in and proprietary APIs.                                                                  |
+| Sitemap / bounded crawl     | P1.                                                        | Should be a bounded extraction primitive, not an autonomous crawler.                                          |
 
 ### P2 — deferred / explicit non-P0
 
-| Format / input | P2 decision | Reason |
-| --- | --- | --- |
-| Legacy binary Office (`.doc`, `.xls`, `.ppt`) | P2/quarantine unless converted in sandbox. | Parser attack surface and fidelity risk. |
-| Email boxes | P2. | PII-heavy, product-specific retention and consent model. |
-| Full website crawling | P2 and Bolt/Rumble-driven. | Loader may execute bounded fetches; it does not own crawl strategy. |
-| Database dumps | Out of Loader P0/P1; likely Wrench Inspect / DB Inspect if inspected. | Different security domain. |
-| Proprietary SaaS connectors | Deferred. | Sovereignty/vendor-lock risk. |
+| Format / input                                | P2 decision                                                           | Reason                                                              |
+| --------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Legacy binary Office (`.doc`, `.xls`, `.ppt`) | P2/quarantine unless converted in sandbox.                            | Parser attack surface and fidelity risk.                            |
+| Email boxes                                   | P2.                                                                   | PII-heavy, product-specific retention and consent model.            |
+| Full website crawling                         | P2 and Bolt/Rumble-driven.                                            | Loader may execute bounded fetches; it does not own crawl strategy. |
+| Database dumps                                | Out of Loader P0/P1; likely Wrench Inspect / DB Inspect if inspected. | Different security domain.                                          |
+| Proprietary SaaS connectors                   | Deferred.                                                             | Sovereignty/vendor-lock risk.                                       |
 
 ## Canonical Output
 
@@ -198,13 +198,17 @@ The canonical output is not “just Markdown”. Markdown is a projection. The c
     "secret_mode": "detect | redact | block",
     "prompt_injection_mode": "detect | quarantine_on_high"
   },
-  "requested_outputs": ["canonical_document", "evidence_report", "gear_source_candidate"]
+  "requested_outputs": [
+    "canonical_document",
+    "evidence_report",
+    "gear_source_candidate"
+  ]
 }
 ```
 
 ### `GearSourceCandidate v0.1`
 
-`wrench-loader` may produce a candidate for Gear, but Gear owns the durable `SourceRef`.
+`gear-loader` may produce a candidate for Gear, but Gear owns the durable `SourceRef`.
 
 ```json
 {
@@ -226,17 +230,17 @@ Gear may accept, reject, index, delete, anonymize, or mark stale. Loader must no
 
 ## Boundary: Wrench Loader vs Gear Memory vs Rumble vs Bolt
 
-| Concern | Wrench Loader | Gear Memory | Rumble products | Bolt / `cos-matic` |
-| --- | --- | --- | --- | --- |
-| Parse HTML/PDF/Office/feed/code/audio transcript | Owns | No | Calls | May schedule/call |
-| Fetch a single URL under policy | Owns execution | May store refs | Requests | May orchestrate |
-| Decide what sources matter to a user/session/feed | No | No | Owns product meaning | May plan workflow |
-| Poll feeds as a product workflow | Provides parser/extractor | Stores/indexes source refs | `rumble-feed-mind` owns UX/config | May schedule recurring runs |
-| Store durable source refs/chunks/indexes | Produces candidates | Owns | Uses | Uses refs |
-| Semantic memory / retrieval API | No | Owns | Uses | Uses |
-| Product notes/sessions/articles/curation | No | No | Owns | No |
-| Inspection readiness/evidence validation | Produces loader evidence | Stores report refs if accepted | Displays/acts | Gates/plans from evidence |
-| Decide publication, task execution, or learning summary | No | No | Owns final human/product decision | Owns orchestration gates |
+| Concern                                                 | Wrench Loader             | Gear Memory                    | Rumble products                   | Bolt / `cos-matic`          |
+| ------------------------------------------------------- | ------------------------- | ------------------------------ | --------------------------------- | --------------------------- |
+| Parse HTML/PDF/Office/feed/code/audio transcript        | Owns                      | No                             | Calls                             | May schedule/call           |
+| Fetch a single URL under policy                         | Owns execution            | May store refs                 | Requests                          | May orchestrate             |
+| Decide what sources matter to a user/session/feed       | No                        | No                             | Owns product meaning              | May plan workflow           |
+| Poll feeds as a product workflow                        | Provides parser/extractor | Stores/indexes source refs     | `rumble-feed-mind` owns UX/config | May schedule recurring runs |
+| Store durable source refs/chunks/indexes                | Produces candidates       | Owns                           | Uses                              | Uses refs                   |
+| Semantic memory / retrieval API                         | No                        | Owns                           | Uses                              | Uses                        |
+| Product notes/sessions/articles/curation                | No                        | No                             | Owns                              | No                          |
+| Inspection readiness/evidence validation                | Produces loader evidence  | Stores report refs if accepted | Displays/acts                     | Gates/plans from evidence   |
+| Decide publication, task execution, or learning summary | No                        | No                             | Owns final human/product decision | Owns orchestration gates    |
 
 Strict rule: Wrench Loader extracts and normalizes; Gear Memory persists and retrieves; Rumble interprets and presents; Bolt sequences and gates.
 
@@ -280,7 +284,7 @@ Security outranks extraction completeness.
 
 ## Evidence for Wrench Inspect / Bolt
 
-`wrench-loader` must produce machine-readable evidence. Wrench Inspect can validate it; Bolt can gate plans on it.
+`gear-loader` must produce machine-readable evidence. Wrench Inspect can validate it; Bolt can gate plans on it.
 
 ### `LoaderEvidenceReport v0.1`
 
@@ -388,18 +392,18 @@ Created decision records:
 
 ## Recommendation
 
-Recommendation: strengthen the existing `wrench-loader` repository as the canonical ingestion repository, not create a new repo now.
+Recommendation: strengthen the existing `gear-loader` repository as the canonical ingestion repository, not create a new repo now.
 
 Rationale:
 
-- The ecosystem overview already names `wrench-loader` as rich-document ingestion and canonical extraction.
+- The ecosystem overview already names `gear-loader` as rich-document ingestion and canonical extraction.
 - The need is shared by multiple Rumble products now; fragmentation would recreate the problem.
 - A separate `wrench-feed-loader` should remain a future split only if feed parsing grows independent operational complexity.
 - A separate `wrench-stt-loader` should remain a future split only if audio/STT becomes a major sandbox/model lifecycle domain.
 
 Near-term implementation shape:
 
-1. Keep one repo: `wrench-loader`.
+1. Keep one repo: `gear-loader`.
 2. Add modular adapters internally: `html`, `markdown`, `pdf`, `office`, `feed`, `url`, `code`, later `ocr`, `stt`.
 3. Publish contracts from the repo and mirror stable contracts in `constantin-jais/ecosystem/specs`.
 4. Add `cargo deny` license policy before dependencies.
@@ -407,10 +411,10 @@ Near-term implementation shape:
 
 ## Open Questions
 
-| Question | Impact | Proposed default |
-| --- | --- | --- |
-| Should Loader write directly to Gear Memory? | High | No by default; return candidate/output. Direct write only via explicit integration mode. |
-| Should raw input bytes be stored by Loader? | High | No durable storage; temporary sandbox only. Gear/Depot may store according to policy. |
-| Should feeds stay in Loader or split? | Medium | Keep feed parsing in Loader P0; revisit after FeedMind MVP. |
-| Which OCR/STT engine is acceptable? | High | Decide by ADR after license/model/RGPD review; prefer local/offline or sovereign EU. |
-| Is Markdown sufficient for all Rumbles? | High | No; Markdown is projection, structured JSON is canonical. |
+| Question                                     | Impact | Proposed default                                                                         |
+| -------------------------------------------- | ------ | ---------------------------------------------------------------------------------------- |
+| Should Loader write directly to Gear Memory? | High   | No by default; return candidate/output. Direct write only via explicit integration mode. |
+| Should raw input bytes be stored by Loader?  | High   | No durable storage; temporary sandbox only. Gear/Depot may store according to policy.    |
+| Should feeds stay in Loader or split?        | Medium | Keep feed parsing in Loader P0; revisit after FeedMind MVP.                              |
+| Which OCR/STT engine is acceptable?          | High   | Decide by ADR after license/model/RGPD review; prefer local/offline or sovereign EU.     |
+| Is Markdown sufficient for all Rumbles?      | High   | No; Markdown is projection, structured JSON is canonical.                                |
