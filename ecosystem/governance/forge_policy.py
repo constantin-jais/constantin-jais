@@ -219,15 +219,26 @@ def repo_drift(policy: dict, repo: str, state: RepoState) -> list[str]:
 # --------------------------------------------------------------------------
 
 
+class GhApiError(RuntimeError):
+    """gh api failure carrying the HTTP error body, so CI logs say WHY
+    (403 missing PAT permission vs 401 bad credentials vs 404 absence)
+    instead of a bare CalledProcessError."""
+
+    def __init__(self, message: str, stderr: str) -> None:
+        super().__init__(message)
+        self.stderr = stderr
+
+
 def gh_api(path: str, method: str = "GET", payload: dict | None = None) -> dict | list:
     command = ["gh", "api", "-X", method, path]
     stdin = None
     if payload is not None:
         command += ["--input", "-"]
         stdin = json.dumps(payload)
-    result = subprocess.run(
-        command, input=stdin, capture_output=True, text=True, check=True
-    )
+    result = subprocess.run(command, input=stdin, capture_output=True, text=True)
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout or "").strip()
+        raise GhApiError(f"gh api -X {method} {path}: {detail}", detail)
     return json.loads(result.stdout) if result.stdout.strip() else {}
 
 
@@ -235,8 +246,8 @@ def _gh_api_or_none(path: str) -> dict | list | None:
     """GET that treats 404 as None (absence), any other failure as an error."""
     try:
         return gh_api(path)
-    except subprocess.CalledProcessError as error:
-        if "HTTP 404" in (error.stderr or ""):
+    except GhApiError as error:
+        if "HTTP 404" in error.stderr:
             return None
         raise
 
