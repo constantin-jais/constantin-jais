@@ -1,0 +1,125 @@
+{
+  "format": "cosmatic.planning_bundle.v0.1",
+  "planning_requests": [
+    {
+      "format": "cosmatic.planning_request.v0.1",
+      "planning_request_id": "plan_req_wrench_gear_01",
+      "handoff_ref": {
+        "handoff_id": "handoff-wrench-gear-valid",
+        "payload_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "package_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "actor_ref": "actor-owner-demo",
+      "workspace_ref": "workspace-demo",
+      "dry_run": true,
+      "allow_execution": false,
+      "requested_outputs": ["implementation_plan", "test_plan"],
+      "evidence_ref_ids": ["ev_wrench_portal_01", "ev_gear_artifact_01"],
+      "authorization_ref": null,
+      "created_at": "2026-07-02T00:00:00Z"
+    }
+  ],
+  "evidence_refs": [
+    {
+      "evidence_ref_id": "ev_wrench_portal_01",
+      "kind": "wrench_inspect_report",
+      "producer": "wrench-inspect",
+      "ref": "wrench-portal-usage-aa95bcf37b1d97e5",
+      "hash": "sha256:aa95bcf37b1d97e55c7333ab54900c1fa4497626f712c1d23c523b743d05e625",
+      "status": "passed",
+      "state": "active",
+      "provenance_ref": "provenance:wrench-portal-usage-aa95bcf37b1d97e5",
+      "safe_summary": "Portal UI Wrench EvidenceReport passed and is hash-pinned.",
+      "metadata": {
+        "source_format": "wrench.evidence_report.v0.1",
+        "subject_kind": "portal_ui"
+      }
+    },
+    {
+      "evidence_ref_id": "ev_gear_artifact_01",
+      "kind": "gear_artifact_ref",
+      "producer": "gear-depot",
+      "ref": "manifest:wrench-portal-usage-aa95bcf37b1d97e5",
+      "hash": "sha256:43fda9fc5991275529544389fe07b91ceb25432b43865dbd674d498a9c87597f",
+      "status": "passed",
+      "state": "active",
+      "provenance_ref": "provenance:wrench-portal-usage-aa95bcf37b1d97e5",
+      "safe_summary": "Gear ArtifactManifest wraps the Wrench EvidenceReport as an inspection_report artifact.",
+      "metadata": {
+        "artifact_type": "inspection_report",
+        "artifact_reference_id": "artifact:wrench-portal-usage-aa95bcf37b1d97e5",
+        "source_format": "wrench.evidence_report.v0.1"
+      }
+    }
+  ],
+  "gate_results": [
+    {
+      "gate_result_id": "gate_wrench_portal_01",
+      "gate_type": "wrench_report_passed",
+      "target_ref": "ev_wrench_portal_01",
+      "state": "gate_passed",
+      "severity": "info",
+      "findings": [],
+      "created_at": "2026-07-02T00:00:01Z"
+    },
+    {
+      "gate_result_id": "gate_artifact_integrity_01",
+      "gate_type": "artifact_integrity",
+      "target_ref": "ev_gear_artifact_01",
+      "state": "gate_passed",
+      "severity": "info",
+      "findings": [],
+      "created_at": "2026-07-02T00:00:01Z"
+    }
+  ],
+  "run_intents": [
+    {
+      "run_intent_id": "run_intent_wrench_gear_01",
+      "intent_type": "planning_only",
+      "planning_request_id": "plan_req_wrench_gear_01",
+      "execution_allowed": false,
+      "requires_human_approval": true,
+      "created_at": "2026-07-02T00:00:01Z"
+    }
+  ],
+  "plan_reports": [
+    {
+      "format": "cosmatic.plan_report.v0.1",
+      "plan_report_id": "plan_report_wrench_gear_01",
+      "planning_request_id": "plan_req_wrench_gear_01",
+      "status": "plan_ready",
+      "dry_run_only": true,
+      "evidence_ref_ids": ["ev_wrench_portal_01", "ev_gear_artifact_01"],
+      "gate_result_ids": ["gate_wrench_portal_01", "gate_artifact_integrity_01"],
+      "summary": "Dry-run plan can proceed from a passed Wrench report represented by an active Gear artifact ref.",
+      "steps": [
+        {
+          "step_id": "step_review_wrench_gear_01",
+          "title": "Review Wrench evidence and Gear artifact refs",
+          "kind": "review",
+          "depends_on": []
+        },
+        {
+          "step_id": "step_test_wrench_gear_01",
+          "title": "Run acceptance tests before any execution approval",
+          "kind": "test",
+          "depends_on": ["step_review_wrench_gear_01"]
+        }
+      ],
+      "created_at": "2026-07-02T00:00:02Z"
+    }
+  ],
+  "audit_events": [
+    {
+      "event_id": "audit_wrench_gear_01",
+      "event_type": "planning.plan_ready",
+      "actor_ref": "actor-owner-demo",
+      "target_ref": "plan_report_wrench_gear_01",
+      "created_at": "2026-07-02T00:00:02Z",
+      "metadata": {
+        "dry_run_only": true,
+        "gear_artifact_ref": "artifact:wrench-portal-usage-aa95bcf37b1d97e5"
+      }
+    }
+  ]
+}

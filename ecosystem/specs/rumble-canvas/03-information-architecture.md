@@ -154,7 +154,7 @@ Primary objects:
 
 Purpose:
 
-- list needs that may become shared Rumble/Bolt/Wrench/Gear bricks;
+- list needs that may become shared Rumble/Portal/Bolt/Wrench/Gear bricks;
 - discuss naming and placement;
 - export candidates to ecosystem registry.
 

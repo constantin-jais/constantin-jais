@@ -1,0 +1,61 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "portal-forge",
+    "layer": "Portal",
+    "role": "Design token compiler and accessibility gate.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P1 CLI/library proof",
+  "scale_ready": "no",
+  "status_summary": "Token compiler emits CSS, Swift, Kotlin, semantic token types, and a Wrench/CI-consumable contrast report.",
+  "next_quality_step": "Connect Portal Core a11y/theme contracts to the Rumble LM fixture and Wrench inspection checks.",
+  "boundaries": {
+    "owns": [
+      "DTCG parsing",
+      "token code generation",
+      "WCAG token validation",
+      "contrast report evidence"
+    ],
+    "does_not_own": [
+      "product UI workflows",
+      "artifact distribution",
+      "release packaging"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "portal-forge/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "doc",
+      "ref": "portal-forge/docs/adr/0001-scope.md",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd portal-forge && cargo test",
+      "status": "passing",
+      "notes": "Run locally on 2026-07-02."
+    },
+    {
+      "kind": "fixture",
+      "ref": "rumble-lm/crates/ui/fixtures/portal/tokens.css",
+      "status": "present",
+      "notes": "Rumble LM UI fixture generated from Portal Forge identity tokens."
+    }
+  ],
+  "verification_commands": [
+    "cd portal-forge && cargo test",
+    "cd portal-forge && cargo run -- build design-tokens/identity.tokens.json --out target/portal-proof"
+  ],
+  "open_questions": [
+    "Which Portal Core a11y/theme contracts should the Rumble LM fixture consume next?"
+  ],
+  "risk_notes": [
+    "Do not let Portal Forge become token authoring UI or artifact registry."
+  ]
+}

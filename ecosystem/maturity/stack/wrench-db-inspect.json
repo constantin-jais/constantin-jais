@@ -1,0 +1,48 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "wrench-db-inspect",
+    "layer": "Wrench",
+    "role": "Database security evidence for Postgres, RLS, grants, migrations, and pgvector.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P1 CLI proof",
+  "scale_ready": "no",
+  "status_summary": "Specialized DB inspector exists with known clippy debt before CI-gate adoption.",
+  "next_quality_step": "Address clippy debt and decide strict CI integration.",
+  "boundaries": {
+    "owns": [
+      "DB inspection",
+      "RLS/grants checks",
+      "migration evidence"
+    ],
+    "does_not_own": [
+      "secrets management",
+      "ORM/proxy behavior",
+      "generic inspection"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "wrench-db-inspect/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd wrench-db-inspect && cargo test --workspace --all-targets",
+      "status": "warning",
+      "notes": "Command is the documented verification path; status may be proven locally or in CI per repo."
+    }
+  ],
+  "verification_commands": [
+    "cd wrench-db-inspect && cargo test --workspace --all-targets"
+  ],
+  "open_questions": [
+    "When should strict DB gates become mandatory for SQL-backed Rumbles?"
+  ],
+  "risk_notes": [
+    "Known clippy debt prevents trusted CI-gate claim."
+  ]
+}

@@ -52,5 +52,5 @@ Status: Drafting.
 
 - Product may still drift toward generic notes if handoff builder is weak.
 - Product may duplicate Gear Memory if memory candidates become too central too early.
-- Product may duplicate Wrench Loader if source import UX expands beyond references and selected outputs.
+- Product may duplicate Gear Loader if source import UX expands beyond references and selected outputs.
 - Product may become too schema-heavy if block editing feels slow.

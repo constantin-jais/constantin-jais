@@ -43,18 +43,18 @@ Rumble product
 - `portal-core`: define theme, a11y, i18n UI, focus, and binding contracts beyond the current translation bridge.
 - `portal-apple`: integrate generated Swift tokens and prove a minimal Rumble shell.
 - `portal-android`: commit Gradle wrapper, verify Android SDK/NDK build, integrate generated Kotlin tokens.
-- Wrench Inspect: add no-hardcoded-style, token usage, contrast-report, and accessibility evidence checks.
+- Wrench Inspect: initial Portal usage inspector and `wrench.evidence_report.v0.1` envelope exist for component token usage, hardcoded color/style heuristics, `portal.contrast_report.v0.1` presence, and hash-backed refs; remaining work is browser/accessibility evidence checks.
 
 ## P2 — Gear source and artifact substrate
 
 - `gear-loader`: harden PDF/Office/HTML/feed/code parsers, fail-closed policy, sandboxing, and hostile-content evidence.
 - `gear-memory`: implement GearSourceCandidate → SourceRef ingestion, persistence, indexing, deletion/anonymization, and stale propagation.
-- `gear-depot`: finalize ArtifactManifest policy, retention/revocation, signatures/checksums, and report/export artifacts.
+- `gear-depot`: initial Wrench EvidenceReport → `inspection_report` ArtifactManifest proof exists; continue finalizing policy, retention/revocation, signatures/checksums, storage/cache, and report/export artifacts.
 - `gear-cable`: connect release plans to Depot manifests and prove at least one reproducible release path.
 
 ## P3 — Wrench evidence layer
 
-- `wrench-inspect`: stabilize EvidenceReport, spec completeness, traceability, waiver, privacy/RGPD, sovereignty, browser, and Portal checks.
+- `wrench-inspect`: harden EvidenceReport adoption across inspectors, spec completeness, traceability, waiver, privacy/RGPD, sovereignty, browser, Portal checks, and Gear Loader evidence inspection.
 - `wrench-db-inspect`: resolve clippy debt, add strict CI gate profile, DB security manifest, RLS/grants/migration/pgvector checks.
 - Keep Wrench as evidence/validation only; no durable truth and no product-linkable ingestion runtime.
 

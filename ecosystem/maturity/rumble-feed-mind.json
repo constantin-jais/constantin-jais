@@ -64,15 +64,15 @@
     },
     {
       "kind": "strengthened_primitive",
-      "description": "Feed parsing pressure strengthened Wrench Loader ownership for RSS/Atom/JSON Feed parsing.",
-      "owner": "wrench-loader"
+      "description": "Feed parsing pressure strengthened Gear Loader ownership for RSS/Atom/JSON Feed parsing.",
+      "owner": "gear-loader"
     }
   ],
   "extraction_pressure": [
     {
       "capability": "Feed ingestion",
       "seen_in": ["rumble-feed-mind", "rumble-note", "rumble-cos"],
-      "suggested_owner": "Wrench",
+      "suggested_owner": "Gear Loader",
       "status": "accepted"
     }
   ],

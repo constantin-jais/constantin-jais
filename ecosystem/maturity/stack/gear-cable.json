@@ -1,0 +1,50 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "gear-cable",
+    "layer": "Gear",
+    "role": "Rust-first release and distribution wiring.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P1 CLI/library proof",
+  "scale_ready": "no",
+  "status_summary": "Release substrate skeleton and tests exist; Depot manifest integration remains next.",
+  "next_quality_step": "Connect release plans to Gear Depot artifact manifests.",
+  "boundaries": {
+    "owns": [
+      "release plans",
+      "checksums",
+      "target matrices",
+      "install floors",
+      "publication adapters"
+    ],
+    "does_not_own": [
+      "application runtime logic",
+      "client platform semantics",
+      "registry cache policy"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "gear-cable/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd gear-cable && cargo test --workspace --all-targets",
+      "status": "warning",
+      "notes": "Command is the documented verification path; status may be proven locally or in CI per repo."
+    }
+  ],
+  "verification_commands": [
+    "cd gear-cable && cargo test --workspace --all-targets"
+  ],
+  "open_questions": [
+    "Which product/tool should be the first end-to-end Cable→Depot release proof?"
+  ],
+  "risk_notes": [
+    "Keep mutating publish/promote commands gated until provenance is proven."
+  ]
+}

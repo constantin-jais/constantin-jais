@@ -1,0 +1,56 @@
+{
+  "format": "cosmatic.planning_bundle.v0.1",
+  "evidence_refs": [
+    {
+      "evidence_ref_id": "ev_wrench_failed_01",
+      "kind": "wrench_inspect_report",
+      "producer": "wrench-inspect",
+      "ref": "wrench-portal-usage-failed",
+      "hash": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+      "status": "failed",
+      "state": "active",
+      "provenance_ref": "prov_wrench_failed_01",
+      "safe_summary": "Portal usage evidence failed: component CSS contains a hardcoded color.",
+      "metadata": { "source_format": "wrench.evidence_report.v0.1" }
+    }
+  ],
+  "gate_results": [
+    {
+      "gate_result_id": "gate_wrench_failed_01",
+      "gate_type": "wrench_report_passed",
+      "target_ref": "ev_wrench_failed_01",
+      "state": "gate_refused",
+      "severity": "critical",
+      "findings": [
+        {
+          "code": "wrench_evidence_failed",
+          "severity": "critical",
+          "message": "Required Wrench evidence is failed and cannot be used for planning.",
+          "target_ref": "ev_wrench_failed_01",
+          "path": "$.evidence_refs[0].status"
+        }
+      ],
+      "created_at": "2026-07-02T00:00:01Z"
+    }
+  ],
+  "refusal_reports": [
+    {
+      "format": "cosmatic.refusal_report.v0.1",
+      "refusal_id": "refusal_wrench_failed_01",
+      "target_ref": "ev_wrench_failed_01",
+      "reason_code": "missing_required_evidence",
+      "severity": "critical",
+      "findings": [
+        {
+          "code": "wrench_evidence_failed",
+          "severity": "critical",
+          "message": "Provide a passing Wrench evidence report before planning.",
+          "target_ref": "ev_wrench_failed_01",
+          "path": "$.evidence_refs[0].status"
+        }
+      ],
+      "remediation": ["Fix Wrench findings and rerun the inspector to produce a passed EvidenceReport."],
+      "created_at": "2026-07-02T00:00:02Z"
+    }
+  ]
+}

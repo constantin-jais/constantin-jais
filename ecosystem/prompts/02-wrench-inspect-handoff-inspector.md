@@ -21,8 +21,8 @@ constantin-jais/ecosystem/specs/shared/contracts/implementation-handoff.v0.1.sch
 constantin-jais/ecosystem/specs/harness/README.md
 constantin-jais/ecosystem/specs/shared/shared-capabilities.md
 constantin-jais/ecosystem/specs/rumble-canvas/*.md
-cos-matic/crates/aom/src/handoff.rs
-wrench-loader/README.md
+bolt-cos-matic/crates/aom/src/handoff.rs
+gear-loader/README.md
 ```
 
 Si un repo `wrench-inspect` existe, lire :

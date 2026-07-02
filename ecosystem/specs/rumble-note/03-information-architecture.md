@@ -304,7 +304,7 @@ Show:
 Show:
 
 - create manual source reference;
-- connect/import output from `wrench-loader` later;
+- connect/import output from `gear-loader` later;
 - explain unverified vs verified source state.
 
 ## Boundary Notes

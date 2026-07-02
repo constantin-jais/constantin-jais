@@ -1,0 +1,53 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "portal-core",
+    "layer": "Portal",
+    "role": "Rust UI/client contracts, i18n UI, accessibility helpers, and bindings.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P0 bridge proof",
+  "scale_ready": "no",
+  "status_summary": "UniFFI-backed translation bridge exists and is tested.",
+  "next_quality_step": "Add theme, a11y, focus, and adapter contract fixtures.",
+  "boundaries": {
+    "owns": [
+      "shared UI/client contracts",
+      "i18n UI primitives",
+      "UniFFI-friendly bindings"
+    ],
+    "does_not_own": [
+      "product domain logic",
+      "content translation",
+      "release packaging"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "portal-core/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "doc",
+      "ref": "portal-core/src/lib.rs",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd portal-core && cargo test",
+      "status": "warning",
+      "notes": "Command is the documented verification path; status may be proven locally or in CI per repo."
+    }
+  ],
+  "verification_commands": [
+    "cd portal-core && cargo test"
+  ],
+  "open_questions": [
+    "What is the minimal Portal a11y contract?"
+  ],
+  "risk_notes": [
+    "Keep content i18n in products; Portal owns shared UI labels only."
+  ]
+}

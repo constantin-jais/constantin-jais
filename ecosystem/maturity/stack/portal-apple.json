@@ -1,0 +1,53 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "portal-apple",
+    "layer": "Portal",
+    "role": "SwiftUI adapter for Portal core and tokens.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P0 native bridge proof",
+  "scale_ready": "no",
+  "status_summary": "Swift tests verify Portal core bridge and initial token availability.",
+  "next_quality_step": "Integrate generated Swift tokens and prove a minimal Rumble shell.",
+  "boundaries": {
+    "owns": [
+      "SwiftUI adapter",
+      "Apple platform UI bridge",
+      "Portal core consumption"
+    ],
+    "does_not_own": [
+      "canonical product logic",
+      "App Store release pipeline",
+      "artifact governance"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "portal-apple/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "doc",
+      "ref": "portal-apple/Package.swift",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd portal-apple && swift test",
+      "status": "warning",
+      "notes": "Command is the documented verification path; status may be proven locally or in CI per repo."
+    }
+  ],
+  "verification_commands": [
+    "cd portal-apple && swift test"
+  ],
+  "open_questions": [
+    "Which product should prove the first Apple shell?"
+  ],
+  "risk_notes": [
+    "Do not duplicate product logic in SwiftUI shells."
+  ]
+}

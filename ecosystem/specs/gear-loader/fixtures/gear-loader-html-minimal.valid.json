@@ -1,8 +1,8 @@
 {
-  "format": "wrench.loader.contract_bundle.v0.1",
+  "format": "gear.loader.contract_bundle.v0.1",
   "extraction_requests": [
     {
-      "format": "wrench.extraction_request.v0.1",
+      "format": "gear.extraction_request.v0.1",
       "request_id": "req_html_01",
       "actor_ref": "actor_local_owner",
       "workspace_ref": "workspace_demo",
@@ -27,7 +27,7 @@
   ],
   "canonical_documents": [
     {
-      "format": "wrench.canonical_source_document.v0.1",
+      "format": "gear.canonical_source_document.v0.1",
       "document_id": "csd_html_01",
       "source": {
         "input_type": "html",
@@ -107,7 +107,7 @@
         "unsupported_features": []
       },
       "provenance": {
-        "tool": "wrench-loader",
+        "tool": "gear-loader",
         "tool_version": "0.1.0",
         "pipeline_id": "pipeline_html_default_v1",
         "started_at": "2026-06-30T00:00:00Z",
@@ -119,13 +119,13 @@
   ],
   "gear_source_candidates": [
     {
-      "format": "wrench.gear_source_candidate.v0.1",
+      "format": "gear.gear_source_candidate.v0.1",
       "canonical_document_ref": "csd_html_01",
       "source_type": "document",
-      "origin_product": "wrench-loader",
+      "origin_product": "gear-loader",
       "content_hash": "sha256:2000000000000000000000000000000000000000000000000000000000000000",
       "provenance": {
-        "tool_ref": "wrench-loader@0.1.0",
+        "tool_ref": "gear-loader@0.1.0",
         "pipeline_id": "pipeline_html_default_v1"
       },
       "indexing_hints": {
@@ -137,7 +137,7 @@
   ],
   "loader_evidence_reports": [
     {
-      "format": "wrench.loader_evidence_report.v0.1",
+      "format": "gear.loader_evidence_report.v0.1",
       "report_id": "ler_html_01",
       "request_id": "req_html_01",
       "canonical_document_id": "csd_html_01",

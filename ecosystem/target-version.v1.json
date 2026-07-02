@@ -1,0 +1,256 @@
+{
+  "format": "stack.target_version.v0.1",
+  "version": "V1",
+  "status": "accepted",
+  "declared_at": "2026-07-02T00:00:00Z",
+  "mission": "Deliver one coherent sovereign stack where Rumble products consume Portal, Bolt, Wrench, and Gear through explicit contracts and leave reproducible evidence.",
+  "layers": [
+    {
+      "name": "Rumble",
+      "owns": ["product workflows", "domain experience", "user-facing meaning", "product-specific UI and content"],
+      "does_not_own": ["shared client platform", "orchestration runtime", "inspection evidence engine", "artifact/source substrate"]
+    },
+    {
+      "name": "Portal",
+      "owns": ["design tokens", "client-platform primitives", "accessibility conventions", "i18n UI", "web/native adapters"],
+      "does_not_own": ["product workflows", "release packaging", "artifact governance", "orchestration"]
+    },
+    {
+      "name": "Bolt",
+      "owns": ["planning", "gates", "refusals", "safe execution policy", "evidence-referenced orchestration"],
+      "does_not_own": ["product UX", "parser runtime", "memory substrate", "artifact registry"]
+    },
+    {
+      "name": "Wrench",
+      "owns": ["inspection", "validation", "evidence reports", "policy checks", "database security inspection"],
+      "does_not_own": ["runtime ingestion", "durable truth", "product decisions", "artifact distribution"]
+    },
+    {
+      "name": "Gear",
+      "owns": ["canonical ingestion", "memory and source refs", "event/provenance substrate", "artifact manifests", "release wiring"],
+      "does_not_own": ["product workflows", "UI semantics", "orchestration decisions", "inspection verdict ownership"]
+    }
+  ],
+  "repositories": [
+    {
+      "name": "rumble-canvas",
+      "layer": "Rumble",
+      "target_role": "Product conception workspace that turns discussion into specs and Bolt handoffs.",
+      "target_state": "SpecPackage, traceability, waivers, and planning-only handoff are usable through Portal-backed UI.",
+      "acceptance": ["SpecPackage schema stable", "Wrench completeness checks pass", "Bolt handoff remains planning-only", "Gear artifact refs are emitted for packages"],
+      "depends_on": ["portal-forge", "portal-core", "wrench-inspect", "bolt-cos-matic", "gear-depot"]
+    },
+    {
+      "name": "rumble-cos",
+      "layer": "Rumble",
+      "target_role": "Public education and explanation surface for ecosystem lessons.",
+      "target_state": "Publishes the stack doctrine, release notes, and evidence-backed learning notes without becoming an internal CMS.",
+      "acceptance": ["Rumble Portal Bolt Wrench Gear explanation published", "SEO and redirects preserved", "publication workflow is reproducible"],
+      "depends_on": ["portal-forge", "gear-cable"]
+    },
+    {
+      "name": "rumble-crew",
+      "layer": "Rumble",
+      "target_role": "Human and agent teamwork surface with tasks, approvals, blockers, and evidence.",
+      "target_state": "Displays Bolt runs and Wrench/Gear evidence with human approval and recovery semantics.",
+      "acceptance": ["AgentTaskRequest lifecycle defined", "human approval policy implemented", "run recovery decisions audited", "raw logs are controlled and TTL-limited"],
+      "depends_on": ["bolt-cos-matic", "wrench-inspect", "gear-memory", "gear-depot", "portal-core"]
+    },
+    {
+      "name": "rumble-feed-mind",
+      "layer": "Rumble",
+      "target_role": "Explainable feed and watch pipeline producing curated reusable knowledge.",
+      "target_state": "CuratedItemExport is runtime-backed, BYOK policy is explicit, and reusable parsing flows through Gear Loader.",
+      "acceptance": ["CuratedItemExport runtime tests pass", "provider policy is explicit", "classification logs are safe", "legacy web path is migrated or retired"],
+      "depends_on": ["gear-loader", "gear-memory", "portal-forge", "wrench-inspect"]
+    },
+    {
+      "name": "rumble-lm",
+      "layer": "Rumble",
+      "target_role": "Source-grounded learning and live facilitation product.",
+      "target_state": "Minimal source-grounded live session uses CitationValidation, retention defaults, Gear source flow, Portal UI, and Gear exports.",
+      "acceptance": ["CitationValidation contract implemented", "retention defaults documented and tested", "Gear Loader and Gear Memory integrated", "participant export is audience-scoped", "rumble-lm-ui stays product-local"],
+      "depends_on": ["gear-loader", "gear-memory", "gear-depot", "wrench-inspect", "portal-core", "bolt-cos-matic"]
+    },
+    {
+      "name": "rumble-note",
+      "layer": "Rumble",
+      "target_role": "Local-first personal knowledge and private context export product.",
+      "target_state": "Minimal block model and NoteContextExport feed Gear Memory and other Rumble products safely.",
+      "acceptance": ["minimal block model exists", "NoteContextExport privacy contract passes", "local-first storage is proven", "Gear Loader imports are explicit"],
+      "depends_on": ["gear-memory", "gear-loader", "portal-core", "wrench-inspect"]
+    },
+    {
+      "name": "rumble-ai-practices",
+      "layer": "Rumble",
+      "target_role": "Professional AI-practice training product with audited scenarios.",
+      "target_state": "Validated content corpus, CLI audit, Portal PWA, and no hidden HR scoring.",
+      "acceptance": ["30 reviewed scenarios", "bias media audit exists", "no HR scoring invariant tested", "Portal-backed PWA smoke passes"],
+      "depends_on": ["portal-forge", "portal-core", "wrench-inspect", "gear-depot"]
+    },
+    {
+      "name": "portal-forge",
+      "layer": "Portal",
+      "target_role": "Compile design tokens into platform artifacts with accessibility validation.",
+      "target_state": "DTCG tokens generate CSS, Swift, and Kotlin bundles with contrast reports and versioned outputs.",
+      "acceptance": ["typography spacing radius border shadow motion tokens supported", "WCAG report emitted", "Rumble fixture consumes generated tokens"],
+      "depends_on": []
+    },
+    {
+      "name": "portal-core",
+      "layer": "Portal",
+      "target_role": "Shared Rust client contracts for i18n UI, accessibility, theme, focus, and bindings.",
+      "target_state": "Rust contracts are consumed by Apple, Android, and at least one Rumble client fixture.",
+      "acceptance": ["ThemeRef and FocusPolicy exist", "i18n UI boundary documented", "UniFFI contract tests pass", "adapter fixtures consume contracts"],
+      "depends_on": ["portal-forge"]
+    },
+    {
+      "name": "portal-apple",
+      "layer": "Portal",
+      "target_role": "SwiftUI adapter for Portal contracts and tokens.",
+      "target_state": "Minimal SwiftUI shell consumes Portal core and generated tokens.",
+      "acceptance": ["Swift token integration passes", "core bridge passes", "minimal Rumble shell smoke exists"],
+      "depends_on": ["portal-core", "portal-forge", "gear-cable"]
+    },
+    {
+      "name": "portal-android",
+      "layer": "Portal",
+      "target_role": "Jetpack Compose adapter for Portal contracts and tokens.",
+      "target_state": "Minimal Compose shell consumes Portal core and generated tokens with reproducible local SDK proof.",
+      "acceptance": ["Gradle wrapper committed", "Android SDK NDK build proof exists", "Kotlin token integration passes", "minimal Rumble shell smoke exists"],
+      "depends_on": ["portal-core", "portal-forge", "gear-cable"]
+    },
+    {
+      "name": "bolt-cos-matic",
+      "layer": "Bolt",
+      "target_role": "Deterministic planning and policy-gated orchestration engine.",
+      "target_state": "Consumes Rumble handoffs and Wrench/Gear evidence refs, refuses unsafe plans, and gates trusted execution.",
+      "acceptance": ["planning-only path remains green", "structured refusals pass", "human approval gate exists", "evidence refs are mandatory for sensitive plans"],
+      "depends_on": ["wrench-inspect", "gear-memory", "gear-depot"]
+    },
+    {
+      "name": "bolt-harness",
+      "layer": "Bolt",
+      "target_role": "Public sandbox and evidence bench for Bolt behavior.",
+      "target_state": "Runs scrubbed scenarios covering Portal build, Gear Loader hostile source, Wrench refusal, and Gear artifact proof.",
+      "acceptance": ["sandbox stays fenced", "public evidence transcripts exist", "no production repos are targeted"],
+      "depends_on": ["bolt-cos-matic"]
+    },
+    {
+      "name": "wrench-inspect",
+      "layer": "Wrench",
+      "target_role": "General inspection and evidence report engine.",
+      "target_state": "Produces EvidenceReport for specs, Portal UI checks, privacy, sovereignty, browser, and citation validation.",
+      "acceptance": ["EvidenceReport schema stable", "Portal no-hardcoded-style check exists", "traceability and waiver checks pass", "citation validation evidence exists"],
+      "depends_on": ["portal-forge", "gear-depot"]
+    },
+    {
+      "name": "wrench-db-inspect",
+      "layer": "Wrench",
+      "target_role": "Database security inspection for Postgres-backed products.",
+      "target_state": "Strict DB gates check RLS, grants, migrations, pgvector, and tenant isolation from a manifest.",
+      "acceptance": ["clippy debt resolved", "DB security manifest supported", "strict CI gate profile exists", "live read-only mode is optional"],
+      "depends_on": ["gear-depot"]
+    },
+    {
+      "name": "gear-loader",
+      "layer": "Gear",
+      "target_role": "Runtime-capable canonical ingestion and parser-policy substrate.",
+      "target_state": "Extracts approved source types into canonical documents, hostile-content evidence, and GearSourceCandidate handoff.",
+      "acceptance": ["PDF and Office fail-closed or approved parsers are sandboxed", "feed parsing fixtures pass", "hostile content evidence is mandatory", "GearSourceCandidate is accepted by Gear Memory"],
+      "depends_on": ["gear-memory"]
+    },
+    {
+      "name": "gear-memory",
+      "layer": "Gear",
+      "target_role": "Local memory and source/provenance substrate.",
+      "target_state": "Persists SourceRef, MemoryEntry, EventLogEntry, CodeMap, and ProvenanceRecord with indexes and privacy controls.",
+      "acceptance": ["local persistence exists", "GearSourceCandidate ingestion exists", "delete and anonymize transitions pass", "no silent private note indexing"],
+      "depends_on": []
+    },
+    {
+      "name": "gear-depot",
+      "layer": "Gear",
+      "target_role": "Artifact manifest, policy, cache, verification, and distribution trust.",
+      "target_state": "Verifies exported packages, reports, releases, and manifests with retention and revocation metadata.",
+      "acceptance": ["storage cache policy documented", "ArtifactManifest integrated with real artifact", "checksums and provenance validated", "Portal semantics are not absorbed"],
+      "depends_on": ["gear-memory"]
+    },
+    {
+      "name": "gear-cable",
+      "layer": "Gear",
+      "target_role": "Release planning and reproducible distribution wiring.",
+      "target_state": "Connects release plans to Depot manifests and proves at least one desktop/mobile/tool release path.",
+      "acceptance": ["release plan to Depot manifest works", "checksums emitted", "install floors documented", "App Store adapter path is proven when needed"],
+      "depends_on": ["gear-depot"]
+    }
+  ],
+  "milestones": [
+    {
+      "id": "P0",
+      "name": "Control plane complete",
+      "goal": "Keep doctrine, names, maturity schemas, and target version contracts coherent.",
+      "acceptance": ["spec contract validation passes", "no active wrench-loader references remain", "target version manifest validates"]
+    },
+    {
+      "id": "P1",
+      "name": "Portal proof",
+      "goal": "Prove Portal tokens/core/adapters through one Rumble client fixture.",
+      "acceptance": ["portal-forge emits versioned token bundle", "portal-core contracts are consumed", "one web or native Rumble shell uses Portal"]
+    },
+    {
+      "id": "P2",
+      "name": "Gear source path",
+      "goal": "Prove Gear Loader to Gear Memory source and provenance flow.",
+      "acceptance": ["Gear Loader emits candidate", "Gear Memory persists SourceRef", "hostile-content evidence travels with refs"]
+    },
+    {
+      "id": "P3",
+      "name": "Wrench evidence",
+      "goal": "Prove Wrench inspection reports over specs, Portal surfaces, and Gear Loader outputs.",
+      "acceptance": ["EvidenceReport schema exists", "Portal checks run", "Gear Loader evidence can be inspected"]
+    },
+    {
+      "id": "P4",
+      "name": "Bolt gated planning",
+      "goal": "Prove Rumble handoff planning with evidence refs and structured refusals.",
+      "acceptance": ["planning bundle validates", "unsafe evidence refuses", "human approval placeholder is explicit"]
+    },
+    {
+      "id": "P5",
+      "name": "First end-to-end Rumble slice",
+      "goal": "Ship one real product slice using Portal, Gear, Wrench, and Bolt boundaries.",
+      "acceptance": ["one product UI consumes Portal", "source/artifact flow uses Gear", "Wrench report exists", "Bolt handoff exists or is explicitly not needed"]
+    },
+    {
+      "id": "P6",
+      "name": "Native and release proof",
+      "goal": "Prove native client and reproducible release path without duplicating product logic.",
+      "acceptance": ["Apple or Android shell consumes Portal", "Gear Cable release plan links to Depot", "release proof is reproducible"]
+    }
+  ],
+  "system_acceptance": [
+    "At least one real Rumble product uses Portal for UI tokens and accessibility.",
+    "At least one source flow runs Gear Loader to Gear Memory with provenance.",
+    "At least one exported product artifact is represented by Gear Depot manifest data.",
+    "At least one release plan is connected through Gear Cable when distribution is needed.",
+    "Wrench evidence exists for the chosen product slice.",
+    "Bolt can validate or refuse a planning-only handoff using evidence refs.",
+    "Rumble Cos or an equivalent learning note explains the slice and links to evidence."
+  ],
+  "verification": [
+    "cd constantin-jais && bash ecosystem/specs/ci-validate-contracts.sh",
+    "cd portal-forge && cargo test",
+    "cd portal-core && cargo test",
+    "cd gear-loader && cargo test --workspace --all-targets",
+    "cd gear-memory && cargo test --workspace --all-targets",
+    "cd rumble-lm && cargo test --workspace --all-targets"
+  ],
+  "non_goals": [
+    "Do not merge all repositories into one monorepo as a default answer.",
+    "Do not let Gear Depot absorb Portal UI semantics.",
+    "Do not let Wrench own runtime ingestion or durable truth.",
+    "Do not activate Bolt trusted execution before evidence and approval gates are proven.",
+    "Do not duplicate product logic in SwiftUI or Compose shells."
+  ]
+}

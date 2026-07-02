@@ -7,7 +7,7 @@ Status: Draft / harness alignment.
 | Space | Purpose | Notes |
 | --- | --- | --- |
 | Dashboard | Show feed health, review queue, rule impact, export readiness. | No secrets or raw provider diagnostics. |
-| Feeds | Manage feed subscriptions, folders, polling status, source provenance. | Feed parsing may later move to Wrench Loader. |
+| Feeds | Manage feed subscriptions, folders, polling status, source provenance. | Feed parsing may later move to Gear Loader. |
 | Inbox | Read and triage fetched feed items. | Product owns triage state; Gear owns source/provenance refs when exported. |
 | Rules | Author deterministic and provider-assisted rules, evaluate samples, inspect explanations. | Provider/BYOK policy required before AI-backed rules. |
 | Curated Items | Review saved items, tags, reasons, and export candidates. | Main source for `CuratedItemExport`. |
@@ -54,7 +54,7 @@ FeedWorkspace
 
 | FeedMind object | Shared/Gear/Wrench relationship |
 | --- | --- |
-| `FeedSource` | Candidate Wrench Loader input; may produce Gear `SourceRef`. |
+| `FeedSource` | Candidate Gear Loader input; may produce Gear `SourceRef`. |
 | `FeedItem` | Product triage object; can become Gear `SourceRef` when exported. |
 | `RuleEvaluation` | Product explanation now; Wrench validation candidate later. |
 | `CuratedItemExport` | Draft contract `shared/contracts/curated-item-export.v0.1.md`; Gear artifact/source refs. |

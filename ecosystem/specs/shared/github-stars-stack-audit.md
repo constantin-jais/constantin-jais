@@ -43,7 +43,7 @@ Layer values: `rumble`, `bolt`, `wrench`, `gear`, `cross-layer`, `outside`.
 | emdash-cms/emdash | knowledge | rumble | 3 | low | MIT | TypeScript | rumble-cos CMS alternatives | Study Astro CMS patterns; do not displace current SSG decision. |
 | santifer/career-ops | knowledge | outside | 1 | medium | MIT | JavaScript | workflow automation examples | Keep as agent-workflow reference outside the stack. |
 | ConnectingEurope/eInvoicing-EN16931 | reject | outside | 0 | high | NOASSERTION | XSLT | none | Drop: no useful stack inspiration or implementation value for the current ecosystem. |
-| xberg-io/xberg | rebuild | wrench | 4 | medium | MIT | Rust | document intelligence | Use as primary reference for Wrench Loader architecture and contracts. |
+| xberg-io/xberg | rebuild | wrench | 4 | medium | MIT | Rust | document intelligence | Use as primary reference for Gear Loader architecture and contracts. |
 | zama-ai/awesome-zama | knowledge | gear | 2 | high | NOASSERTION | Unknown | privacy-preserving computation | Track FHE concepts; no direct dependency. |
 | max-sixty/worktrunk | knowledge | bolt | 3 | high | NOASSERTION | Rust | agent worktree workflow | Verify license before any rebuild or adoption decision. |
 | hoppscotch/hoppscotch | adopt | wrench | 4 | medium | MIT | TypeScript | API contract testing | Evaluate self-hosted/offline API testing fit for Wrench evidence workflows. |
@@ -65,7 +65,7 @@ Layer values: `rumble`, `bolt`, `wrench`, `gear`, `cross-layer`, `outside`.
 | mayocream/koharu | reject | outside | 0 | blocker | GPL-3.0 | Rust | none | Reject: domain mismatch and GPL direct-dependency blocker. |
 | MAIF/otoroshi | knowledge | gear | 3 | low | Apache-2.0 | Scala | API gateway and policy | Study EU API-management patterns; no current adoption need. |
 | gradio-app/gradio | knowledge | outside | 2 | medium | Apache-2.0 | Python | ML demo surfaces | Keep as prototyping reference; not production stack substrate. |
-| cjpais/Handy | adopt | wrench | 4 | medium | MIT | Rust | offline speech-to-text | Evaluate for Wrench Loader audio transcription pipeline. |
+| cjpais/Handy | adopt | wrench | 4 | medium | MIT | Rust | offline speech-to-text | Evaluate for Gear Loader audio transcription pipeline. |
 | toon-format/toon | adopt | gear | 4 | medium | MIT | TypeScript | compact agent-readable payloads | Evaluate as interchange format for prompts and artifacts. |
 | glittercowboy/taches-cc-resources | knowledge | bolt | 2 | low | MIT | TypeScript | Claude Code workflow references | Mine workflow ideas manually; do not import wholesale. |
 | microsoft/playwright-mcp | adopt | wrench | 4 | medium | Apache-2.0 | TypeScript | browser E2E evidence | Use as browser inspection/testing candidate with MCP boundary review. |

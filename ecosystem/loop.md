@@ -13,6 +13,7 @@ An idea appears in rumble-note
 → it becomes a discussion/spec in rumble-canvas
 → wrench-inspect critiques the spec
 → cos-matic produces a gated plan
+→ implementation uses Portal where client surfaces are needed
 → implementation creates artifacts and provenance
 → gear-memory keeps decisions, refs, events, and proofs
 → gear-depot verifies and retains artifacts
@@ -27,7 +28,8 @@ An idea appears in rumble-note
 | --- | --- | --- | --- |
 | Idea capture | `rumble-note` | Gear Memory later | Notes own private UX; Gear only indexes explicit exports. |
 | Spec shaping | `rumble-canvas` | Shared specs, Gear artifacts | Canvas owns product/spec semantics; it does not execute. |
-| Inspection | `wrench-inspect`, `wrench-db-inspect`, `wrench-loader` | Gear artifacts/memory | Wrench produces evidence; it does not own durable truth. |
+| Client platform | `portal-*` | Rumble products, Gear Cable/Depot | Portal owns tokens, UI primitives, accessibility, i18n UI, and platform adapters; it does not own product workflows or artifact governance. |
+| Inspection | `wrench-inspect`, `wrench-db-inspect` | Gear artifacts/memory | Wrench produces evidence; it does not own durable truth or runtime ingestion. |
 | Planning | `cos-matic` | Wrench evidence, Gear refs | Bolt plans and refuses; Rumble approves; Gear stores refs. |
 | Controlled execution | `cos-matic` after gates | Rumble approvals, Wrench checks, Gear storage | Execution must be bounded, auditable, and fail closed. |
 | Evidence | Wrench + Bolt | Gear Depot/Memory | Evidence travels as refs/artifacts, not raw secrets or PII. |
@@ -45,7 +47,8 @@ An idea appears in rumble-note
 | Wrench critique → `cos-matic` plan | Planning bundle and handoff contracts exist. | Keep dry-run/refusal path green; add real Wrench evidence refs. |
 | `cos-matic` plan → controlled execution | P0 is planning-only by design. | Add approval/auth/runtime policy only after gates are trusted. |
 | Execution → Gear evidence | Gear contracts exist; integration not yet complete. | Store `ArtifactRef`, `ProvenanceRecord`, and `EventLogEntry` from real runs. |
-| Wrench Loader → Gear Memory | Contracts exist separately. | Implement `GearSourceCandidate` to `SourceRef` ingestion path. |
+| Gear Loader → Gear Memory | Contracts exist separately. | Implement `GearSourceCandidate` to `SourceRef` ingestion path. |
+| Portal → Rumble clients | Portal repos exist separately; integration is partial. | Define one Rumble shell fixture consuming Portal tokens/core, then reuse it across product clients. |
 | Gear Depot ↔ Gear Cable | Contracts exist separately. | Connect release plans to `ArtifactManifest` verification. |
 | Learnings → `rumble-cos` | Public site usable. | Add lightweight publishing workflow for project lessons and evidence summaries. |
 
@@ -65,7 +68,8 @@ A loop increment is acceptable only if it leaves at least one durable proof:
 - Ranking Rumble projects by commercial potential.
 - Treating every idea as a product roadmap commitment.
 - Moving all logic into one platform repo.
-- Letting Rumble products own generic ingestion, orchestration, memory, or artifact trust.
-- Letting Gear become product workflow logic.
-- Letting Wrench become durable truth.
+- Letting Rumble products own generic ingestion, orchestration, memory, client-platform primitives, or artifact trust.
+- Letting Portal own product workflows, release packaging, or artifact governance.
+- Letting Gear become product workflow logic or UI semantics.
+- Letting Wrench become durable truth or product-linkable ingestion runtime.
 - Letting Bolt execute without explicit gates and evidence.

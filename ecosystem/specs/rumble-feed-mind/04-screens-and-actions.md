@@ -29,7 +29,7 @@ Actions:
 Boundary:
 
 - FeedMind owns subscription UX.
-- Reusable parsing/extraction becomes Wrench Loader candidate.
+- Reusable parsing/extraction becomes Gear Loader candidate.
 
 ## Screen: Inbox / Item detail
 

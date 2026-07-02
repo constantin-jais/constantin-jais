@@ -138,7 +138,7 @@
             "minItems": 2,
             "items": { "type": "string", "minLength": 3 }
           },
-          "suggested_owner": { "type": "string", "enum": ["Rumble", "Bolt", "Wrench", "Gear", "Shared security"] },
+          "suggested_owner": { "type": "string", "enum": ["Rumble", "Portal", "Bolt", "Wrench", "Gear", "Gear Loader", "Shared security"] },
           "status": { "type": "string", "enum": ["candidate", "accepted", "rejected"] }
         }
       },

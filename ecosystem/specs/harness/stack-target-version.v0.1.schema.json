@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://constantin-jais.github.io/ecosystem/schemas/stack-target-version.v0.1.schema.json",
+  "title": "Stack Target Version v0.1",
+  "type": "object",
+  "required": [
+    "format",
+    "version",
+    "status",
+    "declared_at",
+    "mission",
+    "layers",
+    "repositories",
+    "milestones",
+    "system_acceptance",
+    "verification"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "stack.target_version.v0.1" },
+    "version": { "type": "string", "pattern": "^V[0-9]+(\\.[0-9]+)?$" },
+    "status": { "type": "string", "enum": ["draft", "accepted", "superseded"] },
+    "declared_at": { "type": "string", "format": "date-time" },
+    "mission": { "type": "string", "minLength": 20 },
+    "layers": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "$ref": "#/$defs/layer" }
+    },
+    "repositories": {
+      "type": "array",
+      "minItems": 10,
+      "items": { "$ref": "#/$defs/repository" }
+    },
+    "milestones": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/milestone" }
+    },
+    "system_acceptance": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "verification": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "non_goals": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 6 },
+      "default": []
+    }
+  },
+  "$defs": {
+    "layer_name": { "type": "string", "enum": ["Rumble", "Portal", "Bolt", "Wrench", "Gear"] },
+    "layer": {
+      "type": "object",
+      "required": ["name", "owns", "does_not_own"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "$ref": "#/$defs/layer_name" },
+        "owns": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 4 } },
+        "does_not_own": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 4 } }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "required": ["name", "layer", "target_role", "target_state", "acceptance"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "layer": { "$ref": "#/$defs/layer_name" },
+        "target_role": { "type": "string", "minLength": 8 },
+        "target_state": { "type": "string", "minLength": 8 },
+        "acceptance": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 6 } },
+        "depends_on": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }, "default": [] }
+      }
+    },
+    "milestone": {
+      "type": "object",
+      "required": ["id", "name", "goal", "acceptance"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^P[0-9]+$" },
+        "name": { "type": "string", "minLength": 3 },
+        "goal": { "type": "string", "minLength": 8 },
+        "acceptance": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 8 } }
+      }
+    }
+  }
+}

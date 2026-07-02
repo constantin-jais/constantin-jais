@@ -86,11 +86,27 @@ jobs:
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
                   "contexts": ["Rust quality gates", "Coverage floor", "Rust supply-chain gates", "Canvas handoff contract smoke", "Dogfood drift gate"],
               },
+              "portal-forge": {
+                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
+                  "contexts": ["Rust quality gates", "Rust supply-chain gates"],
+              },
+              "portal-core": {
+                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
+                  "contexts": ["Rust quality gates", "Rust supply-chain gates"],
+              },
+              "portal-apple": {
+                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
+                  "contexts": ["Swift package over Rust core", "Security smoke"],
+              },
+              "portal-android": {
+                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
+                  "contexts": ["Android library over Rust core", "Security smoke"],
+              },
               "wrench-db-inspect": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
                   "contexts": ["Rust quality gates", "Rust supply-chain gates"],
               },
-              "wrench-loader": {
+              "gear-loader": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
                   "contexts": ["Rust quality gates", "Rust supply-chain gates", "Canonical ingestion fixtures"],
               },

@@ -1,11 +1,13 @@
-# Wrench Loader — Canonical Ingestion Scope
+# Gear Loader — Canonical Ingestion Scope
 
-Status: Proposed.
+Status: Proposed; layer/name placement superseded by ADR-0023.
 Date: 2026-06-30.
+
+> Historical path note: this file still lives under `specs/gear-loader/` until schema and fixture migration. ADR-0023 supersedes the placement: canonical ingestion is now `gear-loader` in Gear, not `gear-loader` in Wrench.
 
 ## Mission
 
-`wrench-loader` is the Wrench canonical ingestion and extraction brick for the Rumble / Bolt / Wrench / Gear ecosystem.
+`gear-loader` is the Gear canonical ingestion and extraction brick for the Rumble / Portal / Bolt / Wrench / Gear ecosystem.
 
 It turns hostile or heterogeneous inputs into deterministic, auditable, source-grounded canonical content that Rumble products can use and Gear can store/index.
 
@@ -19,7 +21,7 @@ The GitHub stars audit positions these projects as inspiration only:
 | --- | --- | --- |
 | `xberg-io/xberg` | Document-intelligence architecture, extraction report shape, modular loader idea. | No direct product clone; no upstream contract naming as ecosystem contract. |
 | `xberg-io/html-to-markdown` | Deterministic HTML cleanup and readable Markdown projection. | Do not make Markdown the only truth; keep structured blocks and provenance. |
-| `xberg-io/crawlberg` | URL capture, fetch policy, crawl frontier constraints, evidence around fetched pages. | Do not let Wrench decide what to crawl next; Bolt/Rumble owns intent/scheduling. |
+| `xberg-io/crawlberg` | URL capture, fetch policy, crawl frontier constraints, evidence around fetched pages. | Do not let Gear Loader decide what to crawl next; Bolt/Rumble owns intent/scheduling. |
 | `cjpais/Handy` | Offline speech-to-text option for audio/transcript ingestion. | Do not make STT a hidden cloud dependency; no unreviewed model/license import. |
 | `xberg-io/tree-sitter-language-pack` | Polyglot code parsing and syntax-aware chunking. | Do not turn Loader into a code intelligence product; only extract/code-normalize. |
 
@@ -27,7 +29,7 @@ License rule: direct dependencies must remain MIT / Apache-2.0 / BSD / ISC / MPL
 
 ## Product Demand
 
-`wrench-loader` is justified by repeated needs:
+`gear-loader` is justified by repeated needs:
 
 - `rumble-note`: import documents/sources without becoming an ingestion engine.
 - `rumble-lm`: build source sets for sessions, activities, summaries, and citations.
@@ -72,7 +74,7 @@ P0 is the minimal surface needed to stop Rumble products from reimplementing ing
 | Legacy binary Office (`.doc`, `.xls`, `.ppt`) | P2/quarantine unless converted in sandbox. | Parser attack surface and fidelity risk. |
 | Email boxes | P2. | PII-heavy, product-specific retention and consent model. |
 | Full website crawling | P2 and Bolt/Rumble-driven. | Loader may execute bounded fetches; it does not own crawl strategy. |
-| Database dumps | Out of Loader P0/P1; likely Wrench Inspect / DB Inspect if inspected. | Different security domain. |
+| Database dumps | Out of Loader P0/P1; likely Wrench Inspect / Wrench DB Inspect if inspected. | Different security domain. |
 | Proprietary SaaS connectors | Deferred. | Sovereignty/vendor-lock risk. |
 
 ## Canonical Output
@@ -83,7 +85,7 @@ The canonical output is not “just Markdown”. Markdown is a projection. The c
 
 ```json
 {
-  "format": "wrench.canonical_source_document.v0.1",
+  "format": "gear.canonical_source_document.v0.1",
   "document_id": "csd_01",
   "source": {
     "input_type": "file | url | feed_item | transcript | markdown | html | pdf | office | code | text",
@@ -154,7 +156,7 @@ The canonical output is not “just Markdown”. Markdown is a projection. The c
     "unsupported_features": []
   },
   "provenance": {
-    "tool": "wrench-loader",
+    "tool": "gear-loader",
     "tool_version": "0.1.0",
     "pipeline_id": "pipeline_html_default_v1",
     "started_at": "2026-06-30T00:00:00Z",
@@ -180,7 +182,7 @@ The canonical output is not “just Markdown”. Markdown is a projection. The c
 
 ```json
 {
-  "format": "wrench.extraction_request.v0.1",
+  "format": "gear.extraction_request.v0.1",
   "request_id": "req_01",
   "actor_ref": "actor_01",
   "workspace_ref": "workspace_01",
@@ -204,14 +206,14 @@ The canonical output is not “just Markdown”. Markdown is a projection. The c
 
 ### `GearSourceCandidate v0.1`
 
-`wrench-loader` may produce a candidate for Gear, but Gear owns the durable `SourceRef`.
+`gear-loader` may produce a candidate for Gear, but Gear owns the durable `SourceRef`.
 
 ```json
 {
-  "format": "wrench.gear_source_candidate.v0.1",
+  "format": "gear.gear_source_candidate.v0.1",
   "canonical_document_ref": "csd_01",
   "source_type": "file | url | feed_item | transcript | document | dataset | artifact",
-  "origin_product": "wrench-loader",
+  "origin_product": "gear-loader",
   "content_hash": "sha256:<64 hex chars>",
   "provenance": {},
   "indexing_hints": {
@@ -224,9 +226,9 @@ The canonical output is not “just Markdown”. Markdown is a projection. The c
 
 Gear may accept, reject, index, delete, anonymize, or mark stale. Loader must not assume persistence.
 
-## Boundary: Wrench Loader vs Gear Memory vs Rumble vs Bolt
+## Boundary: Gear Loader vs Gear Memory vs Rumble vs Bolt
 
-| Concern | Wrench Loader | Gear Memory | Rumble products | Bolt / `cos-matic` |
+| Concern | Gear Loader | Gear Memory | Rumble products | Bolt / `cos-matic` |
 | --- | --- | --- | --- | --- |
 | Parse HTML/PDF/Office/feed/code/audio transcript | Owns | No | Calls | May schedule/call |
 | Fetch a single URL under policy | Owns execution | May store refs | Requests | May orchestrate |
@@ -238,7 +240,7 @@ Gear may accept, reject, index, delete, anonymize, or mark stale. Loader must no
 | Inspection readiness/evidence validation | Produces loader evidence | Stores report refs if accepted | Displays/acts | Gates/plans from evidence |
 | Decide publication, task execution, or learning summary | No | No | Owns final human/product decision | Owns orchestration gates |
 
-Strict rule: Wrench Loader extracts and normalizes; Gear Memory persists and retrieves; Rumble interprets and presents; Bolt sequences and gates.
+Strict rule: Gear Loader extracts and normalizes; Gear Memory persists and retrieves; Rumble interprets and presents; Bolt sequences and gates.
 
 ## Security, Privacy, and Hostile Input Handling
 
@@ -280,13 +282,13 @@ Security outranks extraction completeness.
 
 ## Evidence for Wrench Inspect / Bolt
 
-`wrench-loader` must produce machine-readable evidence. Wrench Inspect can validate it; Bolt can gate plans on it.
+`gear-loader` must produce machine-readable evidence. Wrench Inspect can validate it; Bolt can gate plans on it.
 
 ### `LoaderEvidenceReport v0.1`
 
 ```json
 {
-  "format": "wrench.loader_evidence_report.v0.1",
+  "format": "gear.loader_evidence_report.v0.1",
   "report_id": "ler_01",
   "request_id": "req_01",
   "canonical_document_id": "csd_01",
@@ -342,11 +344,11 @@ Required evidence reports:
 
 Created decision records:
 
-1. `../shared/adrs/0012-wrench-loader-canonical-json.md` — `CanonicalSourceDocument v0.1` as structured JSON, Markdown as projection.
-2. `../shared/adrs/0013-wrench-loader-p0-input-set.md` — P0 input set includes HTML, Markdown, selectable-text PDF, Office Open XML, feeds, URLs, code, and text; audio/OCR are P1.
-3. `../shared/adrs/0014-wrench-loader-gear-source-candidate.md` — `wrench-loader` produces `GearSourceCandidate`, not durable `SourceRef`.
-4. `../shared/adrs/0015-wrench-loader-hostile-content-evidence.md` — hostile-content evidence is mandatory and travels with canonical output.
-5. `../shared/adrs/0016-wrench-loader-feed-parsing-boundary.md` — feed parsing belongs in `wrench-loader` P0; feed polling/product triage remains `rumble-feed-mind`/Bolt.
+1. `../shared/adrs/0012-gear-loader-canonical-json.md` — historical ADR for `CanonicalSourceDocument v0.1` as structured JSON, Markdown as projection; placement superseded by ADR-0023.
+2. `../shared/adrs/0013-gear-loader-p0-input-set.md` — historical ADR for the P0 input set; placement superseded by ADR-0023.
+3. `../shared/adrs/0014-gear-loader-gear-source-candidate.md` — historical ADR for `GearSourceCandidate`; placement superseded by ADR-0023.
+4. `../shared/adrs/0015-gear-loader-hostile-content-evidence.md` — historical ADR for mandatory hostile-content evidence; placement superseded by ADR-0023.
+5. `../shared/adrs/0016-gear-loader-feed-parsing-boundary.md` — historical ADR for feed parsing boundary; placement superseded by ADR-0023.
 
 ## Acceptance Tests
 
@@ -388,18 +390,18 @@ Created decision records:
 
 ## Recommendation
 
-Recommendation: strengthen the existing `wrench-loader` repository as the canonical ingestion repository, not create a new repo now.
+Recommendation: strengthen the existing `gear-loader` repository as the canonical ingestion repository, not create a new repo now.
 
 Rationale:
 
-- The ecosystem overview already names `wrench-loader` as rich-document ingestion and canonical extraction.
+- The ecosystem overview already names `gear-loader` as rich-document ingestion and canonical extraction.
 - The need is shared by multiple Rumble products now; fragmentation would recreate the problem.
 - A separate `wrench-feed-loader` should remain a future split only if feed parsing grows independent operational complexity.
 - A separate `wrench-stt-loader` should remain a future split only if audio/STT becomes a major sandbox/model lifecycle domain.
 
 Near-term implementation shape:
 
-1. Keep one repo: `wrench-loader`.
+1. Keep one repo: `gear-loader`.
 2. Add modular adapters internally: `html`, `markdown`, `pdf`, `office`, `feed`, `url`, `code`, later `ocr`, `stt`.
 3. Publish contracts from the repo and mirror stable contracts in `constantin-jais/ecosystem/specs`.
 4. Add `cargo deny` license policy before dependencies.

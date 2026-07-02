@@ -454,7 +454,7 @@ Record submission status and downstream response reference.
 
 ### Owner Layer
 
-Wrench Loader owns extraction. `rumble-note` consumes selected output.
+Gear Loader owns extraction. `rumble-note` consumes selected output.
 
 ### Input
 

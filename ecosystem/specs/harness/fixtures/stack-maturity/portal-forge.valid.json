@@ -1,0 +1,25 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "portal-forge",
+    "layer": "Portal",
+    "role": "Design token compiler and accessibility gate.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P1 CLI/library proof",
+  "scale_ready": "no",
+  "status_summary": "Token compiler tests prove CSS, Swift, Kotlin, aliasing, dimensions, and WCAG checks.",
+  "next_quality_step": "Add Rumble client integration fixtures and richer token types.",
+  "boundaries": {
+    "owns": ["DTCG parsing", "token code generation", "WCAG token validation"],
+    "does_not_own": ["product UI workflows", "artifact distribution", "release packaging"]
+  },
+  "evidence": [
+    { "kind": "doc", "ref": "portal-forge/README.md", "status": "present" },
+    { "kind": "command", "ref": "cd portal-forge && cargo test", "status": "passing" }
+  ],
+  "verification_commands": ["cd portal-forge && cargo test"],
+  "open_questions": ["Which Rumble product should consume Portal tokens first?"],
+  "risk_notes": ["Do not let Portal Forge become a token authoring product or artifact registry."]
+}

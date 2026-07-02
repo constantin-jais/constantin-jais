@@ -403,7 +403,7 @@ A reference to a provenance-bearing source, without requiring `rumble-note` to o
 
 ### Owner
 
-`rumble-note` for local reference UX; `wrench-loader` and `gear-memory` likely own canonical extraction/provenance/source substrate.
+`rumble-note` for local reference UX; `gear-loader` and `gear-memory` likely own canonical extraction/provenance/source substrate.
 
 ### Fields
 
@@ -426,7 +426,7 @@ A reference to a provenance-bearing source, without requiring `rumble-note` to o
 ### Relationships
 
 - May be linked from blocks.
-- May originate from `wrench-loader` output.
+- May originate from `gear-loader` output.
 - May map to Gear source/provenance primitives.
 
 ### Invariants
@@ -623,9 +623,9 @@ Local searchable projection over blocks, links, labels, sources, and handoff sta
 | Brick | Needed by `rumble-note` | Candidate Owner | Notes |
 | --- | --- | --- | --- |
 | Workspace / project space | Local root and future collaboration | Shared Rumble vs Gear | Keep local MVP isolated. |
-| Source | Source references and provenance | Gear Memory + Wrench Loader | Local wrapper needed. |
+| Source | Source references and provenance | Gear Memory + Gear Loader | Local wrapper needed. |
 | Provenance | Trusted source and handoff evidence | Gear | Required for note-to-source and learning flows. |
-| Import pipeline | Bring extracted content into notes | Wrench Loader | `rumble-note` consumes, does not own. |
+| Import pipeline | Bring extracted content into notes | Gear Loader | `rumble-note` consumes, does not own. |
 | Activity/event log | Local audit and handoff history | Gear candidate | MVP can use local event log. |
 | Traceability link | Block-to-source/spec/task/session links | Shared Rumble/Gear candidate | Needed beyond Canvas. |
 | Spec package / artifact | Exported handoff package | Gear artifact + Rumble UX | Package format should be deterministic. |

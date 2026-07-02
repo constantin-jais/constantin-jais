@@ -1,0 +1,51 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "gear-memory",
+    "layer": "Gear",
+    "role": "Local context and memory substrate for source refs, events, provenance, and code maps.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P0 contract",
+  "scale_ready": "no",
+  "status_summary": "Contracts and tests exist for SourceRef, MemoryEntry, EventLogEntry, CodeMap, and ProvenanceRecord.",
+  "next_quality_step": "Prove local persistence/indexing and Gear Loader ingestion path.",
+  "boundaries": {
+    "owns": [
+      "source refs",
+      "memory entries",
+      "event logs",
+      "provenance",
+      "code maps"
+    ],
+    "does_not_own": [
+      "agent brain",
+      "product UX",
+      "raw extraction",
+      "artifact registry"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "gear-memory/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd gear-memory && cargo test --workspace --all-targets",
+      "status": "warning",
+      "notes": "Command is the documented verification path; status may be proven locally or in CI per repo."
+    }
+  ],
+  "verification_commands": [
+    "cd gear-memory && cargo test --workspace --all-targets"
+  ],
+  "open_questions": [
+    "What is the first durable local store/index implementation?"
+  ],
+  "risk_notes": [
+    "Do not silently index private notes or raw secrets."
+  ]
+}

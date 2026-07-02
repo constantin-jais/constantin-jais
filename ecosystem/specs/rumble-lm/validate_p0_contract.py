@@ -89,8 +89,8 @@ def validate_fixture(doc: dict[str, Any]) -> list[dict[str, str]]:
         provenance = source.get("provenance", {}) if isinstance(source, dict) else {}
         if provenance.get("owner") != "gear-memory":
             findings.append(finding("source_provenance_not_gear", "Source provenance must be Gear-owned.", f"sourceSet.sourceRefs[{index}].provenance.owner"))
-        if provenance.get("producedBy") != "wrench-loader":
-            findings.append(finding("source_not_extracted_by_wrench", "Canonical extraction must come from Wrench Loader.", f"sourceSet.sourceRefs[{index}].provenance.producedBy"))
+        if provenance.get("producedBy") != "gear-loader":
+            findings.append(finding("source_not_extracted_by_gear_loader", "Canonical extraction must come from Gear Loader.", f"sourceSet.sourceRefs[{index}].provenance.producedBy"))
         source_hash = provenance.get("hash", "")
         if not (isinstance(source_hash, str) and source_hash.startswith("sha256:") and SHA256_HEX_RE.match(source_hash.removeprefix("sha256:"))):
             findings.append(finding("source_hash_invalid", "Source provenance requires sha256 hash.", f"sourceSet.sourceRefs[{index}].provenance.hash"))

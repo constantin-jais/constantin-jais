@@ -67,7 +67,7 @@ The product lead can turn discussion into reviewed decisions and a validated scr
 
 #### Goal
 
-Ensure the product spec is implementable, secure, testable, and correctly mapped to Rumble/Bolt/Wrench/Gear responsibilities.
+Ensure the product spec is implementable, secure, testable, and correctly mapped to Rumble/Portal/Bolt/Wrench/Gear responsibilities.
 
 #### Motivations
 

@@ -68,7 +68,7 @@
       "required": ["evidence_ref_id", "kind", "producer", "ref", "hash", "status", "state", "provenance_ref", "safe_summary"],
       "properties": {
         "evidence_ref_id": { "$ref": "#/$defs/id" },
-        "kind": { "enum": ["implementation_handoff", "wrench_loader_report", "wrench_inspect_report", "gear_source_ref", "gear_memory_entry", "gear_code_map", "gear_artifact_ref", "biscuit_authorization", "human_approval"] },
+        "kind": { "enum": ["implementation_handoff", "gear_loader_report", "wrench_inspect_report", "gear_source_ref", "gear_memory_entry", "gear_code_map", "gear_artifact_ref", "biscuit_authorization", "human_approval"] },
         "producer": { "type": "string", "minLength": 1 },
         "ref": { "$ref": "#/$defs/id" },
         "hash": { "$ref": "#/$defs/sha256" },

@@ -27,7 +27,7 @@ rumble-feed-mind/docs/adr/*.md
 gear-memory/README.md
 gear-depot/README.md
 gear-cable/README.md
-wrench-loader/README.md
+gear-loader/README.md
 ```
 
 ---
@@ -277,7 +277,7 @@ Si la session doit être courte :
 
 ```text
 Lis constantin-jais/ecosystem/overview.md et specs/**.
-Fais une review globale Rumble/Bolt/Wrench/Gear selon sécurité, qualité, performance, complétude, souveraineté/RGPD.
+Fais une review globale Rumble/Portal/Bolt/Wrench/Gear selon sécurité, qualité, performance, complétude, souveraineté/RGPD.
 Priorise les blockers avant dev produit.
 Donne un plan d'action P0/P1/P2 et les prochaines sessions recommandées.
 ```

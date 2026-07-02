@@ -1,8 +1,8 @@
 {
-  "format": "wrench.loader.contract_bundle.v0.1",
+  "format": "gear.loader.contract_bundle.v0.1",
   "canonical_documents": [
     {
-      "format": "wrench.canonical_source_document.v0.1",
+      "format": "gear.canonical_source_document.v0.1",
       "document_id": "csd_bad_hash",
       "source": {
         "input_type": "text",
@@ -36,7 +36,7 @@
         "unsupported_features": []
       },
       "provenance": {
-        "tool": "wrench-loader",
+        "tool": "gear-loader",
         "tool_version": "0.1.0",
         "pipeline_id": "pipeline_text_default_v1",
         "started_at": "2026-06-30T00:00:00Z",

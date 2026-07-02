@@ -1,4 +1,4 @@
-# ADR 0012 — Wrench Loader Canonical JSON
+# ADR 0012 — Gear Loader Canonical JSON
 
 Status: Accepted
 Date: 2026-06-30
@@ -11,7 +11,7 @@ Markdown alone is not enough because source spans, chunks, security findings, an
 
 ## Decision
 
-`wrench-loader` emits `CanonicalSourceDocument v0.1` as structured JSON. Markdown and plain text are projections. Canonical document hashes are computed over stable canonical JSON bytes.
+`gear-loader` emits `CanonicalSourceDocument v0.1` as structured JSON. Markdown and plain text are projections. Canonical document hashes are computed over stable canonical JSON bytes.
 
 ## Consequences
 

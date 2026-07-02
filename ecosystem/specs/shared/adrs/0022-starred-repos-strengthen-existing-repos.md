@@ -43,7 +43,7 @@ A module may be extracted into a new repository only when all conditions are met
 1. it has multiple real consumers across the ecosystem;
 2. it has a stable machine-readable contract;
 3. keeping it in the parent repository would blur the parent responsibility;
-4. the new repository has a clear Rumble/Bolt/Wrench/Gear ownership boundary;
+4. the new repository has a clear Rumble/Portal/Bolt/Wrench/Gear ownership boundary;
 5. license, sovereignty, secrets, PII, and hostile-content risks have dedicated checks.
 
 ## Consequences
@@ -60,7 +60,7 @@ A module may be extracted into a new repository only when all conditions are met
 - Do not add dependencies from the starred repositories through this ADR.
 - Do not define final CLI names or schemas.
 - Do not implement browser automation, LLM evals, or usage accounting yet.
-- Do not duplicate the active Biscuit, Gear Memory, Wrench Loader, Wrench DB Inspect, Bolt hardening, or Rumble LM sessions.
+- Do not duplicate the active Biscuit, Gear Memory, Gear Loader, Wrench DB Inspect, Bolt hardening, Portal client platform, or Rumble LM sessions.
 
 ## Acceptance Tests
 

@@ -1,0 +1,55 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "gear-loader",
+    "layer": "Gear",
+    "role": "Runtime-capable ingestion, canonical extraction, and hostile-content evidence.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P1 CLI proof",
+  "scale_ready": "no",
+  "status_summary": "CLI/contracts/fixtures and parser fail-closed behavior are tested.",
+  "next_quality_step": "Harden PDF/Office/feed/code adapters under license, security, and sandbox gates.",
+  "boundaries": {
+    "owns": [
+      "canonical extraction",
+      "parser policy",
+      "hostile-content evidence",
+      "GearSourceCandidate handoff"
+    ],
+    "does_not_own": [
+      "knowledge product UX",
+      "durable memory",
+      "inspection brain",
+      "orchestration decisions"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "gear-loader/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "doc",
+      "ref": "constantin-jais/ecosystem/specs/gear-loader/gear-loader.v0.1.schema.json",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd gear-loader && cargo test --workspace --all-targets",
+      "status": "warning",
+      "notes": "Command is the documented verification path; status may be proven locally or in CI per repo."
+    }
+  ],
+  "verification_commands": [
+    "cd gear-loader && cargo test --workspace --all-targets"
+  ],
+  "open_questions": [
+    "Which parsers can be approved without unsafe dependency or sandbox risk?"
+  ],
+  "risk_notes": [
+    "Hostile sources are a critical threat boundary; fail closed by default."
+  ]
+}

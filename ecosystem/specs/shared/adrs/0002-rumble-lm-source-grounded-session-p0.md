@@ -41,7 +41,7 @@ Core decisions:
 1. The primary product object is `Session`, not `ChatThread`.
 2. Activities are first-class workflow objects with lifecycle, citation state, response schema, and live runs.
 3. Generated source-grounded claims require validated citations or explicit unsupported markers.
-4. Wrench Loader owns canonical extraction; Rumble only initiates imports and stores source-set refs/snapshots.
+4. Gear Loader owns canonical extraction; Rumble only initiates imports and stores source-set refs/snapshots.
 5. Gear Memory owns `SourceRef`, `SourceChunkRef`, provenance, and retrieval handles.
 6. Bolt mediates structured generation and gates, but cannot publish or validate product content.
 7. Biscuit is the delegated-rights primitive for Rumble-to-Wrench/Gear/Bolt calls and scoped participant/export operations.
@@ -54,7 +54,7 @@ Core decisions:
 | Responsibility | Owner | Rumble LM behavior |
 | --- | --- | --- |
 | Session UX, activities, citation review, live participation, synthesis validation | Rumble LM | Owns product workflow and user-facing meaning. |
-| Canonical source extraction | Wrench Loader | Consumes extraction outputs and warnings. |
+| Canonical source extraction | Gear Loader | Consumes extraction outputs and warnings. |
 | Source refs/chunks/provenance/retrieval | Gear Memory | Stores refs/snapshots only. |
 | Draft generation orchestration and gates | Bolt | Sends structured requests; receives drafts/refusals/evidence. |
 | Delegated rights | Biscuit shared contract | Uses attenuated scoped tokens; no local token format. |

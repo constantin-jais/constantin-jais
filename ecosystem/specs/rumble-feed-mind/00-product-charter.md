@@ -74,7 +74,7 @@ Users can define understandable rules, process large volumes of incoming content
 
 ### Wrench
 
-- Feed parsing and content extraction may become `wrench-feed-loader` or part of `wrench-loader` if reused.
+- Feed parsing and content extraction may become `wrench-feed-loader` or part of `gear-loader` if reused.
 - Rule/result inspection may become a Wrench validation capability.
 
 ### Gear
@@ -109,7 +109,7 @@ The product now follows the ecosystem preference for permissive sovereign OSS li
 
 | Candidate | Proposed owner | Reason |
 | --- | --- | --- |
-| Feed source | Wrench Loader / Gear Source | Feed URLs and fetched items are reusable sources. |
+| Feed source | Gear Loader / Gear Source | Feed URLs and fetched items are reusable sources. |
 | Rule explanation | Rumble FeedMind first; Wrench Inspect later | Rule decisions need explainability and validation. |
 | Curated item export | Gear artifact + Gear memory | Saved items feed notes, LM, COS, agents. |
 | Watch workflow | Bolt | Recurring watch/report tasks need orchestration. |

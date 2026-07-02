@@ -1,0 +1,22 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "portal-invalid",
+    "layer": "Rumble",
+    "role": "Invalid layer fixture.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P0 invalid",
+  "scale_ready": "no",
+  "status_summary": "This fixture must fail because stack maturity excludes Rumble claims.",
+  "next_quality_step": "Fail validation.",
+  "boundaries": {
+    "owns": ["invalid fixture"],
+    "does_not_own": ["valid maturity"]
+  },
+  "evidence": [
+    { "kind": "doc", "ref": "invalid", "status": "present" }
+  ],
+  "verification_commands": ["false"]
+}

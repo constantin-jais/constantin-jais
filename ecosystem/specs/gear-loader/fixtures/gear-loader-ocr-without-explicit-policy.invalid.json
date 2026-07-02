@@ -1,8 +1,8 @@
 {
-  "format": "wrench.loader.contract_bundle.v0.1",
+  "format": "gear.loader.contract_bundle.v0.1",
   "extraction_requests": [
     {
-      "format": "wrench.extraction_request.v0.1",
+      "format": "gear.extraction_request.v0.1",
       "request_id": "req_scanned_pdf_bad",
       "actor_ref": "actor_local_owner",
       "workspace_ref": "workspace_demo",
@@ -27,7 +27,7 @@
   ],
   "canonical_documents": [
     {
-      "format": "wrench.canonical_source_document.v0.1",
+      "format": "gear.canonical_source_document.v0.1",
       "document_id": "csd_scanned_pdf_bad",
       "source": {
         "input_type": "pdf",
@@ -61,7 +61,7 @@
         "unsupported_features": []
       },
       "provenance": {
-        "tool": "wrench-loader",
+        "tool": "gear-loader",
         "tool_version": "0.1.0",
         "pipeline_id": "pipeline_pdf_default_v1",
         "started_at": "2026-06-30T00:00:00Z",

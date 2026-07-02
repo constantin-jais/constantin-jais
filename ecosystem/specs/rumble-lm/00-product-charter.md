@@ -25,14 +25,14 @@ Initial implementation-facing contracts are defined in [`15-contracts-v0.1.md`](
 
 `rumble-lm` must not become a generic chatbot. It is judged by learning outcomes, grounding, engagement, and facilitation reliability.
 
-It also must not become a full LMS, durable ingestion engine, durable memory system, generation orchestrator, artifact store, or product-specific authorization-token subsystem. It consumes Wrench Loader, Gear Memory/Gear artifact capabilities, Bolt, and Biscuit for those responsibilities.
+It also must not become a full LMS, durable ingestion engine, durable memory system, generation orchestrator, artifact store, or product-specific authorization-token subsystem. It consumes Gear Loader, Gear Memory/Gear artifact capabilities, Bolt, and Biscuit for those responsibilities.
 
 ## P0 Contract Summary
 
 | Product responsibility | Consumed shared capability |
 | --- | --- |
 | Session UX, live activities, citation review, participant workflow, synthesis validation | Rumble LM |
-| Canonical source extraction | Wrench Loader |
+| Canonical source extraction | Gear Loader |
 | Source refs, chunks, provenance, retrieval handles | Gear Memory |
 | Draft generation orchestration and gates | Bolt |
 | Delegated operation rights | Biscuit shared authorization contract |

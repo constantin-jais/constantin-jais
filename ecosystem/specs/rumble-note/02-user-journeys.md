@@ -92,7 +92,7 @@ Local Knowledge Owner or Spec / Product Author.
 
 - User creates an untyped mention first, then qualifies it later.
 - User links to a not-yet-created placeholder block.
-- User links to imported source content from `wrench-loader`.
+- User links to imported source content from `gear-loader`.
 
 ### Failure Paths
 
@@ -211,7 +211,7 @@ Local Knowledge Owner, Spec / Product Author, or Imported Source Provider.
 
 ### Alternate Paths
 
-- Source metadata comes from `wrench-loader`.
+- Source metadata comes from `gear-loader`.
 - User creates a manual source with incomplete metadata and warning state.
 - Existing duplicate source is detected and reused.
 
@@ -224,7 +224,7 @@ Local Knowledge Owner, Spec / Product Author, or Imported Source Provider.
 ### Recovery Path
 
 - Save as `unverified` source reference.
-- Request re-import from `wrench-loader`.
+- Request re-import from `gear-loader`.
 - Create a new source revision.
 
 ### Data Created or Updated

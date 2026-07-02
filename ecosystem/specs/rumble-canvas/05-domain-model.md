@@ -57,7 +57,7 @@ The workspace may reference external/substrate objects without owning them:
 
 | Reference | Owner layer | Notes |
 | --- | --- | --- |
-| `SourceReference` | Gear Memory / Wrench Loader | Context imported from files, URLs, notes, transcripts. |
+| `SourceReference` | Gear Memory / Gear Loader | Context imported from files, URLs, notes, transcripts. |
 | `ArtifactReference` | Gear Depot / Gear Memory | Exported spec package, handoff payload, generated report. |
 | `BoltRunReference` | Bolt | Planning run created after handoff. |
 | `UserReference` | Identity layer / app | Human actor. |
@@ -1000,7 +1000,7 @@ These concepts are not fully modeled yet and should be discussed before data mod
 | --- | --- | --- | --- |
 | Identity / Account / Local Profile | Partially covered by `ActorReference`; full identity remains shared auth/profile. | Shared auth/profile layer; not Canvas-specific. | High |
 | Workspace membership | Accepted as minimal `WorkspaceMembership` + `RoleAssignment` in Canvas MVP. | Canvas first; shared Rumble or auth adapter later. | High |
-| SourceReference | Needed when specs cite notes, files, URLs, transcripts. | Gear Memory + Wrench Loader. | High |
+| SourceReference | Needed when specs cite notes, files, URLs, transcripts. | Gear Memory + Gear Loader. | High |
 | ArtifactReference | Needed for exports, packages, handoffs. | Gear Depot / Gear Memory. | High |
 | CompletenessReport | Needed for readiness checklist and review. | Rumble shared or Wrench Inspect. | Medium |
 | Waiver | Accepted as first-class MVP entity for controlled exceptions. | Rumble Canvas first; likely shared Rumble governance primitive, consumed by Bolt gates. | High |

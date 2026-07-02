@@ -177,11 +177,11 @@ Gear records the lifecycle explicitly. It does not infer product meaning.
 
 ## 8. Typical Flows
 
-### 8.1 Wrench Loader → Gear Memory → Rumble LM citation
+### 8.1 Gear Loader → Gear Memory → Rumble LM citation
 
 ```text
 URL/PDF/Feed item
-→ Wrench Loader extracts CanonicalSourceDocument + LoaderEvidenceReport
+→ Gear Loader extracts CanonicalSourceDocument + LoaderEvidenceReport
 → Gear receives GearSourceCandidate
 → Gear creates SourceRef + MemoryEntry + ProvenanceRecord
 → LM source set references SourceRef
@@ -206,7 +206,7 @@ Solved: Note remains product UX; Gear handles indexing and stale/delete propagat
 
 ```text
 FeedMind requests feed parsing
-→ Wrench Loader normalizes feed item
+→ Gear Loader normalizes feed item
 → Gear Memory stores feed item as SourceRef
 → FeedMind curates bundle
 → Gear Depot stores curated export as ArtifactRef

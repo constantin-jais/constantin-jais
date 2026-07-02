@@ -1,0 +1,41 @@
+{
+  "manifest_id": "manifest:wrench-portal-usage-aa95bcf37b1d97e5",
+  "artifact": {
+    "artifact_id": "artifact:wrench-portal-usage-aa95bcf37b1d97e5",
+    "artifact_type": "inspection_report",
+    "producer": "wrench-inspect",
+    "version": "0.1.0",
+    "hash": "sha256:not-a-valid-hash",
+    "manifest_ref": "manifest:wrench-portal-usage-aa95bcf37b1d97e5",
+    "state": "active",
+    "created_at": "2026-07-02T00:00:00Z"
+  },
+  "package_type": "json_bundle",
+  "checksums": [
+    {
+      "algorithm": "sha256",
+      "value": "sha256:43fda9fc5991275529544389fe07b91ceb25432b43865dbd674d498a9c87597f"
+    }
+  ],
+  "provenance_id": "provenance:wrench-portal-usage-aa95bcf37b1d97e5",
+  "retention": {
+    "policy_ref": null,
+    "expires_at": null,
+    "revoked_at": null,
+    "delete_after": null
+  },
+  "distribution": {
+    "channels": [],
+    "install_floor": null,
+    "published_at": null
+  },
+  "metadata": {
+    "values": {
+      "evidence_status": "passed",
+      "source_format": "wrench.evidence_report.v0.1",
+      "source_report_hash": "sha256:aa95bcf37b1d97e55c7333ab54900c1fa4497626f712c1d23c523b743d05e625",
+      "subject_kind": "portal_ui",
+      "subject_ref": "tests/fixtures/portal/rumble-lm-ui.valid"
+    }
+  }
+}

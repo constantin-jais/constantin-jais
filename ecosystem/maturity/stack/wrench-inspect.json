@@ -1,0 +1,82 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "wrench-inspect",
+    "layer": "Wrench",
+    "role": "Structural inspection and validation evidence.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P1/P3 Portal EvidenceReport proof",
+  "scale_ready": "no",
+  "status_summary": "Local CLI inspects ImplementationHandoff and Portal UI usage; Rumble LM UI fixture proves Portal tokens, contrast report, no hardcoded component colors, and an optional EvidenceReport envelope.",
+  "next_quality_step": "Add browser/accessibility checks and Gear Loader evidence inspection while reusing the EvidenceReport envelope.",
+  "boundaries": {
+    "owns": [
+      "general inspection",
+      "policy validation",
+      "evidence reports",
+      "Portal usage checks"
+    ],
+    "does_not_own": [
+      "database-specific ownership",
+      "Portal token generation",
+      "product UX",
+      "orchestration decisions",
+      "persistent memory",
+      "runtime-capable ingestion"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "wrench-inspect/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "schema",
+      "ref": "constantin-jais/ecosystem/specs/wrench/evidence-report.v0.1.schema.json",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "wrench-inspect/tests/fixtures/portal/rumble-lm-ui.valid",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "constantin-jais/ecosystem/specs/wrench/fixtures/evidence/portal-usage.valid.json",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "wrench-inspect/tests/fixtures/portal/hardcoded-hex.invalid",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd wrench-inspect && cargo test",
+      "status": "passing"
+    },
+    {
+      "kind": "command",
+      "ref": "cd wrench-inspect && cargo run -- portal inspect ../rumble-lm/crates/ui --evidence",
+      "status": "passing"
+    }
+  ],
+  "verification_commands": [
+    "cd wrench-inspect && cargo fmt --check",
+    "cd wrench-inspect && cargo clippy --all-targets -- -D warnings",
+    "cd wrench-inspect && cargo test",
+    "cd wrench-inspect && cargo run -- portal inspect ../rumble-lm/crates/ui --json",
+    "cd wrench-inspect && cargo run -- portal inspect ../rumble-lm/crates/ui --evidence"
+  ],
+  "open_questions": [
+    "Which other inspector domains should emit EvidenceReport first: handoff, browser, Gear Loader, or spec completeness?",
+    "Which inline style exceptions should be allowed beyond dynamic CSS variables?"
+  ],
+  "risk_notes": [
+    "Avoid becoming a vague catch-all; split deep domains when necessary.",
+    "Portal checks are heuristic until browser accessibility evidence is added."
+  ]
+}

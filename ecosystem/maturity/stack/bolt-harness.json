@@ -1,0 +1,48 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "bolt-harness",
+    "layer": "Bolt",
+    "role": "Public sandbox and evidence bench for Bolt-Cos-Matic.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P0 hygiene",
+  "scale_ready": "no",
+  "status_summary": "Harness owns reproducible scenarios and evidence, not engine code.",
+  "next_quality_step": "Add Portal/Gear/Wrench scenario coverage while keeping sandbox fenced.",
+  "boundaries": {
+    "owns": [
+      "sandbox scenarios",
+      "public evidence",
+      "harness hygiene"
+    ],
+    "does_not_own": [
+      "orchestration engine",
+      "production repository mutation",
+      "durable logic"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "bolt-harness/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd bolt-harness && scripts/run-dry-loop.sh 1 \"ci: autonomous loop\"",
+      "status": "warning",
+      "notes": "Command is the documented verification path; status may be proven locally or in CI per repo."
+    }
+  ],
+  "verification_commands": [
+    "cd bolt-harness && scripts/run-dry-loop.sh 1 \"ci: autonomous loop\""
+  ],
+  "open_questions": [
+    "Which stack scenario should become the next public evidence transcript?"
+  ],
+  "risk_notes": [
+    "Never target production repositories from the harness."
+  ]
+}

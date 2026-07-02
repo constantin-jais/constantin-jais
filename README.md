@@ -1,11 +1,11 @@
-# Hey 👋 I'm Constantin
+# Hey I'm Constantin
 
 [![Spec contracts](https://github.com/constantin-jais/constantin-jais/actions/workflows/spec-contracts.yml/badge.svg?branch=main)](https://github.com/constantin-jais/constantin-jais/actions/workflows/spec-contracts.yml)
 [![Forge health](https://github.com/constantin-jais/constantin-jais/actions/workflows/forge-health.yml/badge.svg?branch=main)](https://github.com/constantin-jais/constantin-jais/actions/workflows/forge-health.yml)
 
 I build **open-source, product-shaped tools for learning, knowledge work, agentic teamwork, and trustworthy automation**.
 
-The visible layer is **Rumble**: products people can use. Underneath, **Bolt**, **Wrench**, and **Gear** form a deterministic, sovereign forge for orchestration, inspection, memory, release, and provenance.
+The visible layer is **Rumble**: products people can use. **Portal**, **Bolt**, **Wrench**, and **Gear** form the deterministic, sovereign forge underneath: client platform, orchestration, inspection, memory, release, and provenance.
 
 ## Start here
 
@@ -38,11 +38,12 @@ The forge layers exist to make Rumble products reliable without turning every pr
 
 | Layer | Role | Main repos |
 | --- | --- | --- |
-| **Bolt** | safe orchestration, plans, gates, evidence | [cos-matic](https://github.com/constantin-jais/cos-matic) |
-| **Wrench** | inspection, validation, extraction, reports | [wrench-loader](https://github.com/constantin-jais/wrench-loader), [wrench-db-inspect](https://github.com/constantin-jais/wrench-db-inspect) |
-| **Gear** | memory, artifacts, release, provenance, supply-chain | [gear-memory](https://github.com/constantin-jais/gear-memory), [gear-depot](https://github.com/constantin-jais/gear-depot), [gear-cable](https://github.com/constantin-jais/gear-cable) |
+| **Portal** | client platform, design tokens, accessibility, i18n UI, native/web adapters | [portal-forge](https://github.com/constantin-jais/portal-forge), [portal-core](https://github.com/constantin-jais/portal-core), [portal-apple](https://github.com/constantin-jais/portal-apple), [portal-android](https://github.com/constantin-jais/portal-android) |
+| **Bolt** | safe orchestration, plans, gates, evidence | [bolt-cos-matic](https://github.com/constantin-jais/bolt-cos-matic) |
+| **Wrench** | inspection, validation, evidence reports | [wrench-inspect](https://github.com/constantin-jais/wrench-inspect), [wrench-db-inspect](https://github.com/constantin-jais/wrench-db-inspect) |
+| **Gear** | ingestion substrate, memory, artifacts, release, provenance, supply-chain | [gear-loader](https://github.com/constantin-jais/gear-loader), [gear-memory](https://github.com/constantin-jais/gear-memory), [gear-depot](https://github.com/constantin-jais/gear-depot), [gear-cable](https://github.com/constantin-jais/gear-cable) |
 
-Detailed status, maturity vocabulary, caveats, and verification commands live in [`ecosystem/status.md`](ecosystem/status.md). The target self-improving loop is described in [`ecosystem/loop.md`](ecosystem/loop.md).
+Detailed status, maturity vocabulary, caveats, and verification commands live in [`ecosystem/status.md`](ecosystem/status.md). The full target version is specified in [`ecosystem/target-version.md`](ecosystem/target-version.md) and [`ecosystem/target-version.v1.json`](ecosystem/target-version.v1.json); the self-improving loop is described in [`ecosystem/loop.md`](ecosystem/loop.md), and the cross-layer backlog is tracked in [`ecosystem/remaining-work.md`](ecosystem/remaining-work.md).
 
 ## Principles
 

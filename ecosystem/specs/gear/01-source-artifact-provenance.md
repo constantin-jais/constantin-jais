@@ -12,7 +12,7 @@ Purpose: identify source material without importing product semantics.
 {
   "source_id": "src_01",
   "source_type": "file | url | feed_item | note_block | transcript | document | dataset | artifact",
-  "origin_product": "rumble-feed-mind | rumble-note | rumble-lm | rumble-canvas | rumble-cos | wrench-loader | gear-depot",
+  "origin_product": "rumble-feed-mind | rumble-note | rumble-lm | rumble-canvas | rumble-cos | gear-loader | gear-depot",
   "uri": "optional",
   "content_hash": "sha256:...",
   "provenance_id": "prov_01",

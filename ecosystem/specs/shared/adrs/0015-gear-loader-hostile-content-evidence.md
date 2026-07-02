@@ -1,4 +1,4 @@
-# ADR 0015 — Wrench Loader Hostile-Content Evidence Is Mandatory
+# ADR 0015 — Gear Loader Hostile-Content Evidence Is Mandatory
 
 Status: Accepted
 Date: 2026-06-30

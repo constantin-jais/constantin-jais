@@ -1,0 +1,69 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "gear-depot",
+    "layer": "Gear",
+    "role": "Sovereign artifact depot and policy gate.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P2/P3 Wrench evidence artifact proof",
+  "scale_ready": "no",
+  "status_summary": "Artifact contracts exist; Gear Depot can materialize a Wrench EvidenceReport as an inspection_report ArtifactManifest with SHA-256 integrity metadata.",
+  "next_quality_step": "Add storage/cache policy, retention/revocation hardening, and Gear Cable handoff integration.",
+  "boundaries": {
+    "owns": [
+      "ArtifactRef",
+      "ArtifactManifest",
+      "checksums",
+      "retention policy",
+      "distribution metadata"
+    ],
+    "does_not_own": [
+      "generic file store",
+      "Portal client semantics",
+      "Wrench finding semantics",
+      "release planner",
+      "product workflow"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "gear-depot/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "schema",
+      "ref": "constantin-jais/ecosystem/specs/gear/artifact-manifest.v0.1.schema.json",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "constantin-jais/ecosystem/specs/gear/fixtures/artifacts/wrench-portal-evidence-manifest.valid.json",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd gear-depot && cargo test --workspace --all-targets",
+      "status": "passing"
+    },
+    {
+      "kind": "command",
+      "ref": "cd gear-depot && cargo run -- manifest evidence-report tests/fixtures/wrench-portal-usage.valid.json --json",
+      "status": "passing"
+    }
+  ],
+  "verification_commands": [
+    "cd gear-depot && cargo test --workspace --all-targets",
+    "cd gear-depot && cargo run -- manifest evidence-report tests/fixtures/wrench-portal-usage.valid.json --json"
+  ],
+  "open_questions": [
+    "Which storage/cache backend should hold manifests when local fixtures are no longer enough?",
+    "How should retention/revocation policy be represented before trusted distribution?"
+  ],
+  "risk_notes": [
+    "Do not absorb Portal UI semantics or Rumble product workflow.",
+    "Do not interpret Wrench findings; Gear owns artifact integrity and lifecycle only."
+  ]
+}

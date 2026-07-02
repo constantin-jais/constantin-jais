@@ -7,8 +7,12 @@ Source de vérité légère pour suivre la maturité CI/CD de la stack.
 | `constantin-jais` | Ecosystem | partiel | oui | specs | — | oui | cockpit, contrats globaux, forge-health remote hard-fail |
 | `bolt-harness` | Bolt | hygiene | n/a | n/a | non | oui | dépôt public de harness, gate `Harness hygiene` |
 | `bolt-cos-matic` | Bolt | oui | oui | oui | non | oui | ancien `cos-matic`; handoff smoke et dogfood drift gate |
+| `portal-forge` | Portal | oui | oui | tests | non | oui | token compiler CSS/Swift/Kotlin + WCAG |
+| `portal-core` | Portal | oui | oui | tests | non | oui | Rust UI core + UniFFI bridge |
+| `portal-apple` | Portal | oui | oui | tests | non | oui | SwiftUI adapter, bridge prouvé par `swift test` |
+| `portal-android` | Portal | partiel | oui | à créer | non | oui | Compose adapter, Gradle/SDK proof à durcir |
 | `wrench-db-inspect` | Wrench | oui | oui | à créer | tag/manual | oui | CLI distribuable avec checksums/SBOM/attestation |
-| `wrench-loader` | Wrench | oui | oui | oui | non | oui | fixtures hostiles en gate dédiée |
+| `gear-loader` | Gear | oui | oui | oui | non | oui | ancien `gear-loader`; fixtures hostiles en gate dédiée |
 | `gear-memory` | Gear | oui | oui | oui | non | oui | contrats mémoire/provenance en gate dédiée |
 | `gear-depot` | Gear | oui | oui | oui | non | oui | contrats artefacts en gate dédiée |
 | `gear-cable` | Gear | oui | oui | oui | tag/manual | oui | release CLI avec checksums/SBOM/attestation |
@@ -22,6 +26,7 @@ Source de vérité légère pour suivre la maturité CI/CD de la stack.
 ## Légende
 
 - `oui` : workflow dédié ou gate explicite présent.
+- `local` : preuve locale documentée, workflow distant pas encore aligné.
 - `partiel` : couverture utile mais non alignée complètement sur la convention.
 - `à créer` : attendu par la forge cible, non bloquant phase 1.
 - `tag/manual` : release déclenchée uniquement par tag ou dispatch manuel.

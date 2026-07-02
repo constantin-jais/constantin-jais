@@ -95,7 +95,7 @@ Bolt must not publish, validate facilitator decisions, store source truth, or ow
 
 ### Scope to review
 
-- source import/provenance assumptions from Wrench Loader;
+- source import/provenance assumptions from Gear Loader;
 - `CitationSupportValidationRequest v0.1`;
 - `CitationSupportValidationResult v0.1`.
 
@@ -109,7 +109,7 @@ Wrench provides extraction and advisory support evidence. Facilitator validation
 2. Should `Partial` satisfy mandatory grounding or require facilitator waiver/explicit review?
 3. What source context is needed: quote only, surrounding context ref, full chunk, or retrieval handle?
 4. Which extraction warnings should block source-grounded generation?
-5. Should citation support validation live in Wrench Loader, Wrench Inspect, or a dedicated Wrench validator?
+5. Should citation support validation live in Gear Loader, Wrench Inspect, or a dedicated Wrench validator?
 
 ### Acceptance criteria
 

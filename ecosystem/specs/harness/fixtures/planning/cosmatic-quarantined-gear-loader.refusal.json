@@ -2,9 +2,9 @@
   "format": "cosmatic.planning_bundle.v0.1",
   "evidence_refs": [
     {
-      "evidence_ref_id": "ev_wrench_quarantine_01",
-      "kind": "wrench_loader_report",
-      "producer": "wrench-loader",
+      "evidence_ref_id": "ev_loader_quarantine_01",
+      "kind": "gear_loader_report",
+      "producer": "gear-loader",
       "ref": "ler_quarantine_01",
       "hash": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
       "status": "quarantined",
@@ -18,15 +18,15 @@
     {
       "format": "cosmatic.refusal_report.v0.1",
       "refusal_id": "refusal_quarantine_01",
-      "target_ref": "ev_wrench_quarantine_01",
+      "target_ref": "ev_loader_quarantine_01",
       "reason_code": "quarantined_evidence",
       "severity": "critical",
       "findings": [
         {
-          "code": "wrench_evidence_quarantined",
+          "code": "loader_evidence_quarantined",
           "severity": "critical",
-          "message": "Quarantined Wrench evidence cannot be used for planning.",
-          "target_ref": "ev_wrench_quarantine_01",
+          "message": "Quarantined loader evidence cannot be used for planning.",
+          "target_ref": "ev_loader_quarantine_01",
           "path": "$.evidence_refs[0].status"
         }
       ],

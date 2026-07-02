@@ -25,12 +25,12 @@
         ],
         "provenance": {
           "owner": "gear-memory",
-          "producedBy": "wrench-loader",
+          "producedBy": "gear-loader",
           "title": "Product Charter — rumble-lm",
           "type": "markdown",
           "hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
           "extractedAt": "2026-06-30T00:01:00Z",
-          "extractorVersion": "wrench-loader.v0.1",
+          "extractorVersion": "gear-loader.v0.1",
           "warnings": []
         }
       }
@@ -152,7 +152,7 @@
   "delegations": [
     {
       "delegationRef": "delegation:source-import:001",
-      "holder": "wrench-loader",
+      "holder": "gear-loader",
       "action": "source:attach",
       "facts": {
         "organization": "org-eu-001",

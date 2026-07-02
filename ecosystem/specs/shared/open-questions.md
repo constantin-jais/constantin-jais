@@ -9,6 +9,8 @@
 | What is the minimum shared identity/auth model across all Rumbles? | High | Security/Product | Open |
 | What shared policy decides who can approve high/critical waivers across products? | High | Security/Product | Partially accepted for Canvas MVP: distinct human Owner + Reviewer; cross-product policy remains open. |
 | Which products require local-first behavior from day one? | High | Product | Open |
+| Does Portal deserve its own layer or should it be absorbed by Gear? | High | Architecture | Accepted: Portal is its own Client Platform layer. Gear Cable/Depot package and govern artifacts; Portal owns UI/client semantics. See ADR-0023. |
+| Should `gear-loader` remain Wrench or move to Gear? | High | Architecture | Accepted: superseded by `gear-loader` because runtime-capable ingestion substrate belongs in Gear. See ADR-0023. |
 | Should specs live in root `specs/` or inside each product repository? | Medium | Architecture | Accepted: ecosystem-level specs and shared contracts live in `constantin-jais/ecosystem/specs/`; repo-local docs describe usage, implementation, ADRs, runbooks, and local commands only. |
 | Should specs be written in English, French, or mixed by audience? | Medium | Product | Open |
 
@@ -47,9 +49,9 @@
 | Question | Impact | Status |
 | --- | --- | --- |
 | Is it an active Rumble product or primarily a source pipeline feeding other Rumbles? | High | Open |
-| Should feed parsing/extraction stay product-local or become Wrench capability? | High | Accepted: RSS/Atom/JSON Feed parsing and normalization belong in `wrench-loader` P0; polling/rules/curation remain FeedMind/Bolt. |
+| Should feed parsing/extraction stay product-local or become shared substrate? | High | Accepted: RSS/Atom/JSON Feed parsing and normalization belong in `gear-loader`; polling/rules/curation remain FeedMind/Bolt. |
 | Is AGPL acceptable, or must the project relicense / receive a documented waiver? | High | Accepted: workspace license is MIT; future exceptions need ADR/waiver. |
-| Should current Rust backend + Expo client remain, or should interactive Rumble stack converge? | High | Accepted: Rust-first/Dioxus convergence; legacy TypeScript/mobile surfaces are migration references only. |
+| Should current Rust backend + Expo client remain, or should interactive Rumble stack converge? | High | Accepted: Rust-first + Portal client platform; Dioxus/PWA is the fast default, SwiftUI/Compose are first-class native paths when justified. |
 | What is the minimum curated-item export/handoff format? | High | Drafted: `contracts/curated-item-export.v0.1.md`; FeedMind product instantiation remains open. |
 
 ### rumble-lm

@@ -103,7 +103,7 @@ Facilitator uploads or references a source.
 ### Steps
 
 1. Create import request.
-2. Wrench Loader extracts text/metadata/chunks.
+2. Gear Loader extracts text/metadata/chunks.
 3. Gear stores source/chunk refs and provenance.
 4. Rumble updates source set revision.
 5. Existing citations are checked for staleness.

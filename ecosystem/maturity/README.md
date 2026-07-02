@@ -1,12 +1,17 @@
-# Rumble Delivery Maturity Claims
+# Maturity Claims
 
-This directory contains real, current maturity claims for Rumble projects.
+This directory contains real, current maturity claims.
 
-Fixtures under `ecosystem/specs/harness/fixtures/maturity/` test the contract. Files here are the operational claims consumed by:
+- Rumble delivery claims use `rumble.delivery_maturity.v0.1` and live at the top level.
+- Portal/Bolt/Wrench/Gear stack claims use `stack.project_maturity.v0.1` and live in `stack/`.
+
+Fixtures under `ecosystem/specs/harness/fixtures/maturity/` and `ecosystem/specs/harness/fixtures/stack-maturity/` test the contracts. Files here are operational claims validated by:
 
 ```bash
-cosmatic maturity report ecosystem/maturity
+bash ecosystem/specs/ci-validate-contracts.sh
 ```
+
+The older `cosmatic maturity report ecosystem/maturity` command is only valid when the installed Cosmatic binary supports that subcommand.
 
 Rules:
 

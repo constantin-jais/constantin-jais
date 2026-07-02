@@ -168,7 +168,7 @@ MVP should not center on individual scoring. The product should expose learning 
 - **Relationships:** belongs to source sets; has many `SourceChunks`; cited by `Citations`.
 - **Invariants:** source-derived claims must reference source revision/chunk; source import status must be successful for generation.
 - **Events:** `source.import_requested`, `source.import_completed`, `source.import_failed`.
-- **Shared candidates:** Wrench Loader, Gear Memory source/provenance.
+- **Shared candidates:** Gear Loader, Gear Memory source/provenance.
 
 ### Entity: SourceChunk
 
@@ -276,7 +276,7 @@ MVP analytics should help facilitation and learning without becoming invasive pr
 
 | Need | Candidate Owner | Reason |
 | --- | --- | --- |
-| Source ingestion | Wrench Loader | Import and normalize files, URLs, transcripts, notes. |
+| Source ingestion | Gear Loader | Import and normalize files, URLs, transcripts, notes. |
 | Source storage/index/provenance | Gear Memory | Keep addressable sources, chunks, metadata, and retrieval context. |
 | Source-grounded generation | Bolt + Wrench + Gear Memory | Generate activities/summaries from source sets with traceability. |
 | Citation verification | Wrench Inspector or validator capability | Check whether cited passage supports generated claim. |

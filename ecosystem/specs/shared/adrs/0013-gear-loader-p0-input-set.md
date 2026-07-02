@@ -1,4 +1,4 @@
-# ADR 0013 — Wrench Loader P0 Input Set
+# ADR 0013 — Gear Loader P0 Input Set
 
 Status: Accepted
 Date: 2026-06-30

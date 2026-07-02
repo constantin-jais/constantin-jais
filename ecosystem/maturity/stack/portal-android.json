@@ -1,0 +1,54 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "portal-android",
+    "layer": "Portal",
+    "role": "Jetpack Compose adapter for Portal core and tokens.",
+    "maturity_mode": "speculative"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P0 partial bridge",
+  "scale_ready": "no",
+  "status_summary": "Compose adapter and Kotlin binding flow are sketched but Android SDK/NDK assembly is not fully proven.",
+  "next_quality_step": "Commit Gradle wrapper and prove local SDK/NDK build.",
+  "boundaries": {
+    "owns": [
+      "Compose adapter",
+      "Android platform UI bridge",
+      "Portal core consumption"
+    ],
+    "does_not_own": [
+      "canonical product logic",
+      "Play Store release pipeline",
+      "artifact governance"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "portal-android/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "doc",
+      "ref": "portal-android/library/build.gradle.kts",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "./scripts/build-core.sh",
+      "status": "warning",
+      "notes": "Command is the documented verification path; status may be proven locally or in CI per repo."
+    }
+  ],
+  "verification_commands": [
+    "./scripts/build-core.sh",
+    "./gradlew :library:assemble"
+  ],
+  "open_questions": [
+    "How will Android SDK/NDK proof run in CI or documented local gate?"
+  ],
+  "risk_notes": [
+    "Current Android proof is partial; do not claim native Android readiness."
+  ]
+}

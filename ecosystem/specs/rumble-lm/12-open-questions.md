@@ -35,7 +35,7 @@ Stub-first implementation plan: [`17-p0-stub-implementation-plan.md`](./17-p0-st
 | Question | Impact | Decision / Default | Status |
 | --- | --- | --- | --- |
 | Who owns source storage/indexing? | High | Gear Memory candidate; Rumble stores refs/snapshots. | Accepted for MVP |
-| Who owns extraction? | High | Wrench Loader candidate. | Accepted for MVP |
+| Who owns extraction? | High | Gear Loader candidate. | Accepted for MVP |
 | Who validates citation support? | Medium | Facilitator final validation; Wrench validator advisory. | Accepted for MVP |
 | What is minimum provenance? | High | type, title, source ref, revision/hash if available, chunk location. | Accepted for MVP |
 | Can generated content use uncited model knowledge? | High | Not when marked source-grounded; must be unsupported/facilitator-authored otherwise. | Accepted for MVP |

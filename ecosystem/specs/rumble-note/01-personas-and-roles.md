@@ -216,7 +216,7 @@ Receive deterministic, bounded context packages prepared by a human.
 
 ## Role: Imported Source Provider
 
-This is a system-facing role for content produced by `wrench-loader` or another importer.
+This is a system-facing role for content produced by `gear-loader` or another importer.
 
 ### Goal
 

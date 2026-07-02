@@ -33,7 +33,7 @@ Every specification or design session for `rumble-lm` must leave behind explicit
 
 | Centralized subject | Owner | Rumble LM consumes | Rumble LM must not duplicate |
 | --- | --- | --- | --- |
-| Canonical source extraction | Wrench Loader | import requests, extraction warnings, normalized chunks | parsers/crawlers/OCR/transcription pipelines as durable product code |
+| Canonical source extraction | Gear Loader | import requests, extraction warnings, normalized chunks | parsers/crawlers/OCR/transcription pipelines as durable product code |
 | Source refs, chunks, provenance, retrieval | Gear Memory | `SourceRef`, `SourceChunkRef`, retrieval handles, provenance | vector DB, long-term memory, global knowledge graph |
 | Generation orchestration and gates | Bolt | structured draft generation, refusals, gate evidence | agent runtime, model router, autonomous planner |
 | Delegated rights | Biscuit/shared auth | attenuated operation tokens | product-specific delegation tokens or ad hoc signed authority |
@@ -107,9 +107,9 @@ create session
 
 ## Dependency Contract
 
-### Wrench Loader
+### Gear Loader
 
-`rumble-lm` consumes Wrench Loader for canonical extraction.
+`rumble-lm` consumes Gear Loader for canonical extraction.
 
 Rumble sends:
 
@@ -196,7 +196,7 @@ Rumble must not invent product-specific delegation tokens. It may mint or reques
 
 | Flow | Delegated token scope | Holder | Caveats |
 | --- | --- | --- | --- |
-| Source import | `can_import_source(workspace, session, source_set_revision)` | Wrench Loader | expiry, source type, max size, no export right |
+| Source import | `can_import_source(workspace, session, source_set_revision)` | Gear Loader | expiry, source type, max size, no export right |
 | Source persistence | `can_write_source_ref(workspace, session, source_set_revision)` | Gear Memory | provenance required, no participant response access |
 | Generation | `can_read_source_chunks(workspace, source_set_revision)` + `can_generate_draft(session)` | Bolt/generation adapter | citation-required, provider policy, no publish right |
 | Citation validation | `can_validate_citation_candidate(session, target)` | Wrench validator | advisory result only, no facilitator approval right |
@@ -404,7 +404,7 @@ Rejected patterns:
    - Consequence: async course/LMS features are deferred.
 
 2. **ADR: Rumble LM stores source references, not source truth.**
-   - Decision: Wrench Loader + Gear Memory own extraction, source refs, chunks, provenance, and retrieval handles.
+   - Decision: Gear Loader + Gear Memory own extraction, source refs, chunks, provenance, and retrieval handles.
    - Consequence: Rumble keeps session source-set membership and snapshots only.
 
 3. **ADR: Source-grounded generation is mediated by Bolt and citation-gated by Rumble.**

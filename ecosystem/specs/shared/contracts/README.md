@@ -2,7 +2,7 @@
 
 Status: Draft.
 
-This directory contains cross-product contracts that Rumble/Bolt/Wrench/Gear consumers must treat as versioned boundaries, not implementation notes.
+This directory contains cross-product contracts that Rumble/Portal/Bolt/Wrench/Gear consumers must treat as versioned boundaries, not implementation notes.
 
 ## Contracts
 
@@ -16,7 +16,7 @@ This directory contains cross-product contracts that Rumble/Bolt/Wrench/Gear con
 | `delegated-authorization-biscuit.v0.1.md` | Draft / P0 | Shared Biscuit delegated-authorization facts, rights, lifecycle, audit, and product matrix. |
 | `delegated-authorization-biscuit.v0.1.tests.md` | Draft / P0 | Product-neutral conformance tests for Biscuit delegation. |
 | `delegated-authorization-biscuit.v0.1.prototype.md` | Draft | Pre-implementation spike plan for verifier/authorizer behavior. |
-| `../wrench-loader/wrench-loader.v0.1.schema.json` | Draft / P0 | JSON Schema bundle for Wrench Loader extraction requests, canonical documents, Gear source candidates, and evidence reports. |
+| `../gear-loader/gear-loader.v0.1.schema.json` | Draft / P0 historical path | JSON Schema bundle for Gear Loader extraction requests, canonical documents, Gear source candidates, and evidence reports. The path/name is retained until schema migration. |
 | `../../harness/cosmatic-planning.v0.1.schema.json` | Draft / P0 | JSON Schema bundle for Bolt/cos-matic planning requests, evidence refs, gates, plan reports, run intents, refusals, and audit events. |
 
 ## Quality Rules

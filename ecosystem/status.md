@@ -121,11 +121,11 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 | `portal-android` | Portal | Jetpack Compose adapter for Portal core/tokens. | `speculative` | P0 partial bridge | Kotlin bindings and native lib flow are sketched, but Gradle/Android SDK assembly is not fully verified. Next: committed wrapper + local SDK/NDK proof. |
 | `bolt-harness` | Bolt | Public harness execution/governance surface. | `contract-first` | P0 hygiene | Public repo has `Harness hygiene` protection. Next: keep live sandbox fenced and evidence-producing. |
 | `bolt-cos-matic` | Bolt | Deterministic orchestration, gates, plans, safe writes, evidence. | `usable` | P4 approval key registry + Wrench/Gear evidence proof | Renamed from `cos-matic`; local harness and tests pass, `handoff plan` can project Wrench EvidenceReport files, Gear ArtifactManifests, or registry-backed Ed25519 `bolt.human_approval.v0.1` contracts into hash-backed refs/gates; unknown/revoked/expired approval keys are refused. Next: Biscuit, audit, durable registry publication, and evidence gates before trusted execution. |
-| `wrench-inspect` | Wrench | General critique, policy/design/spec inspection, evidence reports. | `speculative` | P0 placement | No local repo yet; capability is intentionally kept as a Wrench owner in shared registry. Next: evidence report model before repo split. |
+| `wrench-inspect` | Wrench | General critique, policy/design/spec inspection, evidence reports. | `dojo` | P1/P3 Portal EvidenceReport proof | Local CLI inspects handoffs and Portal UI usage; tests prove the Rumble LM UI fixture has Portal tokens, `portal.contrast_report.v0.1`, no hardcoded component colors, and an optional `wrench.evidence_report.v0.1` envelope. Next: browser/a11y checks and Gear Loader evidence inspection. |
 | `wrench-db-inspect` | Wrench | Database security gates, RLS/grants/migration/pgvector evidence. | `dojo` | P1 CLI proof | Specialized DB inspector exists. Next: address clippy debt in the current codebase and decide integration as CI gate. |
 | `gear-loader` | Gear | Runtime-capable ingestion, canonical extraction, hostile-content evidence. | `dojo` | P1 CLI proof | Reclassified from the former Wrench Loader placement; CLI/contracts/fixtures exist. Next: parser hardening for PDF/Office/feed/code under license/security/sandbox gates. |
 | `gear-memory` | Gear | Source refs, memory entries, code maps, event log, provenance. | `contract-first` | P0 contract | Contracts/tests exist. Next: local persistence/indexing proof and Note/Loader integration. |
-| `gear-depot` | Gear | Artifact manifests, supply-chain policy, provenance, safe metadata. | `contract-first` | P0 contract | Contracts/tests exist. Next: storage/cache policy and integration with spec/handoff artifacts. |
+| `gear-depot` | Gear | Artifact manifests, supply-chain policy, provenance, safe metadata. | `contract-first` | P2/P3 Wrench evidence artifact proof | Contracts/tests exist; CLI can turn a Wrench EvidenceReport into an `inspection_report` ArtifactManifest with SHA-256 refs. Next: storage/cache policy, revocation/retention hardening, and Gear Cable handoff. |
 | `gear-cable` | Gear | Reproducible release, checksums, distribution wiring. | `contract-first` | P1 CLI/library proof | Release substrate skeleton and tests exist. Next: connect release plans to Depot manifests. |
 
 ## Current stack challenge decisions
@@ -166,6 +166,7 @@ References: [`specs/shared/adrs/0024-stack-validation-local-only.md`](specs/shar
 | `gear-depot` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `gear-memory` | `cargo test --workspace --all-targets` |
 | `gear-loader` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `wrench-inspect` | `cargo fmt --check`; `cargo clippy --all-targets -- -D warnings`; `cargo test`; `cargo run -- portal inspect ../rumble-lm/crates/ui --json`; `cargo run -- portal inspect ../rumble-lm/crates/ui --evidence` |
 | `portal-forge` | `cargo test` |
 | `portal-core` | `cargo test` |
 | `portal-apple` | `./scripts/build-core.sh`; `swift test` |

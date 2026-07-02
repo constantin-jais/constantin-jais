@@ -1,4 +1,4 @@
-# ADR 0016 — Feed Parsing in Wrench Loader, Feed Product Logic Outside
+# ADR 0016 — Feed Parsing in Gear Loader, Feed Product Logic Outside
 
 Status: Accepted
 Date: 2026-06-30
@@ -11,7 +11,7 @@ Creating a separate feed loader before the product slice stabilizes risks premat
 
 ## Decision
 
-RSS, Atom, and JSON Feed parsing belong in `wrench-loader` P0 as deterministic input normalization. Feed polling, subscription UX, rule evaluation, ranking, explanations, and curated export remain `rumble-feed-mind`/Rumble product logic. Scheduling recurring fetches belongs to Bolt when orchestration is needed.
+RSS, Atom, and JSON Feed parsing belong in `gear-loader` P0 as deterministic input normalization. Feed polling, subscription UX, rule evaluation, ranking, explanations, and curated export remain `rumble-feed-mind`/Rumble product logic. Scheduling recurring fetches belongs to Bolt when orchestration is needed.
 
 A future split to `wrench-feed-loader` requires an ADR showing independent complexity and avoiding product logic leakage.
 

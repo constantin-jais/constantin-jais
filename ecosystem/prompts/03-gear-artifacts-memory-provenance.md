@@ -136,7 +136,7 @@ Rôle probable : release/distribution de binaires/outils, pas stockage de specs.
 {
   "source_id": "string",
   "source_type": "file | url | feed_item | note_block | transcript | document",
-  "origin_product": "rumble-feed-mind | rumble-note | wrench-loader | ...",
+  "origin_product": "rumble-feed-mind | rumble-note | gear-loader | portal-forge | ...",
   "uri": "optional",
   "content_hash": "sha256:...",
   "provenance_id": "string",

@@ -1,6 +1,6 @@
 # Shared Capability Registry
 
-This registry captures product needs that may become reusable bricks in Rumble, Bolt, Wrench, or Gear.
+This registry captures product needs that may become reusable bricks in Rumble, Portal, Bolt, Wrench, or Gear.
 
 Status values:
 
@@ -14,8 +14,10 @@ Status values:
 | Capability | Needed by | Candidate owner | Status | Notes |
 | --- | --- | --- | --- | --- |
 | Workspace / project space | All Rumbles | Discuss: shared Rumble vs Gear | Candidate | Common boundary for users, permissions, content, runs, and settings. |
-| Source | `rumble-note`, `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-feed-mind` | Gear Memory; Wrench Loader may produce canonical inputs | Accepted | `SourceRef` is referenced input or material: URL, file, note block, transcript, feed item, document, dataset, or prior artifact reused as grounding input. |
-| Source catalog | `rumble-note`, `rumble-feed-mind`, `rumble-lm`, Wrench Loader, Wrench Inspect | Gear Memory | Candidate | Catalog over `SourceRef`: origin, hash, snapshot metadata, license/PII classification, deletion/anonymization state, and indexing boundaries. Replaces the separate `gear-source` idea for now. |
+| Client platform | Interactive Rumbles | Portal | Accepted | Shared layer for design tokens, UI primitives, accessibility, i18n UI, Rust-first bindings, and web/native adapters. Rumble owns product screens; Gear owns release/artifact governance. |
+| Design token compiler | Rumble products, Portal adapters, `rumble-cos` static surface | `portal-forge` | Accepted | DTCG token sources compile into CSS/Swift/Kotlin artifacts with deterministic validation such as WCAG contrast checks. |
+| Source | `rumble-note`, `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-feed-mind` | Gear Memory; Gear Loader may produce canonical inputs | Accepted | `SourceRef` is referenced input or material: URL, file, note block, transcript, feed item, document, dataset, or prior artifact reused as grounding input. |
+| Source catalog | `rumble-note`, `rumble-feed-mind`, `rumble-lm`, Gear Loader, Wrench Inspect | Gear Memory | Candidate | Catalog over `SourceRef`: origin, hash, snapshot metadata, license/PII classification, deletion/anonymization state, and indexing boundaries. Replaces the separate `gear-source` idea for now. |
 | Artifact | All Rumbles | Gear Depot; Gear Cable for release-producing inputs | Accepted | `ArtifactRef` is produced, versioned, packageable, verifiable, retained, revoked, or distributable output: spec package, handoff payload, export, report, or release asset. |
 | Artifact policy | All artifact-producing Rumbles, Wrench reports, Bolt handoffs, Gear Cable releases | Gear Depot | Candidate | Retention, revocation, manifest policy, signature/checksum expectations, provenance linkage, and safe metadata rules for artifacts. |
 | ArtifactReference | `rumble-canvas`, later all package/export producers | Gear Depot + Gear Memory | Candidate | Stable reference to exported package/handoff/report artifacts; Canvas stores references, not artifact substrate. |
@@ -35,8 +37,8 @@ Status values:
 | Delegated authorization token | Rumbles requiring delegated rights: `rumble-canvas`, `rumble-crew`, `rumble-lm`, later collaborative `rumble-note` | Shared auth contract backed by Biscuit tokens; Gear stores safe policy/audit references; product adapters enforce locally | Accepted | Biscuit is the shared delegation brick: attenuation, caveats, tenant facts, expiration, revocation references, and auditability. Rumbles must not invent per-product delegation tokens. Contract: `contracts/delegated-authorization-biscuit.v0.1.md`; conformance tests: `contracts/delegated-authorization-biscuit.v0.1.tests.md`; prototype plan: `contracts/delegated-authorization-biscuit.v0.1.prototype.md`; ADRs: `adrs/0001-biscuit-shared-delegated-authorization.md`, `adrs/0009-biscuit-public-key-distribution.md`, `adrs/0010-biscuit-revocation-storage.md`. |
 | Source-grounded generation | `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-note` | Bolt + Wrench + Gear Memory | Candidate | Needs citations, provenance, and validation. |
 | CodeMap / code graph substrate | `rumble-crew`, `rumble-canvas`, Bolt planning, Wrench Inspect | Gear Memory stores/indexes; Wrench parses/validates | Accepted | Reproducible symbols and typed source/code edges over `SourceRef`; not code truth, not an agent explainer, and not product workflow. |
-| Import pipeline | `rumble-note`, `rumble-lm`, `rumble-cos`, `rumble-feed-mind`, `rumble-canvas` | Wrench Loader | Accepted | Shared canonical ingestion for HTML, Markdown, PDF, Office text/tables, feeds, URL capture, code, and text; outputs structured canonical documents and evidence, not durable memory. |
-| Feed ingestion | `rumble-feed-mind`, maybe `rumble-note`, `rumble-cos` | Wrench Loader for parsing/normalization; FeedMind/Bolt for polling, rules, scheduling | Accepted | RSS/Atom/JSON Feed parsing is shared Wrench P0; subscriptions, ranking, curation, explanations, and recurring polling are product/orchestration responsibilities. |
+| Import pipeline | `rumble-note`, `rumble-lm`, `rumble-cos`, `rumble-feed-mind`, `rumble-canvas` | Gear Loader | Accepted | Shared canonical ingestion for HTML, Markdown, PDF, Office text/tables, feeds, URL capture, code, and text; outputs structured canonical documents and evidence, not durable memory. |
+| Feed ingestion | `rumble-feed-mind`, maybe `rumble-note`, `rumble-cos` | Gear Loader for parsing/normalization; FeedMind/Bolt for polling, rules, scheduling | Accepted | RSS/Atom/JSON Feed parsing is shared Gear Loader substrate; subscriptions, ranking, curation, explanations, and recurring polling are product/orchestration responsibilities. |
 | Rule explanation | `rumble-feed-mind`, maybe `rumble-lm`, `rumble-canvas` | Rumble product UX + Wrench validation | Candidate | Natural-language rule decisions need inspectable explanation and evaluation evidence. |
 | BYOK/provider policy | `rumble-feed-mind`, `rumble-lm`, `rumble-canvas` | Shared security policy + Bolt/Gear adapters | Candidate | Model routing, key storage, redaction, and provider constraints must be consistent. |
 | Citation support validation | `rumble-lm`, `rumble-canvas`, `rumble-cos` | Wrench validator/inspector + Rumble UX | Candidate | Assess whether cited source excerpts support generated claims; human validation remains product-owned where needed. |
@@ -69,16 +71,18 @@ Status values:
 ## Naming Rules
 
 - Rumble shared names describe user-facing product primitives: `thread`, `workspace`, `presence`, `notification`.
+- Portal names describe client-platform primitives: `token`, `theme`, `component`, `a11y`, `binding`, `adapter`.
 - Bolt names describe orchestration primitives: `run`, `plan`, `gate`, `approval`, `agent-task`.
-- Wrench names describe callable capabilities: `loader`, `inspector`, `validator`, `extractor`.
-- Gear names describe substrate primitives: `source`, `artifact`, `memory-entry`, `event-log`, `provenance`.
+- Wrench names describe inspection/validation capabilities: `inspector`, `validator`, `evidence-check`, `policy-check`.
+- Gear names describe substrate primitives: `source`, `artifact`, `memory-entry`, `event-log`, `provenance`, `loader`.
 
 ## Open Naming Discussions
 
 | Candidate | Competing names | Placement question | Status |
 | --- | --- | --- | --- |
 | Workspace | `workspace`, `project`, `space`, `context` | Shared Rumble primitive or Gear tenant/context primitive? | Discuss |
-| Source | `source`, `input`, `reference`, `evidence-source` | Gear Memory owns `SourceRef`; Wrench may create canonical source material. | Accepted |
+| Source | `source`, `input`, `reference`, `evidence-source` | Gear Memory owns `SourceRef`; Gear Loader may create canonical source material. | Accepted |
+| Client platform | `portal`, `ui-platform`, `design-system`, `client-substrate` | Portal owns shared UI/client semantics; Rumble owns product screens; Gear owns delivery artifacts. | Accepted |
 | Artifact | `artifact`, `deliverable`, `output`, `asset` | Gear Depot owns `ArtifactRef` and `ArtifactManifest`; Gear Memory may index an artifact through a `SourceRef`. | Accepted |
 | Decision record | `decision`, `adr`, `choice`, `ruling` | Product decision vs execution gate? | Discuss |
 | Traceability link | `trace`, `link`, `coverage`, `requirement-link` | Canvas MVP uses `TraceabilityLink`; cross-product generalization remains later. | Accepted for Canvas MVP |

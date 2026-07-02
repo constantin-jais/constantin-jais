@@ -41,7 +41,7 @@ rumble-canvas/docs/**
 
 ## Doctrine à respecter
 
-- Interactive Rumble = Rust core + Dioxus UI par défaut.
+- Interactive Rumble = Rust-first product core + Portal client platform. Dioxus/PWA est la voie rapide par défaut ; SwiftUI/Compose sont first-class si besoin produit + vérification locale.
 - Markdown est projection/export ; la vérité machine est structurée.
 - Canvas ne possède pas l'exécution.
 - Canvas ne contourne jamais Bolt.

@@ -14,7 +14,7 @@ It represents a human-curated feed item with safe metadata, source references, r
 | Concern | Owner |
 | --- | --- |
 | Feed triage UX, curation reason, product labels | Rumble FeedMind |
-| Feed parsing/extraction if reused | Wrench Loader candidate |
+| Feed parsing/extraction if reused | Gear Loader |
 | Source identity and provenance | Gear Memory |
 | Export artifact integrity | Gear Depot |
 | Downstream planning | Bolt / `cos-matic` only through planning-only handoff |

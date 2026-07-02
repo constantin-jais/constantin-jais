@@ -26,7 +26,7 @@ Stub outputs must include:
 ```json
 {
   "stubbed": true,
-  "replaceWith": "wrench-loader | gear-memory | bolt | biscuit | gear-depot",
+  "replaceWith": "gear-loader | gear-memory | bolt | biscuit | gear-depot",
   "contractVersion": "v0.1"
 }
 ```
@@ -84,7 +84,7 @@ Stub dependency:
 
 Exit condition:
 
-- replace with Wrench Loader + Gear Memory calls.
+- replace with Gear Loader + Gear Memory calls.
 
 ### ActivityService
 
@@ -181,7 +181,7 @@ Exit condition:
 
 | Stub | Replaces temporarily | Required output | Hard forbidden |
 | --- | --- | --- | --- |
-| `StubSourceIngestionAdapter` | Wrench Loader + Gear Memory | `SourceRef`, `SourceChunkRef`, provenance hash, warnings | parsing arbitrary documents, durable indexing |
+| `StubSourceIngestionAdapter` | Gear Loader + Gear Memory | `SourceRef`, `SourceChunkRef`, provenance hash, warnings | parsing arbitrary documents, durable indexing |
 | `StubGenerationAdapter` | Bolt | draft activity/summary, citation candidate refs, refusal codes | publishing, model routing, hidden memory |
 | `StubCitationSupportValidator` | Wrench validator | support level + explanation | final validation authority |
 | `StubArtifactAdapter` | Gear artifact/depot | artifact ref, checksum, manifest, revocation ref | opaque file store, unverifiable export |
@@ -285,7 +285,7 @@ Then it contains `stubbed=true`, `replaceWith`, and contract version metadata.
 
 Stub can be removed when:
 
-- Wrench Loader returns canonical source candidates accepted by SourceSetService;
+- Gear Loader returns canonical source candidates accepted by SourceSetService;
 - Gear Memory stores/returns source refs, chunk refs, provenance, and retrieval handles;
 - Bolt accepts `SourceGroundedGenerationRequest` and returns draft/refusal contract;
 - Wrench citation validator returns support evidence or the feature is explicitly deferred;

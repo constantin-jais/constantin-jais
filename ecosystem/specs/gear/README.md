@@ -73,4 +73,4 @@ From repository root:
 sh ecosystem/specs/ci-validate-contracts.sh
 ```
 
-This validates Gear Memory, Wrench Loader, and Bolt/cos-matic planning schemas and fixtures.
+This validates Gear Memory, Gear Loader, and Bolt/cos-matic planning schemas and fixtures.

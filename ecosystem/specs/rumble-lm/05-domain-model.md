@@ -135,7 +135,7 @@ A file, URL, text, note, transcript, or document imported for grounding.
 
 ### Owner
 
-Shared source primitive candidate: Wrench Loader + Gear Memory. Rumble stores session references and user-facing metadata.
+Shared source primitive candidate: Gear Loader + Gear Memory. Rumble stores session references and user-facing metadata.
 
 ### Key Fields
 
@@ -333,7 +333,7 @@ Minimal actor snapshot: `actorId`, `kind`, `displayName`, `workspaceRoleSnapshot
 
 - Workspace and roles: shared Rumble/auth adapter.
 - Source and provenance: Gear Memory.
-- Import pipeline: Wrench Loader.
+- Import pipeline: Gear Loader.
 - Citation support validation: Wrench validator/inspector.
 - Generation orchestration: Bolt.
 - Event/audit log and artifact storage: Gear.

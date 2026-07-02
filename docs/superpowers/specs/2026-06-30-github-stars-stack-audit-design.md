@@ -174,7 +174,7 @@ determinism path.
 
 `xberg-io/xberg`
 : `rebuild`, `wrench`, fit 4. Strong document-intelligence inspiration for
-`wrench-loader`; adoption requires license, dependency, and boundary review
+`gear-loader`; adoption requires license, dependency, and boundary review
 before any direct dependency decision.
 
 `siyuan-note/siyuan`

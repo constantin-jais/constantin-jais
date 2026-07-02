@@ -29,7 +29,7 @@ Fields:
 - last_polled_at;
 - provenance_json.
 
-Candidate owner if extracted: Wrench Loader for parsing/polling rules; Gear for Source reference.
+Candidate owner if extracted: Gear Loader for parsing/polling rules; Gear for Source reference.
 
 ### FeedItem
 
@@ -142,7 +142,7 @@ Candidate owner: shared security policy / Gear secret adapter / Bolt policy.
 
 ## Stack Challenge
 
-Current repository includes Rust backend and web/mobile client history. Ecosystem direction is Rust core + Dioxus for interactive Rumbles. Therefore:
+Current repository includes Rust backend and web/mobile client history. Ecosystem direction is Rust-first product core + Portal client platform for interactive Rumbles. Therefore:
 
 - Rust core/backend aligns.
 - Existing web/mobile client must either migrate toward Dioxus or receive an ADR exception.

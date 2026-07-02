@@ -1,17 +1,17 @@
-# ADR 0014 — Wrench Loader Produces GearSourceCandidate, Not SourceRef
+# ADR 0014 — Gear Loader Produces GearSourceCandidate, Not SourceRef
 
 Status: Accepted
 Date: 2026-06-30
 
 ## Context
 
-Wrench Loader extracts and normalizes source material. Gear Memory owns durable source references, lifecycle state, indexing, retrieval, deletion, anonymisation, stale propagation, and revocation.
+Gear Loader extracts and normalizes source material. Gear Memory owns durable source references, lifecycle state, indexing, retrieval, deletion, anonymisation, stale propagation, and revocation.
 
 If Loader creates durable `SourceRef` records directly, it becomes a memory store and duplicates Gear state.
 
 ## Decision
 
-`wrench-loader` produces `GearSourceCandidate v0.1`. Gear Memory accepts, rejects, persists, indexes, deletes, anonymizes, revokes, or marks stale by creating/updating its own `SourceRef` and `MemoryEntry` records.
+`gear-loader` produces `GearSourceCandidate v0.1`. Gear Memory accepts, rejects, persists, indexes, deletes, anonymizes, revokes, or marks stale by creating/updating its own `SourceRef` and `MemoryEntry` records.
 
 Loader may run without Gear availability. In that case it returns canonical output and evidence only; it must not pretend a durable `SourceRef` exists.
 

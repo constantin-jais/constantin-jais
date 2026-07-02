@@ -1,0 +1,109 @@
+{
+  "format": "wrench.evidence_report.v0.1",
+  "report_id": "wrench-portal-usage-aa95bcf37b1d97e5",
+  "generated_at": "2026-07-02T00:00:00Z",
+  "producer": {
+    "name": "wrench-inspect",
+    "version": "0.1.0"
+  },
+  "subject": {
+    "kind": "portal_ui",
+    "reference": "tests/fixtures/portal/rumble-lm-ui.valid"
+  },
+  "status": "passed",
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 0
+  },
+  "findings": [],
+  "checks": [
+    {
+      "code": "portal_tokens_present",
+      "status": "passed",
+      "summary": "22 recognized Portal token declaration(s)"
+    },
+    {
+      "code": "portal_contrast_report_present",
+      "status": "passed",
+      "summary": "contrast report format: portal.contrast_report.v0.1"
+    },
+    {
+      "code": "component_token_usage",
+      "status": "passed",
+      "summary": "88 Portal-compatible component token reference(s)"
+    },
+    {
+      "code": "no_hardcoded_component_colors",
+      "status": "passed",
+      "summary": "hex=0, function=0, named=0"
+    },
+    {
+      "code": "no_inline_hardcoded_color_styles",
+      "status": "passed",
+      "summary": "0 inline hardcoded color style finding(s)"
+    }
+  ],
+  "evidence_refs": [
+    {
+      "kind": "component_css",
+      "reference": "tests/fixtures/portal/rumble-lm-ui.valid/src/components.css",
+      "hash": "sha256:dd3e543f5cb411986f324662ec85649de1abd0075d91fff94f3a034ce976da72",
+      "status": "inspected",
+      "summary": "Rumble component CSS inspected for Portal token usage and hardcoded colors"
+    },
+    {
+      "kind": "portal_tokens",
+      "reference": "tests/fixtures/portal/rumble-lm-ui.valid/fixtures/portal/tokens.css",
+      "hash": "sha256:c3d1e3f2f010a3c2e049908b512596c9ff980e41302c7179b637c9ecbd2d16f5",
+      "status": "present",
+      "summary": "Portal token bundle used by the UI inspection"
+    },
+    {
+      "kind": "portal_contrast_report",
+      "reference": "tests/fixtures/portal/rumble-lm-ui.valid/fixtures/portal/contrast-report.json",
+      "hash": "sha256:00e476880335f23a8a0607b8fe5c1073155a741b6619e092aab77fa5e2abc5f7",
+      "status": "present",
+      "summary": "Portal contrast report used by the UI inspection"
+    }
+  ],
+  "source_report": {
+    "format": "wrench.portal_usage_report.v0.1",
+    "hash": "sha256:aa95bcf37b1d97e55c7333ab54900c1fa4497626f712c1d23c523b743d05e625",
+    "body": {
+      "evidence": {
+        "component_css_files": [
+          "tests/fixtures/portal/rumble-lm-ui.valid/src/components.css"
+        ],
+        "component_token_reference_count": 88,
+        "contrast_report_checks": 2,
+        "contrast_report_format": "portal.contrast_report.v0.1",
+        "contrast_report_path": "tests/fixtures/portal/rumble-lm-ui.valid/fixtures/portal/contrast-report.json",
+        "contrast_report_present": true,
+        "hardcoded_function_color_count": 0,
+        "hardcoded_hex_color_count": 0,
+        "hardcoded_named_color_count": 0,
+        "inline_hardcoded_style_count": 0,
+        "portal_token_count": 22,
+        "portal_tokens_path": "tests/fixtures/portal/rumble-lm-ui.valid/fixtures/portal/tokens.css",
+        "portal_tokens_present": true,
+        "source_files": [],
+        "target": "tests/fixtures/portal/rumble-lm-ui.valid"
+      },
+      "findings": [],
+      "format": "wrench.portal_usage_report.v0.1",
+      "next_actions": [
+        "Attach this report as Wrench evidence for Portal UI usage"
+      ],
+      "summary": {
+        "errors": 0,
+        "infos": 0,
+        "warnings": 0
+      },
+      "valid": true
+    }
+  },
+  "next_actions": [
+    "Attach this report as Wrench evidence for Portal UI usage"
+  ]
+}

@@ -631,7 +631,7 @@ Submission event, target response reference, package manifest.
 
 ### Trigger
 
-User chooses to import or reference Wrench Loader output.
+User chooses to import or reference Gear Loader output.
 
 ### Steps
 

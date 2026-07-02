@@ -533,7 +533,7 @@ Read-only or no access.
 
 ### Purpose
 
-Track product needs that may become reusable Rumble/Bolt/Wrench/Gear bricks.
+Track product needs that may become reusable Rumble/Portal/Bolt/Wrench/Gear bricks.
 
 ### Route / Entry Point
 

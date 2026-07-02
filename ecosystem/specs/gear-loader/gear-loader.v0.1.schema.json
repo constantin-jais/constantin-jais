@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://constantin-jais.github.io/specs/wrench-loader.v0.1.schema.json",
-  "title": "Wrench Loader v0.1 Contracts",
+  "$id": "https://constantin-jais.github.io/specs/gear-loader.v0.1.schema.json",
+  "title": "Gear Loader v0.1 Contracts",
   "type": "object",
   "required": ["format"],
   "properties": {
-    "format": { "const": "wrench.loader.contract_bundle.v0.1" },
+    "format": { "const": "gear.loader.contract_bundle.v0.1" },
     "extraction_requests": { "type": "array", "items": { "$ref": "#/$defs/extraction_request" } },
     "canonical_documents": { "type": "array", "items": { "$ref": "#/$defs/canonical_source_document" } },
     "gear_source_candidates": { "type": "array", "items": { "$ref": "#/$defs/gear_source_candidate" } },
@@ -25,7 +25,7 @@
       "type": "object",
       "required": ["format", "request_id", "actor_ref", "workspace_ref", "input", "policy", "requested_outputs"],
       "properties": {
-        "format": { "const": "wrench.extraction_request.v0.1" },
+        "format": { "const": "gear.extraction_request.v0.1" },
         "request_id": { "$ref": "#/$defs/id" },
         "actor_ref": { "$ref": "#/$defs/id" },
         "workspace_ref": { "$ref": "#/$defs/id" },
@@ -63,7 +63,7 @@
       "type": "object",
       "required": ["format", "document_id", "source", "canonical", "metadata", "security", "quality", "provenance"],
       "properties": {
-        "format": { "const": "wrench.canonical_source_document.v0.1" },
+        "format": { "const": "gear.canonical_source_document.v0.1" },
         "document_id": { "$ref": "#/$defs/id" },
         "source": {
           "type": "object",
@@ -169,7 +169,7 @@
       "type": "object",
       "required": ["tool", "tool_version", "pipeline_id", "started_at", "completed_at", "input_refs", "output_hash"],
       "properties": {
-        "tool": { "const": "wrench-loader" },
+        "tool": { "const": "gear-loader" },
         "tool_version": { "type": "string", "minLength": 1 },
         "pipeline_id": { "$ref": "#/$defs/id" },
         "started_at": { "$ref": "#/$defs/timestamp" },
@@ -183,10 +183,10 @@
       "type": "object",
       "required": ["format", "canonical_document_ref", "source_type", "origin_product", "content_hash", "provenance", "indexing_hints"],
       "properties": {
-        "format": { "const": "wrench.gear_source_candidate.v0.1" },
+        "format": { "const": "gear.gear_source_candidate.v0.1" },
         "canonical_document_ref": { "$ref": "#/$defs/id" },
         "source_type": { "enum": ["file", "url", "feed_item", "transcript", "document", "dataset", "artifact"] },
-        "origin_product": { "const": "wrench-loader" },
+        "origin_product": { "const": "gear-loader" },
         "content_hash": { "$ref": "#/$defs/sha256" },
         "provenance": { "$ref": "#/$defs/safe_metadata" },
         "indexing_hints": {
@@ -206,7 +206,7 @@
       "type": "object",
       "required": ["format", "report_id", "request_id", "canonical_document_id", "status", "input_evidence", "pipeline_evidence", "extraction_evidence", "security_evidence", "policy_evidence", "outputs"],
       "properties": {
-        "format": { "const": "wrench.loader_evidence_report.v0.1" },
+        "format": { "const": "gear.loader_evidence_report.v0.1" },
         "report_id": { "$ref": "#/$defs/id" },
         "request_id": { "$ref": "#/$defs/id" },
         "canonical_document_id": { "$ref": "#/$defs/id" },

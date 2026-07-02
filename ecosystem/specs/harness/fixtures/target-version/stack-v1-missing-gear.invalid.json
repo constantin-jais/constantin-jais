@@ -1,0 +1,14 @@
+{
+  "format": "stack.target_version.v0.1",
+  "version": "V1",
+  "status": "accepted",
+  "declared_at": "2026-07-02T00:00:00Z",
+  "mission": "Invalid fixture missing the required five layers and repository set.",
+  "layers": [
+    { "name": "Rumble", "owns": ["products"], "does_not_own": ["everything else"] }
+  ],
+  "repositories": [],
+  "milestones": [],
+  "system_acceptance": [],
+  "verification": []
+}

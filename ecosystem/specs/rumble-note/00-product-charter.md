@@ -21,7 +21,7 @@ It is not primarily a generic note-taking app. Its core responsibility is the th
 2. Break a document into stable addressable blocks.
 3. Link blocks to sources, other notes, decisions, tasks, specs, or learning sessions.
 4. Retrieve relevant blocks by text, type, labels, source, or relationship.
-5. Prepare an explicit handoff package for the harness or another Rumble/Bolt/Wrench/Gear component.
+5. Prepare an explicit handoff package for the harness or another Rumble/Portal/Bolt/Wrench/Gear component.
 6. Keep private notes local, exportable, auditable, and deletable.
 
 ## Product Promise
@@ -32,7 +32,7 @@ Users can keep personal notes locally, structure them at block level, and delibe
 
 These are non-goals for `rumble-note` core, not forbidden ecosystem capabilities.
 
-- Do not own massive file/web/PDF/repo ingestion; consume outputs from `wrench-loader` when needed.
+- Do not own massive file/web/PDF/repo ingestion; consume outputs from `gear-loader` when needed.
 - Do not own durable agentic memory or autonomous recall; hand off validated candidates to `gear-memory`.
 - Do not own execution, planning, or agent task lifecycle; request/prepare handoffs for Bolt/`cos-matic`.
 - Do not own the main visual graph/canvas experience; expose blocks and links for `rumble-canvas` or another visual surface.
@@ -52,7 +52,7 @@ These are non-goals for `rumble-note` core, not forbidden ecosystem capabilities
 
 `rumble-note` consumes or integrates with:
 
-- `wrench-loader` for imported canonical source content;
+- `gear-loader` for imported canonical source content;
 - `gear-memory` for source/provenance primitives and durable memory candidates;
 - Bolt/`cos-matic` for planning or task/session orchestration;
 - `rumble-canvas` for visual exploration and spec/product-conception flows.
@@ -78,7 +78,7 @@ These are non-goals for `rumble-note` core, not forbidden ecosystem capabilities
 ## Post-MVP Scope
 
 - Optional sync adapter with conflict handling.
-- Import adapters consuming `wrench-loader` outputs.
+- Import adapters consuming `gear-loader` outputs.
 - Visual exploration through `rumble-canvas` integration.
 - Durable memory submission workflow to `gear-memory`.
 - Collaborative workspace mode if the shared Rumble identity/membership model is accepted.
@@ -86,14 +86,14 @@ These are non-goals for `rumble-note` core, not forbidden ecosystem capabilities
 ## Dependencies on Bolt/Wrench/Gear
 
 - **Bolt / `cos-matic`:** receives planning-only handoff requests; owns execution and gates.
-- **Wrench Loader:** extracts and normalizes external content; `rumble-note` references or receives extracted content but does not own parsing pipelines.
+- **Gear Loader:** extracts and normalizes external content; `rumble-note` references or receives extracted content but does not own parsing pipelines.
 - **Gear Memory:** owns durable source, provenance, memory-entry, and possibly local search/index substrate.
 - **Gear event/provenance primitives:** candidates for audit and traceability of handoffs.
 
 ## Risks
 
 - Becoming a generic note app with no agentic differentiation.
-- Absorbing ingestion and duplicating `wrench-loader`.
+- Absorbing ingestion and duplicating `gear-loader`.
 - Absorbing memory and duplicating `gear-memory`.
 - Turning backlinks into decorative graph features rather than handoff context.
 - Over-designing sync before local-first value is proven.
