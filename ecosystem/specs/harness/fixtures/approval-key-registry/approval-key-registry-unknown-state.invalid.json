@@ -1,0 +1,15 @@
+{
+  "format": "bolt.approval_key_registry.v0.1",
+  "registry_id": "approval-keys-demo-invalid-state",
+  "issued_at": "2026-07-02T00:00:00Z",
+  "keys": [
+    {
+      "public_key_ref": "human-operator-demo-key-01",
+      "algorithm": "ed25519",
+      "public_key": "ed25519:197f6b23e16c8532c6abc838facd5ea789be0c76b2920334039bfa8b3d368d61",
+      "state": "disabled",
+      "not_before": "2026-01-01T00:00:00Z",
+      "expires_at": "2099-12-31T00:00:00Z"
+    }
+  ]
+}

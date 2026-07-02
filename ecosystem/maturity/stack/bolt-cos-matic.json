@@ -1,0 +1,99 @@
+{
+  "format": "stack.project_maturity.v0.1",
+  "project": {
+    "name": "bolt-cos-matic",
+    "layer": "Bolt",
+    "role": "Deterministic orchestration, gates, plans, refusals, and safe writes.",
+    "maturity_mode": "usable"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_increment": "P4 approval key registry + Wrench/Gear evidence proof",
+  "scale_ready": "no",
+  "status_summary": "Local harness and tests pass; handoff planning can project Wrench EvidenceReport files, Gear ArtifactManifests, or registry-backed Ed25519 bolt.human_approval.v0.1 approval contracts into hash-backed refs/gates without storing evidence bodies. Unknown, revoked, or expired approval keys refuse the checkpoint.",
+  "next_quality_step": "Promote approval key registry publication/audit, complete Biscuit rights and evidence gates, then consider trusted execution separately.",
+  "boundaries": {
+    "owns": [
+      "planning",
+      "orchestration gates",
+      "safe writes",
+      "structured refusals"
+    ],
+    "does_not_own": [
+      "product UI",
+      "storage substrate",
+      "parser runtime",
+      "artifact registry",
+      "Wrench finding semantics"
+    ]
+  },
+  "evidence": [
+    {
+      "kind": "doc",
+      "ref": "bolt-cos-matic/README.md",
+      "status": "present"
+    },
+    {
+      "kind": "schema",
+      "ref": "constantin-jais/ecosystem/specs/harness/human-approval.v0.1.schema.json",
+      "status": "present"
+    },
+    {
+      "kind": "schema",
+      "ref": "constantin-jais/ecosystem/specs/harness/approval-key-registry.v0.1.schema.json",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "constantin-jais/ecosystem/specs/harness/fixtures/planning/cosmatic-failed-wrench-evidence.refusal.json",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "constantin-jais/ecosystem/specs/harness/fixtures/planning/cosmatic-wrench-gear-artifact.valid.json",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "constantin-jais/ecosystem/specs/harness/fixtures/human-approval/human-approval.valid.json",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "constantin-jais/ecosystem/specs/harness/fixtures/approval-key-registry/approval-key-registry.valid.json",
+      "status": "present"
+    },
+    {
+      "kind": "fixture",
+      "ref": "constantin-jais/ecosystem/specs/harness/fixtures/human-approval/human-approval-invalid-signature.invalid.json",
+      "status": "present"
+    },
+    {
+      "kind": "command",
+      "ref": "cd bolt-cos-matic && cargo fmt --check && cargo clippy --workspace --all-targets -- -D warnings && cargo test --workspace --all-targets",
+      "status": "passing"
+    },
+    {
+      "kind": "command",
+      "ref": "cd bolt-cos-matic && cargo test -p bolt-cos-matic-cli gear_wrench_evidence_manifest",
+      "status": "passing"
+    },
+    {
+      "kind": "command",
+      "ref": "cd bolt-cos-matic && cargo test -p bolt-cos-matic-cli human_approval",
+      "status": "passing"
+    }
+  ],
+  "verification_commands": [
+    "cd bolt-cos-matic && cargo fmt --check && cargo clippy --workspace --all-targets -- -D warnings && cargo test --workspace --all-targets",
+    "cd bolt-cos-matic && cargo test -p bolt-cos-matic-cli gear_wrench_evidence_manifest",
+    "cd bolt-cos-matic && cargo test -p bolt-cos-matic-cli human_approval"
+  ],
+  "open_questions": [
+    "Which durable/audited publication path should replace local JSON approval key registries before trusted execution?",
+    "Which Gear registry/storage backend should provide manifest refs for non-local planning?"
+  ],
+  "risk_notes": [
+    "Do not expand runtime execution before Biscuit, durable key registry audit/revocation propagation, and evidence gates are trusted.",
+    "Do not interpret Wrench findings; Bolt consumes status/hash/ref metadata for gates only."
+  ]
+}
