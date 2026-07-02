@@ -20,6 +20,18 @@
     "constantin-jais/constantin-jais": {
       "required_checks": ["Stack workflow conventions", "json-schema-fixtures"],
       "strict_up_to_date": true
+    },
+    "constantin-jais/gear-memory": {
+      "required_checks": [
+        "Rust quality gates",
+        "Rust supply-chain gates",
+        "Memory and provenance bundle contracts"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/Rumble-Note": {
+      "required_checks": ["Repository hygiene"],
+      "strict_up_to_date": true
     }
   }
 }
