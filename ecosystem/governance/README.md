@@ -55,8 +55,17 @@ the weekly drift check fails loudly when the token dies.
 
 ## Onboarding a repository
 
-1. `forge_policy.py dump --repo OWNER/NAME` — capture its live rulesets,
-   legacy protection, and settings (paste the output in the PR description).
+1. Capture its live rulesets, legacy protection, and settings — either
+   locally (`forge_policy.py dump --repo OWNER/NAME`) or, agent-friendly and
+   without local credentials, through CI:
+
+   ```sh
+   gh workflow run governance.yml -f dump_repo=OWNER/NAME
+   ```
+
+   The state lands in the run log of the `Dump live state (onboarding)` job
+   (readable with `gh run view <id> --log`). Paste it in the PR description.
+
 2. Add its entry under `repos` in `branch-policy.json`, declaring its
    `required_checks` (the CI contexts that must stay green). Make sure those
    workflows run on every pull request (no `paths:` filter on the
