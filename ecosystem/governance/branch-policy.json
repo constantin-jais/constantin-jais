@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "ruleset_name": "forge-standard",
+  "defaults": {
+    "target_branch": "main",
+    "required_approving_review_count": 0,
+    "dismiss_stale_reviews_on_push": true,
+    "require_code_owner_review": false,
+    "require_last_push_approval": false,
+    "required_review_thread_resolution": true,
+    "block_force_pushes": true,
+    "block_deletions": true,
+    "remove_classic_protection": true,
+    "repo_settings": {
+      "allow_auto_merge": true,
+      "delete_branch_on_merge": true
+    }
+  },
+  "repos": {
+    "constantin-jais/constantin-jais": {
+      "required_checks": ["Stack workflow conventions", "json-schema-fixtures"],
+      "strict_up_to_date": true
+    }
+  }
+}
