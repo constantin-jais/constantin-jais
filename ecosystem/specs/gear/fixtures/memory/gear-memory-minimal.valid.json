@@ -17,7 +17,7 @@
     {
       "source_id": "src_repo_01",
       "source_type": "file",
-      "origin_product": "wrench-loader",
+      "origin_product": "gear-loader",
       "uri": "git://local/repo?rev=abc123",
       "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000002",
       "provenance_id": "prov_import_02",
@@ -99,7 +99,7 @@
       "operation": "imported",
       "inputs": [],
       "outputs": ["src_repo_01"],
-      "tool_ref": "wrench-loader.demo",
+      "tool_ref": "gear-loader.demo",
       "timestamp": "2026-06-30T00:00:00Z",
       "metadata": {}
     },

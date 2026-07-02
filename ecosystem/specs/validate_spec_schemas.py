@@ -49,9 +49,9 @@ SUITES = [
         fixtures=SPECS / "gear" / "fixtures" / "memory",
     ),
     Suite(
-        name="wrench-loader",
-        schema=SPECS / "wrench-loader" / "wrench-loader.v0.1.schema.json",
-        fixtures=SPECS / "wrench-loader" / "fixtures",
+        name="gear-loader",
+        schema=SPECS / "gear-loader" / "gear-loader.v0.1.schema.json",
+        fixtures=SPECS / "gear-loader" / "fixtures",
     ),
     Suite(
         name="cosmatic-planning",
