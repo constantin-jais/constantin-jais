@@ -1,5 +1,9 @@
 name: Forge health
 
+# The "Stack workflow conventions" job is a required status check on main.
+# Required checks must run on EVERY pull request or the merge waits forever
+# on an `expected` check (ADR 0031). So: no `paths:` filter on pull_request;
+# an in-job guard no-ops quickly when nothing relevant changed.
 on:
   push:
     branches: [main]
@@ -12,18 +16,8 @@ on:
       - "ecosystem/maturity/*.json"
       - "SECURITY.md"
       - ".github/CODEOWNERS"
-      - ".github/workflows/forge-health.yml"
+      - ".github/workflows/**"
   pull_request:
-    paths:
-      - "docs/forge.md"
-      - "docs/branch-protection.md"
-      - "docs/agent-merge-policy.md"
-      - "ecosystem/forge-health.md"
-      - "ecosystem/status.md"
-      - "ecosystem/maturity/*.json"
-      - "SECURITY.md"
-      - ".github/CODEOWNERS"
-      - ".github/workflows/forge-health.yml"
   workflow_dispatch:
   schedule:
     - cron: "17 7 * * 1"
@@ -37,7 +31,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+      - name: Detect relevant changes
+        id: relevant
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch --no-tags origin "${{ github.base_ref }}"
+          if git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- \
+            docs/forge.md \
+            docs/branch-protection.md \
+            docs/agent-merge-policy.md \
+            ecosystem/forge-health.md \
+            ecosystem/status.md \
+            'ecosystem/maturity/*.json' \
+            SECURITY.md \
+            .github/CODEOWNERS \
+            .github/workflows/ \
+            | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No forge-health-relevant paths changed; reporting success."
+          fi
       - name: Local forge docs and maturity criteria exist
+        if: steps.relevant.outputs.changed == 'true'
         run: |
           set -euo pipefail
           test -s docs/forge.md
@@ -50,6 +72,7 @@ jobs:
           grep -q "## Promotion criteria" ecosystem/status.md
           grep -q "trusted.*scale-ready" ecosystem/status.md
       - name: Local workflow actions are SHA-pinned
+        if: steps.relevant.outputs.changed == 'true'
         run: |
           set -euo pipefail
           if grep -RInE 'uses: [^#]+@(v[0-9]+|stable|main|master|cargo-[a-z-]+)' .github/workflows; then
@@ -57,9 +80,9 @@ jobs:
             exit 1
           fi
       - name: Public forge inventory hard-fail
+        if: steps.relevant.outputs.changed == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          FORGE_HEALTH_ADMIN_TOKEN: ${{ secrets.FORGE_HEALTH_ADMIN_TOKEN }}
         run: |
           set -euo pipefail
           python3 - <<'PY'
@@ -71,75 +94,59 @@ jobs:
 
           owner = "constantin-jais"
           token = os.environ.get("GITHUB_TOKEN", "")
-          admin_token = os.environ.get("FORGE_HEALTH_ADMIN_TOKEN", "")
 
           repos = {
               "constantin-jais": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/forge-health.yml", ".github/workflows/spec-contracts.yml"],
-                  "contexts": ["Stack workflow conventions", "json-schema-fixtures"],
               },
               "bolt-harness": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
-                  "contexts": ["Harness hygiene"],
               },
               "bolt-cos-matic": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-                  "contexts": ["Rust quality gates", "Coverage floor", "Rust supply-chain gates", "Canvas handoff contract smoke", "Dogfood drift gate"],
               },
               "wrench-db-inspect": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
-                  "contexts": ["Rust quality gates", "Rust supply-chain gates"],
               },
-              "wrench-loader": {
+              "gear-loader": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-                  "contexts": ["Rust quality gates", "Rust supply-chain gates", "Canonical ingestion fixtures"],
               },
               "gear-memory": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-                  "contexts": ["Rust quality gates", "Rust supply-chain gates", "Memory and provenance bundle contracts"],
               },
               "gear-depot": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-                  "contexts": ["Rust quality gates", "Rust supply-chain gates", "Artifact manifest contracts"],
               },
               "gear-cable": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-                  "contexts": ["Rust quality gates", "Rust supply-chain gates", "Release manifest and plan contracts"],
               },
               "rumble-feed-mind": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/rust-ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-                  "contexts": ["Rust quality gates", "Rust supply-chain gates", "CuratedItemExport contract"],
               },
               "Rumble-LM": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
-                  "contexts": ["Rust quality gates", "Repository guardrails", "Integration + coverage", "Rust supply-chain gates"],
               },
               "rumble-cos": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-                  "contexts": ["Astro quality gates", "npm supply-chain gates", "Playwright product smoke"],
               },
               "Rumble-Canvas": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml", ".github/workflows/ci.yml"],
-                  "contexts": ["Repository hygiene", "Rust quality gates"],
               },
               "Rumble-Crew": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
-                  "contexts": ["Repository hygiene"],
               },
               "Rumble-Note": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
-                  "contexts": ["Repository hygiene"],
               },
           }
 
-          def request(path: str, use_admin: bool = False):
+          def request(path: str):
               url = f"https://api.github.com{path}"
               req = urllib.request.Request(url)
               req.add_header("Accept", "application/vnd.github+json")
               req.add_header("User-Agent", "constantin-jais-forge-health")
-              selected_token = admin_token if use_admin else token
-              if selected_token:
-                  req.add_header("Authorization", f"Bearer {selected_token}")
+              if token:
+                  req.add_header("Authorization", f"Bearer {token}")
               try:
                   with urllib.request.urlopen(req, timeout=20) as response:
                       if response.status == 204:
@@ -161,39 +168,99 @@ jobs:
               for file_path in expected["files"]:
                   request(f"/repos/{owner}/{repo}/contents/{file_path}")
 
-              if admin_token:
-                  admin_meta = request(f"/repos/{owner}/{repo}", use_admin=True)
-                  if admin_meta.get("allow_auto_merge") is not True:
-                      failures.append(f"{repo}: allow_auto_merge is not enabled")
-                  if admin_meta.get("delete_branch_on_merge") is not True:
-                      failures.append(f"{repo}: delete_branch_on_merge is not enabled")
-                  security = admin_meta.get("security_and_analysis", {})
-                  if security.get("secret_scanning", {}).get("status") != "enabled":
-                      failures.append(f"{repo}: secret scanning is not enabled")
-                  if security.get("secret_scanning_push_protection", {}).get("status") != "enabled":
-                      failures.append(f"{repo}: secret scanning push protection is not enabled")
-
-                  protection = request(f"/repos/{owner}/{repo}/branches/main/protection", use_admin=True)
-                  checks = protection.get("required_status_checks") or {}
-                  contexts = set(checks.get("contexts") or [])
-                  if checks.get("strict") is not True:
-                      failures.append(f"{repo}: required status checks are not strict")
-                  missing = [context for context in expected["contexts"] if context not in contexts]
-                  if missing:
-                      failures.append(f"{repo}: missing required check contexts: {', '.join(missing)}")
-                  reviews = protection.get("required_pull_request_reviews") or {}
-                  if reviews.get("require_code_owner_reviews") is not True:
-                      failures.append(f"{repo}: CODEOWNERS review is not required")
-                  if (reviews.get("required_approving_review_count") or 0) < 1:
-                      failures.append(f"{repo}: at least one approving review is not required")
-                  if protection.get("enforce_admins", {}).get("enabled") is not True:
-                      failures.append(f"{repo}: admins are not enforced")
-              else:
-                  print(f"::warning::{repo}: admin-only repo settings, secret scanning, and branch protection audit skipped; configure FORGE_HEALTH_ADMIN_TOKEN for full hard-fail checks")
-
           if failures:
               for failure in failures:
                   print(f"::error::{failure}")
               sys.exit(1)
           print("forge inventory ok")
+          PY
+      - name: Admin forge settings hard-fail
+        if: steps.relevant.outputs.changed == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          FORGE_HEALTH_ADMIN_TOKEN: ${{ secrets.FORGE_HEALTH_ADMIN_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${FORGE_HEALTH_ADMIN_TOKEN:-}" ]; then
+            echo "::warning::admin-only repo settings, secret scanning, and branch protection audit skipped; configure FORGE_HEALTH_ADMIN_TOKEN for full hard-fail checks"
+            exit 0
+          fi
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.request
+
+          owner = "constantin-jais"
+          token = os.environ["FORGE_HEALTH_ADMIN_TOKEN"]
+
+          repos = {
+              "constantin-jais": ["Stack workflow conventions", "json-schema-fixtures"],
+              "bolt-harness": ["Harness hygiene"],
+              "bolt-cos-matic": ["Rust quality gates", "Coverage floor", "Rust supply-chain gates", "Canvas handoff contract smoke", "Dogfood drift gate"],
+              "wrench-db-inspect": ["Rust quality gates", "Rust supply-chain gates"],
+              "gear-loader": ["Rust quality gates", "Rust supply-chain gates", "Canonical ingestion fixtures"],
+              "gear-memory": ["Rust quality gates", "Rust supply-chain gates", "Memory and provenance bundle contracts"],
+              "gear-depot": ["Rust quality gates", "Rust supply-chain gates", "Artifact manifest contracts"],
+              "gear-cable": ["Rust quality gates", "Rust supply-chain gates", "Release manifest and plan contracts"],
+              "rumble-feed-mind": ["Rust quality gates", "Rust supply-chain gates", "CuratedItemExport contract"],
+              "Rumble-LM": ["Rust quality gates", "Repository guardrails", "Integration + coverage", "Rust supply-chain gates"],
+              "rumble-cos": ["Astro quality gates", "npm supply-chain gates", "Playwright product smoke"],
+              "Rumble-Canvas": ["Repository hygiene", "Rust quality gates"],
+              "Rumble-Crew": ["Repository hygiene"],
+              "Rumble-Note": ["Repository hygiene"],
+          }
+
+          def request(path: str):
+              url = f"https://api.github.com{path}"
+              req = urllib.request.Request(url)
+              req.add_header("Accept", "application/vnd.github+json")
+              req.add_header("User-Agent", "constantin-jais-forge-health-admin")
+              req.add_header("Authorization", f"Bearer {token}")
+              try:
+                  with urllib.request.urlopen(req, timeout=20) as response:
+                      if response.status == 204:
+                          return None
+                      body = response.read().decode("utf-8")
+                      return json.loads(body) if body else None
+              except urllib.error.HTTPError as exc:
+                  detail = exc.read().decode("utf-8", errors="replace")
+                  raise RuntimeError(f"{url} -> HTTP {exc.code}: {detail}") from exc
+
+          failures = []
+
+          for repo, expected_contexts in repos.items():
+              print(f"== admin {repo} ==")
+              admin_meta = request(f"/repos/{owner}/{repo}")
+              if admin_meta.get("allow_auto_merge") is not True:
+                  failures.append(f"{repo}: allow_auto_merge is not enabled")
+              if admin_meta.get("delete_branch_on_merge") is not True:
+                  failures.append(f"{repo}: delete_branch_on_merge is not enabled")
+              security = admin_meta.get("security_and_analysis", {})
+              if security.get("secret_scanning", {}).get("status") != "enabled":
+                  failures.append(f"{repo}: secret scanning is not enabled")
+              if security.get("secret_scanning_push_protection", {}).get("status") != "enabled":
+                  failures.append(f"{repo}: secret scanning push protection is not enabled")
+
+              protection = request(f"/repos/{owner}/{repo}/branches/main/protection")
+              checks = protection.get("required_status_checks") or {}
+              contexts = set(checks.get("contexts") or [])
+              if checks.get("strict") is not True:
+                  failures.append(f"{repo}: required status checks are not strict")
+              missing = [context for context in expected_contexts if context not in contexts]
+              if missing:
+                  failures.append(f"{repo}: missing required check contexts: {', '.join(missing)}")
+              reviews = protection.get("required_pull_request_reviews") or {}
+              if reviews.get("require_code_owner_reviews") is not True:
+                  failures.append(f"{repo}: CODEOWNERS review is not required")
+              if (reviews.get("required_approving_review_count") or 0) < 1:
+                  failures.append(f"{repo}: at least one approving review is not required")
+              if protection.get("enforce_admins", {}).get("enabled") is not True:
+                  failures.append(f"{repo}: admins are not enforced")
+
+          if failures:
+              for failure in failures:
+                  print(f"::error::{failure}")
+              sys.exit(1)
+          print("forge admin settings ok")
           PY

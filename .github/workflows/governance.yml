@@ -1,0 +1,95 @@
+name: Governance
+
+# Branch policy as code (ADR 0031): unit-test the policy engine on every
+# governance PR, drift-check weekly and on governance changes, apply on
+# merge to main. Not a required check itself - it gates policy, not code.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ecosystem/governance/**"
+      - ".github/workflows/governance.yml"
+  pull_request:
+    paths:
+      - "ecosystem/governance/**"
+      - ".github/workflows/governance.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "43 6 * * 2"
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Policy engine unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests (pure policy core)
+        run: python3 -m unittest discover ecosystem/governance -v
+      - name: Policy file is valid against the engine
+        run: |
+          python3 - <<'EOF'
+          import json, pathlib
+          import sys
+          sys.path.insert(0, "ecosystem/governance")
+          import forge_policy
+          policy = forge_policy.load_policy(
+              pathlib.Path("ecosystem/governance/branch-policy.json")
+          )
+          for repo in policy["repos"]:
+              forge_policy.desired_ruleset(policy, repo)
+          print(f"policy OK: {len(policy['repos'])} repo(s)")
+          EOF
+
+  drift-check:
+    name: Drift check (live vs policy)
+    needs: tests
+    runs-on: ubuntu-latest
+    # dispatch runs apply (which re-checks as post-condition); running both
+    # would report a misleading red drift while apply is converging.
+    if: github.event_name == 'pull_request' || github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Compare live branch protection to the versioned policy
+        env:
+          GH_TOKEN: ${{ secrets.FORGE_ADMIN_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::warning::FORGE_ADMIN_TOKEN not configured - drift check skipped (bootstrap: ecosystem/governance/README.md)"
+            exit 0
+          fi
+          python3 ecosystem/governance/forge_policy.py check
+
+  apply:
+    name: Apply policy
+    needs: tests
+    runs-on: ubuntu-latest
+    # push to main (merged policy change) or manual dispatch (bootstrap,
+    # re-convergence) - matching the runbook in ecosystem/governance/README.md
+    if: >-
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Converge branch protection to the merged policy
+        env:
+          GH_TOKEN: ${{ secrets.FORGE_ADMIN_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::warning::FORGE_ADMIN_TOKEN not configured - apply skipped (bootstrap: ecosystem/governance/README.md)"
+            exit 0
+          fi
+          python3 ecosystem/governance/forge_policy.py apply
