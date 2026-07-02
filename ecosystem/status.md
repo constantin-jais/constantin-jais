@@ -1,7 +1,7 @@
 # Ecosystem Status Cockpit
 
-Status date: 2026-06-30  
-Purpose: one human/agent-readable cockpit for the Rumble / Bolt / Wrench / Gear stack.
+Status date: 2026-07-02
+Purpose: one human/agent-readable cockpit for the Rumble / Portal / Bolt / Wrench / Gear stack.
 
 This ecosystem is not prioritized as a startup portfolio. It is a personal process forge for learning, trustworthy workflows, sovereign tooling, and high-quality agent-readable systems.
 
@@ -13,26 +13,28 @@ The process is the product:
 idea → specification → inspection → planning → controlled execution → evidence → memory → improvement
 ```
 
-Rumble projects are dojos: they create real constraints and product-shaped pressure. Bolt, Wrench, and Gear are the reusable process core.
+The accepted full target version lives in [`target-version.md`](target-version.md) / [`target-version.v1.json`](target-version.v1.json). The persisted cross-layer backlog lives in [`remaining-work.md`](remaining-work.md).
+
+Rumble projects are dojos: they create real constraints and product-shaped pressure. Portal, Bolt, Wrench, and Gear are the reusable process core for clients, orchestration, inspection, and substrate work.
 
 ## Maturity vocabulary
 
 Delivery maturity is now a harness contract too: see `specs/harness/03-rumble-delivery-maturity.md` and `specs/harness/rumble-delivery-maturity.v0.1.schema.json`.
 
-Real current claims live in `maturity/*.json` and are checked with:
+Real current Rumble delivery claims live in `maturity/*.json`. Stack-layer claims for Portal/Bolt/Wrench/Gear live in `maturity/stack/*.json` and are validated by the same spec-contract workflow. Rumble claims are also checked with:
 
 ```bash
 cosmatic maturity report ecosystem/maturity
 ```
 
-| Status           | Meaning                                                                                |
-| ---------------- | -------------------------------------------------------------------------------------- |
-| `speculative`    | Idea or exploration, not stable yet.                                                   |
-| `contract-first` | Contracts, domain model, specs, or fixtures exist; runtime is limited or absent.       |
-| `dojo`           | Active experimentation surface that intentionally generates constraints for the stack. |
-| `usable`         | Locally usable for a real workflow with documented commands.                           |
-| `trusted`        | Tested, documented, gated, reproducible, and safe enough to rely on routinely.         |
-| `retired`        | Archived, replaced, or intentionally stopped.                                          |
+| Status | Meaning |
+| --- | --- |
+| `speculative` | Idea or exploration, not stable yet. |
+| `contract-first` | Contracts, domain model, specs, or fixtures exist; runtime is limited or absent. |
+| `dojo` | Active experimentation surface that intentionally generates constraints for the stack. |
+| `usable` | Locally usable for a real workflow with documented commands. |
+| `trusted` | Tested, documented, gated, reproducible, and safe enough to rely on routinely. |
+| `retired` | Archived, replaced, or intentionally stopped. |
 
 Sub-statuses describe the current increment, not the whole project:
 
@@ -43,10 +45,10 @@ P4 orchestration integrated · P5 minimal UI · P6 reproducible release
 
 Scale readiness is a separate attribute, never a maturity status:
 
-| Scale-ready value    | Meaning                                                                                                                                                                 |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `no`                 | Not ready for broader multi-user or production-like use. Missing hardening, observability, security, release, or operational proof.                                     |
-| `partially`          | A bounded surface is usable beyond a stub, but important scale caveats remain documented.                                                                               |
+| Scale-ready value | Meaning |
+| --- | --- |
+| `no` | Not ready for broader multi-user or production-like use. Missing hardening, observability, security, release, or operational proof. |
+| `partially` | A bounded surface is usable beyond a stub, but important scale caveats remain documented. |
 | `yes, with evidence` | Multi-user or production-like operation is backed by explicit evidence: tests/gates, observability, security hardening, deployment/release path, and documented limits. |
 
 ## Promotion criteria
@@ -64,7 +66,7 @@ Scale readiness is a separate attribute, never a maturity status:
 - Fixtures, examples, or schemas exist.
 - At least one local command, stub, or validation path exists.
 - Current limitations are documented.
-- The project creates useful constraints for Rumble/Bolt/Wrench/Gear instead of only describing ambition.
+- The project creates useful constraints for Rumble/Portal/Bolt/Wrench/Gear instead of only describing ambition.
 
 ### `dojo` → `usable`
 
@@ -105,27 +107,44 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 
 ## Project cockpit
 
-| Project               | Layer  | Learning role                                                                          | Maturity         | Current increment           | Status / next quality step                                                                                                                                                                           |
-| --------------------- | ------ | -------------------------------------------------------------------------------------- | ---------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rumble-canvas`       | Rumble | Specification, ambiguity, decisions, traceability, handoff.                            | `contract-first` | P0 contract                 | Canonical first harness package path exists in specs/fixtures. Next: full `SpecPackage` schema and Wrench completeness checks.                                                                       |
-| `rumble-feed-mind`    | Rumble | Watch pipeline, feed curation, rules, BYOK, export/handoff.                            | `dojo`           | P0 contract + P1 Rust proof | Dedicated `contracts.yml` proves fixture-based `CuratedItemExport`; `demo-curate-live` exists for manual feed checks. Next: adversarial log audit, advisory waiver removal, Wrench/Gear integration. |
-| `rumble-lm`           | Rumble | Pedagogy, citations, live sessions, grounding, aggregate analytics.                    | `contract-first` | P0 contract stub            | Core/server stub validates boundaries. Next: `CitationValidation`, retention defaults, provider policy instantiation.                                                                                |
-| `rumble-note`         | Rumble | Local-first PKM, private blocks, personal memory exports.                              | `contract-first` | P0 specs                    | Specs exist, runtime not present locally. Next: minimal block model and `NoteContextExport` privacy contract.                                                                                        |
-| `rumble-crew`         | Rumble | Human/agent tasks, approvals, evidence, run recovery.                                  | `contract-first` | P0 specs                    | Specs exist, runtime not present locally. Next: `AgentTaskRequest` lifecycle and human approval policy.                                                                                              |
-| `rumble-cos`          | Rumble | Transmission, clarity, public explanation, documentation publishing.                   | `usable`         | P5 minimal UI               | Astro static site is usable; audit moderate and Astro check are green. Next: publishing runbook adoption and deployed-site smoke.                                                                    |
-| `rumble-ai-practices` | Rumble | Emerging framework for reliable agentic process patterns, documentation, and fixtures. | `speculative`    | Corpus / Approval           | Idea stage; corpus approval (0/30) and CI infrastructure pending. Next: stabilize a core pattern candidate.                                                                                          |
-| `cos-matic`           | Bolt   | Deterministic orchestration, gates, plans, safe writes, evidence.                      | `usable`         | P4 orchestration integrated | Local harness and tests pass. Next: keep planning/refusal/evidence gates hardened before runtime expansion.                                                                                          |
-| `bolt-harness`        | Bolt   | Harness substrate and proof benchmarks for orchestration designs.                      | `contract-first` | P0 contracts                | Proof-of-concept harness exists. Next: stabilize boundary (harness responsibility vs engine).                                                                                                        |
-| `wrench-inspect`      | Wrench | General critique, policy/design/spec inspection, evidence reports.                     | `dojo`           | P0 contracts + P1 CLI       | Code exists locally, versioned 2026-07-02. Remote repo pending. Next: integrate as CI validation gate.                                                                                               |
-| `wrench-db-inspect`   | Wrench | Database security gates, RLS/grants/migration/pgvector evidence.                       | `dojo`           | P1 CLI proof                | Specialized DB inspector exists. Next: address clippy debt in the current codebase and decide integration as CI gate.                                                                                |
-| `gear-loader`         | Gear   | Ingestion reliability, canonical extraction, hostile-content evidence.                 | `dojo`           | P1 CLI proof                | CLI/contracts/fixtures exist (renamed from wrench-loader). Next: parser hardening for PDF/Office/feed/code under license/security gates.                                                             |
-| `gear-memory`         | Gear   | Source refs, memory entries, code maps, event log, provenance.                         | `contract-first` | P0 contract                 | Contracts/tests exist. Next: local persistence/indexing proof and Note/Loader integration.                                                                                                           |
-| `gear-depot`          | Gear   | Artifact manifests, supply-chain policy, provenance, safe metadata.                    | `contract-first` | P0 contract                 | Contracts/tests exist. Next: storage/cache policy and integration with spec/handoff artifacts.                                                                                                       |
-| `gear-cable`          | Gear   | Reproducible release, checksums, distribution wiring.                                  | `contract-first` | P1 CLI/library proof        | Release substrate skeleton and tests exist. Next: connect release plans to Depot manifests.                                                                                                          |
-| `portal-core`         | Portal | Thin shared core for Portal products: permissions, tenant boundaries, feature flags.   | `contract-first` | P0 contracts                | Shared identity and permission contracts exist. Next: thicken core with routing, audit, and lifecycle boundaries.                                                                                    |
-| `portal-forge`        | Portal | Design-system token compiler and WCAG validation for Portal UI surfaces.               | `dojo`           | P1 CLI proof                | Token compiler and validation CLI exist. Next: integrate as UI test harness and publish token catalog.                                                                                               |
-| `portal-apple`        | Portal | iOS bridge via UniFFI.                                                                 | `frozen`         | P5 bridge proven            | UniFFI bridge proven; no active development. Used for platform-specific deployment gates.                                                                                                            |
-| `portal-android`      | Portal | Android bridge.                                                                        | `frozen`         | P4 bridge candidate         | Architectural skeleton present. Locally unverifiable; mirrors portal-apple approach for Android parity.                                                                                              |
+| Project | Layer | Learning role | Maturity | Current increment | Status / next quality step |
+| --- | --- | --- | --- | --- | --- |
+| `rumble-canvas` | Rumble | Specification, ambiguity, decisions, traceability, handoff. | `contract-first` | P0 contract | Public repo has hygiene + Rust quality gates. Next: full `SpecPackage` schema and Wrench completeness checks. |
+| `rumble-feed-mind` | Rumble | Watch pipeline, feed curation, rules, BYOK, export/handoff. | `dojo` | P0 contract + P1 Rust proof | Dedicated `contracts.yml` proves fixture-based `CuratedItemExport`; `demo-curate-live` exists for manual feed checks. Next: adversarial log audit, advisory waiver removal, Wrench/Gear integration. |
+| `rumble-lm` | Rumble | Pedagogy, citations, live sessions, grounding, aggregate analytics. | `contract-first` | P0 contract stub | Core/server stub validates boundaries. Next: `CitationValidation`, retention defaults, provider policy instantiation. |
+| `rumble-note` | Rumble | Local-first PKM, private blocks, personal memory exports. | `contract-first` | P0 specs | Public placeholder repo is governed by hygiene checks; runtime not present locally. Next: minimal block model and `NoteContextExport` privacy contract. |
+| `rumble-crew` | Rumble | Human/agent tasks, approvals, evidence, run recovery. | `contract-first` | P0 specs | Public placeholder repo is governed by hygiene checks. Next: `AgentTaskRequest` lifecycle and human approval policy. |
+| `rumble-cos` | Rumble | Transmission, clarity, public explanation, documentation publishing. | `usable` | P5 minimal UI | Public Astro static site is usable, protected, and audit/check gates are green. Next: publishing runbook adoption and deployed-site smoke. |
+| `portal-forge` | Portal | Design tokens, WCAG checks, cross-platform UI artifact generation. | `dojo` | P1 CLI/library proof | Token compiler emits CSS/Swift/Kotlin, semantic token types, and `portal.contrast_report.v0.1`; Rumble LM has a generated token fixture. Next: Portal Core a11y/theme + Wrench checks. |
+| `portal-core` | Portal | Rust-first UI/client contracts, i18n UI, accessibility helpers, native bindings. | `contract-first` | P0 bridge proof | UniFFI-backed translation core exists. Next: theme/a11y contracts and generated binding fixtures consumed by Apple/Android. |
+| `portal-apple` | Portal | SwiftUI adapter for Portal core/tokens. | `contract-first` | P0 native bridge proof | `swift test` verifies the core bridge. Next: integrate `portal-forge` Swift output and define Rumble shell fixture. |
+| `portal-android` | Portal | Jetpack Compose adapter for Portal core/tokens. | `speculative` | P0 partial bridge | Kotlin bindings and native lib flow are sketched, but Gradle/Android SDK assembly is not fully verified. Next: committed wrapper + local SDK/NDK proof. |
+| `bolt-harness` | Bolt | Public harness execution/governance surface. | `contract-first` | P0 hygiene | Public repo has `Harness hygiene` protection. Next: keep live sandbox fenced and evidence-producing. |
+| `bolt-cos-matic` | Bolt | Deterministic orchestration, gates, plans, safe writes, evidence. | `usable` | P4 orchestration integrated | Renamed from `cos-matic`; local harness and tests pass. Next: keep planning/refusal/evidence gates hardened before runtime expansion. |
+| `wrench-inspect` | Wrench | General critique, policy/design/spec inspection, evidence reports. | `speculative` | P0 placement | No local repo yet; capability is intentionally kept as a Wrench owner in shared registry. Next: evidence report model before repo split. |
+| `wrench-db-inspect` | Wrench | Database security gates, RLS/grants/migration/pgvector evidence. | `dojo` | P1 CLI proof | Specialized DB inspector exists. Next: address clippy debt in the current codebase and decide integration as CI gate. |
+| `gear-loader` | Gear | Runtime-capable ingestion, canonical extraction, hostile-content evidence. | `dojo` | P1 CLI proof | Reclassified from the former Wrench Loader placement; CLI/contracts/fixtures exist. Next: parser hardening for PDF/Office/feed/code under license/security/sandbox gates. |
+| `gear-memory` | Gear | Source refs, memory entries, code maps, event log, provenance. | `contract-first` | P0 contract | Contracts/tests exist. Next: local persistence/indexing proof and Note/Loader integration. |
+| `gear-depot` | Gear | Artifact manifests, supply-chain policy, provenance, safe metadata. | `contract-first` | P0 contract | Contracts/tests exist. Next: storage/cache policy and integration with spec/handoff artifacts. |
+| `gear-cable` | Gear | Reproducible release, checksums, distribution wiring. | `contract-first` | P1 CLI/library proof | Release substrate skeleton and tests exist. Next: connect release plans to Depot manifests. |
+
+## Current stack challenge decisions
+
+References: [`specs/shared/adrs/0024-stack-validation-local-only.md`](specs/shared/adrs/0024-stack-validation-local-only.md), [`specs/shared/adrs/0025-agentic-p0-tooling-backlog.md`](specs/shared/adrs/0025-agentic-p0-tooling-backlog.md), [`specs/harness/04-stack-validation-tooling.md`](specs/harness/04-stack-validation-tooling.md).
+
+| Stack / tool track | Decision | Next evidence |
+| --- | --- | --- |
+| Rust service: Tokio, Axum, SQLx-ready, tracing | GO | Local workspace skeleton or existing repo scorecard with fmt, clippy, tests, deny/audit. |
+| PostgreSQL + SQLx | Conditional GO | Activate only when durable persistence is required; add migrations, local DB fixtures, and Wrench DB evidence. |
+| OIDC/Keycloak + Biscuit | Conditional GO | Activate for organizational or multi-tenant rights; require allow/deny policy fixtures and no token/PII logging. |
+| Redis / persisted queues | WAIT | Add only when critical jobs, fanout, or retry durability are proven by a product slice. |
+| Dioxus/PWA + Portal | SPIKE LOCAL | Prove wasm32 check, mobile smoke, a11y/token boundary, and no JS-readable auth token. |
+| SwiftUI / Compose via Portal | WAIT | Promote only after PWA proof plus native product need, SDK verification, and Portal binding evidence. |
+| RAG / pgvector / citation-gated generation | SPIKE LOCAL STRICT | Use fixtures first; prove citation validation, redaction, retention policy, and provider-free local checks. |
+| Astro/MDX/Bun static publication | GO | Keep SSG-only build, self-hosted assets, Pagefind/RSS checks, and no tracking/CDN by default. |
+| DB security / RLS / grants / pgvector | GO as gate | Use sanitized SQL fixtures and `wrench-db-inspect` before protected branches or releases. |
+| Agentic P0 tools | GO progressive | Harden and dogfood implemented P0 helpers: `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, `local_smoke`; keep dry-run/local-only defaults. |
+| Paid infrastructure, provisioning, live providers | NO-GO | Remain recommendation/dry-run/config examples until explicit human approval. |
 
 ## Ownership and anti-duplication policy
 
@@ -138,18 +157,26 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 
 ## Verification commands by project
 
-| Project             | Commands                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `constantin-jais`   | `bash ecosystem/specs/ci-validate-contracts.sh`; `python3 ecosystem/specs/validate_spec_schemas.py`; `python3 ecosystem/specs/harness/run_vertical_p0.py --output ecosystem/specs/harness/proofs/vertical-p0.proof.json`; `cosmatic maturity report ecosystem/maturity`                                                                                                                                                                           |
-| `cos-matic`         | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets`                                                                                                                                                                                                                                                                                                                     |
-| `gear-cable`        | `cargo test --workspace --all-targets`                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `gear-depot`        | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets`                                                                                                                                                                                                                                                                                                                     |
-| `gear-memory`       | `cargo test --workspace --all-targets`                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `rumble-cos`        | `npm run check`; `npm run build`; `npm audit --audit-level=moderate`; `npm run test -- --project=chromium`                                                                                                                                                                                                                                                                                                                                        |
-| `rumble-feed-mind`  | `cargo fmt --all --check`; `cargo clippy --workspace --all-targets --all-features -- -D warnings`; `cargo test --workspace`; `cargo run -p feedmind-cli -- demo-curate --opml examples/demo.opml --article examples/demo-article.json --rule examples/demo-rule.json --output out/curated.json`; `cargo run -p feedmind-cli -- validate-curated-export --file out/curated.json`; `diff -u examples/expected-curated-export.json out/curated.json` |
-| `rumble-lm`         | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets`                                                                                                                                                                                                                                                                                                                     |
-| `wrench-db-inspect` | `cargo test --workspace --all-targets`; prototype: `cd constantin-jais/ecosystem/prototypes/wrench-db-inspect && cargo test`                                                                                                                                                                                                                                                                                                                      |
-| `gear-loader`       | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets`                                                                                                                                                                                                                                                                                                                     |
+| Project | Commands |
+| --- | --- |
+| `constantin-jais` | `bash ecosystem/specs/ci-validate-contracts.sh`; `python3 ecosystem/specs/validate_spec_schemas.py`; `python3 ecosystem/specs/harness/run_vertical_p0.py --output ecosystem/specs/harness/proofs/vertical-p0.proof.json`; `cosmatic maturity report ecosystem/maturity` |
+| `bolt-cos-matic` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `bolt-harness` | `python3 scripts/harness_hygiene.py` when present; otherwise GitHub `Harness hygiene` workflow |
+| `gear-cable` | `cargo test --workspace --all-targets` |
+| `gear-depot` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `gear-memory` | `cargo test --workspace --all-targets` |
+| `gear-loader` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `portal-forge` | `cargo test` |
+| `portal-core` | `cargo test` |
+| `portal-apple` | `./scripts/build-core.sh`; `swift test` |
+| `portal-android` | `./scripts/build-core.sh`; `./gradlew :library:assemble` once Gradle wrapper + Android SDK/NDK are verified |
+| `rumble-canvas` | `cargo fmt --all --check`; `cargo check --workspace --all-targets`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `rumble-cos` | `npm run check`; `npm run build`; `npm audit --audit-level=moderate`; `npm run test -- --project=chromium` |
+| `rumble-crew` | GitHub `Repository hygiene` workflow |
+| `rumble-feed-mind` | `cargo fmt --all --check`; `cargo clippy --workspace --all-targets --all-features -- -D warnings`; `cargo test --workspace`; `cargo run -p feedmind-cli -- demo-curate --opml examples/demo.opml --article examples/demo-article.json --rule examples/demo-rule.json --output out/curated.json`; `cargo run -p feedmind-cli -- validate-curated-export --file out/curated.json`; `diff -u examples/expected-curated-export.json out/curated.json` |
+| `rumble-lm` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `rumble-note` | GitHub `Repository hygiene` workflow |
+| `wrench-db-inspect` | `cargo test --workspace --all-targets`; prototype: `cd constantin-jais/ecosystem/prototypes/wrench-db-inspect && cargo test` |
 
 ## Current quality caveats
 
