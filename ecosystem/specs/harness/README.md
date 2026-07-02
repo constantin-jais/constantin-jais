@@ -28,6 +28,7 @@ References:
 - [`01-bolt-cosmatic-hardening.md`](01-bolt-cosmatic-hardening.md)
 - [`02-bolt-evidence-gated-planning.md`](02-bolt-evidence-gated-planning.md)
 - [`03-rumble-delivery-maturity.md`](03-rumble-delivery-maturity.md)
+- [`04-stack-validation-tooling.md`](04-stack-validation-tooling.md)
 - [`cosmatic-planning.v0.1.schema.json`](cosmatic-planning.v0.1.schema.json)
 - [`rumble-delivery-maturity.v0.1.schema.json`](rumble-delivery-maturity.v0.1.schema.json)
 
@@ -57,6 +58,7 @@ Rumble delivery maturity is also contract-first: commercializable, multi-platfor
 | P0 | Waiver policy checker | Bolt + Wrench | accepted/refused gates |
 | P0 | SpecPackage artifact rules | Gear candidate | hash/provenance/export rules |
 | P0 | Rumble delivery maturity claims | Harness / Bolt consumes | `rumble.delivery_maturity.v0.1` schema + valid/invalid fixtures |
+| P0 | Stack validation tooling spec | Harness / Bolt + Wrench seam | `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, `local_smoke` contracts |
 
 ## Definition of Ready for Rumble Development
 

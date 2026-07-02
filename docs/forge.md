@@ -13,7 +13,7 @@ Objectif : construire une forge souveraine, auditable et reproductible sans publ
 ## Règles communes
 
 - `SECURITY.md` et `.github/CODEOWNERS` présents sur les repos publics, avec revue humaine sur workflows, releases et dépendances.
-- Branch protection à appliquer après merge selon `docs/branch-protection.md`.
+- Branch protection appliquée selon `docs/branch-protection.md`; agent merge encadré par `docs/agent-merge-policy.md`.
 - Secret scanning baseline documentée dans `docs/secret-scanning.md` ; le grep CI est un smoke, pas un audit complet d'historique.
 - Vérification release selon `docs/release-verification.md` avant toute promotion de maturité release.
 - Permissions GitHub Actions minimales : `contents: read` par défaut.
@@ -70,6 +70,7 @@ Sur `main`, exiger :
 - `contracts` vert quand présent.
 - Pas de bypass administrateur sauf urgence documentée.
 - Suppression de branche après merge.
+- Auto-merge autorisé uniquement après checks/reviews requis ; pas de bypass agent.
 - Revue obligatoire avant tout changement de `release.yml`, dépendances critiques, ou permissions Actions.
 
 ## Progression
@@ -78,4 +79,4 @@ Sur `main`, exiger :
 2. Phase 2 : `security.yml` séparé sur repos sensibles.
 3. Phase 3 : `contracts.yml` avec preuves par couche.
 4. Phase 4 : `release.yml` pour outils distribuables, avec checksums/SBOM/provenance.
-5. Phase 5 : `forge-health.yml` global dans `constantin-jais` ; warnings remote tant que les repos ne sont pas mergés, hard-fail local sur les conventions du cockpit.
+5. Phase 5 : `forge-health.yml` global dans `constantin-jais` ; inventaire public remote en hard-fail après adoption multi-repos.
