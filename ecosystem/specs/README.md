@@ -1,6 +1,6 @@
 # Ecosystem Specifications
 
-This directory contains the product specifications for active Rumble dojos and selected shared Bolt/Wrench/Gear capability specs.
+This directory contains the product specifications for active Rumble dojos and selected shared Portal/Bolt/Wrench/Gear capability specs.
 
 The goal is not to write static documentation or rank products by business potential. The goal is to create implementation-ready learning and process contracts that connect:
 
@@ -11,7 +11,7 @@ The goal is not to write static documentation or rank products by business poten
 - data models;
 - services and APIs;
 - security/RGPD constraints;
-- shared Bolt/Wrench/Gear capabilities.
+- shared Portal/Bolt/Wrench/Gear capabilities.
 
 ## Active Rumble Dojos
 
@@ -24,12 +24,14 @@ The goal is not to write static documentation or rank products by business poten
 | `rumble-lm` | `contract-first` / P0 stub | Pedagogy, citations, live sessions, grounding. | Source-grounded learning and facilitation platform. |
 | `rumble-note` | `contract-first` | Local-first PKM, privacy, memory exports. | Local-first block-based personal knowledge system. |
 
-## Shared Tooling Specs
+## Shared Capability Specs
 
 | Capability | Spec status | Purpose |
 | --- | --- | --- |
-| `wrench-loader` | Proposed | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports. |
+| `portal-*` | Accepted placement / repo-local specs | Client platform: design tokens, accessibility, i18n UI, Rust-first bindings, and web/native adapters for Rumble products. |
+| `gear-loader` | Accepted placement / migration from former `wrench-loader` specs | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports. Historical `wrench-loader` specs remain migration references until schema paths are renamed. |
 | `wrench-db-inspect` | Draft/prototype | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, tenant isolation, and forge/harness evidence for Postgres-backed `rumble-*`. |
+| Stack validation tooling | P0 spec | Local-only tools for project status, stack detection, scorecards, dependency audit, and local smoke before implementation or provisioning. |
 
 ## Spec Rule
 
@@ -48,6 +50,9 @@ Shared contracts and release runbooks include:
 - `shared/contracts/implementation-handoff.v0.1.md`
 - `shared/contracts/app-store-release.v0.1.md`
 - `shared/runbooks/ios-appstore-release.md`
+- `harness/stack-project-maturity.v0.1.schema.json`
+- `harness/04-stack-validation-tooling.md`
+- `harness/stack-target-version.v0.1.schema.json`
 
 Session doctrine, decisions, and unresolved questions are logged in:
 

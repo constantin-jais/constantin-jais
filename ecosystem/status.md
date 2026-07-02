@@ -1,7 +1,7 @@
 # Ecosystem Status Cockpit
 
-Status date: 2026-06-30  
-Purpose: one human/agent-readable cockpit for the Rumble / Bolt / Wrench / Gear stack.
+Status date: 2026-07-02
+Purpose: one human/agent-readable cockpit for the Rumble / Portal / Bolt / Wrench / Gear stack.
 
 This ecosystem is not prioritized as a startup portfolio. It is a personal process forge for learning, trustworthy workflows, sovereign tooling, and high-quality agent-readable systems.
 
@@ -13,13 +13,15 @@ The process is the product:
 idea → specification → inspection → planning → controlled execution → evidence → memory → improvement
 ```
 
-Rumble projects are dojos: they create real constraints and product-shaped pressure. Bolt, Wrench, and Gear are the reusable process core.
+The accepted full target version lives in [`target-version.md`](target-version.md) / [`target-version.v1.json`](target-version.v1.json). The persisted cross-layer backlog lives in [`remaining-work.md`](remaining-work.md).
+
+Rumble projects are dojos: they create real constraints and product-shaped pressure. Portal, Bolt, Wrench, and Gear are the reusable process core for clients, orchestration, inspection, and substrate work.
 
 ## Maturity vocabulary
 
 Delivery maturity is now a harness contract too: see `specs/harness/03-rumble-delivery-maturity.md` and `specs/harness/rumble-delivery-maturity.v0.1.schema.json`.
 
-Real current claims live in `maturity/*.json` and are checked with:
+Real current Rumble delivery claims live in `maturity/*.json`. Stack-layer claims for Portal/Bolt/Wrench/Gear live in `maturity/stack/*.json` and are validated by the same spec-contract workflow. Rumble claims are also checked with:
 
 ```bash
 cosmatic maturity report ecosystem/maturity
@@ -64,7 +66,7 @@ Scale readiness is a separate attribute, never a maturity status:
 - Fixtures, examples, or schemas exist.
 - At least one local command, stub, or validation path exists.
 - Current limitations are documented.
-- The project creates useful constraints for Rumble/Bolt/Wrench/Gear instead of only describing ambition.
+- The project creates useful constraints for Rumble/Portal/Bolt/Wrench/Gear instead of only describing ambition.
 
 ### `dojo` → `usable`
 
@@ -113,14 +115,36 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 | `rumble-note` | Rumble | Local-first PKM, private blocks, personal memory exports. | `contract-first` | P0 specs | Public placeholder repo is governed by hygiene checks; runtime not present locally. Next: minimal block model and `NoteContextExport` privacy contract. |
 | `rumble-crew` | Rumble | Human/agent tasks, approvals, evidence, run recovery. | `contract-first` | P0 specs | Public placeholder repo is governed by hygiene checks. Next: `AgentTaskRequest` lifecycle and human approval policy. |
 | `rumble-cos` | Rumble | Transmission, clarity, public explanation, documentation publishing. | `usable` | P5 minimal UI | Public Astro static site is usable, protected, and audit/check gates are green. Next: publishing runbook adoption and deployed-site smoke. |
+| `portal-forge` | Portal | Design tokens, WCAG checks, cross-platform UI artifact generation. | `dojo` | P1 CLI/library proof | Token compiler emits CSS/Swift/Kotlin, semantic token types, and `portal.contrast_report.v0.1`; Rumble LM has a generated token fixture. Next: Portal Core a11y/theme + Wrench checks. |
+| `portal-core` | Portal | Rust-first UI/client contracts, i18n UI, accessibility helpers, native bindings. | `contract-first` | P0 bridge proof | UniFFI-backed translation core exists. Next: theme/a11y contracts and generated binding fixtures consumed by Apple/Android. |
+| `portal-apple` | Portal | SwiftUI adapter for Portal core/tokens. | `contract-first` | P0 native bridge proof | `swift test` verifies the core bridge. Next: integrate `portal-forge` Swift output and define Rumble shell fixture. |
+| `portal-android` | Portal | Jetpack Compose adapter for Portal core/tokens. | `speculative` | P0 partial bridge | Kotlin bindings and native lib flow are sketched, but Gradle/Android SDK assembly is not fully verified. Next: committed wrapper + local SDK/NDK proof. |
 | `bolt-harness` | Bolt | Public harness execution/governance surface. | `contract-first` | P0 hygiene | Public repo has `Harness hygiene` protection. Next: keep live sandbox fenced and evidence-producing. |
 | `bolt-cos-matic` | Bolt | Deterministic orchestration, gates, plans, safe writes, evidence. | `usable` | P4 orchestration integrated | Renamed from `cos-matic`; local harness and tests pass. Next: keep planning/refusal/evidence gates hardened before runtime expansion. |
-| `wrench-loader` | Wrench | Ingestion reliability, canonical extraction, hostile-content evidence. | `dojo` | P1 CLI proof | CLI/contracts/fixtures exist. Next: parser hardening for PDF/Office/feed/code under license/security gates. |
 | `wrench-inspect` | Wrench | General critique, policy/design/spec inspection, evidence reports. | `speculative` | P0 placement | No local repo yet; capability is intentionally kept as a Wrench owner in shared registry. Next: evidence report model before repo split. |
 | `wrench-db-inspect` | Wrench | Database security gates, RLS/grants/migration/pgvector evidence. | `dojo` | P1 CLI proof | Specialized DB inspector exists. Next: address clippy debt in the current codebase and decide integration as CI gate. |
+| `gear-loader` | Gear | Runtime-capable ingestion, canonical extraction, hostile-content evidence. | `dojo` | P1 CLI proof | Reclassified from the former Wrench Loader placement; CLI/contracts/fixtures exist. Next: parser hardening for PDF/Office/feed/code under license/security/sandbox gates. |
 | `gear-memory` | Gear | Source refs, memory entries, code maps, event log, provenance. | `contract-first` | P0 contract | Contracts/tests exist. Next: local persistence/indexing proof and Note/Loader integration. |
 | `gear-depot` | Gear | Artifact manifests, supply-chain policy, provenance, safe metadata. | `contract-first` | P0 contract | Contracts/tests exist. Next: storage/cache policy and integration with spec/handoff artifacts. |
 | `gear-cable` | Gear | Reproducible release, checksums, distribution wiring. | `contract-first` | P1 CLI/library proof | Release substrate skeleton and tests exist. Next: connect release plans to Depot manifests. |
+
+## Current stack challenge decisions
+
+References: [`specs/shared/adrs/0024-stack-validation-local-only.md`](specs/shared/adrs/0024-stack-validation-local-only.md), [`specs/shared/adrs/0025-agentic-p0-tooling-backlog.md`](specs/shared/adrs/0025-agentic-p0-tooling-backlog.md), [`specs/harness/04-stack-validation-tooling.md`](specs/harness/04-stack-validation-tooling.md).
+
+| Stack / tool track | Decision | Next evidence |
+| --- | --- | --- |
+| Rust service: Tokio, Axum, SQLx-ready, tracing | GO | Local workspace skeleton or existing repo scorecard with fmt, clippy, tests, deny/audit. |
+| PostgreSQL + SQLx | Conditional GO | Activate only when durable persistence is required; add migrations, local DB fixtures, and Wrench DB evidence. |
+| OIDC/Keycloak + Biscuit | Conditional GO | Activate for organizational or multi-tenant rights; require allow/deny policy fixtures and no token/PII logging. |
+| Redis / persisted queues | WAIT | Add only when critical jobs, fanout, or retry durability are proven by a product slice. |
+| Dioxus/PWA + Portal | SPIKE LOCAL | Prove wasm32 check, mobile smoke, a11y/token boundary, and no JS-readable auth token. |
+| SwiftUI / Compose via Portal | WAIT | Promote only after PWA proof plus native product need, SDK verification, and Portal binding evidence. |
+| RAG / pgvector / citation-gated generation | SPIKE LOCAL STRICT | Use fixtures first; prove citation validation, redaction, retention policy, and provider-free local checks. |
+| Astro/MDX/Bun static publication | GO | Keep SSG-only build, self-hosted assets, Pagefind/RSS checks, and no tracking/CDN by default. |
+| DB security / RLS / grants / pgvector | GO as gate | Use sanitized SQL fixtures and `wrench-db-inspect` before protected branches or releases. |
+| Agentic P0 tools | GO progressive | Harden and dogfood implemented P0 helpers: `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, `local_smoke`; keep dry-run/local-only defaults. |
+| Paid infrastructure, provisioning, live providers | NO-GO | Remain recommendation/dry-run/config examples until explicit human approval. |
 
 ## Ownership and anti-duplication policy
 
@@ -141,6 +165,11 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 | `gear-cable` | `cargo test --workspace --all-targets` |
 | `gear-depot` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `gear-memory` | `cargo test --workspace --all-targets` |
+| `gear-loader` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
+| `portal-forge` | `cargo test` |
+| `portal-core` | `cargo test` |
+| `portal-apple` | `./scripts/build-core.sh`; `swift test` |
+| `portal-android` | `./scripts/build-core.sh`; `./gradlew :library:assemble` once Gradle wrapper + Android SDK/NDK are verified |
 | `rumble-canvas` | `cargo fmt --all --check`; `cargo check --workspace --all-targets`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `rumble-cos` | `npm run check`; `npm run build`; `npm audit --audit-level=moderate`; `npm run test -- --project=chromium` |
 | `rumble-crew` | GitHub `Repository hygiene` workflow |
@@ -148,7 +177,6 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 | `rumble-lm` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 | `rumble-note` | GitHub `Repository hygiene` workflow |
 | `wrench-db-inspect` | `cargo test --workspace --all-targets`; prototype: `cd constantin-jais/ecosystem/prototypes/wrench-db-inspect && cargo test` |
-| `wrench-loader` | `cargo fmt --all -- --check`; `cargo clippy --workspace --all-targets -- -D warnings`; `cargo test --workspace --all-targets` |
 
 ## Current quality caveats
 
