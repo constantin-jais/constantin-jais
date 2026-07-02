@@ -1,4 +1,6 @@
-# wrench-db-inspect prototype
+# wrench-db-inspect prototype — DEPRECATED (migrated 2026-07-02)
+
+> **This prototype has been migrated to `constantin-jais/wrench-db-inspect` (D9). It is kept for reference only — see [`DEPRECATED.md`](./DEPRECATED.md). Do not extend it.**
 
 This is the local Rust prototype for the `wrench-db-inspect` contracts in `ecosystem/specs/wrench-db-inspect`.
 
