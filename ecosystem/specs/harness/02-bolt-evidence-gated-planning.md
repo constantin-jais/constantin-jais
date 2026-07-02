@@ -53,9 +53,9 @@ Bolt consumes evidence by reference only:
 
 - `ImplementationHandoff` from Rumble Canvas or other Rumbles;
 - `LoaderEvidenceReport` / Wrench inspection reports;
-- Gear `SourceRef`, `MemoryEntry`, `CodeMap`, `ArtifactRef` refs;
+- Gear `SourceRef`, `MemoryEntry`, `CodeMap`, `ArtifactRef` refs, including Wrench EvidenceReport manifests carried as Gear artifacts;
 - Biscuit delegated authorization verification refs;
-- human approval refs when future execution is considered.
+- `bolt.human_approval.v0.1` approval contracts plus `bolt.approval_key_registry.v0.1` key refs when future execution is considered.
 
 Bolt must not store raw report bodies, source excerpts, runtime logs, credentials, embeddings, or PII in planning reports/audit metadata.
 
@@ -123,7 +123,10 @@ Plan reports are agent-readable because they are structured and reference-backed
 ## Acceptance Tests
 
 - Given a valid planning-only request with active Gear refs, passing Wrench evidence, and a valid Biscuit planning right, Bolt emits `PlanReport.status=plan_ready` and `dry_run_only=true`.
-- Given `allow_execution=true`, Bolt refuses with `execution_policy_forbidden`.
+- Given a Wrench EvidenceReport represented by a Gear `ArtifactRef`, Bolt can pass both `wrench_report_passed` and `artifact_integrity` gates without storing the report body.
+- Given `allow_execution=true`, Bolt refuses with `execution_policy_forbidden` and blocks the human approval checkpoint.
+- Given a valid `bolt.human_approval.v0.1` and active `ApprovalKeyRef`, Bolt can project it as a hash-backed `human_approval` evidence ref for the checkpoint without enabling execution.
+- Given an unknown, revoked, or expired approval key, Bolt refuses the human approval checkpoint.
 - Given Gear ref state `stale`, Bolt refuses or blocks with `stale_context` / `gear_context_fresh`.
 - Given Wrench evidence status `quarantined`, Bolt refuses with `quarantined_evidence`.
 - Given missing Biscuit right, Bolt refuses with `missing_authorization_right`.

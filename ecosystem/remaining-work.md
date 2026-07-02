@@ -60,9 +60,9 @@ Rumble product
 
 ## P4 — Bolt integration
 
-- Harden planning-only handoffs, structured refusals, idempotency, evidence refs, and audit events.
-- Add human approval gates before trusted execution.
-- Add harness scenarios for Portal build, Gear Loader hostile source, Wrench evidence refusal, Gear artifact proof, and Rumble handoff.
+- Planning-only handoffs now derive `wrench_report_passed`, artifact integrity, and human approval checkpoint gates from Wrench evidence refs, local EvidenceReport files, Gear ArtifactManifests, registry-backed `bolt.human_approval.v0.1` contracts, and execution policy; continue hardening structured refusals, idempotency, broader evidence refs, and audit events.
+- Promote the local approval key registry contract toward durable publication/audit, then complete Biscuit rights, revocation propagation, and evidence gates before any trusted execution path.
+- Add harness scenarios for Portal build, Gear Loader hostile source, and Rumble handoff; Wrench evidence refusal plus Wrench→Gear artifact planning proof have initial fixtures.
 - Keep Bolt out of product UX, storage, parser runtime, and artifact registry responsibilities.
 
 ## P5 — First product slice
