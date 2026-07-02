@@ -1,0 +1,78 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "rumble-canvas",
+    "layer": "Rumble",
+    "role": "Product-conception workspace: conversation → decisions → specs → screens → implementation-ready deliverables.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_level": "R1",
+  "target_level": "R10",
+  "next_level": "R2",
+  "promotion_candidate": {
+    "from": "R1",
+    "to": "R2",
+    "status": "blocked",
+    "blocked_by": [
+      "SpecPackage contract and Wrench completeness checks not yet stable",
+      "implementation handoff flow needs validation against cos-matic"
+    ]
+  },
+  "axes": {
+    "spec": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/rumble-canvas/00-product-charter.md"]
+    },
+    "contracts": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/rumble-canvas/"]
+    },
+    "core": { "level": "R0", "status": "blocked", "evidence": [] },
+    "security": {
+      "level": "R1",
+      "status": "warn",
+      "evidence": [
+        "ecosystem/specs/rumble-canvas/09-permissions-security-rgpd.md"
+      ]
+    },
+    "ux": { "level": "R0", "status": "blocked", "evidence": [] },
+    "persistence": { "level": "R0", "status": "blocked", "evidence": [] },
+    "orchestration": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/harness/02-bolt-evidence-gated-planning.md"]
+    },
+    "inspection": { "level": "R0", "status": "blocked", "evidence": [] },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "blocked", "evidence": [] },
+    "commercial_readiness": {
+      "level": "R0",
+      "status": "blocked",
+      "evidence": []
+    },
+    "learning_yield": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/shared/open-questions.md"]
+    }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "none",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "none",
+    "self_hosted": "planned",
+    "cloud_eu": "planned"
+  },
+  "evidence": [],
+  "learning_yield": [],
+  "open_questions": [
+    "First deliverable: PRD, screen map, user story map, data model, or implementation plan?",
+    "How strict should human validation gates be before Bolt executes?"
+  ],
+  "risk_notes": ["Do not build UI before product-to-harness flow is validated."]
+}

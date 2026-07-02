@@ -12,7 +12,7 @@ Purpose: identify source material without importing product semantics.
 {
   "source_id": "src_01",
   "source_type": "file | url | feed_item | note_block | transcript | document | dataset | artifact",
-  "origin_product": "rumble-feed-mind | rumble-note | rumble-lm | rumble-canvas | rumble-cos | wrench-loader | gear-depot",
+  "origin_product": "rumble-feed-mind | rumble-note | rumble-lm | rumble-canvas | rumble-cos | gear-loader | gear-depot",
   "uri": "optional",
   "content_hash": "sha256:...",
   "provenance_id": "prov_01",
@@ -95,10 +95,10 @@ Rules:
 
 ## Product Impact
 
-| Product | Impact |
-| --- | --- |
-| Canvas | `SpecPackage` and `ImplementationHandoff` become artifacts with provenance and stable hashes. Canvas still owns spec semantics. |
-| Note | note blocks and exports become sources or artifacts by lifecycle; Note still owns block UX and graph. |
-| LM | session source sets reference `SourceRef`; session exports reference `ArtifactRef`. |
-| FeedMind | feed items are sources; curated exports are artifacts. Rule decisions remain product-owned. |
-| Crew | evidence and runtime logs should reference artifacts without storing sensitive log content in product tables. |
+| Product  | Impact                                                                                                                          |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Canvas   | `SpecPackage` and `ImplementationHandoff` become artifacts with provenance and stable hashes. Canvas still owns spec semantics. |
+| Note     | note blocks and exports become sources or artifacts by lifecycle; Note still owns block UX and graph.                           |
+| LM       | session source sets reference `SourceRef`; session exports reference `ArtifactRef`.                                             |
+| FeedMind | feed items are sources; curated exports are artifacts. Rule decisions remain product-owned.                                     |
+| Crew     | evidence and runtime logs should reference artifacts without storing sensitive log content in product tables.                   |

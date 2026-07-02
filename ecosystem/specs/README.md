@@ -15,20 +15,20 @@ The goal is not to write static documentation or rank products by business poten
 
 ## Active Rumble Dojos
 
-| Product | Spec status | Learning role | Purpose |
-| --- | --- | --- | --- |
-| `rumble-canvas` | `contract-first` / harness producer | Specification, ambiguity, decisions, traceability, handoff. | Product-conception workspace: conversations → decisions → specs → packages → handoffs. |
-| `rumble-cos` | `usable` public site / ecosystem spec incomplete | Transmission, clarity, publication, public documentation. | Education and sharing blog. |
-| `rumble-crew` | `contract-first` | Human/agent tasks, approvals, evidence, recovery. | Human/agent teamwork workspace. |
-| `rumble-feed-mind` | `dojo` / ready for scoped implementation planning | Watch pipeline, ingestion pressure, rules, BYOK, export. | Intelligent feed/watch pipeline producing curated knowledge for the harness. |
-| `rumble-lm` | `contract-first` / P0 stub | Pedagogy, citations, live sessions, grounding. | Source-grounded learning and facilitation platform. |
-| `rumble-note` | `contract-first` | Local-first PKM, privacy, memory exports. | Local-first block-based personal knowledge system. |
+| Product            | Spec status                                       | Learning role                                               | Purpose                                                                                |
+| ------------------ | ------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `rumble-canvas`    | `contract-first` / harness producer               | Specification, ambiguity, decisions, traceability, handoff. | Product-conception workspace: conversations → decisions → specs → packages → handoffs. |
+| `rumble-cos`       | `usable` public site / ecosystem spec incomplete  | Transmission, clarity, publication, public documentation.   | Education and sharing blog.                                                            |
+| `rumble-crew`      | `contract-first`                                  | Human/agent tasks, approvals, evidence, recovery.           | Human/agent teamwork workspace.                                                        |
+| `rumble-feed-mind` | `dojo` / ready for scoped implementation planning | Watch pipeline, ingestion pressure, rules, BYOK, export.    | Intelligent feed/watch pipeline producing curated knowledge for the harness.           |
+| `rumble-lm`        | `contract-first` / P0 stub                        | Pedagogy, citations, live sessions, grounding.              | Source-grounded learning and facilitation platform.                                    |
+| `rumble-note`      | `contract-first`                                  | Local-first PKM, privacy, memory exports.                   | Local-first block-based personal knowledge system.                                     |
 
 ## Shared Tooling Specs
 
-| Capability | Spec status | Purpose |
-| --- | --- | --- |
-| `wrench-loader` | Proposed | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports. |
+| Capability          | Spec status     | Purpose                                                                                                                                                            |
+| ------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `gear-loader`       | Accepted        | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports.                                                             |
 | `wrench-db-inspect` | Draft/prototype | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, tenant isolation, and forge/harness evidence for Postgres-backed `rumble-*`. |
 
 ## Spec Rule

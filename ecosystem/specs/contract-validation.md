@@ -9,7 +9,7 @@ Validate JSON Schema Draft 2020-12 contracts and fixtures for ecosystem specs be
 Validated suites:
 
 - Gear Memory: `gear/gear-memory.v0.1.schema.json` + `gear/fixtures/memory/`.
-- Wrench Loader: `wrench-loader/wrench-loader.v0.1.schema.json` + `wrench-loader/fixtures/`.
+- Gear Loader: `gear-loader/gear-loader.v0.1.schema.json` + `gear-loader/fixtures/`.
 - Bolt / cos-matic planning: `harness/cosmatic-planning.v0.1.schema.json` + `harness/fixtures/planning/`.
 
 ## Local / CI Command

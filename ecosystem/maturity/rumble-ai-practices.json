@@ -1,0 +1,57 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "rumble-ai-practices",
+    "layer": "Rumble",
+    "role": "Emerging framework for reliable agentic process patterns, documentation, and fixtures.",
+    "maturity_mode": "speculative"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_level": "R0",
+  "target_level": "R9",
+  "next_level": "R1",
+  "promotion_candidate": {
+    "from": "R0",
+    "to": "R1",
+    "status": "blocked",
+    "blocked_by": [
+      "Corpus approval (0/30) pending",
+      "CI infrastructure not yet present",
+      "Remote repository not yet created"
+    ]
+  },
+  "axes": {
+    "spec": { "level": "R0", "status": "blocked", "evidence": [] },
+    "contracts": { "level": "R0", "status": "blocked", "evidence": [] },
+    "core": { "level": "R0", "status": "blocked", "evidence": [] },
+    "security": { "level": "R0", "status": "blocked", "evidence": [] },
+    "ux": { "level": "R0", "status": "blocked", "evidence": [] },
+    "persistence": { "level": "R0", "status": "blocked", "evidence": [] },
+    "orchestration": { "level": "R0", "status": "blocked", "evidence": [] },
+    "inspection": { "level": "R0", "status": "blocked", "evidence": [] },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "blocked", "evidence": [] },
+    "commercial_readiness": {
+      "level": "R0",
+      "status": "blocked",
+      "evidence": []
+    },
+    "learning_yield": { "level": "R0", "status": "pass", "evidence": [] }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "none",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "none",
+    "self_hosted": "planned",
+    "cloud_eu": "planned"
+  },
+  "evidence": [],
+  "learning_yield": [],
+  "open_questions": [
+    "What is the first stable pattern to document?",
+    "How to structure the corpus for both human and agent learning?"
+  ],
+  "risk_notes": ["Speculative stage; corpus approval is the critical blocker."]
+}

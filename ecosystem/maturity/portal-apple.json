@@ -1,0 +1,63 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "portal-apple",
+    "layer": "Portal",
+    "role": "iOS publication bridge via UniFFI.",
+    "maturity_mode": "frozen"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_level": "R5",
+  "target_level": "R9",
+  "next_level": "R5",
+  "promotion_candidate": {
+    "from": "R5",
+    "to": "R5",
+    "status": "pass",
+    "blocked_by": []
+  },
+  "axes": {
+    "spec": { "level": "R5", "status": "pass", "evidence": [] },
+    "contracts": { "level": "R5", "status": "pass", "evidence": [] },
+    "core": { "level": "R5", "status": "pass", "evidence": [] },
+    "security": { "level": "R5", "status": "pass", "evidence": [] },
+    "ux": { "level": "R5", "status": "pass", "evidence": [] },
+    "persistence": { "level": "R5", "status": "pass", "evidence": [] },
+    "orchestration": {
+      "level": "R0",
+      "status": "not_applicable",
+      "evidence": []
+    },
+    "inspection": { "level": "R5", "status": "pass", "evidence": [] },
+    "release": { "level": "R5", "status": "pass", "evidence": [] },
+    "operations": { "level": "R5", "status": "pass", "evidence": [] },
+    "commercial_readiness": {
+      "level": "R5",
+      "status": "warn",
+      "evidence": [],
+      "notes": "Bridge proven; not actively developed."
+    },
+    "learning_yield": { "level": "R5", "status": "pass", "evidence": [] }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "none",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "usable",
+    "self_hosted": "none",
+    "cloud_eu": "none"
+  },
+  "evidence": [],
+  "learning_yield": [
+    {
+      "kind": "proven_bridge",
+      "description": "UniFFI bridge to Rust core proven and stable; used for platform-specific deployment gates.",
+      "owner": "portal-apple"
+    }
+  ],
+  "open_questions": [],
+  "risk_notes": [
+    "Frozen status; no active development. Bridge proven for iOS publication."
+  ]
+}

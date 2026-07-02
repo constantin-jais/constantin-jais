@@ -65,12 +65,12 @@ Examples:
 
 Use these tests whenever a feature is ambiguous:
 
-| If the feature primarily... | It belongs in... |
-| --- | --- |
-| defines what the user sees, manipulates, or experiences | **Rumble** |
-| decides what should happen, sequences work, or enforces execution gates | **Bolt** |
-| extracts, transforms, audits, validates, or produces evidence | **Wrench** |
-| stores, indexes, transports, verifies, packages, syncs, or connects | **Gear** |
+| If the feature primarily...                                             | It belongs in... |
+| ----------------------------------------------------------------------- | ---------------- |
+| defines what the user sees, manipulates, or experiences                 | **Rumble**       |
+| decides what should happen, sequences work, or enforces execution gates | **Bolt**         |
+| extracts, transforms, audits, validates, or produces evidence           | **Wrench**       |
+| stores, indexes, transports, verifies, packages, syncs, or connects     | **Gear**         |
 
 If two products need the same thing, do not duplicate it blindly. Identify the primitive and decide where it belongs.
 
@@ -106,38 +106,48 @@ Documentation is part of the architecture. To avoid dispersion:
 
 Rumble projects own product experience, workflows, screens, and user-facing meaning.
 
-| Product | Mission | Hard boundary |
-| --- | --- | --- |
-| `rumble-canvas` | Product-conception workspace: conversation → decisions → specs → screens → implementation-ready deliverables. | Not the agent runtime, not merely a visual design canvas. |
-| `rumble-cos` | Personal education and sharing blog for essays, courses, resources, and ecosystem explanations. | Not a monolithic CMS or internal workflow backend. |
-| `rumble-crew` | Agentic team workspace for humans and agents: tasks, blockers, skills, status, approvals, evidence. | Not the orchestration brain. |
-| `rumble-lm` | Sovereign learning/facilitation platform for source-grounded sessions, activities, and group engagement. | Not a generic chatbot. |
-| `rumble-note` | Local-first block-based personal knowledge system that feeds the agentic harness. | Not the ingestion engine or orchestrator. |
-| `rumble-feed-mind` | Intelligent feed/watch pipeline that turns high-volume feeds into curated, explainable, reusable knowledge. | Not a generic feed reader, not the shared ingestion substrate, not long-term memory. |
+| Product            | Mission                                                                                                       | Hard boundary                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `rumble-canvas`    | Product-conception workspace: conversation → decisions → specs → screens → implementation-ready deliverables. | Not the agent runtime, not merely a visual design canvas.                            |
+| `rumble-cos`       | Personal education and sharing blog for essays, courses, resources, and ecosystem explanations.               | Not a monolithic CMS or internal workflow backend.                                   |
+| `rumble-crew`      | Agentic team workspace for humans and agents: tasks, blockers, skills, status, approvals, evidence.           | Not the orchestration brain.                                                         |
+| `rumble-lm`        | Sovereign learning/facilitation platform for source-grounded sessions, activities, and group engagement.      | Not a generic chatbot.                                                               |
+| `rumble-note`      | Local-first block-based personal knowledge system that feeds the agentic harness.                             | Not the ingestion engine or orchestrator.                                            |
+| `rumble-feed-mind` | Intelligent feed/watch pipeline that turns high-volume feeds into curated, explainable, reusable knowledge.   | Not a generic feed reader, not the shared ingestion substrate, not long-term memory. |
 
 ### 3.2 Bolt — Orchestration Layer
 
-| Project | Mission | Hard boundary |
-| --- | --- | --- |
-| `cos-matic` | Deterministic agentic orchestrator and config/code-ops harness. | Not a product UI, storage substrate, extractor, or registry. |
+| Project        | Mission                                                                  | Hard boundary                                                |
+| -------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| `cos-matic`    | Deterministic agentic orchestrator and config/code-ops harness.          | Not a product UI, storage substrate, extractor, or registry. |
+| `bolt-harness` | Proof benchmarks and harness substrate for orchestration engine designs. | Not engine code, not product runtime.                        |
 
 ### 3.3 Wrench — Tooling Layer
 
-| Project | Mission | Hard boundary |
-| --- | --- | --- |
-| `wrench-loader` | Rich-document ingestion and canonical extraction. | Not a knowledge product. |
-| `wrench-inspect` | General structural, design, and policy inspection. | Not a domain-specific DB security owner. |
+| Project             | Mission                                                                                                                                          | Hard boundary                                                                                                       |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `wrench-inspect`    | General structural, design, and policy inspection.                                                                                               | Not a domain-specific DB security owner.                                                                            |
 | `wrench-db-inspect` | SQL/database security inspection and forge/harness evidence for Postgres-backed `rumble-*`: pgvector, RLS, grants, migrations, tenant isolation. | Not a user-facing vault app, secrets manager, ORM, DB proxy, migration runner, or replacement for `wrench-inspect`. |
 
 Naming clarification: `wrench-db-inspect` belongs to the Wrench tooling layer after the rename from `vault-inspector`. The former `vault-inspector` name was retired to remove ambiguity while preserving the same scope boundary.
 
 ### 3.4 Gear — Infrastructure Layer
 
-| Project | Mission | Hard boundary |
-| --- | --- | --- |
-| `gear-memory` | Local agentic context and memory substrate: code maps, repo memory, document/search primitives. | Not an agent brain or product. |
-| `gear-depot` | Sovereign supply-chain depot: registry proxy/cache, policy, provenance, artifact verification. | Not a generic file store. |
-| `gear-cable` | Rust-first release/distribution substrate: artifact plans, checksums, signatures, install floors. | Not application runtime logic. |
+| Project       | Mission                                                                                           | Hard boundary                  |
+| ------------- | ------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `gear-loader` | Rich-document ingestion and canonical extraction (renamed from `wrench-loader`).                  | Not a knowledge product.       |
+| `gear-memory` | Local agentic context and memory substrate: code maps, repo memory, document/search primitives.   | Not an agent brain or product. |
+| `gear-depot`  | Sovereign supply-chain depot: registry proxy/cache, policy, provenance, artifact verification.    | Not a generic file store.      |
+| `gear-cable`  | Rust-first release/distribution substrate: artifact plans, checksums, signatures, install floors. | Not application runtime logic. |
+
+### 3.5 Portal — Design Substrate Layer
+
+| Project          | Mission                                                                      | Hard boundary                                |
+| ---------------- | ---------------------------------------------------------------------------- | -------------------------------------------- |
+| `portal-core`    | Thin shared identity, permission, and tenant boundary primitives for Portal. | Not a full identity service, not a UI kit.   |
+| `portal-forge`   | Design-system token compiler and WCAG validation harness for Portal UI.      | Not a component library, not design docs.    |
+| `portal-apple`   | iOS publication bridge via UniFFI.                                           | Not a native iOS product, not native UI.     |
+| `portal-android` | Android publication bridge via platform-specific runtime.                    | Not a native Android product, not native UI. |
 
 ---
 
@@ -399,14 +409,14 @@ Specs should produce testable acceptance criteria:
 - **Accepted** — ready to feed implementation planning.
 - **Implemented** — implemented and verified.
 
-| Product | Current status | Immediate objective | Main risk |
-| --- | --- | --- | --- |
-| `rumble-canvas` | Drafting / harness-critical | Finalize data/events/tests and use it to validate `ImplementationHandoff v0.1`. | Building UI before the product-to-harness flow is validated. |
-| `rumble-cos` | Not started | Define education-first content model and artifact publication flow. | Becoming a generic CMS. |
-| `rumble-crew` | Drafting | Define human/agent task lifecycle, board UX, approvals, evidence, and `cos-matic` boundary. | Reimplementing orchestration instead of displaying/controlling it. |
-| `rumble-feed-mind` | Imported / needs alignment | Decide product-vs-pipeline boundary, feed ingestion ownership, license policy, and curated-item export. | Becoming a generic feed reader or duplicating Wrench/Gear primitives. |
-| `rumble-lm` | Drafting / advanced | Consolidate source-grounded live sessions, activities, citations, summaries, exports, analytics, and retention. | Over-expanding into LMS/asynchronous learning or generic chatbot behavior. |
-| `rumble-note` | Drafting / advanced | Clarify local-first block model, Gear Memory boundary, and deterministic note/context handoff. | Absorbing ingestion/orchestration/memory responsibilities. |
+| Product            | Current status              | Immediate objective                                                                                             | Main risk                                                                  |
+| ------------------ | --------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `rumble-canvas`    | Drafting / harness-critical | Finalize data/events/tests and use it to validate `ImplementationHandoff v0.1`.                                 | Building UI before the product-to-harness flow is validated.               |
+| `rumble-cos`       | Not started                 | Define education-first content model and artifact publication flow.                                             | Becoming a generic CMS.                                                    |
+| `rumble-crew`      | Drafting                    | Define human/agent task lifecycle, board UX, approvals, evidence, and `cos-matic` boundary.                     | Reimplementing orchestration instead of displaying/controlling it.         |
+| `rumble-feed-mind` | Imported / needs alignment  | Decide product-vs-pipeline boundary, feed ingestion ownership, license policy, and curated-item export.         | Becoming a generic feed reader or duplicating Wrench/Gear primitives.      |
+| `rumble-lm`        | Drafting / advanced         | Consolidate source-grounded live sessions, activities, citations, summaries, exports, analytics, and retention. | Over-expanding into LMS/asynchronous learning or generic chatbot behavior. |
+| `rumble-note`      | Drafting / advanced         | Clarify local-first block model, Gear Memory boundary, and deterministic note/context handoff.                  | Absorbing ingestion/orchestration/memory responsibilities.                 |
 
 ### Recommended Order
 
@@ -431,36 +441,37 @@ Status values:
 - **Accepted** — owner chosen.
 - **Rejected** — not shared after analysis.
 
-| Capability | Needed by | Candidate owner | Status | Notes |
-| --- | --- | --- | --- | --- |
-| Workspace / project space | All Rumbles | Discuss: shared Rumble vs Gear | Candidate | Common boundary for users, permissions, content, runs, and settings. |
-| Source | `rumble-note`, `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-feed-mind` | Gear Memory + Wrench Loader | Candidate | URL, file, note, transcript, feed item, document, dataset; needs provenance. |
-| Artifact | All Rumbles | Gear Depot + Gear Memory | Candidate | Spec, article, quiz, screen map, execution report, exported package. |
-| Decision record | `rumble-canvas`, `rumble-crew`, `rumble-lm` | Bolt for operational decisions; Rumble shared for product decisions | Discuss | Must distinguish product decisions from execution decisions. |
-| Activity/event log | All Rumbles | Gear | Candidate | Immutable-ish history for audit, collaboration, and agent readability. |
-| Comment/thread | `rumble-canvas`, `rumble-crew`, `rumble-lm`, maybe `rumble-note` | Shared Rumble | Candidate | User-facing collaboration primitive. |
-| Agent task | `rumble-crew`, `rumble-canvas`, `rumble-note`, `rumble-lm` | Bolt / `cos-matic` | Candidate | Rumble may display and request tasks; Bolt owns lifecycle/execution. |
-| Approval/gate | `rumble-crew`, `rumble-canvas`, `rumble-lm` | Bolt + Rumble UX | Candidate | Human approval before execution, publication, or generation. |
-| Skill/capability card | `rumble-crew`, `rumble-canvas`, `rumble-note` | Bolt or shared Rumble | Discuss | Reusable agent/tool capabilities exposed to users. |
-| Notification | All Rumbles | Shared Rumble or service | Candidate | User-facing delivery; events likely come from Gear/Bolt. |
-| Permission/audit policy | All Rumbles | Gear + app-level adapters | Candidate | Must support local-first and self-hosted operation. |
-| Source-grounded generation | `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-note` | Bolt + Wrench + Gear Memory | Candidate | Needs citations, provenance, and validation. |
-| Import pipeline | `rumble-note`, `rumble-lm`, `rumble-cos`, `rumble-feed-mind` | Wrench Loader | Candidate | Files/URLs/transcripts/feed items into canonical content. |
-| Feed ingestion | `rumble-feed-mind`, maybe `rumble-note`, `rumble-cos` | Discuss: `wrench-loader` extension vs `wrench-feed-loader` | Candidate | Feed polling/parsing/normalization should not become a product-only silo if reused. |
-| Rule explanation | `rumble-feed-mind`, maybe `rumble-lm`, `rumble-canvas` | Rumble UX + Wrench validation | Candidate | Natural-language rule decisions need inspectable explanation and evidence. |
-| BYOK/provider policy | `rumble-feed-mind`, `rumble-lm`, `rumble-canvas` | Shared security policy + Bolt/Gear adapters | Candidate | Model routing, key storage, redaction, and provider constraints must be consistent. |
-| Citation support validation | `rumble-lm`, `rumble-canvas`, `rumble-cos` | Wrench validator/inspector + Rumble UX | Candidate | Assess whether cited source excerpts support generated claims; human validation remains product-owned where needed. |
-| Live participation / presence | `rumble-lm`, `rumble-crew`, maybe `rumble-canvas` | Shared Rumble vs Gear transport | Candidate | Current activity state, presence, response submission, reconnect, and aggregate updates. |
-| Learning/facilitation analytics | `rumble-lm`, maybe `rumble-cos` | Shared Rumble first | Candidate | Aggregate participation, comprehension, confusion, consensus/divergence; avoid hidden individual profiling. |
-| Export package | `rumble-lm`, `rumble-canvas`, `rumble-cos` | Gear artifact + Rumble UX | Candidate | Audience-scoped export with included data classes, provenance, checksum, and retention/revocation metadata. |
-| Inspector reports | `rumble-canvas`, `rumble-crew`, `rumble-cos`, `rumble-lm` | Wrench Inspect | Candidate | Validate specs, content, design, policy, citation support, privacy, or readiness. |
-| Evidence report | Rumbles, Bolt gates, CI/harness | Wrench Inspect + domain Wrench inspectors | Candidate | Shared evidence model for API/browser/eval/clean-room/DB checks; `wrench-db-inspect` produces the DB-security specialization consumed by the forge/harness. |
-| Agent/run policy gate | `cos-matic`, `rumble-crew`, `rumble-canvas`, Wrench checks | `cos-matic` | Candidate | Versioned gates for secrets, destructive actions, network, license, sovereignty, citations, and human approval. |
-| Source catalog | `rumble-note`, `rumble-feed-mind`, `rumble-lm`, Wrench Loader/Inspect | Gear Memory | Candidate | Catalog over `SourceRef`; avoids separate `gear-source` until extraction criteria are met. |
-| Usage ledger | Bolt runs, Wrench checks, Gear artifacts, Rumble handoffs | Gear Memory first | Candidate | Append-only technical usage events and aggregate projections without behavioral profiling. |
-| Payload projection | Bolt handoffs, Wrench reports, Gear manifests, agent context exports | Gear Depot or shared Gear library | Candidate | Compact projections from canonical JSON/NDJSON; never source of truth. |
-| Release floor | Gear Cable releases and installable tools | Gear Cable | Candidate | Target matrix, install floors, artifact plans, checksum/signature plans, and Depot manifest handoff. |
-| App Store release adapter | iOS-capable `rumble-*` products | Gear Cable | Accepted | Stable Gear Cable channel around pinned `rorkai/App-Store-Connect-CLI` (`asc 2.5.0`); product pipelines call `app-store-release.v0.1` actions, not upstream CLI flags directly. |
+| Capability                      | Needed by                                                                     | Candidate owner                                                     | Status    | Notes                                                                                                                                                                               |
+| ------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Workspace / project space       | All Rumbles                                                                   | Discuss: shared Rumble vs Gear                                      | Candidate | Common boundary for users, permissions, content, runs, and settings.                                                                                                                |
+| Source                          | `rumble-note`, `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-feed-mind` | Gear Memory + Gear Loader                                           | Candidate | URL, file, note, transcript, feed item, document, dataset; needs provenance.                                                                                                        |
+| Artifact                        | All Rumbles                                                                   | Gear Depot + Gear Memory                                            | Candidate | Spec, article, quiz, screen map, execution report, exported package.                                                                                                                |
+| Decision record                 | `rumble-canvas`, `rumble-crew`, `rumble-lm`                                   | Bolt for operational decisions; Rumble shared for product decisions | Discuss   | Must distinguish product decisions from execution decisions.                                                                                                                        |
+| Activity/event log              | All Rumbles                                                                   | Gear                                                                | Candidate | Immutable-ish history for audit, collaboration, and agent readability.                                                                                                              |
+| Comment/thread                  | `rumble-canvas`, `rumble-crew`, `rumble-lm`, maybe `rumble-note`              | Shared Rumble                                                       | Candidate | User-facing collaboration primitive.                                                                                                                                                |
+| Agent task                      | `rumble-crew`, `rumble-canvas`, `rumble-note`, `rumble-lm`                    | Bolt / `cos-matic`                                                  | Candidate | Rumble may display and request tasks; Bolt owns lifecycle/execution.                                                                                                                |
+| Approval/gate                   | `rumble-crew`, `rumble-canvas`, `rumble-lm`                                   | Bolt + Rumble UX                                                    | Candidate | Human approval before execution, publication, or generation.                                                                                                                        |
+| Skill/capability card           | `rumble-crew`, `rumble-canvas`, `rumble-note`                                 | Bolt or shared Rumble                                               | Discuss   | Reusable agent/tool capabilities exposed to users.                                                                                                                                  |
+| Notification                    | All Rumbles                                                                   | Shared Rumble or service                                            | Candidate | User-facing delivery; events likely come from Gear/Bolt.                                                                                                                            |
+| Permission/audit policy         | All Rumbles                                                                   | Gear + app-level adapters                                           | Candidate | Must support local-first and self-hosted operation.                                                                                                                                 |
+| Source-grounded generation      | `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-note`                     | Bolt + Wrench + Gear Memory                                         | Candidate | Needs citations, provenance, and validation.                                                                                                                                        |
+| Import pipeline                 | `rumble-note`, `rumble-lm`, `rumble-cos`, `rumble-feed-mind`                  | Gear Loader                                                         | Candidate | Files/URLs/transcripts/feed items into canonical content.                                                                                                                           |
+| Feed ingestion                  | `rumble-feed-mind`, maybe `rumble-note`, `rumble-cos`                         | Gear Loader                                                         | Accepted  | Feed parsing/normalization is Gear Loader P0; polling/rules/curation remain FeedMind/Bolt.                                                                                          |
+| Rule explanation                | `rumble-feed-mind`, maybe `rumble-lm`, `rumble-canvas`                        | Rumble UX + Wrench validation                                       | Candidate | Natural-language rule decisions need inspectable explanation and evidence.                                                                                                          |
+| BYOK/provider policy            | `rumble-feed-mind`, `rumble-lm`, `rumble-canvas`                              | Shared security policy + Bolt/Gear adapters                         | Candidate | Model routing, key storage, redaction, and provider constraints must be consistent.                                                                                                 |
+| Citation support validation     | `rumble-lm`, `rumble-canvas`, `rumble-cos`                                    | Wrench validator/inspector + Rumble UX                              | Candidate | Assess whether cited source excerpts support generated claims; human validation remains product-owned where needed.                                                                 |
+| Live participation / presence   | `rumble-lm`, `rumble-crew`, maybe `rumble-canvas`                             | Shared Rumble vs Gear transport                                     | Candidate | Current activity state, presence, response submission, reconnect, and aggregate updates.                                                                                            |
+| Learning/facilitation analytics | `rumble-lm`, maybe `rumble-cos`                                               | Shared Rumble first                                                 | Candidate | Aggregate participation, comprehension, confusion, consensus/divergence; avoid hidden individual profiling.                                                                         |
+| Export package                  | `rumble-lm`, `rumble-canvas`, `rumble-cos`                                    | Gear artifact + Rumble UX                                           | Candidate | Audience-scoped export with included data classes, provenance, checksum, and retention/revocation metadata.                                                                         |
+| Inspector reports               | `rumble-canvas`, `rumble-crew`, `rumble-cos`, `rumble-lm`                     | Wrench Inspect                                                      | Candidate | Validate specs, content, design, policy, citation support, privacy, or readiness.                                                                                                   |
+| Evidence report                 | Rumbles, Bolt gates, CI/harness                                               | Wrench Inspect + domain Wrench inspectors                           | Candidate | Shared evidence model for API/browser/eval/clean-room/DB checks; `wrench-db-inspect` produces the DB-security specialization consumed by the forge/harness.                         |
+| Agent/run policy gate           | `cos-matic`, `rumble-crew`, `rumble-canvas`, Wrench checks                    | `cos-matic`                                                         | Candidate | Versioned gates for secrets, destructive actions, network, license, sovereignty, citations, and human approval.                                                                     |
+| Source catalog                  | `rumble-note`, `rumble-feed-mind`, `rumble-lm`, Gear Loader/Inspect           | Gear Memory                                                         | Candidate | Catalog over `SourceRef`; avoids separate `gear-source` until extraction criteria are met.                                                                                          |
+| Usage ledger                    | Bolt runs, Wrench checks, Gear artifacts, Rumble handoffs                     | Gear Memory first                                                   | Candidate | Append-only technical usage events and aggregate projections without behavioral profiling.                                                                                          |
+| Payload projection              | Bolt handoffs, Wrench reports, Gear manifests, agent context exports          | Gear Depot or shared Gear library                                   | Candidate | Compact projections from canonical JSON/NDJSON; never source of truth.                                                                                                              |
+| Release floor                   | Gear Cable releases and installable tools                                     | Gear Cable                                                          | Candidate | Target matrix, install floors, artifact plans, checksum/signature plans, and Depot manifest handoff.                                                                                |
+| App Store release adapter       | iOS-capable `rumble-*` products                                               | Gear Cable                                                          | Accepted  | Stable Gear Cable channel around pinned `rorkai/App-Store-Connect-CLI` (`asc 2.5.0`); product pipelines call `app-store-release.v0.1` actions, not upstream CLI flags directly.     |
+| Design system descriptor        | `portal-forge`, `rumble-canvas`, `rumble-cos`, other UI surfaces              | Portal Forge + Gear                                                 | Candidate | Normalized form of any ingested design system: DTCG tokens, component descriptors, and WCAG validators. Needed by `rumble-canvas`, `portal-forge`, any design-system-aware product. |
 
 ### Naming Rules for Shared Bricks
 
@@ -477,25 +488,25 @@ Do not name a shared brick after a single product unless it truly belongs only t
 
 ## 7. Current Decisions
 
-| Date | Decision | Reason | Status |
-| --- | --- | --- | --- |
-| 2026-06-30 | Active Rumble products in scope: `rumble-canvas`, `rumble-cos`, `rumble-crew`, `rumble-feed-mind`, `rumble-lm`, `rumble-note`. | `rumble-feed-mind` is added as a feed/watch product that must align with shared Wrench/Gear/Bolt boundaries. | Accepted |
-| 2026-06-30 | External inspirations are private discovery context, not public spec content. | Avoid cloning language and keep product identity original. | Accepted |
-| 2026-06-30 | `overview.md` becomes the specification control plane. | Need one visible place to log doctrine, roadmap, shared bricks, and decisions. | Accepted |
-| 2026-06-30 | `rumble-canvas` should be specified first. | It can become the internal method/tool for producing the other product specs. | Proposed |
-| 2026-06-30 | `Waiver` is first-class in `rumble-canvas` MVP, with a minimal extensible model. | Exceptions to rules, missing requirements, blocking risks, or validation gates must be auditable, approvable, expirable, traceable, and consumable by Wrench/Bolt. | Accepted |
-| 2026-06-30 | `rumble-canvas` uses minimal `ActorReference`, `WorkspaceMembership`, and `RoleAssignment` before a full shared identity model. | Canvas needs attribution, permissions, reviews, and waiver approvals now; account/tenant/SSO/local-first identity remain shared architecture decisions. | Accepted |
-| 2026-06-30 | High/critical waivers require distinct human Owner + Reviewer approval in Canvas MVP. | Sensitive exceptions must not be self-approved; Bolt/Wrench can rely on explicit approval evidence. | Accepted |
-| 2026-06-30 | Rumble products integrate with Bolt through planning-only `ImplementationHandoff`; MVP Bolt target is `cos-matic`. | Rumbles must submit approved packages and governance context to Bolt without direct execution; `cos-matic` returns plans, gates, statuses, or auditable refusals. | Accepted |
-| 2026-06-30 | First Canvas-to-Bolt handoff format is `canvas.bolt_handoff.v0.1`, kind `planning_request`. | Bolt needs deterministic structured input; MVP preserves package identity, immutable revisions, traceability, waivers, risks, capability candidates, requested outputs, and forbids automatic execution. | Accepted |
-| 2026-06-30 | `rumble-lm` MVP is a synchronous live session product with first-class activities, citation-gated source grounding, aggregate learning signals, and post-session export. | Keeps the product focused on facilitated collective learning instead of chatbot, quiz-only, or LMS scope. See `specs/rumble-lm/14-source-grounded-product-slice.md` and `specs/rumble-lm/15-contracts-v0.1.md`. | Accepted |
-| 2026-06-30 | `rumble-lm` consumes Wrench Loader, Gear Memory/Gear artifacts, Bolt, and Biscuit rather than duplicating ingestion, memory, orchestration, artifacts, or delegated authorization. | The P0 slice needs contracts before code and must avoid dangerous local reimplementation while keeping product UX in Rumble. Owner review: `specs/rumble-lm/16-contract-review-pack.md`; stub path: `specs/rumble-lm/17-p0-stub-implementation-plan.md`. | Accepted |
-| 2026-06-30 | `ImplementationHandoff v0.1` is the P0 contract before Rumble development. | The harness must validate/refuse/plan from structured product intent before product UIs are implemented. | Accepted |
-| 2026-06-30 | Bolt P0 hardening remains inside `cos-matic`; no premature `bolt-runner`. | Current needs are handoff validation, planning-only runs, gates, refusals, evidence references, idempotency, and audit. A new repo is justified only by a durable runtime/service boundary. | Proposed |
-| 2026-06-30 | `rumble-feed-mind` aligns to MIT and Rust/Dioxus convergence. | The product joins the permissive-license Rumble ecosystem; legacy frontend surfaces are migration references, not durable targets. | Accepted |
-| 2026-06-30 | Interactive Rumble products converge on Rust core + Dioxus UI by default. | Avoid frontend fragmentation and keep local-first/native/web products aligned with the Rust-first harness. `rumble-cos` remains Astro as a content site exception. | Accepted |
-| 2026-06-30 | Starred-repo-derived project ideas strengthen existing repositories first instead of creating new repos. | Avoid roadmap debt and contract fragmentation: evidence/browser/eval/clean-room harden Wrench Inspect; policy hardens `cos-matic`; source catalog and usage ledger harden Gear Memory; payload projection hardens Gear Depot/Gear libs; release floor hardens Gear Cable. See ADR 0022. | Accepted |
-| 2026-07-01 | `rumble-*` iOS publication adopts `rorkai/App-Store-Connect-CLI` through the Gear Cable `app-store-release.v0.1` channel adapter, pinned initially to `asc 2.5.0`. | The CLI is trusted, but product pipelines must stay decoupled from upstream flag changes; release jobs remain reproducible, checksum-verified, telemetry-disabled by default, and manually gated for App Store submission. | Accepted |
+| Date       | Decision                                                                                                                                                                           | Reason                                                                                                                                                                                                                                                                                  | Status   |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 2026-06-30 | Active Rumble products in scope: `rumble-canvas`, `rumble-cos`, `rumble-crew`, `rumble-feed-mind`, `rumble-lm`, `rumble-note`.                                                     | `rumble-feed-mind` is added as a feed/watch product that must align with shared Wrench/Gear/Bolt boundaries.                                                                                                                                                                            | Accepted |
+| 2026-06-30 | External inspirations are private discovery context, not public spec content.                                                                                                      | Avoid cloning language and keep product identity original.                                                                                                                                                                                                                              | Accepted |
+| 2026-06-30 | `overview.md` becomes the specification control plane.                                                                                                                             | Need one visible place to log doctrine, roadmap, shared bricks, and decisions.                                                                                                                                                                                                          | Accepted |
+| 2026-06-30 | `rumble-canvas` should be specified first.                                                                                                                                         | It can become the internal method/tool for producing the other product specs.                                                                                                                                                                                                           | Proposed |
+| 2026-06-30 | `Waiver` is first-class in `rumble-canvas` MVP, with a minimal extensible model.                                                                                                   | Exceptions to rules, missing requirements, blocking risks, or validation gates must be auditable, approvable, expirable, traceable, and consumable by Wrench/Bolt.                                                                                                                      | Accepted |
+| 2026-06-30 | `rumble-canvas` uses minimal `ActorReference`, `WorkspaceMembership`, and `RoleAssignment` before a full shared identity model.                                                    | Canvas needs attribution, permissions, reviews, and waiver approvals now; account/tenant/SSO/local-first identity remain shared architecture decisions.                                                                                                                                 | Accepted |
+| 2026-06-30 | High/critical waivers require distinct human Owner + Reviewer approval in Canvas MVP.                                                                                              | Sensitive exceptions must not be self-approved; Bolt/Wrench can rely on explicit approval evidence.                                                                                                                                                                                     | Accepted |
+| 2026-06-30 | Rumble products integrate with Bolt through planning-only `ImplementationHandoff`; MVP Bolt target is `cos-matic`.                                                                 | Rumbles must submit approved packages and governance context to Bolt without direct execution; `cos-matic` returns plans, gates, statuses, or auditable refusals.                                                                                                                       | Accepted |
+| 2026-06-30 | First Canvas-to-Bolt handoff format is `canvas.bolt_handoff.v0.1`, kind `planning_request`.                                                                                        | Bolt needs deterministic structured input; MVP preserves package identity, immutable revisions, traceability, waivers, risks, capability candidates, requested outputs, and forbids automatic execution.                                                                                | Accepted |
+| 2026-06-30 | `rumble-lm` MVP is a synchronous live session product with first-class activities, citation-gated source grounding, aggregate learning signals, and post-session export.           | Keeps the product focused on facilitated collective learning instead of chatbot, quiz-only, or LMS scope. See `specs/rumble-lm/14-source-grounded-product-slice.md` and `specs/rumble-lm/15-contracts-v0.1.md`.                                                                         | Accepted |
+| 2026-06-30 | `rumble-lm` consumes Wrench Loader, Gear Memory/Gear artifacts, Bolt, and Biscuit rather than duplicating ingestion, memory, orchestration, artifacts, or delegated authorization. | The P0 slice needs contracts before code and must avoid dangerous local reimplementation while keeping product UX in Rumble. Owner review: `specs/rumble-lm/16-contract-review-pack.md`; stub path: `specs/rumble-lm/17-p0-stub-implementation-plan.md`.                                | Accepted |
+| 2026-06-30 | `ImplementationHandoff v0.1` is the P0 contract before Rumble development.                                                                                                         | The harness must validate/refuse/plan from structured product intent before product UIs are implemented.                                                                                                                                                                                | Accepted |
+| 2026-06-30 | Bolt P0 hardening remains inside `cos-matic`; no premature `bolt-runner`.                                                                                                          | Current needs are handoff validation, planning-only runs, gates, refusals, evidence references, idempotency, and audit. A new repo is justified only by a durable runtime/service boundary.                                                                                             | Proposed |
+| 2026-06-30 | `rumble-feed-mind` aligns to MIT and Rust/Dioxus convergence.                                                                                                                      | The product joins the permissive-license Rumble ecosystem; legacy frontend surfaces are migration references, not durable targets.                                                                                                                                                      | Accepted |
+| 2026-06-30 | Interactive Rumble products converge on Rust core + Dioxus UI by default.                                                                                                          | Avoid frontend fragmentation and keep local-first/native/web products aligned with the Rust-first harness. `rumble-cos` remains Astro as a content site exception.                                                                                                                      | Accepted |
+| 2026-06-30 | Starred-repo-derived project ideas strengthen existing repositories first instead of creating new repos.                                                                           | Avoid roadmap debt and contract fragmentation: evidence/browser/eval/clean-room harden Wrench Inspect; policy hardens `cos-matic`; source catalog and usage ledger harden Gear Memory; payload projection hardens Gear Depot/Gear libs; release floor hardens Gear Cable. See ADR 0022. | Accepted |
+| 2026-07-01 | `rumble-*` iOS publication adopts `rorkai/App-Store-Connect-CLI` through the Gear Cable `app-store-release.v0.1` channel adapter, pinned initially to `asc 2.5.0`.                 | The CLI is trusted, but product pipelines must stay decoupled from upstream flag changes; release jobs remain reproducible, checksum-verified, telemetry-disabled by default, and manually gated for App Store submission.                                                              | Accepted |
 
 ---
 
