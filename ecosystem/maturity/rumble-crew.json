@@ -1,0 +1,68 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "rumble-crew",
+    "layer": "Rumble",
+    "role": "Agentic team workspace for humans and agents: tasks, blockers, skills, status, approvals, evidence.",
+    "maturity_mode": "contract-first"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_level": "R1",
+  "target_level": "R10",
+  "next_level": "R2",
+  "promotion_candidate": {
+    "from": "R1",
+    "to": "R2",
+    "status": "blocked",
+    "blocked_by": [
+      "AgentTaskRequest lifecycle contract not yet stable",
+      "human approval policy not yet finalized",
+      "cos-matic boundary clarification needed"
+    ]
+  },
+  "axes": {
+    "spec": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/rumble-crew/"]
+    },
+    "contracts": { "level": "R0", "status": "blocked", "evidence": [] },
+    "core": { "level": "R0", "status": "blocked", "evidence": [] },
+    "security": { "level": "R0", "status": "blocked", "evidence": [] },
+    "ux": { "level": "R0", "status": "blocked", "evidence": [] },
+    "persistence": { "level": "R0", "status": "blocked", "evidence": [] },
+    "orchestration": {
+      "level": "R1",
+      "status": "warn",
+      "evidence": ["ecosystem/specs/harness/02-bolt-evidence-gated-planning.md"]
+    },
+    "inspection": { "level": "R0", "status": "blocked", "evidence": [] },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "blocked", "evidence": [] },
+    "commercial_readiness": {
+      "level": "R0",
+      "status": "blocked",
+      "evidence": []
+    },
+    "learning_yield": { "level": "R0", "status": "pass", "evidence": [] }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "none",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "none",
+    "self_hosted": "planned",
+    "cloud_eu": "planned"
+  },
+  "evidence": [],
+  "learning_yield": [],
+  "open_questions": [
+    "What is the canonical lifecycle of an agent task?",
+    "Are agents first-class users, service accounts, or runtime identities?",
+    "Which actions require explicit human approval?"
+  ],
+  "risk_notes": [
+    "Do not reimplement orchestration instead of displaying/controlling cos-matic."
+  ]
+}

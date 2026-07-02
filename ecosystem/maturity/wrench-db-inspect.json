@@ -1,0 +1,67 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "wrench-db-inspect",
+    "layer": "Wrench",
+    "role": "SQL/database security inspection and forge/harness evidence for Postgres-backed rumble-*.",
+    "maturity_mode": "dojo"
+  },
+  "claimed_at": "2026-07-02T00:00:00Z",
+  "current_level": "R1",
+  "target_level": "R8",
+  "next_level": "R2",
+  "promotion_candidate": {
+    "from": "R1",
+    "to": "R2",
+    "status": "blocked",
+    "blocked_by": [
+      "Clippy warnings in current codebase need resolution",
+      "CI gate integration not yet decided"
+    ]
+  },
+  "axes": {
+    "spec": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/specs/shared/adrs/"]
+    },
+    "contracts": { "level": "R1", "status": "warn", "evidence": [] },
+    "core": {
+      "level": "R1",
+      "status": "pass",
+      "evidence": ["ecosystem/prototypes/wrench-db-inspect/"]
+    },
+    "security": { "level": "R1", "status": "pass", "evidence": [] },
+    "ux": { "level": "R0", "status": "not_applicable", "evidence": [] },
+    "persistence": {
+      "level": "R1",
+      "status": "warn",
+      "evidence": ["ecosystem/prototypes/wrench-db-inspect/"]
+    },
+    "orchestration": { "level": "R0", "status": "blocked", "evidence": [] },
+    "inspection": { "level": "R1", "status": "pass", "evidence": [] },
+    "release": { "level": "R0", "status": "blocked", "evidence": [] },
+    "operations": { "level": "R0", "status": "blocked", "evidence": [] },
+    "commercial_readiness": {
+      "level": "R0",
+      "status": "blocked",
+      "evidence": []
+    },
+    "learning_yield": { "level": "R1", "status": "pass", "evidence": [] }
+  },
+  "platform_readiness": {
+    "cli": "proof",
+    "api": "none",
+    "web": "none",
+    "desktop": "none",
+    "mobile": "none",
+    "self_hosted": "proof",
+    "cloud_eu": "proof"
+  },
+  "evidence": [],
+  "learning_yield": [],
+  "open_questions": [
+    "Should wrench-db-inspect integrate as a CI gate or remain developer-facing?"
+  ],
+  "risk_notes": ["Known clippy warnings in current codebase; tests are green."]
+}

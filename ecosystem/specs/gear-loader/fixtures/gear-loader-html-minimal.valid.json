@@ -22,7 +22,11 @@
         "secret_mode": "block",
         "prompt_injection_mode": "detect"
       },
-      "requested_outputs": ["canonical_document", "evidence_report", "gear_source_candidate"]
+      "requested_outputs": [
+        "canonical_document",
+        "evidence_report",
+        "gear_source_candidate"
+      ]
     }
   ],
   "canonical_documents": [
@@ -107,7 +111,7 @@
         "unsupported_features": []
       },
       "provenance": {
-        "tool": "wrench-loader",
+        "tool": "gear-loader",
         "tool_version": "0.1.0",
         "pipeline_id": "pipeline_html_default_v1",
         "started_at": "2026-06-30T00:00:00Z",
@@ -122,10 +126,10 @@
       "format": "wrench.gear_source_candidate.v0.1",
       "canonical_document_ref": "csd_html_01",
       "source_type": "document",
-      "origin_product": "wrench-loader",
+      "origin_product": "gear-loader",
       "content_hash": "sha256:2000000000000000000000000000000000000000000000000000000000000000",
       "provenance": {
-        "tool_ref": "wrench-loader@0.1.0",
+        "tool_ref": "gear-loader@0.1.0",
         "pipeline_id": "pipeline_html_default_v1"
       },
       "indexing_hints": {

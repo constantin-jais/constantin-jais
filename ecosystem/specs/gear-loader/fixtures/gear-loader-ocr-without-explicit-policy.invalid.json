@@ -61,7 +61,7 @@
         "unsupported_features": []
       },
       "provenance": {
-        "tool": "wrench-loader",
+        "tool": "gear-loader",
         "tool_version": "0.1.0",
         "pipeline_id": "pipeline_pdf_default_v1",
         "started_at": "2026-06-30T00:00:00Z",
