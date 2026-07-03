@@ -32,6 +32,10 @@
     "constantin-jais/Rumble-Note": {
       "required_checks": ["Repository hygiene"],
       "strict_up_to_date": true
+    },
+    "constantin-jais/dioxus-lab": {
+      "required_checks": ["quality", "e2e"],
+      "strict_up_to_date": true
     }
   }
 }
