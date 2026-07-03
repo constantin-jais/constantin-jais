@@ -1,6 +1,6 @@
 # ADR 0029 — rumble-ai-practices / rumble-lm boundary
 
-Status: Proposed
+Status: Accepted (2026-07-03, arbitration DA-8 — content-pack boundary ratified; see the acceptance addendum)
 Date: 2026-07-02
 Decision owner: Constantin (product portfolio)
 Related: D5 (rumble-ai-practices officialized); `rumble-ai-practices/docs/product-boundaries.md`
@@ -28,6 +28,14 @@ That test was never resolved with product evidence. Officializing the product (D
 - The `docs/` language singularity (100% French) is acceptable for a French-audience training product, but the shared boundary and its contracts are documented in English here for ecosystem consistency.
 - lm's contracts (session, activity, citation) must be consumable by an external content pack; if they are not yet, that gap is logged against lm, not ai-practices.
 
+## Acceptance addendum (2026-07-03)
+
+The alignment recon (`architecture-alignment-2026-07.md`, B3) found that `rumble-ai-practices` had already built a light in-memory session store (BTreeMap, TTL 1 h, scoring, `/v1/sessions*`) before this ADR was accepted. Disposition under the big-bang posture (DA-8, nothing in service):
+
+- `rumble-lm` builds the **real session runtime** as the centerpiece of the 2026-07 wave; its session API contract (spec + fixtures) is frozen **first**, so consumers build against fixtures while lm implements.
+- `rumble-ai-practices` **deletes its local session store** and consumes lm's runtime once available; until then the local store is a frozen shim — it must not grow presence, WebSocket, or durable-session features.
+- Convergence is a **required gate of the 2026-07 wave**, not a "next increment" aspiration.
+
 ## Status note
 
-Proposed: the "content pack consumed by lm" framing vs "autonomous product" is Constantin's call (D5 left it open). Merging as Accepted ratifies the content-pack boundary; amending before merge to keep ai-practices as a fully autonomous live-session product is the fork — but that path must then answer why it duplicates lm's runtime.
+Accepted 2026-07-03 (arbitration DA-8): the content-pack boundary is ratified as written, with the acceptance addendum above governing the transition.

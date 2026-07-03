@@ -1,6 +1,6 @@
 # Ecosystem Status Cockpit
 
-Status date: 2026-07-02
+Status date: 2026-07-03
 Purpose: one human/agent-readable cockpit for the Rumble / Portal / Bolt / Wrench / Gear stack.
 
 This ecosystem is not prioritized as a startup portfolio. It is a personal process forge for learning, trustworthy workflows, sovereign tooling, and high-quality agent-readable systems.
@@ -114,7 +114,7 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 | `rumble-lm` | Rumble | Pedagogy, citations, live sessions, grounding, aggregate analytics. | `contract-first` | P0 contract stub | Core/server stub validates boundaries. Next: `CitationValidation`, retention defaults, provider policy instantiation. |
 | `rumble-note` | Rumble | Local-first PKM, private blocks, personal memory exports. | `contract-first` | P0 specs | Public placeholder repo is governed by hygiene checks; runtime not present locally. Next: minimal block model and `NoteContextExport` privacy contract. |
 | `rumble-crew` | Rumble | Human/agent tasks, approvals, evidence, run recovery. | `contract-first` | P0 specs | Public placeholder repo is governed by hygiene checks. Next: `AgentTaskRequest` lifecycle and human approval policy. |
-| `rumble-cos` | Rumble | Transmission, clarity, public explanation, documentation publishing. | `usable` | P5 minimal UI | Public Astro static site is usable, protected, and audit/check gates are green. Next: publishing runbook adoption and deployed-site smoke. |
+| `rumble-cos` | Rumble | Transmission, clarity, public explanation, documentation publishing. | `usable` | P5 minimal UI | Public Astro static site is usable, protected, and audit/check gates are green. Next: Dioxus SSG rebuild (ADR 0032 §3, DA-2a) — the 221-item corpus is the migration asset. |
 | `portal-forge` | Portal | Design tokens, WCAG checks, cross-platform UI artifact generation. | `dojo` | P1 CLI/library proof | Token compiler emits CSS/Swift/Kotlin, semantic token types, and `portal.contrast_report.v0.1`; Rumble LM has a generated token fixture. Next: Portal Core a11y/theme + Wrench checks. |
 | `portal-core` | Portal | Rust-first UI/client contracts, i18n UI, accessibility helpers, native bindings. | `contract-first` | P0 bridge proof | UniFFI-backed translation core exists. Next: theme/a11y contracts and generated binding fixtures consumed by Apple/Android. |
 | `portal-apple` | Portal | SwiftUI adapter for Portal core/tokens. | `contract-first` | P0 native bridge proof | `swift test` verifies the core bridge. Next: integrate `portal-forge` Swift output and define Rumble shell fixture. |
@@ -130,7 +130,7 @@ R5 web-ui · R6 desktop · R7 mobile · R8 sync-offline · R9 reproducible-relea
 
 ## Current stack challenge decisions
 
-References: [`specs/shared/adrs/0024-stack-validation-local-only.md`](specs/shared/adrs/0024-stack-validation-local-only.md), [`specs/shared/adrs/0025-agentic-p0-tooling-backlog.md`](specs/shared/adrs/0025-agentic-p0-tooling-backlog.md), [`specs/harness/04-stack-validation-tooling.md`](specs/harness/04-stack-validation-tooling.md).
+References: [`specs/shared/adrs/0034-stack-validation-local-only.md`](specs/shared/adrs/0034-stack-validation-local-only.md), [`specs/shared/adrs/0035-agentic-p0-tooling-backlog.md`](specs/shared/adrs/0035-agentic-p0-tooling-backlog.md), [`specs/harness/04-stack-validation-tooling.md`](specs/harness/04-stack-validation-tooling.md).
 
 | Stack / tool track | Decision | Next evidence |
 | --- | --- | --- |
@@ -138,10 +138,10 @@ References: [`specs/shared/adrs/0024-stack-validation-local-only.md`](specs/shar
 | PostgreSQL + SQLx | Conditional GO | Activate only when durable persistence is required; add migrations, local DB fixtures, and Wrench DB evidence. |
 | OIDC/Keycloak + Biscuit | Conditional GO | Activate for organizational or multi-tenant rights; require allow/deny policy fixtures and no token/PII logging. |
 | Redis / persisted queues | WAIT | Add only when critical jobs, fanout, or retry durability are proven by a product slice. |
-| Dioxus/PWA + Portal | SPIKE LOCAL | Prove wasm32 check, mobile smoke, a11y/token boundary, and no JS-readable auth token. |
+| Dioxus/PWA + Portal | GO (ADR 0032) | Spike delivered: `wrench-dioxus-lab` ADR 0001 — wasm 386 KiB gzip, 4-engine e2e, HttpOnly session, a11y/token gates. Next: first product alignment (rumble-lm slice). |
 | SwiftUI / Compose via Portal | WAIT | Promote only after PWA proof plus native product need, SDK verification, and Portal binding evidence. |
 | RAG / pgvector / citation-gated generation | SPIKE LOCAL STRICT | Use fixtures first; prove citation validation, redaction, retention policy, and provider-free local checks. |
-| Astro/MDX/Bun static publication | GO | Keep SSG-only build, self-hosted assets, Pagefind/RSS checks, and no tracking/CDN by default. |
+| Astro/MDX/Bun static publication | NARROWED (ADR 0032 §3) | Permitted outside forge products; forge products publish via Dioxus SSG — `rumble-cos` rebuilds accordingly (DA-2a). |
 | DB security / RLS / grants / pgvector | GO as gate | Use sanitized SQL fixtures and `wrench-db-inspect` before protected branches or releases. |
 | Agentic P0 tools | GO progressive | Harden and dogfood implemented P0 helpers: `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, `local_smoke`; keep dry-run/local-only defaults. |
 | Paid infrastructure, provisioning, live providers | NO-GO | Remain recommendation/dry-run/config examples until explicit human approval. |

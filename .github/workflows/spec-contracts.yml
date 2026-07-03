@@ -12,6 +12,8 @@ on:
       - "ecosystem/specs/**/*.sh"
       - "ecosystem/specs/requirements-ci.txt"
       - "ecosystem/specs/contract-validation.md"
+      - "ecosystem/specs/shared/adrs/*.md"
+      - "ecosystem/target-version.v1.json"
       - ".github/workflows/spec-contracts.yml"
   pull_request:
   workflow_dispatch:
@@ -40,8 +42,10 @@ jobs:
             'ecosystem/specs/**/*.json' \
             'ecosystem/specs/**/*.py' \
             'ecosystem/specs/**/*.sh' \
+            'ecosystem/specs/shared/adrs/*.md' \
             ecosystem/specs/requirements-ci.txt \
             ecosystem/specs/contract-validation.md \
+            ecosystem/target-version.v1.json \
             .github/workflows/spec-contracts.yml \
             | grep -q .; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -49,6 +53,24 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No spec-contract-relevant paths changed; reporting success."
           fi
+
+      - name: ADR number uniqueness (active ADRs only)
+        if: steps.relevant.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          cd ecosystem/specs/shared/adrs
+          active=""
+          for f in [0-9][0-9][0-9][0-9]-*.md; do
+            if ! grep -qiE '^-? ?Status: *Superseded' "$f"; then
+              active="$active ${f%%-*}"
+            fi
+          done
+          dups=$(printf '%s\n' $active | sort | uniq -d)
+          if [ -n "$dups" ]; then
+            echo "Duplicate ADR numbers among non-superseded ADRs:$dups" >&2
+            exit 1
+          fi
+          echo "ADR numbering unique across active ADRs."
 
       - name: Set up Python
         if: steps.relevant.outputs.changed == 'true'

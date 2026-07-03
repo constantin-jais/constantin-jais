@@ -1,6 +1,6 @@
 # ADR-0023 — Portal client platform and Gear Loader placement
 
-- Status: Accepted
+- Status: Superseded by ADR 0033 (2026-07-03) — merged with its 0023 sibling into the consolidated layer model; the Portal layer definition and gear-loader placement it established are carried forward unchanged.
 - Date: 2026-07-02
 - Supersedes: ADR-0012/0013/0014/0015/0016 naming and layer placement for `gear-loader`; keeps their contract intent as historical context.
 

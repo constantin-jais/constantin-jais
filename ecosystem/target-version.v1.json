@@ -1,0 +1,97 @@
+{
+  "format": "stack.target_version.v0.1",
+  "version": "1.0.0",
+  "ratified_at": "2026-07-03T12:00:00+02:00",
+  "ratified_by": [
+    "ADR 0032 (web shell: Dioxus 0.7.9)",
+    "ADR 0033 (layer model: domain prefixes + deployment classes)",
+    "ADR 0028 (workspace/identity ownership, amended)",
+    "ADR 0029 (ai-practices/lm boundary, with acceptance addendum)",
+    "architecture-alignment-2026-07 arbitration DA-1..DA-12"
+  ],
+  "layers": [
+    {
+      "prefix": "rumble",
+      "role": "products",
+      "definition": "User-facing workflows delivered natively on 6 targets (Web, iOS, Android, macOS, Linux, Windows). Owns UX, product state, domain models, publication gates.",
+      "deployment_classes": ["product-linkable"]
+    },
+    {
+      "prefix": "portal",
+      "role": "client platform / design substrate",
+      "definition": "Tokens, UI primitives, accessibility, i18n UI, native bindings; also the agents' UI-production capability (tokens-only rule). Never owns actor/tenant authorization.",
+      "deployment_classes": ["product-linkable", "build-time"]
+    },
+    {
+      "prefix": "bolt",
+      "role": "factory",
+      "definition": "Agent orchestration, planning, handoff evaluation, execution coordination, and the factory's own public proof surfaces. Never ships in product binaries.",
+      "deployment_classes": ["factory-only"]
+    },
+    {
+      "prefix": "wrench",
+      "role": "transverse factory tools",
+      "definition": "Inspection, security audit, and stack-evaluation tooling serving two or more domains. Never ships in product binaries.",
+      "deployment_classes": ["factory-only", "build-time"]
+    },
+    {
+      "prefix": "gear",
+      "role": "runtime substrate",
+      "definition": "Shared services and contracts linkable in product binaries (ingestion, memory, artifacts, distribution). One contract, two clients: product runtimes and agents.",
+      "deployment_classes": ["product-linkable", "factory-only", "build-time"]
+    }
+  ],
+  "web_shell": {
+    "framework": "dioxus",
+    "framework_version": "0.7.9",
+    "evidence": "wrench-dioxus-lab ADR 0001 (2026-07-03): wasm 386 KiB gzip vs 450 budget, e2e 22 specs x 4 engines, HttpOnly session proven, a11y/token gates green",
+    "adr": "ADR 0032"
+  },
+  "native_delivery": "portal + UniFFI (SwiftUI / Jetpack Compose shells); portal-apple frozen at proven-bridge tag, portal-android frozen pending SDK/NDK-verifiable CI",
+  "desktop": "deferred - next spike, demand-driven (ADR 0032 s4; the Tauri-2 choice was Leptos-coupled and is re-opened)",
+  "static_publication": "Dioxus SSG for forge products (ADR 0032 s3); Astro remains permitted tooling outside forge products",
+  "session_runtime_owner": "rumble-lm (ADR 0029): any live session - generic or ai-practices - runs on lm's engine",
+  "identity_ownership": "Gear (identity primitives, D11-gated extraction) + shared Rumble (workspace container); portal-core excluded (ADR 0028)",
+  "stack_matrix": {
+    "go": [
+      "Rust service: Tokio, Axum, SQLx-ready, tracing (ids-only)",
+      "Dioxus 0.7.9 fullstack + PWA as the web shell (ADR 0032)",
+      "DB security gate whenever PostgreSQL is used (wrench-db-inspect)"
+    ],
+    "conditional_go": [
+      "PostgreSQL + SQLx - only when durable persistence is required",
+      "OIDC/Keycloak + Biscuit - only for organizational or multi-tenant rights"
+    ],
+    "spike_local": [
+      "RAG / pgvector beyond fixture-level proofs",
+      "Dioxus desktop shell (re-opened by ADR 0032 s4)"
+    ],
+    "wait": [
+      "Redis / persisted queues - until a product slice proves fanout/retry durability",
+      "Native mobile shells - per-product demand (portal-apple/android stay frozen)"
+    ],
+    "no_go": [
+      "Paid provisioning or live providers without a separate human-approved ADR",
+      "Mandatory US-hyperscaler or proprietary SaaS dependencies in core truth"
+    ],
+    "narrowed": [
+      "Astro static publication: permitted outside forge products only; forge products publish via Dioxus SSG (ADR 0032 s3)"
+    ]
+  },
+  "dod_chain": [
+    "portal (tokens/primitives consumed)",
+    "gear-loader (canonical ingestion)",
+    "gear-memory (source refs / provenance)",
+    "gear-depot (ArtifactRef/Manifest export)",
+    "gear-cable (packaging when distribution is needed)",
+    "wrench inspection evidence (+ db-inspect when SQL-backed)",
+    "bolt planning-only handoff with evidence refs",
+    "rumble-cos explanation (public or private learning notes)"
+  ],
+  "flagship_slice": "rumble-lm",
+  "wave": {
+    "name": "2026-07 ratification wave",
+    "posture": "big-bang: nothing is in service, blocking is acceptable, per-repo gates stay green at every merge",
+    "reference": "ecosystem/architecture-alignment-2026-07.md (arbitration addendum)"
+  }
+}

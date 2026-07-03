@@ -28,12 +28,12 @@ Rumble product
 
 ## P0b — Stack validation and local-only gates
 
-- Maintain the accepted stack decision matrix: Rust service GO, Astro static publication GO, PostgreSQL/SQLx and Biscuit/OIDC conditional GO, DB security gate GO, Dioxus/PWA and RAG as local spikes, Redis/native shells waiting for proven need, paid provisioning NO-GO.
+- Maintain the ratified stack decision matrix (ADR 0032, `target-version.v1.json`): Rust service GO, Dioxus 0.7.9 fullstack/PWA GO (web shell — evidence: `wrench-dioxus-lab`), Dioxus SSG for forge content sites (Astro narrowed to non-forge tooling), PostgreSQL/SQLx and Biscuit/OIDC conditional GO, DB security gate GO, RAG and Dioxus desktop as local spikes, Redis/native shells waiting for proven need, paid provisioning NO-GO.
 - Keep the implemented P0 agentic tools aligned with the spec: `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, and `local_smoke`.
 - Keep later tools explicitly scoped: `db_security_check` only when PostgreSQL is active, `adr_generate` for accepted decisions, and `deploy_dry_run` without resource creation.
 - Reject `setup_everything`, automatic cloud provisioning, real deploy automation, and SaaS integrations requiring API keys until a separate human-approved ADR exists.
-- Use ADR-0024 (`specs/shared/adrs/0024-stack-validation-local-only.md`) as the accepted local-only stack validation authority.
-- Use ADR-0025 (`specs/shared/adrs/0025-agentic-p0-tooling-backlog.md`) and `specs/harness/04-stack-validation-tooling.md` as the P0 tooling spec before implementation.
+- Use ADR-0034 (`specs/shared/adrs/0034-stack-validation-local-only.md`) as the accepted local-only stack validation authority.
+- Use ADR-0035 (`specs/shared/adrs/0035-agentic-p0-tooling-backlog.md`) and `specs/harness/04-stack-validation-tooling.md` as the P0 tooling spec before implementation.
 - Prepare narrower ADR candidates only when a concrete product slice needs them: stack authority, web boundary, sovereign provider policy, OIDC/Biscuit auth, Portal boundary, RAG citation gate, DB security, and agentic tooling boundaries.
 - Run stack-specific `pi -p` sessions only after the local validation target and expected evidence are stated.
 
