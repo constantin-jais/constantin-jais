@@ -24,12 +24,13 @@ Plans authored against the frozen `target-version` 1.0.0, adversarially verified
 
 | Rank | Chantier | Plan (repo-relative) |
 | --- | --- | --- |
-| 1a | lm session API contract freeze (first increment of the lm plan) | `rumble-lm/docs/plans/2026-07-lm-session-runtime-and-slice.md` |
+| 1a | lm session API contract freeze (first increment of the runtime plan) | `rumble-lm/docs/plans/2026-07-lm-session-runtime.md` |
 | 1b | Governance full onboarding + maturity/stack + root hygiene | `constantin-jais/ecosystem/plans/2026-07-governance-wave.md` |
 | 1b | wrench-inspect hygiene (LICENSE, injectable dates, Bolt path) | `wrench-inspect/docs/plans/2026-07-wrench-inspect-hygiene.md` |
 | 1b | gear-loader hardening (find_any fix, structural validation) | `gear-loader/docs/plans/2026-07-gear-loader-hardening.md` |
 | 1b | portal-core hardening + theme/a11y contracts | `portal-core/docs/plans/2026-07-portal-core-hardening-and-thicken.md` |
-| 2a | lm session runtime + UI lab alignment + vertical slice | `rumble-lm/docs/plans/2026-07-lm-session-runtime-and-slice.md` |
+| 2a | lm session runtime | `rumble-lm/docs/plans/2026-07-lm-session-runtime.md` |
+| 2a | lm UI lab alignment + DoD slice (proof spine) | `rumble-lm/docs/plans/2026-07-lm-ui-lab-alignment-and-dod-slice.md` |
 | 2b | cos rebuild on Dioxus SSG (+ cos-matic dogfooding pilot) | `rumble-cos/docs/plans/2026-07-cos-rebuild-dioxus-ssg.md` |
 | 2c | canvas MVP on workspace-identity (D11 implementation #1) | `rumble-canvas/docs/plans/2026-07-canvas-mvp-workspace-identity.md` |
 | 2d | feed-mind cleanup + RustSec waivers (external deadline 2026-09-30) | `rumble-feed-mind/docs/plans/2026-07-feed-mind-cleanup-and-waivers.md` |
