@@ -18,6 +18,26 @@ Rumble product
 → is explained publicly or privately through Rumble Cos / learning notes
 ```
 
+## 2026-07 wave — plan index (Phase C)
+
+Plans authored against the frozen `target-version` 1.0.0, adversarially verified, planning-only until merged. Dependency-ordered:
+
+| Rank | Chantier | Plan (repo-relative) |
+| --- | --- | --- |
+| 1a | lm session API contract freeze (first increment of the lm plan) | `rumble-lm/docs/plans/2026-07-lm-session-runtime-and-slice.md` |
+| 1b | Governance full onboarding + maturity/stack + root hygiene | `constantin-jais/ecosystem/plans/2026-07-governance-wave.md` |
+| 1b | wrench-inspect hygiene (LICENSE, injectable dates, Bolt path) | `wrench-inspect/docs/plans/2026-07-wrench-inspect-hygiene.md` |
+| 1b | gear-loader hardening (find_any fix, structural validation) | `gear-loader/docs/plans/2026-07-gear-loader-hardening.md` |
+| 1b | portal-core hardening + theme/a11y contracts | `portal-core/docs/plans/2026-07-portal-core-hardening-and-thicken.md` |
+| 2a | lm session runtime + UI lab alignment + vertical slice | `rumble-lm/docs/plans/2026-07-lm-session-runtime-and-slice.md` |
+| 2b | cos rebuild on Dioxus SSG (+ cos-matic dogfooding pilot) | `rumble-cos/docs/plans/2026-07-cos-rebuild-dioxus-ssg.md` |
+| 2c | canvas MVP on workspace-identity (D11 implementation #1) | `rumble-canvas/docs/plans/2026-07-canvas-mvp-workspace-identity.md` |
+| 2d | feed-mind cleanup + RustSec waivers (external deadline 2026-09-30) | `rumble-feed-mind/docs/plans/2026-07-feed-mind-cleanup-and-waivers.md` |
+| 3 | ai-practices convergence prep (frozen shim, scoring module) | `rumble-ai-practices/docs/plans/2026-07-ai-practices-convergence-prep.md` |
+| 3 | cos-matic real Biscuit + engine tag | `bolt-cos-matic/docs/plans/2026-07-cos-matic-biscuit-and-tag.md` |
+| 4 | cable↔depot E2E | `gear-cable/docs/plans/2026-07-cable-depot-e2e.md` + `gear-depot/docs/plans/2026-07-depot-cable-e2e.md` |
+| 4 | harness fixtures wired for real | `bolt-harness/docs/plans/2026-07-harness-fixtures-alignment.md` |
+
 ## P0 — Control plane and naming
 
 - Keep `overview.md`, `status.md`, `loop.md`, and shared decisions aligned on Rumble / Portal / Bolt / Wrench / Gear.
