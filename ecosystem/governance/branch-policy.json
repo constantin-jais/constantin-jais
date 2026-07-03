@@ -18,17 +18,11 @@
   },
   "repos": {
     "constantin-jais/rumble-ai-practices": {
-      "required_checks": [
-        "Rust quality gates",
-        "Repository hygiene"
-      ],
+      "required_checks": ["Rust quality gates", "Repository hygiene"],
       "strict_up_to_date": true
     },
     "constantin-jais/Rumble-Canvas": {
-      "required_checks": [
-        "Rust quality gates",
-        "Repository hygiene"
-      ],
+      "required_checks": ["Rust quality gates", "Repository hygiene"],
       "strict_up_to_date": true
     },
     "constantin-jais/rumble-cos": {
@@ -40,9 +34,7 @@
       "strict_up_to_date": true
     },
     "constantin-jais/Rumble-Crew": {
-      "required_checks": [
-        "Repository hygiene"
-      ],
+      "required_checks": ["Repository hygiene"],
       "strict_up_to_date": true
     },
     "constantin-jais/rumble-feed-mind": {
@@ -64,31 +56,19 @@
       "strict_up_to_date": true
     },
     "constantin-jais/portal-core": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates"
-      ],
+      "required_checks": ["Rust quality gates", "Rust supply-chain gates"],
       "strict_up_to_date": true
     },
     "constantin-jais/portal-forge": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates"
-      ],
+      "required_checks": ["Rust quality gates", "Rust supply-chain gates"],
       "strict_up_to_date": true
     },
     "constantin-jais/portal-apple": {
-      "required_checks": [
-        "Swift package over Rust core",
-        "Security smoke"
-      ],
+      "required_checks": ["Swift package over Rust core", "Security smoke"],
       "strict_up_to_date": true
     },
     "constantin-jais/portal-android": {
-      "required_checks": [
-        "Android library over Rust core",
-        "Security smoke"
-      ],
+      "required_checks": ["Android library over Rust core", "Security smoke"],
       "strict_up_to_date": true
     },
     "constantin-jais/bolt-cos-matic": {
@@ -102,22 +82,15 @@
       "strict_up_to_date": true
     },
     "constantin-jais/bolt-harness": {
-      "required_checks": [
-        "Harness hygiene"
-      ],
+      "required_checks": ["Harness hygiene"],
       "strict_up_to_date": true
     },
     "constantin-jais/wrench-db-inspect": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates"
-      ],
+      "required_checks": ["Rust quality gates", "Rust supply-chain gates"],
       "strict_up_to_date": true
     },
     "constantin-jais/wrench-inspect": {
-      "required_checks": [
-        "Rust quality gates"
-      ],
+      "required_checks": ["Rust quality gates"],
       "strict_up_to_date": true
     },
     "constantin-jais/gear-cable": {
@@ -153,24 +126,15 @@
       "strict_up_to_date": true
     },
     "constantin-jais/constantin-jais": {
-      "required_checks": [
-        "Stack workflow conventions",
-        "json-schema-fixtures"
-      ],
+      "required_checks": ["Stack workflow conventions", "json-schema-fixtures"],
       "strict_up_to_date": true
     },
-    "constantin-jais/dioxus-lab": {
-      "__comment__": "DA-5 rename to wrench-dioxus-lab pending GitHub rename by repo owner; follow-up commit will rename key post-completion",
-      "required_checks": [
-        "quality",
-        "e2e"
-      ],
+    "constantin-jais/wrench-dioxus-lab": {
+      "required_checks": ["quality", "e2e"],
       "strict_up_to_date": true
     },
     "constantin-jais/Rumble-Note": {
-      "required_checks": [
-        "Repository hygiene"
-      ],
+      "required_checks": ["Repository hygiene"],
       "strict_up_to_date": true
     }
   }
