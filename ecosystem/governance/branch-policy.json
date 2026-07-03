@@ -17,8 +17,131 @@
     }
   },
   "repos": {
-    "constantin-jais/constantin-jais": {
-      "required_checks": ["Stack workflow conventions", "json-schema-fixtures"],
+    "constantin-jais/rumble-ai-practices": {
+      "required_checks": [
+        "Rust quality gates",
+        "Repository hygiene"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/Rumble-Canvas": {
+      "required_checks": [
+        "Rust quality gates",
+        "Repository hygiene"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/rumble-cos": {
+      "required_checks": [
+        "Astro quality gates",
+        "npm supply-chain gates",
+        "Playwright product smoke"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/Rumble-Crew": {
+      "required_checks": [
+        "Repository hygiene"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/rumble-feed-mind": {
+      "required_checks": [
+        "Rust quality gates",
+        "Rust supply-chain gates",
+        "License file presence",
+        "CuratedItemExport contract"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/Rumble-LM": {
+      "required_checks": [
+        "Rust quality gates",
+        "Repository guardrails",
+        "Integration + coverage",
+        "Rust supply-chain gates"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/portal-core": {
+      "required_checks": [
+        "Rust quality gates",
+        "Rust supply-chain gates"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/portal-forge": {
+      "required_checks": [
+        "Rust quality gates",
+        "Rust supply-chain gates"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/portal-apple": {
+      "required_checks": [
+        "Swift package over Rust core",
+        "Security smoke"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/portal-android": {
+      "required_checks": [
+        "Android library over Rust core",
+        "Security smoke"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/bolt-cos-matic": {
+      "required_checks": [
+        "Rust quality gates",
+        "Coverage floor",
+        "Rust supply-chain gates",
+        "Canvas handoff contract smoke",
+        "Dogfood drift gate"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/bolt-harness": {
+      "required_checks": [
+        "Harness hygiene"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/wrench-db-inspect": {
+      "required_checks": [
+        "Rust quality gates",
+        "Rust supply-chain gates"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/wrench-inspect": {
+      "required_checks": [
+        "Rust quality gates"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/gear-cable": {
+      "required_checks": [
+        "Rust quality gates",
+        "Rust supply-chain gates",
+        "Release manifest and plan contracts"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/gear-depot": {
+      "required_checks": [
+        "Rust quality gates",
+        "Rust supply-chain gates",
+        "Artifact manifest contracts"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/gear-loader": {
+      "required_checks": [
+        "Rust quality gates",
+        "Rust supply-chain gates",
+        "Canonical ingestion fixtures"
+      ],
       "strict_up_to_date": true
     },
     "constantin-jais/gear-memory": {
@@ -29,12 +152,25 @@
       ],
       "strict_up_to_date": true
     },
-    "constantin-jais/Rumble-Note": {
-      "required_checks": ["Repository hygiene"],
+    "constantin-jais/constantin-jais": {
+      "required_checks": [
+        "Stack workflow conventions",
+        "json-schema-fixtures"
+      ],
       "strict_up_to_date": true
     },
     "constantin-jais/dioxus-lab": {
-      "required_checks": ["quality", "e2e"],
+      "__comment__": "DA-5 rename to wrench-dioxus-lab pending GitHub rename by repo owner; follow-up commit will rename key post-completion",
+      "required_checks": [
+        "quality",
+        "e2e"
+      ],
+      "strict_up_to_date": true
+    },
+    "constantin-jais/Rumble-Note": {
+      "required_checks": [
+        "Repository hygiene"
+      ],
       "strict_up_to_date": true
     }
   }
