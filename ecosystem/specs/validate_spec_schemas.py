@@ -245,6 +245,32 @@ def validate_suite(suite: Suite) -> tuple[int, int]:
     return passed, negative
 
 
+# Standalone documents validated against a schema without a fixtures directory
+# (single canonical instances living outside ecosystem/specs/).
+STANDALONE = [
+    (
+        SPECS / "harness" / "stack-target-version.v0.1.schema.json",
+        ROOT / "ecosystem" / "target-version.v1.json",
+    ),
+]
+
+
+def validate_standalone(schema_path: Path, document: Path) -> None:
+    schema_obj = load_json(schema_path)
+    jsonschema.Draft202012Validator.check_schema(schema_obj)
+    validator = jsonschema.Draft202012Validator(schema_obj)
+    obj = load_json(document)
+    errors = sorted(validator.iter_errors(obj), key=lambda err: list(err.path))
+    if errors:
+        details = "; ".join(error.message for error in errors[:3])
+        raise AssertionError(
+            f"standalone: {document.relative_to(ROOT)} failed {schema_path.name}: {details}"
+        )
+    if has_unsafe_key(obj):
+        raise AssertionError(f"standalone: {document.relative_to(ROOT)} contains an unsafe key")
+    print(f"PASS schema standalone: {document.relative_to(ROOT)}")
+
+
 def main() -> int:
     total_passed = 0
     total_negative = 0
@@ -252,6 +278,9 @@ def main() -> int:
         passed, negative = validate_suite(suite)
         total_passed += passed
         total_negative += negative
+    for schema_path, document in STANDALONE:
+        validate_standalone(schema_path, document)
+        total_passed += 1
     print(f"OK: {total_passed} positive fixtures and {total_negative} negative fixtures validated.")
     return 0
 

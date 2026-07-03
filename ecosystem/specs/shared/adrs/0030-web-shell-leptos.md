@@ -1,6 +1,6 @@
 # ADR 0030 — Web shell framework: Leptos
 
-Status: Accepted
+Status: Superseded by ADR 0032 (2026-07-03) — the local evaluation spike required by the stack matrix delivered a measured GO for Dioxus 0.7.9 (`wrench-dioxus-lab` ADR 0001); the web shell is Dioxus.
 Date: 2026-07-02
 Decision owner: Constantin (ecosystem architecture)
 Related: D7 (decision-log); supersedes the "Rust core + Dioxus UI by default" decisions of 2026-06-30; ADR 0024 (Portal design substrate); ADR 0027 (rumble-cos rebuild)

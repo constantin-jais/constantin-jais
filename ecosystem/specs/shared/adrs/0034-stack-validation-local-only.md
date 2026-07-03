@@ -1,7 +1,8 @@
-# ADR-0024 — Stack validation stays local-only until explicit provisioning approval
+# ADR-0034 — Stack validation stays local-only until explicit provisioning approval
 
 - Status: Accepted
 - Date: 2026-07-02
+- Renumbered from ADR-0024 on 2026-07-03 (numbering-collision repair, DA-3 / ADR 0033); content unchanged. The Dioxus/PWA "SPIKE LOCAL" row of the stack matrix was resolved GO by ADR 0032; the Astro row is narrowed by ADR 0032 §3.
 - Related: `../decision-log.md`, `../../../remaining-work.md`, `../../harness/04-stack-validation-tooling.md`
 
 ## Context
@@ -38,18 +39,18 @@ Forbidden without a separate explicit human approval:
 
 ## Stack decision matrix
 
-| Track | Decision | Evidence required before promotion |
-| --- | --- | --- |
-| Rust service: Tokio, Axum, tracing, SQLx-ready | GO | fmt, clippy, tests, license/advisory audit, local smoke. |
-| Astro/MDX/Bun static publication | GO | static build, self-hosted assets, no tracking/CDN by default, smoke. |
-| PostgreSQL + SQLx | Conditional GO | durable persistence need, migrations, local fixtures, DB security evidence. |
-| OIDC/Keycloak + Biscuit | Conditional GO | org/multi-tenant need, allow/deny policy fixtures, token redaction proof. |
-| DB security / RLS / grants / pgvector | GO as gate | sanitized schema/migration fixtures and Wrench DB evidence. |
-| Dioxus/PWA + Portal | SPIKE LOCAL | wasm32 check, mobile smoke, Portal boundary, no JS-readable auth token. |
-| RAG / pgvector / citation generation | SPIKE LOCAL STRICT | fixture-first retrieval/generation, citation validation, redaction, retention policy. |
-| Redis / persisted queues | WAIT | product slice proves critical jobs, fanout, retries, or durability. |
-| SwiftUI / Compose through Portal | WAIT | PWA proof plus native product need and local SDK/build evidence. |
-| Paid infra / provisioning / live providers | NO-GO | requires a later explicit approval ADR or runbook gate. |
+| Track                                          | Decision           | Evidence required before promotion                                                    |
+| ---------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------- |
+| Rust service: Tokio, Axum, tracing, SQLx-ready | GO                 | fmt, clippy, tests, license/advisory audit, local smoke.                              |
+| Astro/MDX/Bun static publication               | GO                 | static build, self-hosted assets, no tracking/CDN by default, smoke.                  |
+| PostgreSQL + SQLx                              | Conditional GO     | durable persistence need, migrations, local fixtures, DB security evidence.           |
+| OIDC/Keycloak + Biscuit                        | Conditional GO     | org/multi-tenant need, allow/deny policy fixtures, token redaction proof.             |
+| DB security / RLS / grants / pgvector          | GO as gate         | sanitized schema/migration fixtures and Wrench DB evidence.                           |
+| Dioxus/PWA + Portal                            | SPIKE LOCAL        | wasm32 check, mobile smoke, Portal boundary, no JS-readable auth token.               |
+| RAG / pgvector / citation generation           | SPIKE LOCAL STRICT | fixture-first retrieval/generation, citation validation, redaction, retention policy. |
+| Redis / persisted queues                       | WAIT               | product slice proves critical jobs, fanout, retries, or durability.                   |
+| SwiftUI / Compose through Portal               | WAIT               | PWA proof plus native product need and local SDK/build evidence.                      |
+| Paid infra / provisioning / live providers     | NO-GO              | requires a later explicit approval ADR or runbook gate.                               |
 
 ## Consequences
 

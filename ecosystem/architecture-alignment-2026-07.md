@@ -193,3 +193,24 @@ Reco: **(c)** — demand-driven; the rebuild has no asker today, the flagship sl
 ---
 
 _Method note: recon fiches and skeptic transcripts are session artifacts; this document carries the verified conclusions with their evidence. Refuted claims are retained in §5 so the next reviewer knows what was already challenged._
+
+---
+
+## Addendum — Arbitration (Constantin, 2026-07-03)
+
+| # | Arbitrage |
+|---|-----------|
+| DA-1 | **(a)** — Dioxus 0.7.9 ratified (ADR 0032); desktop = next spike, demand-driven |
+| DA-2 | **(a)** — rumble-cos rebuilds on Dioxus SSG. Correction to §3.1/§4: ask-cos.fr never went live — the recon's Clever Cloud link was *declared*, not deployed; "healthy public site" overstated the deployment. Clean replacement; redirects downgraded to history; the 221-item corpus is the asset |
+| DA-3 | Reco — 0023 pair merged into ADR 0033; 0024/0025 seconds renumbered 0034/0035; CI uniqueness gate added |
+| DA-4 | bolt-harness stays **bolt** — resolved by the refined layer model (ADR 0033): prefix = owning domain, deployment_class = CI-gated claim, wrench = transverse only |
+| DA-5 | `wrench-dioxus-lab` rename ratified; template keeps its neutral public name |
+| DA-6 | Full governance onboarding wave |
+| DA-7 | ADR 0028 **Accepted with two amendments**: closed permission vocabulary in workspace-identity.v0.1; gear extraction D11-gated (no speculative gear-identity repo) |
+| DA-8 | **Big-bang posture ratified**: nothing is in service, blocking is acceptable. ADR 0029 Accepted; lm builds the real session runtime (contract frozen first); ai-practices' store = frozen shim deleted at convergence |
+| DA-9 | portal-core: policy aligned on MIT/Apache/MPL floor + cargo-deny gate |
+| DA-10 | Root dispositions as proposed; Codex/ = delete (empty) |
+| DA-11 | target-version artifacts created (ratification vehicle) |
+| DA-12 | Wave framing confirmed: target-version anchor, rumble-lm slice as proof spine, per-repo delegation on handoff-compatible plans, cos-matic dogfooding pilot on the cos rebuild |
+
+Consequence of DA-8 on §6's recommendations: the sequencing caution in DA-2 reco (c) is withdrawn — with no service to protect, target coherence outweighs non-disruption. Ratified in the same wave: ADR 0032, ADR 0033, decision-log 2026-07-03 block, target-version 1.0.0.

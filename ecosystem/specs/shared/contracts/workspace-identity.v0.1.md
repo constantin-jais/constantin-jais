@@ -23,7 +23,19 @@ It is **not** a running identity service, an SSO integration, or a local-first s
 - **ActorReference** — `{ actor_id, actor_kind: human | agent | service | external, display_name }`. No PII beyond a display name; no credentials. Stable across products.
 - **Workspace** — `{ workspace_id, tenant_id, name, settings }`. The container that owns members, content, runs, and settings.
 - **WorkspaceMembership** — `{ workspace_id, actor_ref, status: active | invited | revoked }`. Ties an actor to a workspace.
-- **RoleAssignment** — `{ workspace_id, actor_ref, role, permissions: [string] }`. Product-specific roles mapped to shared permission primitives where possible.
+- **RoleAssignment** — `{ workspace_id, actor_ref, role, permissions: [permission_primitive] }`. `role` is a product-named bundle; `permissions` is restricted to the closed primitive vocabulary below (ADR 0028 amendment 1) — never free-form strings.
+
+## Permission primitives (closed vocabulary, v0.1)
+
+`read` · `comment` · `write` · `approve` · `invite` · `administer` · `delegate`
+
+Product roles are named bundles of these primitives, mapped explicitly:
+
+- crew's 8×9 matrix: each of the 9 permission columns maps to exactly one primitive (or a bundle); the mapping table lives in crew's spec and is validated against this list.
+- lm's `Host` ⊇ `{read, comment, write, approve, invite, administer}`; `Participant` ⊇ `{read, comment, write}`.
+- canvas roles map at reconciliation (2026-07 wave, ADR 0028 amendment 3).
+
+Adding a primitive is a v0.2 change (new contract version + ADR), not a product-local extension. `approve` and `delegate` are never grantable to `agent`/`service`/`external` actors (see Invariants).
 
 ## Invariants
 

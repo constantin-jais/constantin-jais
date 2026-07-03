@@ -1,6 +1,7 @@
 # ADR 0027 — Content-Site Method Exception and Planned Rebuild
 
 Status: Accepted
+Amended by: ADR 0032 (2026-07-03) — the elected web shell resolves to Dioxus 0.7.9; the rebuild targets the Dioxus SSG path, and the "current site stays online" condition is vacuous (no public deployment ever existed).
 Date: 2026-07-02
 Decision owner: Rumble COS product
 Related decision: D6 (decision-log)

@@ -1,6 +1,6 @@
 # ADR 0023 — Layer Classification by Client, Not by Verb
 
-Status: Accepted
+Status: Superseded by ADR 0033 (2026-07-03) — merged with its 0023 sibling into the consolidated layer model (domain prefixes + CI-gated deployment classes); the client test survives as the deployment-class criterion.
 Date: 2026-07-02
 Decision owner: Ecosystem Architecture
 Related decision: D15 (decision-log)

@@ -1,6 +1,6 @@
 # ADR 0028 — Workspace/Identity capability ownership
 
-Status: Proposed
+Status: Accepted (2026-07-03, arbitration DA-7 — Option C with the two amendments below)
 Date: 2026-07-02
 Decision owner: Constantin (ecosystem architecture)
 Related: shared-capabilities registry (overview §6, "Workspace / project space" — Candidate, "Discuss: shared Rumble vs Gear"); decision-log 2026-06-30 (canvas minimal ActorReference/WorkspaceMembership/RoleAssignment); D11 (Draft→Accepted criteria)
@@ -50,6 +50,12 @@ Deferred, on purpose (not part of Accepted scope): the shared Rumble code home (
 - Canvas, crew, and lm reconcile their local models to the shared contract at their next increment; divergence becomes a review finding.
 - This is the first application of the D11 criteria (≥2 implementations + ≥1 cross-repo test + adoption ADR) to a shared capability.
 
+## Amendments (2026-07-03, acceptance conditions)
+
+1. **Closed permission vocabulary.** `RoleAssignment.permissions` is restricted to the closed primitive list defined in `workspace-identity.v0.1` (`read`, `comment`, `write`, `approve`, `invite`, `administer`, `delegate`). Product roles (crew's 8×9 matrix, lm's Host/Participant, canvas roles) are named bundles of these primitives — never free-form strings. Without this, three permission vocabularies would persist under one schema.
+2. **Physical home discipline (D11-gated extraction).** The identity primitives live as contract + schema (+ per-product implementations) until the D11 threshold is met — two implementations (canvas, lm) plus the cross-repo Biscuit fixture from the adoption path. Only then is a dedicated Gear crate/repo extracted. No `gear-identity` repo is created speculatively.
+3. **Wave note (big-bang posture, DA-8):** canvas, crew, and lm reconcile their local models to the shared contract **within the 2026-07 wave**, not "at their next increment".
+
 ## Status note
 
-Proposed, not Accepted: the ownership split (B vs C) and the deferral of the shared Rumble home are Constantin's call. Merging this ADR as Accepted ratifies Option C; amending it to Option A or B before merge is the intended fork.
+Accepted 2026-07-03 (arbitration DA-7, `architecture-alignment-2026-07.md`): Option C ratified with the amendments above. The shared-capabilities registry row moves `Candidate → Accepted` with owner = "Gear (identity primitives) + shared Rumble (workspace container)".
