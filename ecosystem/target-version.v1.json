@@ -1,6 +1,6 @@
 {
   "format": "stack.target_version.v0.1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "ratified_at": "2026-07-03T12:00:00+02:00",
   "ratified_by": [
     "ADR 0032 (web shell: Dioxus 0.7.9)",
@@ -46,6 +46,15 @@
     "framework_version": "0.7.9",
     "evidence": "wrench-dioxus-lab ADR 0001 (2026-07-03): wasm 386 KiB gzip vs 450 budget, e2e 22 specs x 4 engines, HttpOnly session proven, a11y/token gates green",
     "adr": "ADR 0032"
+  },
+  "component_library": {
+    "name": "dioxus-primitives (Dioxus Components)",
+    "source": "git: DioxusLabs/components rev bf007c15d0cf4d04d3181cc46cf12325aa773955",
+    "styling": "headless/unstyled, WAI-ARIA; all appearance via Portal tokens (tokens-only)",
+    "license": "MIT OR Apache-2.0",
+    "crates_io_follow_up": "un-pin to a semver range when a real (non-0.0.0) release exists on crates.io (lab friction F-006)",
+    "adr": "ADR 0036",
+    "first_application": "rumble-ai-practices"
   },
   "native_delivery": "portal + UniFFI (SwiftUI / Jetpack Compose shells); portal-apple frozen at proven-bridge tag, portal-android frozen pending SDK/NDK-verifiable CI",
   "desktop": "deferred - next spike, demand-driven (ADR 0032 s4; the Tauri-2 choice was Leptos-coupled and is re-opened)",

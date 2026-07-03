@@ -63,6 +63,20 @@
         "adr": { "type": "string" }
       }
     },
+    "component_library": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "source", "styling", "adr"],
+      "properties": {
+        "name": { "type": "string" },
+        "source": { "type": "string" },
+        "styling": { "type": "string" },
+        "license": { "type": "string" },
+        "crates_io_follow_up": { "type": "string" },
+        "adr": { "type": "string" },
+        "first_application": { "type": "string" }
+      }
+    },
     "native_delivery": { "type": "string" },
     "desktop": { "type": "string" },
     "static_publication": { "type": "string" },
