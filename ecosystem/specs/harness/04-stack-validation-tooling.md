@@ -227,8 +227,8 @@ P0 is complete when:
 
 ## References
 
-- `../shared/adrs/0024-stack-validation-local-only.md`
-- `../shared/adrs/0025-agentic-p0-tooling-backlog.md`
+- `../shared/adrs/0034-stack-validation-local-only.md`
+- `../shared/adrs/0035-agentic-p0-tooling-backlog.md`
 - `../shared/decision-log.md`
 - `../../status.md#current-stack-challenge-decisions`
 - `../../remaining-work.md#p0b--stack-validation-and-local-only-gates`
