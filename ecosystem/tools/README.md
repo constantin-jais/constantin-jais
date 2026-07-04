@@ -2,6 +2,20 @@
 
 This directory contains operational and governance scripts for the Rumble/Bolt/Wrench/Gear ecosystem.
 
+## readme_guardrail.py
+
+Validates the canonical README header introduced by the 2026-07-04 rollout. The contract is documented in [`../specs/shared/readme-standard.md`](../specs/shared/readme-standard.md).
+
+**Usage:**
+
+```bash
+python3 ecosystem/tools/readme_guardrail.py ../repo-a ../repo-b/README.md
+python3 ecosystem/tools/readme_guardrail.py --from-list readme-paths.txt
+python3 ecosystem/tools/readme_guardrail.py --self-test
+```
+
+The guardrail is dependency-free and checks only mechanical drift: required fields, layer and `deployment_class` vocabulary, maturity qualifier, sovereign licensing wording, required sections, and machine-local paths. It does not rewrite README files and does not replace human review of maturity evidence.
+
 ## state-snapshot.sh
 
 Archives ecosystem state for sovereignty backup, compliance audits, and disaster recovery.
