@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://constantin-jais.local/ecosystem/contracts/workspace-identity.v0.1.schema.json",
+  "title": "WorkspaceIdentity v0.1",
+  "description": "Shared workspace/identity fact set authorized over by delegated-authorization-biscuit. Promoted from the rumble-canvas implementation (D11 #1) and ratified per ADR 0028. Authorization facts only: no secrets, passwords, tokens, or PII beyond a display name.",
+  "type": "object",
+  "required": ["workspace_id", "tenant_id"],
+  "properties": {
+    "workspace_id": { "type": "string", "minLength": 1 },
+    "tenant_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Multi-tenant isolation boundary (mandatory, ADR 0028 invariant). Travels into every Biscuit authority block; never cross-tenant."
+    },
+    "memberships": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/WorkspaceMembership" }
+    },
+    "role_assignments": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/RoleAssignment" }
+    }
+  },
+  "$defs": {
+    "ActorType": {
+      "type": "string",
+      "enum": ["human", "agent", "service", "external"],
+      "description": "Kind of actor (closed vocabulary, ADR 0028 amendment 1). Serialized snake_case."
+    },
+    "ActorReference": {
+      "type": "object",
+      "required": ["actor_id", "actor_type"],
+      "properties": {
+        "actor_id": { "type": "string", "minLength": 1 },
+        "actor_type": { "$ref": "#/$defs/ActorType" },
+        "display_name": {
+          "type": ["string", "null"],
+          "description": "Only non-credential PII permitted; may be null."
+        },
+        "source": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "PermissionPrimitive": {
+      "type": "string",
+      "enum": [
+        "read",
+        "comment",
+        "write",
+        "approve",
+        "invite",
+        "administer",
+        "delegate"
+      ],
+      "description": "Closed permission vocabulary (ADR 0028 amendment 1). Adding a primitive is a v0.2 change (new version + ADR), never a product-local extension."
+    },
+    "MembershipStatus": {
+      "type": "string",
+      "enum": ["active", "invited", "revoked"]
+    },
+    "WorkspaceMembership": {
+      "type": "object",
+      "required": ["id", "workspace_id", "actor_ref", "status", "joined_at"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "workspace_id": { "type": "string", "minLength": 1 },
+        "actor_ref": { "$ref": "#/$defs/ActorReference" },
+        "status": { "$ref": "#/$defs/MembershipStatus" },
+        "joined_at": { "type": "string", "format": "date-time" },
+        "revoked_at": { "type": ["string", "null"], "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "RoleAssignment": {
+      "type": "object",
+      "required": [
+        "id",
+        "workspace_id",
+        "actor_ref",
+        "role",
+        "permissions",
+        "created_at"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "workspace_id": { "type": "string", "minLength": 1 },
+        "actor_ref": { "$ref": "#/$defs/ActorReference" },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Product-named role bundle (e.g. 'owner', 'editor', 'Host', 'Participant'), mapped explicitly to the permission primitives below."
+        },
+        "permissions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/PermissionPrimitive" },
+          "minItems": 1
+        },
+        "created_at": { "type": "string", "format": "date-time" },
+        "revoked_at": { "type": ["string", "null"], "format": "date-time" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
