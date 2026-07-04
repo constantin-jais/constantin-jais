@@ -45,7 +45,7 @@ Coverage note: **M5** (ratification artifacts) is **done** (target-version 1.1.0
 
 | Product                                    | State      | Next / blocker                                                                          | Anchor                      |
 | ------------------------------------------ | ---------- | --------------------------------------------------------------------------------------- | --------------------------- |
-| rumble-lm — session runtime + DoD slice    | partial    | workspace-scoped runtime (#52), ScoreSink seam (#46/#48), and browser E2E smoke (#49) done; source/provenance ingestion still fixture-first | ADR 0029; remaining-work 2a |
+| rumble-lm — session runtime + DoD slice    | partial    | workspace scope (#52), ScoreSink seam (#46/#48), browser E2E (#49), and public grounding summary (#53) done; real source/provenance ingestion/export still fixture-first | ADR 0029; remaining-work 2a |
 | rumble-ai-practices — corpus + convergence | partial    | corpus 30q DoD, media-bias audit, drop frozen shim at lm convergence                    | remaining-work 3            |
 | rumble-canvas — MVP multi-user             | partial    | UI absent; unblocked by M1 (now done)                                                   | remaining-work 2c           |
 | rumble-cos — Dioxus SSG rebuild            | partial    | **verified never deployed** (DA-2 §205); clean rebuild, corpus+redirects are the assets | ADR 0032 §3; DA-2a          |
