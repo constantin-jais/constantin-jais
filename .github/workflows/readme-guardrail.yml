@@ -1,0 +1,33 @@
+name: README guardrail
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ecosystem/tools/readme_guardrail.py"
+      - "ecosystem/tools/test_readme_guardrail.py"
+      - "ecosystem/tools/README.md"
+      - "ecosystem/specs/shared/readme-standard.md"
+      - ".github/workflows/readme-guardrail.yml"
+  pull_request:
+    paths:
+      - "ecosystem/tools/readme_guardrail.py"
+      - "ecosystem/tools/test_readme_guardrail.py"
+      - "ecosystem/tools/README.md"
+      - "ecosystem/specs/shared/readme-standard.md"
+      - ".github/workflows/readme-guardrail.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readme-guardrail:
+    name: README guardrail tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Unit tests
+        run: python3 -m unittest discover -s ecosystem/tools -p 'test_readme_guardrail.py' -v
+      - name: Built-in smoke fixtures
+        run: python3 ecosystem/tools/readme_guardrail.py --self-test
