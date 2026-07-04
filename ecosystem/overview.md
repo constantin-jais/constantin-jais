@@ -9,7 +9,7 @@ It has four jobs:
 3. Log shared capability candidates that may become Portal, Bolt, Wrench, Gear, or shared Rumble bricks.
 4. Keep decisions, open questions, and remaining work visible.
 
-No external product inspirations are listed here. Inspirations may be used privately during discovery, but public specs must describe the ecosystem’s own product intent, language, and architecture.
+External projects are not listed here as product inspirations to copy. When one appears in this control plane, it is an explicit decomposition, anti-model, or capability map; public specs must still describe the ecosystem’s own product intent, language, and architecture.
 
 ---
 
@@ -31,6 +31,44 @@ The product layer does not hard-code everything. Instead:
 
 This keeps products useful, the harness reusable, and the architecture resistant to scope creep.
 
+### 1.1 Identity by contrast: odysseus as the anti-model
+
+The odysseus decomposition (`specs/shared/odysseus-decomposition.md`) is useful precisely because it is a strong counter-example. Its capability catalogue is interesting, but its principle is quarantined: one AGPL monolith, one process, one shared database, and advisory tests would undo this forge's bounded-context doctrine.
+
+```text
+  ODYSSEUS (repoussoir)          LA FORGE (identity)
+  ─────────────────────          ─────────────────────────────
+  1 monolith, everything inside  5 layers, explicit contracts
+  AGPL viral surface             MIT/Apache/MPL-compatible only
+  vibecoded fast                 spec-first, proof-gated
+  tests advisory                 nothing merges without green gates
+  hype and breadth               "the process is the product"
+```
+
+The forge may rebuild selected ideas from odysseus, but never adopts its code, dependencies, or license posture. Every rebuild lands in the owning layer and must pass the same sovereignty, evidence, and boundary gates as any internal feature.
+
+```text
+Rumble  product meaning, workflows, user-facing pressure
+Portal  client substrate: tokens, primitives, accessibility, bindings
+Bolt    planning and orchestration gates, never product UX
+Wrench  inspection and evidence, never durable truth
+Gear    source/artifact/runtime substrate, provenance, distribution
+```
+
+The target DoD loop is intentionally cross-layer:
+
+```text
+Rumble need
+→ Portal client coherence when UI is needed
+→ Gear Loader / Gear Memory for source and provenance
+→ Gear Depot / Gear Cable for artifacts and delivery
+→ Wrench evidence for inspection
+→ Bolt planning-only handoff and gates
+→ Rumble Cos / notes explain what was learned
+```
+
+Operational decisions are evaluated in order: **Security > Quality > Performance > Completeness**. Sovereignty, privacy/RGPD, and license compatibility are gates, not afterthoughts.
+
 ## Target stack map
 
 ```text
@@ -41,7 +79,8 @@ RUMBLE — products / user-facing meaning
 ├─ rumble-feed-mind     feed/watch curation and explainable rules
 ├─ rumble-lm            source-grounded learning and live facilitation
 ├─ rumble-note          local-first personal knowledge and context export
-└─ rumble-ai-practices  professional AI-practice training
+├─ rumble-ai-practices  professional AI-practice training
+└─ rumble-ai-benchmark  done benchmark artifact and playable comparison
 
 PORTAL — client platform / design system substrate
 ├─ portal-forge         DTCG tokens → CSS/Swift/Kotlin + WCAG
@@ -55,7 +94,8 @@ BOLT — orchestration / plans / gates
 
 WRENCH — inspection / validation / evidence
 ├─ wrench-inspect       structural, policy, spec, browser/a11y evidence
-└─ wrench-db-inspect    Postgres/RLS/grants/migration/pgvector evidence
+├─ wrench-db-inspect    Postgres/RLS/grants/migration/pgvector evidence
+└─ wrench-dioxus-lab    Dioxus/PWA proof lab and template patterns
 
 GEAR — runtime substrate / memory / artifacts / release
 ├─ gear-loader          canonical extraction and source candidates
