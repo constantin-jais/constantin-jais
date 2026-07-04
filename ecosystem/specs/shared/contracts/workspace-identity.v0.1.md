@@ -1,7 +1,9 @@
 # Contract — WorkspaceIdentity v0.1
 
-Status: Draft / decision material for ADR 0028.
-Schema: `workspace-identity.v0.1.schema.json` (to be authored once ADR 0028 ownership is Accepted).
+Status: **Accepted 2026-07-04** (ADR 0028). Ratified by promoting the schema from the `rumble-canvas` D11 #1 implementation (the real, tested shape) to the control plane; the registry row moves `Candidate → Accepted`.
+Schema: `workspace-identity.v0.1.schema.json` (present, JSON Schema draft 2020-12).
+
+> **Reconciliation note (2026-07-04).** The ratified schema is canvas's implemented shape (fields `actor_type`, `source`, and the `id`/`joined_at`/`created_at`/`revoked_at` fields that carry the revocation-cascade invariant). Explicit changes made in promoting it to the control plane, none silent: (1) `actor_kind` prose aligned to the implemented `actor_type`; (2) upgraded from draft-07 to draft 2020-12 with `$id` and `$defs`; (3) **`tenant_id` made required** at the fact-set root to enforce the multi-tenant invariant (axis #1); (4) `minLength: 1` added to every identifier string (`workspace_id`, `tenant_id`, `actor_id`, `id`, `role`); (5) `additionalProperties: false` added to every object type (`ActorReference`, `WorkspaceMembership`, `RoleAssignment`) so unknown fields are rejected. Two canvas follow-ups this makes explicit, each a small increment, not a contract change: (a) canvas must emit `tenant_id` (its domain does not yet — until then, canvas objects will not validate against this stricter schema, which is intended: the contract is the target); (b) canvas's local `specs/shared/contracts/workspace-identity.v0.1.schema.json` re-syncs to this copy (adopting the same required/minLength/additionalProperties strictness and draft 2020-12) so a single schema governs. A richer `Workspace` type (`name`, `settings`) stays a v0.2 concern per Non-goals.
 
 ## Purpose
 
@@ -20,7 +22,7 @@ It is **not** a running identity service, an SSO integration, or a local-first s
 
 ## Core types (minimal, promoted from `rumble-canvas/05b-domain-decisions.md`)
 
-- **ActorReference** — `{ actor_id, actor_kind: human | agent | service | external, display_name }`. No PII beyond a display name; no credentials. Stable across products.
+- **ActorReference** — `{ actor_id, actor_type: human | agent | service | external, display_name?, source? }`. No PII beyond a display name; no credentials. Stable across products. (The field is `actor_type` in the ratified schema and canvas code — the earlier `actor_kind` prose was aligned to the implementation on 2026-07-04.)
 - **Workspace** — `{ workspace_id, tenant_id, name, settings }`. The container that owns members, content, runs, and settings.
 - **WorkspaceMembership** — `{ workspace_id, actor_ref, status: active | invited | revoked }`. Ties an actor to a workspace.
 - **RoleAssignment** — `{ workspace_id, actor_ref, role, permissions: [permission_primitive] }`. `role` is a product-named bundle; `permissions` is restricted to the closed primitive vocabulary below (ADR 0028 amendment 1) — never free-form strings.
@@ -46,10 +48,10 @@ Adding a primitive is a v0.2 change (new contract version + ADR), not a product-
 
 ## Adoption path (D11 criteria)
 
-1. Canvas maps its minimal `ActorReference`/`WorkspaceMembership`/`RoleAssignment` onto this contract (implementation #1).
-2. lm maps Host/Participant onto `RoleAssignment` (implementation #2).
-3. One cross-repo fixture proves a Biscuit token minted against a `WorkspaceIdentity` fact set authorizes a canvas→handoff request.
-4. On acceptance, the registry row moves `Candidate → Accepted`.
+1. Canvas maps its minimal `ActorReference`/`WorkspaceMembership`/`RoleAssignment` onto this contract (implementation #1). **Done** (canvas `crates/domain` types + `integration_test_workspace_identity`); remaining canvas increment = emit `tenant_id` and re-sync the local schema to this one (Reconciliation note above).
+2. lm maps Host/Participant onto `RoleAssignment` (implementation #2). **Pending** — lm has no identity impl in `crates/*/src` yet; this is the next lm increment toward M1.
+3. One cross-repo fixture proves a Biscuit token minted against a `WorkspaceIdentity` fact set authorizes a canvas→handoff request. Canvas's `token_sealer` + D11 fixture cover the mint side; the end-to-end proof lands with M2 (cos-matic real verification).
+4. On acceptance, the registry row moves `Candidate → Accepted`. **Done 2026-07-04.**
 
 ## Non-goals (anti-gold-plating)
 

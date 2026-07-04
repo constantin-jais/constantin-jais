@@ -73,6 +73,11 @@ SUITES = [
         schema=SPECS / "harness" / "rumble-delivery-maturity.v0.1.schema.json",
         fixtures=SPECS / "harness" / "fixtures" / "maturity",
     ),
+    Suite(
+        name="workspace-identity",
+        schema=SPECS / "shared" / "contracts" / "workspace-identity.v0.1.schema.json",
+        fixtures=SPECS / "shared" / "contracts" / "fixtures" / "workspace-identity",
+    ),
 ]
 
 LEVEL_ORDER = {f"R{i}": i for i in range(11)}
