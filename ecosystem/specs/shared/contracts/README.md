@@ -16,7 +16,7 @@ This directory contains cross-product contracts that Rumble/Bolt/Wrench/Gear con
 | `delegated-authorization-biscuit.v0.1.md`           | Draft / P0 | Shared Biscuit delegated-authorization facts, rights, lifecycle, audit, and product matrix.                                                         |
 | `delegated-authorization-biscuit.v0.1.tests.md`     | Draft / P0 | Product-neutral conformance tests for Biscuit delegation.                                                                                           |
 | `delegated-authorization-biscuit.v0.1.prototype.md` | Draft      | Pre-implementation spike plan for verifier/authorizer behavior.                                                                                     |
-| `workspace-identity.v0.1.md`                        | Draft      | Shared actor/workspace/membership/role model; decision material for ADR 0028 (ownership).                                                           |
+| `workspace-identity.v0.1.md`                        | Accepted   | Shared actor/workspace/membership/role model ratified by ADR 0028 and closed by Rumble-Canvas #4 tenant emission/schema sync.                        |
 | `../gear-loader/gear-loader.v0.1.schema.json`       | Draft / P0 | JSON Schema bundle for Gear Loader (formerly wrench-loader) extraction requests, canonical documents, Gear source candidates, and evidence reports. |
 | `../../harness/cosmatic-planning.v0.1.schema.json`  | Draft / P0 | JSON Schema bundle for Bolt/cos-matic planning requests, evidence refs, gates, plan reports, run intents, refusals, and audit events.               |
 
