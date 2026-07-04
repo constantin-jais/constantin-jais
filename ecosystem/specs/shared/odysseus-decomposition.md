@@ -2,7 +2,8 @@
 
 Date: 2026-07-04
 Source project: `pewdiepie-archdaemon/odysseus` (branch `dev`, HEAD `1f6dc805`, read 2026-07-04) — a self-hosted AI workspace (chat, agents, deep research, documents, email, notes, calendar, local model workflows). Python/FastAPI backend + vanilla-JS PWA. — <https://github.com/pewdiepie-archdaemon/odysseus>
-Decision: **inspiration-first, PROPOSED 2026-07-04** — no `adopt` is available for any element (license, below); the useful split is `rebuild` (reimplement the concept on our stack) vs `knowledge` (reference/counter-example, no increment) vs `reject` vs `quarantine`. Verdicts below are proposed for arbitration; nothing ships from this document until ratified.
+Decision: **inspiration-first, ACCEPTED 2026-07-04** — no `adopt` is available for any element (license, below); the useful split is `rebuild` (reimplement the concept on our stack) vs `knowledge` (reference/counter-example, no increment) vs `reject` vs `quarantine`.
+Review: **Accepted 2026-07-04** — all verdicts ratified (owner instruction "fais le et continue"); the five open questions are resolved below and in the 2026-07-04 `decision-log.md` entries. Each `rebuild` remains gated behind its own factual trigger; no increment ships from this document without that trigger firing.
 Scope: personal forge ecosystem only.
 
 ## Why this document
@@ -160,13 +161,13 @@ Per the owner's arbitration, email and calendar are treated as serious product c
 - **sovereign-stack + license policy** — the whole AGPL posture (no adopt/dep/copy) and E43/E36 (PyMuPDF-AGPL trap) apply the MIT/Apache/MPL floor and the `cargo-deny` gate literally.
 - **`github-stars-stack-audit.md`** — Q4 below proposes a retroactive `odysseus` row pointing here, matching the meilisearch/codebase-memory precedent.
 
-## Open questions (for arbitration)
+## Open questions — resolved 2026-07-04
 
-1. **SSRF helper ownership (E10).** Rebuild as a small shared Rust helper first consumed by gear-loader, or inline it in gear-loader and generalize only when wrench-inspect asks? Recommendation: inline-in-gear-loader first (YAGNI), extract on second consumer — mirrors the gear-memory "no premature capability" rule.
-2. **Product cards → repos (E12–E20).** Do `rumble-mail` / `rumble-cal` become tracked candidate repos now (bootstrapped, gated behind M1), or stay paper candidates in this spec until M1 lands? Recommendation: paper candidates until M1 — creating identity-blocked product repos now repeats the "repo born outside governance" anti-pattern.
-3. **Untrusted-context envelope scope (E22).** A single shared primitive in a Gear crate, or a documented pattern each surface reimplements? Recommendation: documented pattern now, extract to a crate on the second real consumer.
-4. **Stars-audit traceability (E43).** Add a retroactive `odysseus` row to `github-stars-stack-audit.md` (disposition `knowledge`, layer `cross-layer`, risk `high` — AGPL license + ~1-month-old unaudited codebase)? Recommendation: yes, matching the meilisearch precedent.
-5. **Anti-pattern register.** Should E1/E24/E28/E40 be recorded in a durable "counter-examples" note (bolt-harness threat model), or is their capture in this spec sufficient? Recommendation: capture here now; promote to the threat model only if a second source reinforces the same anti-pattern.
+1. **SSRF helper ownership (E10)** → **inline in gear-loader first**, extract to a shared Rust helper only on a second consumer (wrench-inspect); mirrors the gear-memory "no premature capability" rule. Trigger: the first gear-loader increment that enables `SingleUrl`/`BoundedCrawl`.
+2. **Product cards → repos (E12–E20)** → **paper candidates until M1**; no repo creation now. Bootstrapping identity-blocked product repos would repeat the "repo born outside governance" anti-pattern; both are blocked on M1 (workspace/identity, ADR 0028) like canvas.
+3. **Untrusted-context envelope scope (E22)** → **documented pattern now** (escape+tag+label, adjacent to ADR 0015), extracted to a Gear crate only on the second real consumer; the forge hosts no model-facing surface today, so a shared primitive would be speculative.
+4. **Stars-audit traceability (E43)** → **yes**: a retroactive `pewdiepie-archdaemon/odysseus` row is added to `github-stars-stack-audit.md` (`knowledge` / `cross-layer` / risk `high`), pointing here.
+5. **Anti-pattern register (E1/E24/E28/E40)** → **captured in this spec**; promoted to the bolt-harness threat model only if a second source reinforces the same anti-pattern.
 
 ## Sources
 
