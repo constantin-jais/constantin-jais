@@ -1,0 +1,12 @@
+{
+  "workspace_id": "ws_demo",
+  "memberships": [
+    {
+      "id": "mem_host",
+      "workspace_id": "ws_demo",
+      "actor_ref": { "actor_id": "actor_host", "actor_type": "human" },
+      "status": "active",
+      "joined_at": "2026-07-04T10:00:00Z"
+    }
+  ]
+}
