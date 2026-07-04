@@ -3,7 +3,7 @@
 Date: 2026-07-04
 Status: **Proposed** product-candidate specification. Paper only; no product repository, service, schema crate, or UI implementation is created by this document.
 Source anchor: `odysseus-decomposition.md` E12–E21 plus E22, accepted 2026-07-04. Odysseus remains AGPL inspiration only: this file contains prose, product contracts, and stable concept names; no dependency, no source copy, and no line-by-line translation.
-Decision context: odysseus Q2 says `rumble-mail` and `rumble-cal` are serious paper candidates, but repository creation is blocked until both product ratification and M1 closure. M1 has the `workspace-identity.v0.1` contract accepted, but remains incomplete until canvas emits `tenant_id` and re-syncs its local schema.
+Decision context: odysseus Q2 says `rumble-mail` and `rumble-cal` are serious paper candidates. M1 is now closed (Rumble-Canvas #4 emits `tenant_id` and re-syncs the local schema), but repository creation remains blocked until explicit product ratification.
 Scope: personal forge ecosystem only.
 
 ## 1. Why this document
@@ -20,7 +20,7 @@ This document turns those candidates into contract-first paper specs. It intenti
 | Constraint | Contract impact |
 | --- | --- |
 | AGPL source boundary | Rebuild concepts from scratch on the forge stack. No copied code, no derived source text, no dependency, no source fragments in examples. |
-| M1 gate | Product repos are forbidden until product ratification plus M1 closure. Contracts and specs may proceed in this control plane. |
+| Product creation gate | Product repos are forbidden until explicit product ratification. M1 identity closure is satisfied, but it does not imply repo creation. Contracts and specs may proceed in this control plane. |
 | Security > Quality > Performance > Completeness | Mail bodies, calendar descriptions, ICS payloads, and contacts are hostile or PII-bearing until proven otherwise. Unsafe completeness is rejected. |
 | Workspace identity | Every product object is scoped by `tenant_id` and `workspace_id`; authorization is derived from `workspace-identity.v0.1` plus Biscuit delegation. |
 | RGPD erasure | Mail, calendar, contacts, triage outputs, and parse outputs carry PII. Erasure/anonymization wins over stale active records and index rebuilds. |
@@ -92,7 +92,7 @@ All verdicts are **Proposed 2026-07-04**. Dispositions available in this file ar
 
 | # | Source element | Product capability | Layer | Disposition | Contract shape | Action |
 | --- | --- | --- | --- | --- | --- | --- |
-| M1 | E12 IMAP polling, pooling, UID addressing | Multi-account inbox sync with stable message identity | `rumble-mail` | **rebuild (product-gated)** | `MailAccount`, `MailboxFolder`, `MessageEnvelope`, `MessageBody`, `SyncCursor`, `SyncJob` | Specify provider-neutral UID identity and sync cursors; defer repo until product ratification + M1 closure. |
+| M1 | E12 IMAP polling, pooling, UID addressing | Multi-account inbox sync with stable message identity | `rumble-mail` | **rebuild (product-gated)** | `MailAccount`, `MailboxFolder`, `MessageEnvelope`, `MessageBody`, `SyncCursor`, `SyncJob` | Specify provider-neutral UID identity and sync cursors; defer repo until explicit product ratification (M1 is closed). |
 | M2 | E13 compose, sanitize, SMTP send, scheduled send | Safe draft/send/outbox workflow | `rumble-mail` | **rebuild (product-gated)** | `MailDraft`, `SendIntent`, `ScheduledSend`, `OutboxReceipt` | Require sanitize-before-render, multipart output, idempotent send intent, and human approval before assistant-generated send. |
 | M3 | E14 AI triage | Differentiating product layer: summaries, style-aware replies, classification, urgency, calendar extraction | `rumble-mail` | **rebuild (product-gated)** | `TriageRun`, `MessageSummary`, `ReplyDraft`, `MessageClassification`, `UrgencyAlert`, `CalendarExtraction` | Make triage the core product contract; assistant outputs stay proposals with source refs, confidence, and human acceptance gates. |
 | M4 | E15 email data model split | Separate list/index, body cache, summaries, replies, tags, extractions | `rumble-mail` | knowledge + rebuild shape | Product-owned tables/collections by concern; no copied schema | Preserve separation of concerns; improve eviction, migrations, and erasure semantics from scratch. |
@@ -305,9 +305,9 @@ This section is the distinctive contract for `rumble-cal`. It designs out the od
 
 | Capability | Landing if product is ratified | Gate / trigger |
 | --- | --- | --- |
-| Mail sync/read/send | Future `rumble-mail` repo | Product ratification + M1 closure + provider credential contract. |
+| Mail sync/read/send | Future `rumble-mail` repo | Product ratification + provider credential contract (M1 is closed). |
 | Mail triage | Future `rumble-mail` core service | Hostile-content fixtures + assistant-output approval contract. |
-| Calendar sync/write-back | Future `rumble-cal` repo | Product ratification + M1 closure + conflict fixtures. |
+| Calendar sync/write-back | Future `rumble-cal` repo | Product ratification + conflict fixtures (M1 is closed). |
 | Calendar conflict engine | `rumble-cal` domain module, possibly reusable only after a second calendar consumer | Conflict contract accepted; tests for ETag, tombstone, recurrence, unknown outcome. |
 | Contacts parser/normalizer | Start product-local; extract shared Rust library only after both products need it | ADR 0022 extraction rule; no shared DB. |
 | Provenance / privacy transitions | Gear Memory safe refs and tombstones | Product emits safe projections; raw PII never enters Gear audit metadata. |
@@ -321,7 +321,7 @@ These are paper acceptance criteria for the eventual product repos. They are not
 
 | Area | Given / When / Then |
 | --- | --- |
-| M1 gate | Given M1 is not closed, when this spec lands, then no `rumble-mail` or `rumble-cal` repository exists. |
+| Product ratification gate | Given product ratification is absent, when this spec lands or future sessions continue, then no `rumble-mail` or `rumble-cal` repository exists. |
 | License boundary | Given odysseus is AGPL, when a future implementation starts, then cargo/npm dependencies and source files contain no odysseus dependency or copied expression. |
 | Tenant isolation | Given a token organization differs from route/body/database tenant, when any mail/cal operation is requested, then authorization fails closed. |
 | Agent safety | Given an assistant-generated reply draft, when send is requested without human approval, then send fails. |
@@ -343,7 +343,7 @@ These are paper acceptance criteria for the eventual product repos. They are not
 | No repository creation | Pass by design: this file is the only product-candidate artifact in this PR. |
 | No SSO/OIDC scope creep | Pass: workspace identity stays on `workspace-identity.v0.1`; provider OAuth is scoped to external mailbox/calendar providers only. |
 | No local-first sync protocol | Pass: CalDAV/IMAP sync is provider integration; no cross-device local-first protocol is specified. |
-| M1 respected | Pass: repo trigger remains product ratification + M1 closure, not just accepted contract text. |
+| Product gate respected | Pass: repo trigger remains explicit product ratification; M1 closure alone does not authorize repository creation. |
 | Bounded context respected | Pass: contacts are per-product stores; Gear stores safe refs/projections only. |
 | Conflict design concrete | Pass: state model, write algorithm, merge policy, recurrence, tombstones, and acceptance tests are specified. |
 | AGPL boundary respected | Pass: prose and contract shapes only; no code blocks, dependencies, or source-derived snippets. |
@@ -363,7 +363,7 @@ These are paper acceptance criteria for the eventual product repos. They are not
 ## 13. Sources
 
 - `ecosystem/specs/shared/odysseus-decomposition.md` — E12–E21 product candidates, E22 untrusted-context pattern, product cards, landing map, accepted 2026-07-04.
-- `ecosystem/specs/shared/decision-log.md` — 2026-07-04 odysseus Q2 paper candidates, C5 M1 partial closure, C9 RGPD erasure.
+- `ecosystem/specs/shared/decision-log.md` — 2026-07-04 odysseus Q2 paper candidates, C5/M1 workspace-identity closure, C9 RGPD erasure.
 - `ecosystem/specs/shared/contracts/workspace-identity.v0.1.md` — tenant/workspace/actor/permission contract, accepted 2026-07-04.
 - `ecosystem/specs/shared/contracts/delegated-authorization-biscuit.v0.1.md` — shared Biscuit token facts, authorizer rules, safe audit refs.
 - `ecosystem/specs/shared/adrs/0015-wrench-loader-hostile-content-evidence.md` — hostile-content evidence doctrine.
