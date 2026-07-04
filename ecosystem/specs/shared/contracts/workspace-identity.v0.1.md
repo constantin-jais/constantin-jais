@@ -49,7 +49,7 @@ Adding a primitive is a v0.2 change (new contract version + ADR), not a product-
 ## Adoption path (D11 criteria)
 
 1. Canvas maps its minimal `ActorReference`/`WorkspaceMembership`/`RoleAssignment` onto this contract (implementation #1). **Done** — canvas `crates/domain` types + `integration_test_workspace_identity`; tenant emission + local-schema re-sync completed in Rumble-Canvas #4.
-2. lm maps Host/Participant onto `RoleAssignment` (implementation #2). **Pending** — lm has no identity impl in `crates/*/src` yet; this remains the next lm workspace-identity adoption increment.
+2. lm maps Host/Participant onto `RoleAssignment` (implementation #2). **Done** — Rumble-LM #51 (`96845ca`) maps Host/Participant to the accepted `RoleAssignment` shape with `actor_ref`, adds a tenant-scoped `WorkspaceIdentity` projection, and keeps real Biscuit verification out of scope.
 3. One cross-repo fixture proves a Biscuit-shaped token minted against a `WorkspaceIdentity` fact set authorizes a canvas→handoff request. **Canvas side done in Rumble-Canvas #5** with a deterministic tenant-scoped mock; the end-to-end real Biscuit proof lands with M2 (cos-matic real verification).
 4. On acceptance, the registry row moves `Candidate → Accepted`. **Done 2026-07-04.**
 
