@@ -28,7 +28,7 @@ Turn a rough product idea into a structured, implementable specification without
 #### Pain Points
 
 - Ideas are scattered across notes, chats, docs, and code.
-- Product decisions are implicit and easy to forget.
+- Product decisions are implicit and easy to ecosystemt.
 - Agents can implement too early from ambiguous instructions.
 - Data model and permission details are often discovered too late.
 

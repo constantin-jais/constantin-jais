@@ -29,7 +29,7 @@ Small documentation fixes, fixture additions, typo fixes, and focused tests can 
 
 ## Project focus
 
-This repository focuses on ecosystem documentation, forge health, and cross-repository status.
+This repository focuses on ecosystem documentation, ecosystem health, and cross-repository status.
 
 ## Project principles
 

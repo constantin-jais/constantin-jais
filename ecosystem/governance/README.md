@@ -1,13 +1,13 @@
-# Forge governance — branch policy as code
+# Ecosystem governance — branch policy as code
 
-Branch protection for forge repositories is defined in `branch-policy.json`,
-applied and drift-checked by `forge_policy.py`. Nobody edits Settings → Rules
+Branch protection for ecosystem repositories is defined in `branch-policy.json`,
+applied and drift-checked by `ecosystem_policy.py`. Nobody edits Settings → Rules
 by hand: **agents propose policy changes via pull request, a human merges,
 CI applies** (see ADR 0031).
 
 ## Why approvals are 0
 
-The forge is operated by a single GitHub account. GitHub forbids approving
+The ecosystem is operated by a single GitHub account. GitHub forbids approving
 your own pull request, so a `required_approving_review_count` of 1 is not a
 gate — it is an unsatisfiable deadlock (proven 2026-07-02 on three repos).
 The real gates are:
@@ -22,17 +22,17 @@ The real gates are:
 ## Commands
 
 ```sh
-python3 ecosystem/governance/forge_policy.py check            # all repos, exit 2 on drift
-python3 ecosystem/governance/forge_policy.py check --repo constantin-jais/constantin-jais
-python3 ecosystem/governance/forge_policy.py apply            # converge + post-verify
-python3 ecosystem/governance/forge_policy.py dump --repo OWNER/NAME   # onboarding aid
+python3 ecosystem/governance/ecosystem_policy.py check            # all repos, exit 2 on drift
+python3 ecosystem/governance/ecosystem_policy.py check --repo constantin-jais/constantin-jais
+python3 ecosystem/governance/ecosystem_policy.py apply            # converge + post-verify
+python3 ecosystem/governance/ecosystem_policy.py dump --repo OWNER/NAME   # onboarding aid
 python3 -m unittest discover ecosystem/governance             # unit tests (pure core)
 ```
 
 ## Bootstrap (one-time, human)
 
 1. Create a fine-grained PAT: Settings → Developer settings → Fine-grained
-   tokens — Repository access: the forge repos; Permissions: Administration
+   tokens — Repository access: the ecosystem repos; Permissions: Administration
    (Read and write); expiration 90 days.
 2. Add it as the `FORGE_ADMIN_TOKEN` secret of this repository. With the
    token in your clipboard (macOS):
@@ -56,7 +56,7 @@ the weekly drift check fails loudly when the token dies.
 ## Onboarding a repository
 
 1. Capture its live rulesets, legacy protection, and settings — either
-   locally (`forge_policy.py dump --repo OWNER/NAME`) or, agent-friendly and
+   locally (`ecosystem_policy.py dump --repo OWNER/NAME`) or, agent-friendly and
    without local credentials, through CI:
 
    ```sh
@@ -70,7 +70,7 @@ the weekly drift check fails loudly when the token dies.
    `required_checks` (the CI contexts that must stay green). Make sure those
    workflows run on every pull request (no `paths:` filter on the
    `pull_request` trigger — use an in-job no-op guard instead, see
-   `.github/workflows/forge-health.yml` for the pattern).
+   `.github/workflows/ecosystem-health.yml` for the pattern).
 3. Open the PR; merging it applies the policy to the repo.
 
 A repo listed without `required_checks` gates on nothing but the
@@ -87,7 +87,7 @@ stay on explicit human merge.
 ## Scope and security
 
 - The apply path runs in CI with `FORGE_ADMIN_TOKEN` (fine-grained,
-  Administration read/write, forge repos only, 90-day expiry, revocable,
+  Administration read/write, ecosystem repos only, 90-day expiry, revocable,
   every use in the GitHub audit log). Interactive agent sessions never call
   the administration API directly — they edit this policy file instead.
 - `check` runs on every PR touching `ecosystem/governance/` and weekly

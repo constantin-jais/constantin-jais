@@ -3,7 +3,7 @@
 Date: 2026-07-02
 Source project: `DeusData/codebase-memory-mcp` v0.8.1 (MIT) — <https://github.com/DeusData/codebase-memory-mcp>
 Decision: **inspiration only** — no installation, no runtime dependency, no code reuse. See the 2026-07-02 entry in `decision-log.md`.
-Scope: personal forge ecosystem only. Professional workspaces are out of scope.
+Scope: personal ecosystem ecosystem only. Professional workspaces are out of scope.
 Review: **Accepted 2026-07-02** — all proposed verdicts ratified; open questions resolved (see the resolved section below and the 2026-07-02 `decision-log.md` entries).
 
 ## Why this document
@@ -109,7 +109,7 @@ Worth rebuilding as method, not code:
 - edge/node histograms with zeros kept — a zero is a finding, not an omission;
 - judge-bias controls: randomized answer order, multiple passes, cross-family judge preferred.
 
-First forge use: measure `gear-memory` P1 against plain exploration on one forge repo — same protocol, tiny scale.
+First ecosystem use: measure `gear-memory` P1 against plain exploration on one ecosystem repo — same protocol, tiny scale.
 
 ## Alignment with existing ecosystem decisions
 
@@ -133,7 +133,7 @@ Captured in `Rumble-Note` `ROADMAP.md` (Later): knowledge-graph / mapping-point 
 2. `confidence` on `CodeEdge` → **deferred, demand-driven**: contracts v0.2 opens only when a real producer emits inferred edges; P1 changes no contracts.
 3. E11 owner → **split**: mechanical diff→symbols lookup = `gear-memory` query; risk classification + gate = cos-matic; `wrench-inspect` only if a dedicated evidence report emerges.
 4. E17 boundary → export/import = `gear-memory` CLI; custody = `gear-depot`; **no committed binary snapshots**.
-5. E21 protocol → **one-shot P1 dogfooding** with explicit revisit triggers (benefit on ≥ 2 forge repos, or a second consumer asking the same questions → `wrench-inspect` Eval Lab runbook).
+5. E21 protocol → **one-shot P1 dogfooding** with explicit revisit triggers (benefit on ≥ 2 ecosystem repos, or a second consumer asking the same questions → `wrench-inspect` Eval Lab runbook).
 
 Execution decisions taken the same day (full rationale in `decision-log.md`): immediate RFC3339 hotfix on the `gear-memory` erasure CLI path; storage engine via bounded micro-benchmark; per-repo git-ignored database location; `basemind` demoted to knowledge reference (ADR-0001 upstream section superseded); dev-only fixture generator allowed as test tooling under the "Wrench parses" boundary.
 

@@ -42,12 +42,12 @@ jobs:
           import json, pathlib
           import sys
           sys.path.insert(0, "ecosystem/governance")
-          import forge_policy
-          policy = forge_policy.load_policy(
+          import ecosystem_policy
+          policy = ecosystem_policy.load_policy(
               pathlib.Path("ecosystem/governance/branch-policy.json")
           )
           for repo in policy["repos"]:
-              forge_policy.desired_ruleset(policy, repo)
+              ecosystem_policy.desired_ruleset(policy, repo)
           print(f"policy OK: {len(policy['repos'])} repo(s)")
           EOF
 
@@ -72,7 +72,7 @@ jobs:
             echo "::warning::FORGE_ADMIN_TOKEN not configured - drift check skipped (bootstrap: ecosystem/governance/README.md)"
             exit 0
           fi
-          python3 ecosystem/governance/forge_policy.py check
+          python3 ecosystem/governance/ecosystem_policy.py check
 
   apply:
     name: Apply policy
@@ -98,7 +98,7 @@ jobs:
             echo "::warning::FORGE_ADMIN_TOKEN not configured - apply skipped (bootstrap: ecosystem/governance/README.md)"
             exit 0
           fi
-          python3 ecosystem/governance/forge_policy.py apply
+          python3 ecosystem/governance/ecosystem_policy.py apply
 
   dump:
     name: Dump live state (onboarding)
@@ -120,4 +120,4 @@ jobs:
             echo "::error::FORGE_ADMIN_TOKEN not configured - dump needs it (bootstrap: ecosystem/governance/README.md)"
             exit 1
           fi
-          python3 ecosystem/governance/forge_policy.py dump --repo "${DUMP_REPO}"
+          python3 ecosystem/governance/ecosystem_policy.py dump --repo "${DUMP_REPO}"

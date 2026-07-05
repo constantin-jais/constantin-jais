@@ -4,7 +4,7 @@ Date: 2026-07-04
 Status: **Proposed** product-candidate specification. Paper only; no product repository, service, schema crate, or UI implementation is created by this document.
 Source anchor: `odysseus-decomposition.md` E12–E21 plus E22, accepted 2026-07-04. Odysseus remains AGPL inspiration only: this file contains prose, product contracts, and stable concept names; no dependency, no source copy, and no line-by-line translation.
 Decision context: odysseus Q2 says `rumble-mail` and `rumble-cal` are serious paper candidates. M1 is now closed (Rumble-Canvas #4 emits `tenant_id` and re-syncs the local schema), but repository creation remains blocked until explicit product ratification.
-Scope: personal forge ecosystem only.
+Scope: personal ecosystem ecosystem only.
 
 ## 1. Why this document
 
@@ -19,13 +19,13 @@ This document turns those candidates into contract-first paper specs. It intenti
 
 | Constraint | Contract impact |
 | --- | --- |
-| AGPL source boundary | Rebuild concepts from scratch on the forge stack. No copied code, no derived source text, no dependency, no source fragments in examples. |
+| AGPL source boundary | Rebuild concepts from scratch on the ecosystem stack. No copied code, no derived source text, no dependency, no source fragments in examples. |
 | Product creation gate | Product repos are forbidden until explicit product ratification. M1 identity closure is satisfied, but it does not imply repo creation. Contracts and specs may proceed in this control plane. |
 | Security > Quality > Performance > Completeness | Mail bodies, calendar descriptions, ICS payloads, and contacts are hostile or PII-bearing until proven otherwise. Unsafe completeness is rejected. |
 | Workspace identity | Every product object is scoped by `tenant_id` and `workspace_id`; authorization is derived from `workspace-identity.v0.1` plus Biscuit delegation. |
 | RGPD erasure | Mail, calendar, contacts, triage outputs, and parse outputs carry PII. Erasure/anonymization wins over stale active records and index rebuilds. |
 | Stack target | Rust core, Dioxus 0.7.9 web/PWA shell, Biscuit delegation, Portal tokens for UI, Gear Memory for provenance/state transitions, Gear Loader only when an external-source extraction flow is explicitly needed. |
-| Anti-gold-plating | No SSO/OIDC for forge identity, no local-first sync protocol, no org/billing hierarchy, no product repo, no shared contacts database. Provider OAuth is a mail/calendar integration concern, not workspace SSO. |
+| Anti-gold-plating | No SSO/OIDC for ecosystem identity, no local-first sync protocol, no org/billing hierarchy, no product repo, no shared contacts database. Provider OAuth is a mail/calendar integration concern, not workspace SSO. |
 
 ## 3. Contract-first spine shared by both products
 
@@ -103,17 +103,17 @@ All verdicts are **Proposed 2026-07-04**. Dispositions available in this file ar
 | C4 | E20 natural-language calendar parsing | User-timezone-aware event candidate generation | `rumble-cal` | knowledge + rebuild shape | `CalendarParseRequest`, `ParsedEventCandidate`, `ParseConfidence`, `ParseEvidence` | Product UX note; parse output is a proposal, not an event, until accepted by a human with write permission. |
 | S1 | E19 CardDAV contacts sync | Contacts substrate for mail + calendar | `rumble-mail` / `rumble-cal` / Gear library candidate | **rebuild (product-gated)** | `ContactStore`, `ContactRecord`, `ContactSyncCursor`, `ContactLink` | Build as product-owned stores using a shared Rust parsing/normalization library only after both products require it; never a shared DB. |
 | S2 | E22 untrusted-context envelope | Safe model-facing external content | cross-layer | knowledge (pattern) | `UntrustedContentRef`, `SecurityFinding`, prompt assembly policy | Document now; extract only on a second real model-facing consumer. |
-| S3 | Provider credential handling | IMAP/SMTP/CalDAV/CardDAV secrets, OAuth refs | product + auth adapter | **rebuild (product-gated)** | `CredentialRef`, `ProviderCapability`, `AccountBinding` | O365/Outlook basic auth is not viable; provider OAuth may be needed, but this is not forge SSO/OIDC. Store references only. |
+| S3 | Provider credential handling | IMAP/SMTP/CalDAV/CardDAV secrets, OAuth refs | product + auth adapter | **rebuild (product-gated)** | `CredentialRef`, `ProviderCapability`, `AccountBinding` | O365/Outlook basic auth is not viable; provider OAuth may be needed, but this is not ecosystem SSO/OIDC. Store references only. |
 
 ## 5. `rumble-mail` product card
 
 | Field | Spec |
 | --- | --- |
 | Product promise | Turn hostile, noisy email into an auditable, assistant-assisted action stream without surrendering mailbox custody or inventing unsafe auto-send behavior. |
-| Target users | A forge workspace host managing one or more personal/professional mailboxes; delegated participants who may draft or classify within explicit scopes; assistant agents with bounded triage rights. |
+| Target users | A ecosystem workspace host managing one or more personal/professional mailboxes; delegated participants who may draft or classify within explicit scopes; assistant agents with bounded triage rights. |
 | Core differentiator | Agent-assisted triage: summarize, classify, detect phishing/marketing/receipts, propose replies in the user's style, alert urgency, and extract calendar candidates. |
 | MVP capabilities | IMAP sync/read; safe render; draft creation; SMTP send via explicit send intent; scheduled send; triage runs; calendar extraction proposals; per-product contacts store read/write as needed. |
-| Non-goals | No generic webmail clone, no forge-wide identity SSO, no autonomous send, no local-first multi-device sync, no shared contacts DB, no global email search service. |
+| Non-goals | No generic webmail clone, no ecosystem-wide identity SSO, no autonomous send, no local-first multi-device sync, no shared contacts DB, no global email search service. |
 | Dependencies | `workspace-identity.v0.1`; Biscuit delegated authorization; Portal tokens; Dioxus shell; Gear Memory safe refs/tombstones; Gear Loader only for attachments/imports that need canonical extraction. |
 | Technical cost / risk | Provider quirk breadth; Outlook/O365 OAuth requirement; hostile body parsing; phishing and remote content; PII erasure across source and derived triage outputs. |
 | Repo trigger | Product decision ratified; M1 closed; contract package accepted; provider credential policy accepted; first hostile-content/triage fixtures defined. |

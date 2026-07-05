@@ -28,7 +28,7 @@ Archives ecosystem state for sovereignty backup, compliance audits, and disaster
 
 **Arguments:**
 
-- `DEST_DIR` (optional): Destination directory for archives. Defaults to `../forge-snapshots` relative to the repository root.
+- `DEST_DIR` (optional): Destination directory for archives. Defaults to `../ecosystem-snapshots` relative to the repository root.
 
 **Output:**
 
@@ -38,7 +38,7 @@ Creates a timestamped tarball (`ecosystem-snapshot-YYYY-MM-DDTHH-MM-SSZ.tar.gz`)
 - `ecosystem/specs/shared/adrs/` — Architecture Decision Records.
 - `ecosystem/specs/shared/maturity/` — Product maturity matrices and readiness data.
 - `readiness-report.md` — Readiness and compliance status.
-- `forge-health.md` — Ecosystem health metrics.
+- `health.md` — Ecosystem health metrics.
 - `status.md` — Current operational status (if present).
 
 Checksums (`SHA256`) are written to a companion `.sha256` file for integrity verification.

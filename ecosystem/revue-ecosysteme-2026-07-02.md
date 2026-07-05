@@ -8,7 +8,7 @@
 
 ## 1. Synthèse (10 lignes)
 
-1. La doctrine est d'une rigueur rare (couches, boundary tests, 65 décisions, 22 ADRs, vocabulaire de maturité, forge-health) — mais **la gouvernance de la vérité est en retard sur elle** : 3/14 repos ont un `maturity/*.json`, le cockpit affiche des états déjà faux, et deux `overview.md` coexistent malgré une décision déjà actée.
+1. La doctrine est d'une rigueur rare (couches, boundary tests, 65 décisions, 22 ADRs, vocabulaire de maturité, ecosystem-health) — mais **la gouvernance de la vérité est en retard sur elle** : 3/14 repos ont un `maturity/*.json`, le cockpit affiche des états déjà faux, et deux `overview.md` coexistent malgré une décision déjà actée.
 2. La valeur réelle démontrée est **le processus, pas les produits** : `bolt-cos-matic` (usable, 35 ADRs) et la chaîne contrats/fixtures/CI sont le vrai actif ; 4 des 7 Rumbles sont des squelettes — ce qui est **conforme au cadrage « dojo »**, pas une faute.
 3. Le risque n°1 est **l'autorisation de l'orchestration** : cos-matic pousse des branches, merge et déploie sans vérifier aucun token Biscuit, alors que Biscuit est décidé « standard » — l'écart entre décision et enforcement est au point le plus dangereux du système.
 4. Le risque n°2 est **la preuve décorative** : les 6 gates du dry-run plan sont hardcodées `status=pass` — « evidence-gated planning » ne consomme aujourd'hui aucune evidence, ce qui contredit la devise « evidence over claims ».
@@ -25,13 +25,13 @@
 
 ### Vision (validée)
 
-Forge personnelle de processus — « the process is the product », explicitement pas un portefeuille startup. Rumble = dojos générant des contraintes réelles ; Bolt/Wrench/Gear = cœur réutilisable. Boucle : idée → spec → inspection → plan → exécution contrôlée → preuve → mémoire → amélioration. Doctrine : souveraineté, déterminisme, agent-readability, spec-first, convergence Rust+Dioxus (exception Astro documentée pour cos).
+Écosystème personnel de processus — « the process is the product », explicitement pas un portefeuille startup. Rumble = dojos générant des contraintes réelles ; Bolt/Wrench/Gear = cœur réutilisable. Boucle : idée → spec → inspection → plan → exécution contrôlée → preuve → mémoire → amélioration. Doctrine : souveraineté, déterminisme, agent-readability, spec-first, convergence Rust+Dioxus (exception Astro documentée pour cos).
 
 ### Couches
 
 ```
 ┌─ PLAN DE CONTRÔLE  constantin-jais/ecosystem/ (canonique) ── overview · status cockpit · 65 décisions
-│                    · 22 ADRs · 4 contrats shared v0.1 · maturity R0-R10 · forge-health (14 repos)
+│                    · 22 ADRs · 4 contrats shared v0.1 · maturity R0-R10 · ecosystem-health (14 repos)
 │                    ⚠ double : ~/Documents/overview.md divergent (décision #63 actée, non appliquée)
 │                    ⚠ héberge aussi prototypes/wrench-db-inspect (~2000 LOC de code hors doctrine)
 ├─ RUMBLE (produits/dojos)
@@ -72,7 +72,7 @@ Criticité = exigence de solidité **dès maintenant** compte tenu du rôle dans
 | Brique                        | Rôle                                          | Criticité               | Risques principaux (verdict)                                                                                                                                            | Recommandations                                                                                                                |
 | ----------------------------- | --------------------------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | **bolt-cos-matic**            | Moteur d'orchestration — agit sur GitHub réel | **CRITIQUE**            | Gates hardcodées `status=pass` (CONFIRMED) ; Biscuit non vérifié (CONFIRMED) ; pas de retry/backoff octocrab ni runbook automerge (PLAUSIBLE)                           | Gates dérivées du handoff ou renommage honnête ; trancher le modèle d'auth ; alerting automerge + runbook                      |
-| **constantin-jais/ecosystem** | Plan de contrôle, source de vérité            | **CRITIQUE**            | Cockpit désynchronisé (CONFIRMED) ; 3/14 maturity.json (CONFIRMED) ; prototypes/ héberge du code produit ; hub dans le repo profil (PLAUSIBLE)                          | Automatiser status.md depuis maturity/*.json ; gate forge-health « maturity.json requis » ; trancher le placement du hub       |
+| **constantin-jais/ecosystem** | Plan de contrôle, source de vérité            | **CRITIQUE**            | Cockpit désynchronisé (CONFIRMED) ; 3/14 maturity.json (CONFIRMED) ; prototypes/ héberge du code produit ; hub dans le repo profil (PLAUSIBLE)                          | Automatiser status.md depuis maturity/*.json ; gate ecosystem-health « maturity.json requis » ; trancher le placement du hub       |
 | **rumble-lm**                 | Dojo principal, seules PII réelles            | **HAUTE**               | Effacement/rétention non implémentés (PLAUSIBLE haute) ; axes maturity mesurent le stub, pas le runtime (CONFIRMED, corrigé) ; CitationValidation non gated live        | API mark_deleted/anonymize + TTL + ADR rétention ; clarifier la sémantique des axes ; gater la citation avant publication      |
 | **wrench-inspect**            | Producteur d'evidence de la boucle            | **HAUTE**               | Non versionné — perte totale possible (PLAUSIBLE critique en ops) ; statut « No local repo yet » périmé                                                                 | `git init` + remote + tag immédiats ; mettre à jour status.md                                                                  |
 | **rumble-canvas**             | Contrat P0 du harness                         | **HAUTE**               | Spec promet UI/multi-user que le CLI ne portera pas sans refonte (PLAUSIBLE) ; LICENSE absent                                                                           | Découper spec en P0 CLI / P1 UI ; LICENSE ; rester contract-first sans honte                                                   |
@@ -126,11 +126,11 @@ Criticité = exigence de solidité **dès maintenant** compte tenu du rôle dans
 5. **Gates de planning dynamiques** (Bolt) — dérivées du handoff et des rapports Wrench/Gear ; sinon renommer.
 6. **Observabilité/alerting de l'orchestration + runbook incident** — détection d'un automerge silencieusement défaillant, retry/backoff octocrab, runbook humain.
 7. **Preuve E2E Dioxus** — une démo navigateur réelle (3 écrans lm + assertions Playwright) avant d'étendre la doctrine à note/crew/feed-mind.
-8. **maturity/\*.json pour les 11 repos manquants** + gate forge-health, ou règle d'exemption explicite ; génération automatisée du cockpit.
+8. **maturity/\*.json pour les 11 repos manquants** + gate ecosystem-health, ou règle d'exemption explicite ; génération automatisée du cockpit.
 9. **LICENSE files** (canvas, feed-mind, + décision pour crew/note spec-only) + extension du gate hygiene (LICENSE, maturity.json).
 10. **Fixtures exécutables** pour une sélection d'acceptance tests (crew/note) — 5-10 scénarios critiques en JSON + validation CI.
 11. **Premier consommateur E2E de gear-cable** — un produit désigné dont le binaire passe par plan → release → checksum → install.
-12. _(conditionnel à la décision souveraineté)_ **Exit path forge** — miroir Gitea/Forgejo + inventaire de ce qui survit à un outage GitHub.
+12. _(conditionnel à la décision souveraineté)_ **Exit path ecosystem** — miroir Gitea/Forgejo + inventaire de ce qui survit à un outage GitHub.
 
 ---
 
@@ -176,7 +176,7 @@ Séquencées par dépendances (pas de planning calendaire). La seule échéance 
 11. Threat model agentique + validation structurelle des handoffs (grammar/schema, provenance) — wrench-loader est le point d'entrée, cos-matic le point d'impact.
 12. Ops : backup automatisé (pg_dump lm, rollup journal), alerting automerge, runbook incident, retry/backoff octocrab.
 13. Exécuter D9 (migration db-inspect) et D8 (feed parsing) ; aligner wrench-loader sur ses fixtures.
-14. maturity.json × 14 + génération automatisée du cockpit + gate forge-health (D1).
+14. maturity.json × 14 + génération automatisée du cockpit + gate ecosystem-health (D1).
 15. Preuve Dioxus E2E (D7) avant toute nouvelle spec d'écran ; convertir 5-10 acceptance tests crew/note en fixtures exécutables.
 
 ### Long terme — n'ouvrir qu'avec des demandeurs réels
@@ -184,7 +184,7 @@ Séquencées par dépendances (pas de planning calendaire). La seule échéance 
 16. Capacités partagées : appliquer les critères D11 aux ~5 candidates à ≥ 2 demandeurs (Workspace, Source, Artifact, Identity, Agent-task) ; les autres restent Candidate sans honte.
 17. Premier canal réel gear-cable + premier consommateur E2E ; ArtifactRef (ou redéfinition du rôle).
 18. Multi-user/collaboration (canvas UI, crew runtime) **après** validation des personas par au moins un utilisateur externe réel.
-19. Exit path forge (miroir Gitea/Forgejo) si D2 = exigence dure ; sandbox d'exécution (gVisor/Firecracker, déjà identifié par cos-matic readiness) avant toute expansion de l'autonomie d'exécution.
+19. Exit path ecosystem (miroir Gitea/Forgejo) si D2 = exigence dure ; sandbox d'exécution (gVisor/Firecracker, déjà identifié par cos-matic readiness) avant toute expansion de l'autonomie d'exécution.
 20. Cockpit web : seulement si la charge de navigation du cockpit Markdown devient un point de douleur mesuré — la décision actuelle (Markdown) est saine.
 
 ---
@@ -200,7 +200,7 @@ Séquencées par dépendances (pas de planning calendaire). La seule échéance 
 7. **Perte acceptable** : quel RTO/RPO pour les sessions lm et le journal d'audit ? (« Aucune perte » = un vrai coût d'infra ; « tout est reconstructible » = à prouver.)
 8. **Granularité** : 15 repos / 4 couches pour un solo — assumes-tu le coût de gouvernance par repo (hygiene, maturity, security × 15), ou faut-il fusionner (p.ex. les 3 gear en un workspace) tant qu'aucun n'a de consommateur externe ?
 9. **Séquencement** : canvas reste-t-il « harness-critical first » (et alors lm/cos attendent le handoff) ou officialises-tu l'avancement parallèle ?
-10. **Le processus est le produit** : quel est le critère de succès de la forge elle-même — et à quel moment un dojo qui ne génère plus de contraintes pour Bolt/Wrench/Gear est-il retiré (`retired`) ?
+10. **Le processus est le produit** : quel est le critère de succès de l'écosystème elle-même — et à quel moment un dojo qui ne génère plus de contraintes pour Bolt/Wrench/Gear est-il retiré (`retired`) ?
 
 ---
 
@@ -208,7 +208,7 @@ Séquencées par dépendances (pas de planning calendaire). La seule échéance 
 
 **Actés** :
 
-- **D1 → (a)** : maturity.json obligatoire ×14, axes documentés (stub vs runtime), cockpit généré, gate forge-health.
+- **D1 → (a)** : maturity.json obligatoire ×14, axes documentés (stub vs runtime), cockpit généré, gate ecosystem-health.
 - **D2 → (a)** : GitHub assumé comme substrat opérationnel — documenter la posture (core truth vs substrat) + snapshots hors GitHub.
 - **D4 → (a)** : gates de planning dérivées du handoff/evidence (pas de renommage cosmétique).
 - **D5 → (a)** : rumble-ai-practices devient produit officiel — remote + cockpit + maturity.json + frontière lm par ADR.

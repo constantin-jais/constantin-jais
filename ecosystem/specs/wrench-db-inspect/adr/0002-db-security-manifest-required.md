@@ -10,7 +10,7 @@ Failing open on unknown classification would create a silent tenant-isolation by
 
 ## Decision
 
-Every Rumble using PostgreSQL for product data must provide a `wrench.db_inspect.manifest.v0.1` manifest before `wrench-db-inspect` can be used as a protected-branch, release, or harness gate. The forge scaffold should require this manifest for Postgres-backed `rumble-*` products and should mark DB inspection as not applicable for products without Postgres.
+Every Rumble using PostgreSQL for product data must provide a `wrench.db_inspect.manifest.v0.1` manifest before `wrench-db-inspect` can be used as a protected-branch, release, or harness gate. The ecosystem scaffold should require this manifest for Postgres-backed `rumble-*` products and should mark DB inspection as not applicable for products without Postgres.
 
 The manifest must declare at minimum:
 
