@@ -243,11 +243,16 @@ def gh_api(path: str, method: str = "GET", payload: dict | None = None) -> dict 
 
 
 def _gh_api_or_none(path: str) -> dict | list | None:
-    """GET that treats 404 as None (absence), any other failure as an error."""
+    """GET that treats absence as None: a 404, or the 403 a fine-grained PAT gets
+    on the legacy branch-protection endpoint (it returns 403 "Resource not
+    accessible by personal access token", not 404, when there is nothing to read).
+    Any other failure is an error."""
     try:
         return gh_api(path)
     except GhApiError as error:
         if "HTTP 404" in error.stderr:
+            return None
+        if "HTTP 403" in error.stderr and "not accessible by personal access token" in error.stderr:
             return None
         raise
 
