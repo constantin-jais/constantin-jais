@@ -159,8 +159,17 @@ jobs:
 
           failures = []
 
+          current_repo = os.environ.get("GITHUB_REPOSITORY", "")
           for repo, expected in repos.items():
               print(f"== {repo} ==")
+              # For the repo we run in, read the local checkout instead of the
+              # remote default branch, so that a rename of an inventoried file
+              # validates inside its own PR (no self-referential main deadlock).
+              if f"{owner}/{repo}" == current_repo:
+                  for file_path in expected["files"]:
+                      if not os.path.exists(file_path):
+                          failures.append(f"{repo}: missing {file_path} (local checkout)")
+                  continue
               meta = request(f"/repos/{owner}/{repo}")
               if meta.get("visibility") != "public":
                   failures.append(f"{repo}: repository is not public")
