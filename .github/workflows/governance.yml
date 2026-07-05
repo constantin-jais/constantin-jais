@@ -72,7 +72,14 @@ jobs:
             echo "::warning::FORGE_ADMIN_TOKEN not configured - drift check skipped (bootstrap: ecosystem/governance/README.md)"
             exit 0
           fi
-          python3 ecosystem/governance/ecosystem_policy.py check
+          if ! out="$(python3 ecosystem/governance/ecosystem_policy.py check 2>&1)"; then
+            if printf '%s' "$out" | grep -qiE "bad credentials|HTTP 401"; then
+              echo "::warning::FORGE_ADMIN_TOKEN invalid or expired - drift check skipped; renew it in Settings > Secrets"
+              exit 0
+            fi
+            printf '%s\n' "$out"; exit 1
+          fi
+          printf '%s\n' "$out"
 
   apply:
     name: Apply policy
@@ -98,7 +105,14 @@ jobs:
             echo "::warning::FORGE_ADMIN_TOKEN not configured - apply skipped (bootstrap: ecosystem/governance/README.md)"
             exit 0
           fi
-          python3 ecosystem/governance/ecosystem_policy.py apply
+          if ! out="$(python3 ecosystem/governance/ecosystem_policy.py apply 2>&1)"; then
+            if printf '%s' "$out" | grep -qiE "bad credentials|HTTP 401"; then
+              echo "::warning::FORGE_ADMIN_TOKEN invalid or expired - apply skipped; renew it in Settings > Secrets"
+              exit 0
+            fi
+            printf '%s\n' "$out"; exit 1
+          fi
+          printf '%s\n' "$out"
 
   dump:
     name: Dump live state (onboarding)
