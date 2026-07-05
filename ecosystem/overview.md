@@ -17,7 +17,7 @@ External projects are not listed here as product inspirations to copy. When one 
 
 The ecosystem exists to build sovereign, deterministic, agent-readable tools and products where user-facing needs generate reusable capabilities.
 
-It is primarily a personal forge for intellectual enjoyment, learning, process quality, and robust working tools. The first-order goal is not market traction or startup-style prioritization. Rumble projects are dojos: they create real constraints for improving the stack, but the reliable process is more important than any single Rumble product.
+It is primarily a personal ecosystem for intellectual enjoyment, learning, process quality, and robust working tools. The first-order goal is not market traction or startup-style prioritization. Rumble projects are dojos: they create real constraints for improving the stack, but the reliable process is more important than any single Rumble product.
 
 The center of gravity is:
 
@@ -33,10 +33,10 @@ This keeps products useful, the harness reusable, and the architecture resistant
 
 ### 1.1 Identity by contrast: odysseus as the anti-model
 
-The odysseus decomposition (`specs/shared/odysseus-decomposition.md`) is useful precisely because it is a strong counter-example. Its capability catalogue is interesting, but its principle is quarantined: one AGPL monolith, one process, one shared database, and advisory tests would undo this forge's bounded-context doctrine.
+The odysseus decomposition (`specs/shared/odysseus-decomposition.md`) is useful precisely because it is a strong counter-example. Its capability catalogue is interesting, but its principle is quarantined: one AGPL monolith, one process, one shared database, and advisory tests would undo this ecosystem's bounded-context doctrine.
 
 ```text
-  ODYSSEUS (repoussoir)          LA FORGE (identity)
+  ODYSSEUS (repoussoir)          L'ÉCOSYSTÈME (identity)
   ─────────────────────          ─────────────────────────────
   1 monolith, everything inside  5 layers, explicit contracts
   AGPL viral surface             MIT/Apache/MPL-compatible only
@@ -45,7 +45,7 @@ The odysseus decomposition (`specs/shared/odysseus-decomposition.md`) is useful 
   hype and breadth               "the process is the product"
 ```
 
-The forge may rebuild selected ideas from odysseus, but never adopts its code, dependencies, or license posture. Every rebuild lands in the owning layer and must pass the same sovereignty, evidence, and boundary gates as any internal feature.
+The ecosystem may rebuild selected ideas from odysseus, but never adopts its code, dependencies, or license posture. Every rebuild lands in the owning layer and must pass the same sovereignty, evidence, and boundary gates as any internal feature.
 
 ```text
 Rumble  product meaning, workflows, user-facing pressure
@@ -224,7 +224,7 @@ Portal produces client artifacts and platform adapters. Gear Cable assembles/pub
 | Project | Mission | Hard boundary |
 | --- | --- | --- |
 | `wrench-inspect` | General structural, design, and policy inspection. | Not a domain-specific DB security owner. |
-| `wrench-db-inspect` | SQL/database security inspection and forge/harness evidence for Postgres-backed `rumble-*`: pgvector, RLS, grants, migrations, tenant isolation. | Not a user-facing vault app, secrets manager, ORM, DB proxy, migration runner, or replacement for `wrench-inspect`. |
+| `wrench-db-inspect` | SQL/database security inspection and ecosystem/harness evidence for Postgres-backed `rumble-*`: pgvector, RLS, grants, migrations, tenant isolation. | Not a user-facing vault app, secrets manager, ORM, DB proxy, migration runner, or replacement for `wrench-inspect`. |
 
 Naming clarification: `wrench-db-inspect` belongs to the Wrench tooling layer after the rename from `vault-inspector`. The former `vault-inspector` name was retired to remove ambiguity while preserving the same scope boundary.
 
@@ -552,7 +552,7 @@ Status values:
 | Learning/facilitation analytics | `rumble-lm`, maybe `rumble-cos` | Shared Rumble first | Candidate | Aggregate participation, comprehension, confusion, consensus/divergence; avoid hidden individual profiling. |
 | Export package | `rumble-lm`, `rumble-canvas`, `rumble-cos` | Gear artifact + Rumble UX | Candidate | Audience-scoped export with included data classes, provenance, checksum, and retention/revocation metadata. |
 | Inspector reports | `rumble-canvas`, `rumble-crew`, `rumble-cos`, `rumble-lm` | Wrench Inspect | Candidate | Validate specs, content, design, policy, citation support, privacy, or readiness. |
-| Evidence report | Rumbles, Bolt gates, CI/harness | Wrench Inspect + domain Wrench inspectors | Candidate | Shared evidence model for API/browser/eval/clean-room/DB checks; `wrench-db-inspect` produces the DB-security specialization consumed by the forge/harness. |
+| Evidence report | Rumbles, Bolt gates, CI/harness | Wrench Inspect + domain Wrench inspectors | Candidate | Shared evidence model for API/browser/eval/clean-room/DB checks; `wrench-db-inspect` produces the DB-security specialization consumed by the ecosystem/harness. |
 | Agent/run policy gate | `cos-matic`, `rumble-crew`, `rumble-canvas`, Wrench checks | `cos-matic` | Candidate | Versioned gates for secrets, destructive actions, network, license, sovereignty, citations, and human approval. |
 | Source catalog | `rumble-note`, `rumble-feed-mind`, `rumble-lm`, Gear Loader, Wrench Inspect | Gear Memory | Candidate | Catalog over `SourceRef`; avoids separate `gear-source` until extraction criteria are met. |
 | Usage ledger | Bolt runs, Wrench checks, Gear artifacts, Rumble handoffs | Gear Memory first | Candidate | Append-only technical usage events and aggregate projections without behavioral profiling. |

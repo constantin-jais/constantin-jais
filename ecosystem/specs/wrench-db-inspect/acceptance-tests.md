@@ -184,7 +184,7 @@ A Bolt/CI/harness gate consuming the report must:
 
 - trust `summary.gate_blocked` and exit code, not reinterpret raw SQL;
 - attach the JSON report as evidence artifact;
-- expose typed gates/metrics as described in `forge-harness-integration.md`;
+- expose typed gates/metrics as described in `harness-integration.md`;
 - require human security review for critical/high waivers;
 - fail if `meta.redaction.secrets_or_pii_included != false`;
 - fail release if `meta.redaction.applied=true`;

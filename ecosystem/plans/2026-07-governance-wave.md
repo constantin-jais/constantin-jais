@@ -1,8 +1,8 @@
 # Plan — governance-wave-and-root-hygiene (2026-07 wave)
 
 ```yaml
-# forge.plan.v0.1 — bolt-handoff-compatible header (maps onto canvas.bolt_handoff.v0.1)
-format: forge.plan.v0.1
+# ecosystem.plan.v0.1 — bolt-handoff-compatible header (maps onto canvas.bolt_handoff.v0.1)
+format: ecosystem.plan.v0.1
 kind: planning_request
 source:
   product: constantin-jais
@@ -45,7 +45,7 @@ evidence_expectations: "each increment CI-gated: branch-policy.json validates ag
 
 This governance wave operationalizes three foundational decisions from the architecture alignment (architecture-alignment-2026-07.md):
 
-1. **DA-6: Governance onboarding** — The forge contains ~20 repos across six layers (Rumble, Portal, Bolt, Wrench, Gear, control plane). Currently only 4 are under branch-policy governance (constantin-jais, gear-memory, Rumble-Note, dioxus-lab). No scalable workflow extension mechanism exists; policies are ad-hoc.
+1. **DA-6: Governance onboarding** — The ecosystem contains ~20 repos across six layers (Rumble, Portal, Bolt, Wrench, Gear, control plane). Currently only 4 are under branch-policy governance (constantin-jais, gear-memory, Rumble-Note, dioxus-lab). No scalable workflow extension mechanism exists; policies are ad-hoc.
 
 2. **M7: Maturity/stack coverage** — ADR 0033 (accepted 2026-07-03) introduces `deployment_class` (product-linkable | factory-only | build-time) as a **CI-gated claim in `ecosystem/maturity/stack/*.json`** (per target-version.md §1). Currently only bolt-cos-matic.json exists in stack/ (with `maturity_mode` field, not `deployment_class`). The remaining ~19 repos lack stack claims, blocking cockpit generation and CI enforcement of the layer model.
 
@@ -90,7 +90,7 @@ This governance wave operationalizes three foundational decisions from the archi
 **Gear (~4 repos, remote):**
 - `gear-cable`, `gear-depot`, `gear-loader`, `gear-memory`
 
-**Note:** This list is derived from target-version.md layer definitions and ecosystem/specs references. For a complete and up-to-date repo enumeration, consult the GitHub org `constantin-jais` and cross-reference with the Forge Compass (when available).
+**Note:** This list is derived from target-version.md layer definitions and ecosystem/specs references. For a complete and up-to-date repo enumeration, consult the GitHub org `constantin-jais` and cross-reference with the Ecosystem Compass (when available).
 
 ---
 
@@ -104,7 +104,7 @@ This governance wave operationalizes three foundational decisions from the archi
 
 **Files:**
 - `ecosystem/governance/branch-policy.json` (modified, extended)
-- Reference: `ecosystem/governance/forge_policy.py` (consulted, not modified)
+- Reference: `ecosystem/governance/ecosystem_policy.py` (consulted, not modified)
 
 **Work:**
 
@@ -115,7 +115,7 @@ This governance wave operationalizes three foundational decisions from the archi
 
 2. **Add missing repos to branch-policy.json:**
    - Extend `repos` object with all ~20 repos (or ~19 if wrench-dioxus-lab rename is pending).
-   - Do NOT attempt to pull live GitHub ruleset config with `forge_policy.py dump`; instead, populate required_checks based on repo's layer and ADR 0033 classification:
+   - Do NOT attempt to pull live GitHub ruleset config with `ecosystem_policy.py dump`; instead, populate required_checks based on repo's layer and ADR 0033 classification:
      - **Rumble** (rumble-*): `["Rust quality gates", "e2e tests", "Dioxus patterns", "wrench-db-inspect gate"]` (if Postgres-backed).
      - **Portal** (portal-*): `["Rust quality gates", "UniFFI bindings CI", "token gates"]` (if applicable).
      - **Bolt** (bolt-*): `["Rust quality gates", "planning-only enforcement"]`.
@@ -322,7 +322,7 @@ echo "✓ Spec-contracts CI will validate on next push"
    # Archived: github-date-normalization
    
    **Archive date:** 2026-07-03 (DA-10 wave)
-   **Reason:** Ad-hoc utility, no load-bearing integration into forge workflows
+   **Reason:** Ad-hoc utility, no load-bearing integration into ecosystem workflows
    **Original location:** ~/Documents/github-date-normalization/ (pre-archive)
    
    If revived, restore from git history or ~/backups/ snapshot.

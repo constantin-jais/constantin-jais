@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Forge branch policy as code: check/apply GitHub rulesets from a versioned policy.
+"""Ecosystem branch policy as code: check/apply GitHub rulesets from a versioned policy.
 
 Governance flow (ADR 0031): agents propose policy changes via pull request;
 a human merges; CI applies. Branch protection is never edited by hand or from

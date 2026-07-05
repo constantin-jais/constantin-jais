@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "ruleset_name": "forge-standard",
+  "ruleset_name": "ecosystem-standard",
   "defaults": {
     "target_branch": "main",
     "required_approving_review_count": 0,

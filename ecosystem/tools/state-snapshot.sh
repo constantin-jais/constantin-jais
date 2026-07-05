@@ -6,14 +6,14 @@
 #   state-snapshot.sh [DEST_DIR]
 #
 # Arguments:
-#   DEST_DIR  Destination directory for the tarball (default: ../forge-snapshots relative to repo root).
+#   DEST_DIR  Destination directory for the tarball (default: ../ecosystem-snapshots relative to repo root).
 #
 # Description:
 #   Creates a timestamped tar.gz archive containing:
 #   - ecosystem/specs/shared/decision-log.md
 #   - ecosystem/specs/shared/adrs/
 #   - ecosystem/maturity/
-#   - ecosystem/status.md, readiness-report.md, forge-health.md, overview.md
+#   - ecosystem/status.md, readiness-report.md, health.md, overview.md
 #
 #   Archives are named: ecosystem-snapshot-YYYY-MM-DDTHH-MM-SSZ.tar.gz
 #   Checksums (SHA256) are written to a companion .sha256 file.
@@ -27,8 +27,8 @@ set -euo pipefail
 REPO_ROOT=$(git rev-parse --show-toplevel)
 cd "$REPO_ROOT"
 
-# Set destination directory, default to ../forge-snapshots relative to repo root.
-DEST_DIR="${1:-../forge-snapshots}"
+# Set destination directory, default to ../ecosystem-snapshots relative to repo root.
+DEST_DIR="${1:-../ecosystem-snapshots}"
 
 # Create destination if it does not exist.
 mkdir -p "$DEST_DIR"
@@ -47,7 +47,7 @@ CANDIDATES=(
   "ecosystem/maturity"
   "ecosystem/status.md"
   "ecosystem/readiness-report.md"
-  "ecosystem/forge-health.md"
+  "ecosystem/health.md"
   "ecosystem/overview.md"
 )
 

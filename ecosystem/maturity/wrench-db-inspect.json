@@ -3,7 +3,7 @@
   "project": {
     "name": "wrench-db-inspect",
     "layer": "Wrench",
-    "role": "SQL/database security inspection and forge/harness evidence for Postgres-backed rumble-*.",
+    "role": "SQL/database security inspection and ecosystem/harness evidence for Postgres-backed rumble-*.",
     "maturity_mode": "dojo"
   },
   "claimed_at": "2026-07-02T00:00:00Z",

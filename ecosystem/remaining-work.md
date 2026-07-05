@@ -49,7 +49,7 @@ Plans authored against the frozen `target-version` 1.0.0, adversarially verified
 
 ## P0b — Stack validation and local-only gates
 
-- Maintain the ratified stack decision matrix (ADR 0032, `target-version.v1.json`): Rust service GO, Dioxus 0.7.9 fullstack/PWA GO (web shell — evidence: `wrench-dioxus-lab`), Dioxus SSG for forge content sites (Astro narrowed to non-forge tooling), PostgreSQL/SQLx and Biscuit/OIDC conditional GO, DB security gate GO, RAG and Dioxus desktop as local spikes, Redis/native shells waiting for proven need, paid provisioning NO-GO.
+- Maintain the ratified stack decision matrix (ADR 0032, `target-version.v1.json`): Rust service GO, Dioxus 0.7.9 fullstack/PWA GO (web shell — evidence: `wrench-dioxus-lab`), Dioxus SSG for ecosystem content sites (Astro narrowed to non-ecosystem tooling), PostgreSQL/SQLx and Biscuit/OIDC conditional GO, DB security gate GO, RAG and Dioxus desktop as local spikes, Redis/native shells waiting for proven need, paid provisioning NO-GO.
 - Keep the implemented P0 agentic tools aligned with the spec: `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, and `local_smoke`.
 - Keep later tools explicitly scoped: `db_security_check` only when PostgreSQL is active, `adr_generate` for accepted decisions, and `deploy_dry_run` without resource creation.
 - Reject `setup_everything`, automatic cloud provisioning, real deploy automation, and SaaS integrations requiring API keys until a separate human-approved ADR exists.

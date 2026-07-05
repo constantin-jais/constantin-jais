@@ -85,7 +85,7 @@ These measure whether the shared tool prevents risky local reinvention.
 | `local_db_security_check_count` | Product-local scripts duplicating RLS/grant/migration checks. | Trend toward 0 or wrappers only. |
 | `shared_fixture_reuse_count` | Rumbles adding issues as shared fixtures instead of local-only tests. | Increasing. |
 | `bolt_gate_integration_count` | Bolt/CI/harness pipelines consuming JSON report as evidence. | All Postgres-backed Rumbles. |
-| `forge_scaffold_coverage` | Postgres-backed `rumble-*` scaffolds include manifest, sanitized schema dump, and report artifact steps. | 100% before release gates. |
+| `ecosystem_scaffold_coverage` | Postgres-backed `rumble-*` scaffolds include manifest, sanitized schema dump, and report artifact steps. | 100% before release gates. |
 | `db_inspect_not_applicable_declared_count` | Non-Postgres `rumble-*` products explicitly declare DB inspection as not applicable. | 100% for non-Postgres Rumbles. |
 | `manual_security_review_reduction` | Repeated manual DB review items automated by the inspector. | Increasing without losing quality. |
 
@@ -144,14 +144,14 @@ Future reports should include safe aggregate metrics under `data.metrics`:
 - Unknown P0 analysis state fails closed.
 - Reports include coverage metrics and safe redaction metadata.
 - Bolt/harness consumes report artifacts without re-parsing SQL.
-- Forge scaffold emits manifest/schema/report artifacts for Postgres-backed products.
+- Ecosystem scaffold emits manifest/schema/report artifacts for Postgres-backed products.
 
 ### Production-Ready
 
 - False positive rate reviewed and acceptable.
 - Critical escape rate remains 0 over multiple release cycles.
 - Rumbles no longer maintain divergent DB-security scripts.
-- Harness typed gates from `forge-harness-integration.md` are active for all Postgres-backed products.
+- Harness typed gates from `harness-integration.md` are active for all Postgres-backed products.
 - Gate profiles are explicit, versioned, reviewed, and auditable.
 - Live DB inspection, if enabled, is read-only and optional.
 

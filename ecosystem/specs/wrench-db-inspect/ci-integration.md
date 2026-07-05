@@ -6,7 +6,7 @@ Status: Draft integration contract.
 
 This document defines how Bolt, CI pipelines, and the agentic harness should run `wrench-db-inspect`, consume its reports, and decide gates without re-parsing SQL or duplicating DB-security policy inside each Rumble.
 
-`wrench-db-inspect` produces evidence. Bolt/CI/harness selects the gate profile and records the result. See `forge-harness-integration.md` for the scaffold-level contract across `rumble-*` builds.
+`wrench-db-inspect` produces evidence. Bolt/CI/harness selects the gate profile and records the result. See `harness-integration.md` for the scaffold-level contract across `rumble-*` builds.
 
 ## Required Inputs
 
@@ -128,7 +128,7 @@ Note: GitHub Actions is shown only as a portable CI contract example. Sovereign/
 
 ## Rollout Plan
 
-1. Add forge scaffold support for Postgres applicability, `db/security-manifest.json`, sanitized `target/schema.sql`, and report artifacts.
+1. Add ecosystem scaffold support for Postgres applicability, `db/security-manifest.json`, sanitized `target/schema.sql`, and report artifacts.
 2. Run in `local`/warning mode on each Rumble to collect false positives.
 3. Require manifests for all Postgres-backed Rumbles.
 4. Enable `pull_request` for P0 critical/high.
@@ -151,7 +151,7 @@ New recurring issues should become shared fixtures in `wrench-db-inspect`, not p
 
 ## Harness Observable Gates
 
-The harness should expose the report as typed gates/metrics rather than free-form logs. Minimum gates are defined in `forge-harness-integration.md` and include:
+The harness should expose the report as typed gates/metrics rather than free-form logs. Minimum gates are defined in `harness-integration.md` and include:
 
 - manifest/schema presence for Postgres products;
 - `data.summary.gate_blocked == false`;

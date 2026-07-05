@@ -1,6 +1,6 @@
 # Self-Improving Process Loop
 
-This ecosystem is a personal forge for learning, reliable process design, and robust tools. The loop below is the intended center of gravity.
+This ecosystem is a personal ecosystem for learning, reliable process design, and robust tools. The loop below is the intended center of gravity.
 
 ```text
 idea → specification → inspection → planning → controlled execution → evidence → memory → improvement

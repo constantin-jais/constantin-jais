@@ -58,7 +58,7 @@
   },
   "native_delivery": "portal + UniFFI (SwiftUI / Jetpack Compose shells); portal-apple frozen at proven-bridge tag, portal-android frozen pending SDK/NDK-verifiable CI",
   "desktop": "deferred - next spike, demand-driven (ADR 0032 s4; the Tauri-2 choice was Leptos-coupled and is re-opened)",
-  "static_publication": "Dioxus SSG for forge products (ADR 0032 s3); Astro remains permitted tooling outside forge products",
+  "static_publication": "Dioxus SSG for ecosystem products (ADR 0032 s3); Astro remains permitted tooling outside ecosystem products",
   "session_runtime_owner": "rumble-lm (ADR 0029): any live session - generic or ai-practices - runs on lm's engine",
   "identity_ownership": "Gear (identity primitives, D11-gated extraction) + shared Rumble (workspace container); portal-core excluded (ADR 0028)",
   "stack_matrix": {
@@ -84,7 +84,7 @@
       "Mandatory US-hyperscaler or proprietary SaaS dependencies in core truth"
     ],
     "narrowed": [
-      "Astro static publication: permitted outside forge products only; forge products publish via Dioxus SSG (ADR 0032 s3)"
+      "Astro static publication: permitted outside ecosystem products only; ecosystem products publish via Dioxus SSG (ADR 0032 s3)"
     ]
   },
   "dod_chain": [
