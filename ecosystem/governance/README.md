@@ -34,11 +34,11 @@ python3 -m unittest discover ecosystem/governance             # unit tests (pure
 1. Create a fine-grained PAT: Settings → Developer settings → Fine-grained
    tokens — Repository access: the ecosystem repos; Permissions: Administration
    (Read and write); expiration 90 days.
-2. Add it as the `FORGE_ADMIN_TOKEN` secret of this repository. With the
+2. Add it as the `ECOSYSTEM_ADMIN_TOKEN` secret of this repository. With the
    token in your clipboard (macOS):
 
    ```sh
-   pbpaste | gh secret set FORGE_ADMIN_TOKEN --repo constantin-jais/constantin-jais
+   pbpaste | gh secret set ECOSYSTEM_ADMIN_TOKEN --repo constantin-jais/constantin-jais
    ```
 
    Do NOT rely on `gh secret set`'s interactive prompt from a harness `!`
@@ -86,7 +86,7 @@ stay on explicit human merge.
 
 ## Scope and security
 
-- The apply path runs in CI with `FORGE_ADMIN_TOKEN` (fine-grained,
+- The apply path runs in CI with `ECOSYSTEM_ADMIN_TOKEN` (fine-grained,
   Administration read/write, ecosystem repos only, 90-day expiry, revocable,
   every use in the GitHub audit log). Interactive agent sessions never call
   the administration API directly — they edit this policy file instead.
