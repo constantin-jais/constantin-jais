@@ -325,7 +325,13 @@ def _selected_repos(policy: dict, repo: str | None) -> list[str]:
 def command_check(policy: dict, repo: str | None) -> int:
     exit_code = 0
     for target in _selected_repos(policy, repo):
-        state = fetch_state(policy, target)
+        try:
+            state = fetch_state(policy, target)
+        except GhApiError as error:
+            if "Upgrade to GitHub Pro" in error.stderr:
+                print(f"warning: {target}: rulesets unavailable (private repo without GitHub Pro); skipped")
+                continue
+            raise
         drift = repo_drift(policy, target, state)
         for warning in warnings_for(policy, target):
             print(f"warning: {warning}")
@@ -341,7 +347,13 @@ def command_check(policy: dict, repo: str | None) -> int:
 
 def command_apply(policy: dict, repo: str | None) -> int:
     for target in _selected_repos(policy, repo):
-        apply_repo(policy, target)
+        try:
+            apply_repo(policy, target)
+        except GhApiError as error:
+            if "Upgrade to GitHub Pro" in error.stderr:
+                print(f"warning: {target}: rulesets unavailable (private repo without GitHub Pro); skipped")
+                continue
+            raise
     print("post-apply verification:")
     return command_check(policy, repo)
 
