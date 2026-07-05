@@ -38,7 +38,7 @@ Coverage note: **M5** (ratification artifacts) is **done** (target-version 1.1.0
 | M10 — observability (tracing, zero PII)          | not-started | lm `println!` → tracing; ai-practices idem                                                                                                           | alignment M10; axis #1                                |
 | M11 — backup automation + RTO/RPO                | partial     | manual snapshots only; weekly job + quantify D13                                                                                                     | alignment M11                                         |
 | M12 — dioxus-lab → template sync protocol        | stub        | script or checklist the manual sync                                                                                                                  | alignment M12                                         |
-| FORGE_ADMIN_TOKEN PAT                            | not-started | governance drift-check 401s until set                                                                                                                | ADR 0031                                              |
+| ECOSYSTEM_ADMIN_TOKEN PAT                            | not-started | governance drift-check 401s until set                                                                                                                | ADR 0031                                              |
 | M7 — maturity/stack coverage + cockpit           | partial     | generate missing `deployment_class` claims                                                                                                           | alignment M7                                          |
 
 ## Product verticals (Rumble)

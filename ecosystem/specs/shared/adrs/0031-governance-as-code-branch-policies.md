@@ -31,7 +31,7 @@ enabled. Two additional defects surfaced the same day:
 2. **Agents propose, humans ratify, CI applies.** Policy changes travel as
    pull requests editing the JSON; merging is the ratification; the
    `governance` workflow applies with a dedicated fine-grained PAT
-   (`FORGE_ADMIN_TOKEN`, Administration read/write, ecosystem repos only).
+   (`ECOSYSTEM_ADMIN_TOKEN`, Administration read/write, ecosystem repos only).
    Interactive sessions never call the administration API.
 3. **Approvals drop to 0; real gates remain.** Formal GitHub approval is
    impossible on a single-account ecosystem and is retired as theater. Gates
@@ -54,7 +54,7 @@ enabled. Two additional defects surfaced the same day:
 - Protection semantics are preserved minus the theater: force-push and
   deletion blocked, conversation resolution required, stale reviews
   dismissed, strict up-to-date checks kept.
-- New attack surface, accepted and bounded: `FORGE_ADMIN_TOKEN` can rewrite
+- New attack surface, accepted and bounded: `ECOSYSTEM_ADMIN_TOKEN` can rewrite
   rulesets of listed repos. Mitigations: fine-grained scope, 90-day expiry,
   audit-logged use, applied only from CI on merged (i.e. ratified) policy.
 - Onboarding is explicit: a repo enters the policy via a PR carrying its
