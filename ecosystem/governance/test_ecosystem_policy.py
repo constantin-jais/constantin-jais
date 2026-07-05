@@ -1,4 +1,4 @@
-"""Unit tests for the pure policy-diff core of forge_policy.py.
+"""Unit tests for the pure policy-diff core of ecosystem_policy.py.
 
 Run: python3 -m unittest discover ecosystem/governance
 No network, no gh: only the pure functions are tested here. The gh-backed
@@ -10,13 +10,13 @@ from __future__ import annotations
 import copy
 import unittest
 
-import forge_policy as fp
+import ecosystem_policy as fp
 
 
 def sample_policy() -> dict:
     return {
         "version": 1,
-        "ruleset_name": "forge-standard",
+        "ruleset_name": "ecosystem-standard",
         "defaults": {
             "target_branch": "main",
             "required_approving_review_count": 0,
@@ -63,7 +63,7 @@ class DesiredRulesetTests(unittest.TestCase):
         desired = fp.desired_ruleset(
             sample_policy(), "constantin-jais/constantin-jais"
         )
-        self.assertEqual(desired["name"], "forge-standard")
+        self.assertEqual(desired["name"], "ecosystem-standard")
         self.assertEqual(desired["target"], "branch")
         self.assertEqual(desired["enforcement"], "active")
         self.assertEqual(desired["bypass_actors"], [])

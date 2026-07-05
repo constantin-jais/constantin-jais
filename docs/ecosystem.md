@@ -1,6 +1,6 @@
-# Forge logicielle — convention CI/CD
+# Ecosystem logicielle — convention CI/CD
 
-Objectif : construire une forge souveraine, auditable et reproductible sans publication automatique dangereuse.
+Objectif : construire un écosystème souveraine, auditable et reproductible sans publication automatique dangereuse.
 
 ## Workflows standards
 
@@ -8,7 +8,7 @@ Objectif : construire une forge souveraine, auditable et reproductible sans publ
 - `.github/workflows/security.yml` : dépendances, advisories, licences, sources, audit de secrets simples.
 - `.github/workflows/contracts.yml` : preuves métier par couche, fixtures, snapshots, golden files, schémas.
 - `.github/workflows/release.yml` : artefacts distribuables uniquement, déclenchés par tag `v*.*.*` ou `workflow_dispatch`.
-- `.github/workflows/forge-health.yml` : cockpit global dans `constantin-jais`.
+- `.github/workflows/ecosystem-health.yml` : cockpit global dans `constantin-jais`.
 
 ## Règles communes
 
@@ -79,4 +79,4 @@ Sur `main`, exiger :
 2. Phase 2 : `security.yml` séparé sur repos sensibles.
 3. Phase 3 : `contracts.yml` avec preuves par couche.
 4. Phase 4 : `release.yml` pour outils distribuables, avec checksums/SBOM/provenance.
-5. Phase 5 : `forge-health.yml` global dans `constantin-jais` ; inventaire public remote en hard-fail après adoption multi-repos.
+5. Phase 5 : `ecosystem-health.yml` global dans `constantin-jais` ; inventaire public remote en hard-fail après adoption multi-repos.

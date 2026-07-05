@@ -6,7 +6,7 @@ Decision owner: Ecosystem Architecture
 
 ## Context
 
-On 2026-07-02 the forge lost its second GitHub account (`Cos-su` absorbed
+On 2026-07-02 the ecosystem lost its second GitHub account (`Cos-su` absorbed
 into `constantin-jais`). GitHub forbids approving one's own pull request, so
 every classic branch protection requiring 1 approving review became an
 unsatisfiable deadlock — including for the owner, since `enforce_admins` was
@@ -25,16 +25,16 @@ enabled. Two additional defects surfaced the same day:
 ## Decision
 
 1. **Branch policy is code.** `ecosystem/governance/branch-policy.json` is
-   the single source of truth for branch protection across forge repos,
+   the single source of truth for branch protection across ecosystem repos,
    expressed as GitHub rulesets (named, disableable without loss, idempotent
    API). Legacy classic protections are removed as repos onboard.
 2. **Agents propose, humans ratify, CI applies.** Policy changes travel as
    pull requests editing the JSON; merging is the ratification; the
    `governance` workflow applies with a dedicated fine-grained PAT
-   (`FORGE_ADMIN_TOKEN`, Administration read/write, forge repos only).
+   (`FORGE_ADMIN_TOKEN`, Administration read/write, ecosystem repos only).
    Interactive sessions never call the administration API.
 3. **Approvals drop to 0; real gates remain.** Formal GitHub approval is
-   impossible on a single-account forge and is retired as theater. Gates
+   impossible on a single-account ecosystem and is retired as theater. Gates
    that actually hold: required status checks (per-repo, declared in the
    policy), spec/decision ratification in `decision-log.md`, and session
    reviews posted as PR comments with an explicit `VERDICT:` header.
@@ -63,7 +63,7 @@ enabled. Two additional defects surfaced the same day:
 
 ## Acceptance Tests
 
-- `forge_policy.py check` exits 0 on a converged repo, 2 with a readable
+- `ecosystem_policy.py check` exits 0 on a converged repo, 2 with a readable
   report on any drift (enforcement, approvals, checks, bypass actors,
   legacy protection, repo settings).
 - A spec-only `.md` PR on this repo triggers both required checks, which

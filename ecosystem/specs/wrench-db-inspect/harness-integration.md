@@ -1,15 +1,15 @@
-# Wrench DB Inspect — Forge & Harness Integration
+# Wrench DB Inspect — Ecosystem & Harness Integration
 
 Status: Integration positioning for `rumble-*` builds.
 
 ## Positioning
 
-`wrench-db-inspect` is the shared Wrench database-security gate for Postgres-backed `rumble-*` products. It must be integrated as forge/harness evidence, not as a product-local checklist.
+`wrench-db-inspect` is the shared Wrench database-security gate for Postgres-backed `rumble-*` products. It must be integrated as ecosystem/harness evidence, not as a product-local checklist.
 
 The intended loop is:
 
 1. a `rumble-*` product declares whether it uses Postgres;
-2. if yes, the forge scaffold requires a DB security manifest and sanitized schema dump step;
+2. if yes, the ecosystem scaffold requires a DB security manifest and sanitized schema dump step;
 3. CI/harness runs `wrench-db-inspect` with the selected profile;
 4. Bolt/harness stores the JSON/Markdown reports as evidence artifacts;
 5. recurring findings become shared fixtures/rules in `wrench-db-inspect`, not duplicated product scripts.
@@ -31,9 +31,9 @@ rumble-*/
 
 A product that does not use Postgres should declare that explicitly in its build metadata/spec so the harness can mark DB inspection as not applicable rather than missing.
 
-## Forge scaffold requirements
+## Ecosystem scaffold requirements
 
-When the forge creates or upgrades a Postgres-backed `rumble-*`, it should add:
+When the ecosystem creates or upgrades a Postgres-backed `rumble-*`, it should add:
 
 - `db/security-manifest.json` seeded from the appropriate shared example;
 - a schema dump command that emits sanitized DDL only to `target/schema.sql`;

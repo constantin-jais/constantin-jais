@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "stack-target-version.v0.1.schema.json",
   "title": "Stack target version",
-  "description": "Machine-readable ratified target of the forge stack: layer model, elected shells, ownership decisions, stack matrix, and DoD chain. The human companion is ecosystem/target-version.md.",
+  "description": "Machine-readable ratified target of the ecosystem stack: layer model, elected shells, ownership decisions, stack matrix, and DoD chain. The human companion is ecosystem/target-version.md.",
   "type": "object",
   "additionalProperties": false,
   "required": [

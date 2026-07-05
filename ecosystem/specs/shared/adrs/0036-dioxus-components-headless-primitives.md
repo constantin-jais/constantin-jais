@@ -19,7 +19,7 @@ ADR 0032 ratified Dioxus 0.7.9 and listed "Dioxus Primitives (headless ARIA)" am
 
 3. **Styling is tokens-only.** Primitives ship unstyled by design; all styling comes through Portal tokens (CSS variables / `portal-forge` output), never bundled component styles and never hardcoded literals. This is the same rule `wrench-inspect portal inspect` already enforces (ADR 0033 tokens-only). The library is the _behaviour + accessibility_ layer; Portal is the _appearance_ layer.
 
-4. **Sovereignty.** Dual MIT/Apache-2.0 — permissive, self-hostable, on the forge floor (ADR 0034 / sovereign-stack). No AGPL/SSPL, no SaaS coupling.
+4. **Sovereignty.** Dual MIT/Apache-2.0 — permissive, self-hostable, on the ecosystem floor (ADR 0034 / sovereign-stack). No AGPL/SSPL, no SaaS coupling.
 
 5. **First application: `rumble-ai-benchmark`.** Per Constantin, the first Rumble product to apply the library is `rumble-ai-benchmark` — a bounded, already-shipped static benchmark site, chosen as the low-risk proving ground before the pattern reaches the larger products (`rumble-lm` UI alignment, `rumble-cos` rebuild). Its plan lives in `rumble-ai-benchmark/docs/plans/`.
 

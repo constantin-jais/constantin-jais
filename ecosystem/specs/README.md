@@ -30,7 +30,7 @@ The goal is not to write static documentation or rank products by business poten
 | --- | --- | --- |
 | `portal-*` | Accepted placement / repo-local specs | Client platform: design tokens, accessibility, i18n UI, Rust-first bindings, and web/native adapters for Rumble products. |
 | `gear-loader` | Accepted placement / migration from former `wrench-loader` specs | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports. Historical `wrench-loader` specs remain migration references until schema paths are renamed. |
-| `wrench-db-inspect` | Draft/prototype | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, tenant isolation, and forge/harness evidence for Postgres-backed `rumble-*`. |
+| `wrench-db-inspect` | Draft/prototype | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, tenant isolation, and ecosystem/harness evidence for Postgres-backed `rumble-*`. |
 | Stack validation tooling | P0 spec | Local-only tools for project status, stack detection, scorecards, dependency audit, and local smoke before implementation or provisioning. |
 
 ## Spec Rule

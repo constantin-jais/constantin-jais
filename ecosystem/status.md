@@ -3,7 +3,7 @@
 Status date: 2026-07-03
 Purpose: one human/agent-readable cockpit for the Rumble / Portal / Bolt / Wrench / Gear stack.
 
-This ecosystem is not prioritized as a startup portfolio. It is a personal process forge for learning, trustworthy workflows, sovereign tooling, and high-quality agent-readable systems.
+This ecosystem is not prioritized as a startup portfolio. It is a personal process ecosystem for learning, trustworthy workflows, sovereign tooling, and high-quality agent-readable systems.
 
 Build notes are written only when a concrete artifact creates useful public learning; see [`build-notes.md`](build-notes.md).
 
@@ -141,7 +141,7 @@ References: [`specs/shared/adrs/0034-stack-validation-local-only.md`](specs/shar
 | Dioxus/PWA + Portal | GO (ADR 0032) | Spike delivered: `wrench-dioxus-lab` ADR 0001 — wasm 386 KiB gzip, 4-engine e2e, HttpOnly session, a11y/token gates. Next: first product alignment (rumble-lm slice). |
 | SwiftUI / Compose via Portal | WAIT | Promote only after PWA proof plus native product need, SDK verification, and Portal binding evidence. |
 | RAG / pgvector / citation-gated generation | SPIKE LOCAL STRICT | Use fixtures first; prove citation validation, redaction, retention policy, and provider-free local checks. |
-| Astro/MDX/Bun static publication | NARROWED (ADR 0032 §3) | Permitted outside forge products; forge products publish via Dioxus SSG — `rumble-cos` rebuilds accordingly (DA-2a). |
+| Astro/MDX/Bun static publication | NARROWED (ADR 0032 §3) | Permitted outside ecosystem products; ecosystem products publish via Dioxus SSG — `rumble-cos` rebuilds accordingly (DA-2a). |
 | DB security / RLS / grants / pgvector | GO as gate | Use sanitized SQL fixtures and `wrench-db-inspect` before protected branches or releases. |
 | Agentic P0 tools | GO progressive | Harden and dogfood implemented P0 helpers: `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, `local_smoke`; keep dry-run/local-only defaults. |
 | Paid infrastructure, provisioning, live providers | NO-GO | Remain recommendation/dry-run/config examples until explicit human approval. |

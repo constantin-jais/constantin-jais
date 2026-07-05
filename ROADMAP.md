@@ -5,10 +5,10 @@ This is a contribution map, not a startup roadmap or a delivery promise. It show
 ## Now
 
 - make dogfooding evidence visible through commands, fixtures, CI checks, generated reports, or linked docs;
-- keep the ecosystem status and forge docs accurate;
+- keep the ecosystem status and ecosystem docs accurate;
 - stabilize spec-contract fixtures;
 - document known limits and maturity honestly;
-- keep forge-health and contract checks green.
+- keep ecosystem-health and contract checks green.
 
 ## Next
 

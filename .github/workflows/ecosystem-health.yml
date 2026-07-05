@@ -1,4 +1,4 @@
-name: Forge health
+name: Ecosystem health
 
 # The "Stack workflow conventions" job is a required status check on main.
 # Required checks must run on EVERY pull request or the merge waits forever
@@ -8,10 +8,10 @@ on:
   push:
     branches: [main]
     paths:
-      - "docs/forge.md"
+      - "docs/ecosystem.md"
       - "docs/branch-protection.md"
       - "docs/agent-merge-policy.md"
-      - "ecosystem/forge-health.md"
+      - "ecosystem/health.md"
       - "ecosystem/status.md"
       - "ecosystem/maturity/*.json"
       - "SECURITY.md"
@@ -43,10 +43,10 @@ jobs:
           fi
           git fetch --no-tags origin "${{ github.base_ref }}"
           if git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- \
-            docs/forge.md \
+            docs/ecosystem.md \
             docs/branch-protection.md \
             docs/agent-merge-policy.md \
-            ecosystem/forge-health.md \
+            ecosystem/health.md \
             ecosystem/status.md \
             'ecosystem/maturity/*.json' \
             SECURITY.md \
@@ -56,16 +56,16 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No forge-health-relevant paths changed; reporting success."
+            echo "No ecosystem-health-relevant paths changed; reporting success."
           fi
-      - name: Local forge docs and maturity criteria exist
+      - name: Local ecosystem docs and maturity criteria exist
         if: steps.relevant.outputs.changed == 'true'
         run: |
           set -euo pipefail
-          test -s docs/forge.md
+          test -s docs/ecosystem.md
           test -s docs/branch-protection.md
           test -s docs/agent-merge-policy.md
-          test -s ecosystem/forge-health.md
+          test -s ecosystem/health.md
           test -s ecosystem/status.md
           test -s SECURITY.md
           test -s .github/CODEOWNERS
@@ -79,7 +79,7 @@ jobs:
             echo "::error::local workflow action is not pinned to a commit SHA"
             exit 1
           fi
-      - name: Public forge inventory hard-fail
+      - name: Public ecosystem inventory hard-fail
         if: steps.relevant.outputs.changed == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -97,7 +97,7 @@ jobs:
 
           repos = {
               "constantin-jais": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/forge-health.yml", ".github/workflows/spec-contracts.yml"],
+                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ecosystem-health.yml", ".github/workflows/spec-contracts.yml"],
               },
               "bolt-harness": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
@@ -144,7 +144,7 @@ jobs:
               url = f"https://api.github.com{path}"
               req = urllib.request.Request(url)
               req.add_header("Accept", "application/vnd.github+json")
-              req.add_header("User-Agent", "constantin-jais-forge-health")
+              req.add_header("User-Agent", "constantin-jais-ecosystem-health")
               if token:
                   req.add_header("Authorization", f"Bearer {token}")
               try:
@@ -172,16 +172,16 @@ jobs:
               for failure in failures:
                   print(f"::error::{failure}")
               sys.exit(1)
-          print("forge inventory ok")
+          print("ecosystem inventory ok")
           PY
-      - name: Admin forge settings hard-fail
+      - name: Admin ecosystem settings hard-fail
         if: steps.relevant.outputs.changed == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         env:
-          FORGE_HEALTH_ADMIN_TOKEN: ${{ secrets.FORGE_HEALTH_ADMIN_TOKEN }}
+          ECOSYSTEM_HEALTH_ADMIN_TOKEN: ${{ secrets.ECOSYSTEM_HEALTH_ADMIN_TOKEN }}
         run: |
           set -euo pipefail
-          if [ -z "${FORGE_HEALTH_ADMIN_TOKEN:-}" ]; then
-            echo "::warning::admin-only repo settings, secret scanning, and branch protection audit skipped; configure FORGE_HEALTH_ADMIN_TOKEN for full hard-fail checks"
+          if [ -z "${ECOSYSTEM_HEALTH_ADMIN_TOKEN:-}" ]; then
+            echo "::warning::admin-only repo settings, secret scanning, and branch protection audit skipped; configure ECOSYSTEM_HEALTH_ADMIN_TOKEN for full hard-fail checks"
             exit 0
           fi
           python3 - <<'PY'
@@ -192,7 +192,7 @@ jobs:
           import urllib.request
 
           owner = "constantin-jais"
-          token = os.environ["FORGE_HEALTH_ADMIN_TOKEN"]
+          token = os.environ["ECOSYSTEM_HEALTH_ADMIN_TOKEN"]
 
           repos = {
               "constantin-jais": ["Stack workflow conventions", "json-schema-fixtures"],
@@ -215,7 +215,7 @@ jobs:
               url = f"https://api.github.com{path}"
               req = urllib.request.Request(url)
               req.add_header("Accept", "application/vnd.github+json")
-              req.add_header("User-Agent", "constantin-jais-forge-health-admin")
+              req.add_header("User-Agent", "constantin-jais-ecosystem-health-admin")
               req.add_header("Authorization", f"Bearer {token}")
               try:
                   with urllib.request.urlopen(req, timeout=20) as response:
@@ -262,5 +262,5 @@ jobs:
               for failure in failures:
                   print(f"::error::{failure}")
               sys.exit(1)
-          print("forge admin settings ok")
+          print("ecosystem admin settings ok")
           PY

@@ -263,7 +263,7 @@ Pilot succeeds when:
 - False positives are documented as fixtures.
 - No Rumble-local RLS/grant/migration check duplicates the tool.
 - Bolt/CI/harness consumes report contract instead of raw SQL.
-- Forge scaffold expectations are validated against `forge-harness-integration.md`.
+- Ecosystem scaffold expectations are validated against `harness-integration.md`.
 
 ## Stop Conditions
 
@@ -275,7 +275,7 @@ Stop or pause the pilot if:
 - a Rumble starts copying the prototype logic locally;
 - live DB access is proposed as mandatory.
 
-## Forge/Harness Feedback
+## Ecosystem/Harness Feedback
 
 The pilot must prove that DB inspection becomes part of the product build flow:
 
