@@ -65,16 +65,16 @@ jobs:
           python-version: "3.12"
       - name: Compare live branch protection to the versioned policy
         env:
-          GH_TOKEN: ${{ secrets.FORGE_ADMIN_TOKEN }}
+          GH_TOKEN: ${{ secrets.ECOSYSTEM_ADMIN_TOKEN }}
         run: |
           set -euo pipefail
           if [ -z "${GH_TOKEN}" ]; then
-            echo "::warning::FORGE_ADMIN_TOKEN not configured - drift check skipped (bootstrap: ecosystem/governance/README.md)"
+            echo "::warning::ECOSYSTEM_ADMIN_TOKEN not configured - drift check skipped (bootstrap: ecosystem/governance/README.md)"
             exit 0
           fi
           if ! out="$(python3 ecosystem/governance/ecosystem_policy.py check 2>&1)"; then
             if printf '%s' "$out" | grep -qiE "bad credentials|HTTP 401"; then
-              echo "::warning::FORGE_ADMIN_TOKEN invalid or expired - drift check skipped; renew it in Settings > Secrets"
+              echo "::warning::ECOSYSTEM_ADMIN_TOKEN invalid or expired - drift check skipped; renew it in Settings > Secrets"
               exit 0
             fi
             printf '%s\n' "$out"; exit 1
@@ -98,16 +98,16 @@ jobs:
           python-version: "3.12"
       - name: Converge branch protection to the merged policy
         env:
-          GH_TOKEN: ${{ secrets.FORGE_ADMIN_TOKEN }}
+          GH_TOKEN: ${{ secrets.ECOSYSTEM_ADMIN_TOKEN }}
         run: |
           set -euo pipefail
           if [ -z "${GH_TOKEN}" ]; then
-            echo "::warning::FORGE_ADMIN_TOKEN not configured - apply skipped (bootstrap: ecosystem/governance/README.md)"
+            echo "::warning::ECOSYSTEM_ADMIN_TOKEN not configured - apply skipped (bootstrap: ecosystem/governance/README.md)"
             exit 0
           fi
           if ! out="$(python3 ecosystem/governance/ecosystem_policy.py apply 2>&1)"; then
             if printf '%s' "$out" | grep -qiE "bad credentials|HTTP 401"; then
-              echo "::warning::FORGE_ADMIN_TOKEN invalid or expired - apply skipped; renew it in Settings > Secrets"
+              echo "::warning::ECOSYSTEM_ADMIN_TOKEN invalid or expired - apply skipped; renew it in Settings > Secrets"
               exit 0
             fi
             printf '%s\n' "$out"; exit 1
@@ -126,12 +126,12 @@ jobs:
           python-version: "3.12"
       - name: Dump rulesets, legacy protection, and settings of the target repo
         env:
-          GH_TOKEN: ${{ secrets.FORGE_ADMIN_TOKEN }}
+          GH_TOKEN: ${{ secrets.ECOSYSTEM_ADMIN_TOKEN }}
           DUMP_REPO: ${{ inputs.dump_repo }}
         run: |
           set -euo pipefail
           if [ -z "${GH_TOKEN}" ]; then
-            echo "::error::FORGE_ADMIN_TOKEN not configured - dump needs it (bootstrap: ecosystem/governance/README.md)"
+            echo "::error::ECOSYSTEM_ADMIN_TOKEN not configured - dump needs it (bootstrap: ecosystem/governance/README.md)"
             exit 1
           fi
           python3 ecosystem/governance/ecosystem_policy.py dump --repo "${DUMP_REPO}"
