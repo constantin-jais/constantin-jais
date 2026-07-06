@@ -51,22 +51,24 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `rumble-cos` #5: retargeted to `main` after #6, fixed deterministic `dioxus-cli` installation in CI, re-ran checks, merged normally (`9036c3435f20e08144eb8c10d0df1d7d7bce49f9`), and deleted the PR branch.
 - Realigned GitHub required status checks for `rumble-feed-mind` and `rumble-cos` to the active gates; no admin merge bypass was used. Versioned policy drift remains a follow-up because the global governance drift check reports broader pre-existing ruleset drift.
 - `rumble-feed-mind` issue triage: closed stale/superseded issues #5 (Leptos/Tauri UI plan), #8 (Tauri-specific desktop bootstrap), and #7 (security findings now handled by passing advisory gate plus ADR 0005 temporary waivers); kept #1 and #4 open.
+- `Rumble-LM` issue triage: closed stale CI incident issues #26 and #41 because their referenced branches are gone; kept product mobile/WebView issues #31-#37 open.
+- `bolt-cos-matic` issue triage: closed stale empty smoke issue #17; kept product-feedback issues #41-#43 open.
 
-Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), plus three evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8). No repository was archived.
+Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). No repository was archived.
 
 ## Summary
 
 - Public repositories found: **23**.
 - Public archived repositories: **0**.
 - Public open PRs found: **0**.
-- Public open issues found: **15** (`bolt-cos-matic`: 4, `rumble-feed-mind`: 2, `Rumble-LM`: 9).
+- Public open issues found: **12** (`bolt-cos-matic`: 3, `rumble-feed-mind`: 2, `Rumble-LM`: 7).
 - Main cleanup hotspots: branch cleanup watchlist, issue triage, branch-policy/ruleset drift, `dioxus-template`/`dioxus-app-template` duplication, `dioxus` fork branches, `rumble-ai-practices`, `portal-core`, `Rumble-LM`.
 
 ## Public repository inventory
 
 | Repository | Layer / role | Disposition | Branches | Open PRs | Open issues | License | Local checkout | Next cleanup action |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- | --- |
-| `bolt-cos-matic` | Bolt factory | KEEP | 2 | 0 | 4 | MIT | `bolt-cos-matic` on `feat/stack-rule-check` | Reconcile local feature branch; triage issues #17/#41-#43. |
+| `bolt-cos-matic` | Bolt factory | KEEP | 2 | 0 | 3 | MIT | `bolt-cos-matic` on `feat/stack-rule-check` | Reconcile local feature branch; keep product-feedback issues #41-#43. |
 | `bolt-harness` | Bolt proof surface | KEEP | 1 | 0 | 0 | MIT | `bolt-harness` | No immediate cleanup. |
 | `constantin-jais` | Control plane / profile repo | KEEP | 1 | 0 | 0 | Missing on GitHub | `constantin-jais` | Decide profile-repo license exemption or add license. |
 | `dioxus` | External fork / upstream PR base | KEEP-REFERENCE | 19 | 0 | 0 | Apache-2.0 | `dioxus` remote points to `DioxusLabs/dioxus` | Keep while upstream PRs are active; later prune fork branches deliberately. |
@@ -85,7 +87,7 @@ Remote-destructive actions executed: nine checked PR merges with their PR branch
 | `rumble-cos` | Rumble content/product site | KEEP | 1 | 0 | 0 | MIT | `rumble-cos` on `main` | PR stack #6/#5 merged; follow up Dependabot-reported default-branch advisories. |
 | `Rumble-Crew` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-crew` | No immediate cleanup. |
 | `rumble-feed-mind` | Rumble product / active cleanup wave | KEEP | 2 | 0 | 2 | MIT | `rumble-feed-mind` on `main` | PR cleanup complete; archive branch intentionally retained; keep issues #1/#4 open. |
-| `Rumble-LM` | Rumble flagship slice | KEEP | 2 | 0 | 9 | MIT | `rumble-lm` | Inspect branch `i3-biscuit-auth-middleware`; close stale CI issues if superseded. |
+| `Rumble-LM` | Rumble flagship slice | KEEP | 2 | 0 | 7 | MIT | `rumble-lm` | Inspect branch `i3-biscuit-auth-middleware`; keep product mobile/WebView issues #31-#37. |
 | `Rumble-Note` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-note` | No immediate cleanup. |
 | `wrench-db-inspect` | Wrench DB/security evidence | KEEP | 1 | 0 | 0 | MIT | `wrench-db-inspect` | No immediate cleanup. |
 | `wrench-dioxus-lab` | Wrench evidence lab | KEEP | 2 | 0 | 0 | MIT | `wrench-dioxus-lab` | PR #1 merged; keep `gh-pages` only if serving proof artifacts, otherwise prune after Pages decision. |
@@ -98,9 +100,9 @@ No public open PR remains after the 2026-07-06 cleanup pass.
 
 | Repository | Issues | Cleanup rule |
 | --- | --- | --- |
-| `bolt-cos-matic` | #17, #41, #42, #43 | Close stale smoke issue if obsolete; keep product-feedback issues only if tied to a plan. |
+| `bolt-cos-matic` | #41, #42, #43 | Keep product-feedback issues tied to mobile/WebView/Rust-core planning; stale smoke issue #17 was closed. |
 | `rumble-feed-mind` | #1, #4 | Keep #1 as the broad Rust-first rewrite epic and #4 as the CLI launch pipeline issue. Leptos/Tauri/security cleanup issues #5/#7/#8 were closed with evidence. |
-| `Rumble-LM` | #26, #31, #32, #33, #34, #35, #36, #37, #41 | Close stale CI-failure issues if their branches are gone; keep mobile/webview issues only if part of current flagship slice. |
+| `Rumble-LM` | #31, #32, #33, #34, #35, #36, #37 | Keep mobile/WebView product issues; stale CI incident issues #26/#41 were closed because referenced branches are gone. |
 
 ## Branch cleanup watchlist
 
