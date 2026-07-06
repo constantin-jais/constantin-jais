@@ -165,6 +165,7 @@ Documentation is part of the architecture. To avoid dispersion:
 
 - `overview.md` owns stable doctrine, layer boundaries, and architecture rules.
 - `status.md` owns current maturity, next quality steps, and verification commands.
+- `repos-inventory.md` owns the public repository cleanup ledger: visibility, branch/PR/issue triage, and archive/disposition candidates. It does not override layer ownership or maturity claims.
 - `loop.md` owns the target idea-to-proof-to-memory process loop.
 - `specs/shared/` owns reusable contracts, shared capabilities, decisions, and open questions.
 - Product/tool repository READMEs own local usage, local boundary, and local commands only.
