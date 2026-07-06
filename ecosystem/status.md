@@ -13,7 +13,7 @@ The process is the product:
 idea → specification → inspection → planning → controlled execution → evidence → memory → improvement
 ```
 
-The accepted full target version lives in [`target-version.md`](target-version.md) / [`target-version.v1.json`](target-version.v1.json). The persisted cross-layer backlog lives in [`remaining-work.md`](remaining-work.md).
+The accepted full target version lives in [`target-version.md`](target-version.md) / [`target-version.v1.json`](target-version.v1.json). The persisted cross-layer backlog lives in [`remaining-work.md`](remaining-work.md). Public repository cleanup is tracked in [`repos-inventory.md`](repos-inventory.md).
 
 Rumble projects are dojos: they create real constraints and product-shaped pressure. Portal, Bolt, Wrench, and Gear are the reusable process core for clients, orchestration, inspection, and substrate work.
 

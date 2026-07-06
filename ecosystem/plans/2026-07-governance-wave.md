@@ -90,7 +90,7 @@ This governance wave operationalizes three foundational decisions from the archi
 **Gear (~4 repos, remote):**
 - `gear-cable`, `gear-depot`, `gear-loader`, `gear-memory`
 
-**Note:** This list is derived from target-version.md layer definitions and ecosystem/specs references. For a complete and up-to-date repo enumeration, consult the GitHub org `constantin-jais` and cross-reference with the Ecosystem Compass (when available).
+**Note:** This list is derived from target-version.md layer definitions and ecosystem/specs references. For the public repository cleanup enumeration, consult `../repos-inventory.md`, refresh it from the GitHub org `constantin-jais`, and cross-reference with the Ecosystem Compass (when available).
 
 ---
 
