@@ -56,8 +56,9 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `dioxus-app-template`: accepted as the canonical Dioxus fullstack app starter, cleaned its local diff, fixed deterministic `dioxus-cli` install/static-smoke CI sequencing, verified local gates, created the public repository, and confirmed `CI` plus `Deploy static demo` passed on the first public push (`935bc2658f81205c3fed4afe4435bc130a4bc09d`).
 - `dioxus-template`: checked fork purpose before archive; it is a fork of `DioxusLabs/dioxus-template` and still backs upstream PR [DioxusLabs/dioxus-template#92](https://github.com/DioxusLabs/dioxus-template/pull/92) from `fix/jumpstart-template-polish`, so it remains public as a non-canonical upstream reference until that PR is resolved.
 - `portal-core`: deleted merged PR branches `docs/plan-2026-07` (#1) and `feat/plan-2026-07-i1-deny-gate` (#2) after verifying their remote heads matched the merged PR head SHAs.
+- `Rumble-LM`: deleted closed/superseded branch `i3-biscuit-auth-middleware` after verifying it matched closed PR #47 head SHA and the supersession decision was already recorded in `specs/shared/decision-log.md`.
 
-Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), two additional merged-PR branch deletions (`portal-core` #1/#2), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive action executed: created public repository `constantin-jais/dioxus-app-template`. No repository was archived.
+Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), three additional evidence-backed branch deletions (`portal-core` #1/#2 branches and `Rumble-LM` #47 branch), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive action executed: created public repository `constantin-jais/dioxus-app-template`. No repository was archived.
 
 ## Summary
 
@@ -91,7 +92,7 @@ Remote-destructive actions executed: nine checked PR merges with their PR branch
 | `rumble-cos` | Rumble content/product site | KEEP | 1 | 0 | 0 | MIT | `rumble-cos` on `main` | PR stack #6/#5 merged; follow up Dependabot-reported default-branch advisories. |
 | `Rumble-Crew` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-crew` | No immediate cleanup. |
 | `rumble-feed-mind` | Rumble product / active cleanup wave | KEEP | 2 | 0 | 2 | MIT | `rumble-feed-mind` on `main` | PR cleanup complete; archive branch intentionally retained; keep issues #1/#4 open. |
-| `Rumble-LM` | Rumble flagship slice | KEEP | 2 | 0 | 7 | MIT | `rumble-lm` | Inspect branch `i3-biscuit-auth-middleware`; keep product mobile/WebView issues #31-#37. |
+| `Rumble-LM` | Rumble flagship slice | KEEP | 1 | 0 | 7 | MIT | `rumble-lm` | Superseded branch #47 deleted; keep product mobile/WebView issues #31-#37. |
 | `Rumble-Note` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-note` | No immediate cleanup. |
 | `wrench-db-inspect` | Wrench DB/security evidence | KEEP | 1 | 0 | 0 | MIT | `wrench-db-inspect` | No immediate cleanup. |
 | `wrench-dioxus-lab` | Wrench evidence lab | KEEP | 2 | 0 | 0 | MIT | `wrench-dioxus-lab` | PR #1 merged; keep `gh-pages` only if serving proof artifacts, otherwise prune after Pages decision. |
@@ -114,7 +115,6 @@ Branches with no open PR need explicit review before deletion:
 
 - `bolt-cos-matic`: `feat/stack-rule-check`.
 - `rumble-ai-practices`: `docs/plan-2026-07`, `feat/consolidate-prototype`, `feat/keycap-design-app`, `slice-b-cohort-online`.
-- `Rumble-LM`: `i3-biscuit-auth-middleware`.
 - `rumble-feed-mind`: `archive-2026-07-legacy-nextjs`; intentionally retained by #21 as legacy Next.js reference, even though it has no commits ahead of `main`.
 - `dioxus`: `blitz`, `copilot/update-dioxus-reference`, `dependabot/github_actions/actions/cache-6`, `devin/*`, `docs/login-form-cookie-hardening`, `fix/server-fn-untyped-error-status`, `hook-docs`, `jk/*`, `v0.4`, `v0.5`, `v0.6`, `v0.7`; do not prune until fork purpose is re-checked.
 - `dioxus-app-template`: `gh-pages`; intentionally retained while it serves the static template demo.
