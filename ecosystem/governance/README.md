@@ -77,6 +77,13 @@ A repo listed without `required_checks` gates on nothing but the
 pull-request rule — the check mode warns about it until its CI contexts are
 declared.
 
+## Ruleset names
+
+Most repositories use the default `ecosystem-standard` ruleset name. A repo may
+set `ruleset_name` only to adopt an already-equivalent historical ruleset
+without an interactive admin rename; the policy still owns the rule shape and
+required checks.
+
 ## Auto-merge
 
 `allow_auto_merge` is enabled by policy. Mechanical PRs (docs, CI fixes,
