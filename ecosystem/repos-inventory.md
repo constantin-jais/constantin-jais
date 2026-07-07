@@ -79,7 +79,7 @@ Remote-destructive actions executed: twelve checked PR merges with their PR bran
 | --- | --- | --- | ---: | ---: | ---: | --- | --- | --- |
 | `bolt-cos-matic` | Bolt factory | KEEP | 1 | 0 | 3 | MIT | `bolt-cos-matic` on `main` | PR #72 merged from former orphan branch; keep product-feedback issues #41-#43. |
 | `bolt-harness` | Bolt proof surface | KEEP | 1 | 0 | 0 | MIT | `bolt-harness` | No immediate cleanup. |
-| `constantin-jais` | Control plane / profile repo | KEEP | 1 | 0 | 0 | Missing on GitHub | `constantin-jais` | Decide profile-repo license exemption or add license. |
+| `constantin-jais` | Control plane / profile repo | KEEP | 1 | 0 | 0 | MIT | `constantin-jais` | MIT license added; wait for GitHub license detection after merge. |
 | `dioxus` | External fork / upstream PR base | KEEP-REFERENCE | 19 | 0 | 0 | Apache-2.0 | `dioxus` remote points to `DioxusLabs/dioxus` | Keep while upstream PRs are active; later prune fork branches deliberately. |
 | `dioxus-app-template` | Canonical Dioxus fullstack app starter | KEEP-CANONICAL | 2 | 0 | 0 | MIT | `dioxus-app-template` on `main` | Public repo created; CI, static demo deploy, and public Pages smoke are green. Keep `gh-pages` while serving the template demo. |
 | `dioxus-template` | Upstream `dx new` template fork / non-canonical app starter | KEEP-REFERENCE | 8 | 0 | 0 | Missing on GitHub | no matching local checkout | Keep while upstream PR #92 is open; after resolution, re-check branches and archive/prune if no reference purpose remains. |
@@ -140,7 +140,6 @@ Branches with no open PR need explicit review before deletion:
 | `dioxus-template` follow-up | Keep `dioxus-app-template` as the canonical public app starter; keep `dioxus-template` public only as an upstream PR/reference fork while DioxusLabs/dioxus-template#92 remains open. | User decision selected `dioxus-app-template`; later evidence showed `dioxus-template` still backs upstream PR #92, so immediate archive would drop active contribution context. |
 | `rumble-ai-benchmark` | Do not archive yet; keep public while Pages serves the benchmark and local-only `feat/rumble-v1` WIP is unreconciled. | Architecture notes call it a done benchmark artifact, but current evidence shows live Pages plus nine local WIP commits/997 files not pushed. |
 | `dioxus` fork | Keep as reference while upstream PRs are in flight; prune only after PR closure. | External fork has many upstream/reference branches that may be useful evidence. |
-| `constantin-jais` license | Add license or mark profile/control-plane license exemption. | GitHub reports missing license while other forge repos are MIT. |
 
 ## Recommended cleanup order
 
