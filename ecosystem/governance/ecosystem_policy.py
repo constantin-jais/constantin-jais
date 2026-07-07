@@ -346,6 +346,7 @@ def command_check(policy: dict, repo: str | None) -> int:
 
 
 def command_apply(policy: dict, repo: str | None) -> int:
+    failures: list[tuple[str, GhApiError]] = []
     for target in _selected_repos(policy, repo):
         try:
             apply_repo(policy, target)
@@ -353,9 +354,18 @@ def command_apply(policy: dict, repo: str | None) -> int:
             if "Upgrade to GitHub Pro" in error.stderr:
                 print(f"warning: {target}: rulesets unavailable (private repo without GitHub Pro); skipped")
                 continue
-            raise
+            print(f"error: {target}: {error}", file=sys.stderr)
+            failures.append((target, error))
+            continue
+    if failures:
+        print("apply completed with per-repository error(s):", file=sys.stderr)
+        for target, error in failures:
+            print(f"  - {target}: {error}", file=sys.stderr)
     print("post-apply verification:")
-    return command_check(policy, repo)
+    verification_status = command_check(policy, repo)
+    if failures and verification_status == 0:
+        return 1
+    return verification_status
 
 
 def command_dump(policy: dict, repo: str) -> int:
