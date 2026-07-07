@@ -61,16 +61,17 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `bolt-cos-matic`: opened PR #72 from the orphan `feat/stack-rule-check` branch, verified local gates and GitHub checks, merged cleanly (`c39ff1f7b5b618065024b99ca9f340838c9276d2`), and deleted the PR branch.
 - `rumble-ai-practices`: deleted redundant branch `docs/plan-2026-07` after `git cherry` showed its patch is already integrated in `origin/main` and the plan file blob matched exactly; set local `main` upstream tracking to `origin/main`.
 - `rumble-cos`: merged PR #15 (`bdbf5ab5977b6fb0187d1b92b0d9f3e937b275e7`) to fix Rust dependency advisories: removed unused `dioxus-primitives`, stale `Cargo.toml.new`, native feature paths, stale vulnerable lock entries (`glib`, `rand 0.7`), and updated `crossbeam-epoch` to `0.9.20`; GitHub Dependabot open alerts dropped to zero.
+- `wrench-inspect`: fixed current-stable clippy warnings via PR #7 (`03b6e517aa43d1289846d6322e10d85669db07ae`), verified tests and history secret scan (only detector code + intentional `sk-test-do-not-use` fixture), changed visibility from private to public, then deleted merged PR branches #2-#5 after matching their remote heads to merged PR head SHAs.
 
-Remote-destructive actions executed: eleven checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6, #5, and #15; `bolt-cos-matic` #72), four additional evidence-backed branch deletions (`portal-core` #1/#2 branches, `Rumble-LM` #47 branch, and patch-equivalent `rumble-ai-practices/docs/plan-2026-07`), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive actions executed: created public repository `constantin-jais/dioxus-app-template` and enabled its GitHub Pages demo. No repository was archived.
+Remote-destructive actions executed: twelve checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6, #5, and #15; `bolt-cos-matic` #72; `wrench-inspect` #7), eight additional evidence-backed branch deletions (`portal-core` #1/#2 branches, `Rumble-LM` #47 branch, patch-equivalent `rumble-ai-practices/docs/plan-2026-07`, and `wrench-inspect` #2-#5 branches), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote visibility action executed: `wrench-inspect` private → public after tests and history secret scan. Remote non-destructive actions executed: created public repository `constantin-jais/dioxus-app-template` and enabled its GitHub Pages demo. No repository was archived.
 
 ## Summary
 
-- Public repositories found: **24**.
+- Public repositories found: **25**.
 - Public archived repositories: **0**.
 - Public open PRs found: **0**.
 - Public open issues found: **12** (`bolt-cos-matic`: 3, `rumble-feed-mind`: 2, `Rumble-LM`: 7).
-- Main cleanup hotspots: branch cleanup watchlist, issue triage, branch-policy/ruleset drift, `dioxus-template` upstream PR #92 follow-up, `dioxus` fork branches, `rumble-ai-practices`, `portal-core`, `Rumble-LM`.
+- Main cleanup hotspots: branch cleanup watchlist, issue triage, branch-policy/ruleset drift, `dioxus-template` upstream PR #92 follow-up, `dioxus` fork branches, `rumble-ai-practices`, local-only `rumble-ai-benchmark` WIP.
 
 ## Public repository inventory
 
@@ -99,6 +100,7 @@ Remote-destructive actions executed: eleven checked PR merges with their PR bran
 | `Rumble-LM` | Rumble flagship slice | KEEP | 1 | 0 | 7 | MIT | `rumble-lm` | Superseded branch #47 deleted; keep product mobile/WebView issues #31-#37. |
 | `Rumble-Note` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-note` | No immediate cleanup. |
 | `wrench-db-inspect` | Wrench DB/security evidence | KEEP | 1 | 0 | 0 | MIT | `wrench-db-inspect` | No immediate cleanup. |
+| `wrench-inspect` | Wrench structural/policy evidence | KEEP | 1 | 0 | 0 | MIT OR Apache-2.0 (GitHub: Other) | `wrench-inspect` on `main` | Published after tests/history scan; PR #7 merged and stale merged PR branches #2-#5 deleted. |
 | `wrench-dioxus-lab` | Wrench evidence lab | KEEP | 2 | 0 | 0 | MIT | `wrench-dioxus-lab` | PR #1 merged; keep `gh-pages` only if serving proof artifacts, otherwise prune after Pages decision. |
 
 ## Open PR queue
@@ -129,7 +131,6 @@ Branches with no open PR need explicit review before deletion:
 
 | Item | Observed state | Decision needed |
 | --- | --- | --- |
-| `wrench-inspect` | GitHub repo exists but is private; local checkout is present and governed in `branch-policy.json`. | If it belongs to the public stack, make it public; otherwise mark it explicitly private/internal in docs. |
 | `dioxus` local checkout | Local `origin` points to `DioxusLabs/dioxus`, while public fork `constantin-jais/dioxus` exists. | Decide whether local should track upstream or the fork; document the fork workflow. |
 
 ## Disposition decisions needed
@@ -137,8 +138,7 @@ Branches with no open PR need explicit review before deletion:
 | Decision | Recommended default | Reason |
 | --- | --- | --- |
 | `dioxus-template` follow-up | Keep `dioxus-app-template` as the canonical public app starter; keep `dioxus-template` public only as an upstream PR/reference fork while DioxusLabs/dioxus-template#92 remains open. | User decision selected `dioxus-app-template`; later evidence showed `dioxus-template` still backs upstream PR #92, so immediate archive would drop active contribution context. |
-| `wrench-inspect` visibility | Make public if it is part of the public forge; otherwise document as private/internal. | Inventory goal is public repos; governance already references it. |
-| `rumble-ai-benchmark` | Archive once branch `feat/rumble-v1` is reconciled, unless benchmark maintenance is active. | Architecture notes call it a done benchmark artifact. |
+| `rumble-ai-benchmark` | Do not archive yet; keep public while Pages serves the benchmark and local-only `feat/rumble-v1` WIP is unreconciled. | Architecture notes call it a done benchmark artifact, but current evidence shows live Pages plus nine local WIP commits/997 files not pushed. |
 | `dioxus` fork | Keep as reference while upstream PRs are in flight; prune only after PR closure. | External fork has many upstream/reference branches that may be useful evidence. |
 | `constantin-jais` license | Add license or mark profile/control-plane license exemption. | GitHub reports missing license while other forge repos are MIT. |
 
@@ -148,7 +148,7 @@ Branches with no open PR need explicit review before deletion:
 2. Watch upstream `dioxus-template` PR #92; after it closes, re-check branch/reference purpose and archive or prune if no longer needed.
 3. Clean branches that have no open PR after checking unique commits, starting with low-risk evidence branches (`rumble-feed-mind` archive branch, `wrench-dioxus-lab` `gh-pages`) only after purpose is confirmed.
 4. Triage issues in `Rumble-LM`, `rumble-feed-mind`, then `bolt-cos-matic`.
-5. Decide archive/public status for `rumble-ai-benchmark` and `wrench-inspect`.
+5. Decide whether local-only `rumble-ai-benchmark/feat/rumble-v1` becomes a public PR/branch or is archived elsewhere; do not archive the repo until that WIP is reconciled.
 6. Reconcile `rumble-ai-practices` local/public branch divergence.
 7. Refresh this file and update `status.md` only with changed high-level state.
 
