@@ -60,8 +60,9 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `dioxus-app-template`: enabled GitHub Pages from `gh-pages` and smoke-checked `https://constantin-jais.github.io/dioxus-app-template/` (`200`, DOCTYPE, prerendered `Notes lab` content).
 - `bolt-cos-matic`: opened PR #72 from the orphan `feat/stack-rule-check` branch, verified local gates and GitHub checks, merged cleanly (`c39ff1f7b5b618065024b99ca9f340838c9276d2`), and deleted the PR branch.
 - `rumble-ai-practices`: deleted redundant branch `docs/plan-2026-07` after `git cherry` showed its patch is already integrated in `origin/main` and the plan file blob matched exactly; set local `main` upstream tracking to `origin/main`.
+- `rumble-cos`: merged PR #15 (`bdbf5ab5977b6fb0187d1b92b0d9f3e937b275e7`) to fix Rust dependency advisories: removed unused `dioxus-primitives`, stale `Cargo.toml.new`, native feature paths, stale vulnerable lock entries (`glib`, `rand 0.7`), and updated `crossbeam-epoch` to `0.9.20`; GitHub Dependabot open alerts dropped to zero.
 
-Remote-destructive actions executed: ten checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5; `bolt-cos-matic` #72), four additional evidence-backed branch deletions (`portal-core` #1/#2 branches, `Rumble-LM` #47 branch, and patch-equivalent `rumble-ai-practices/docs/plan-2026-07`), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive actions executed: created public repository `constantin-jais/dioxus-app-template` and enabled its GitHub Pages demo. No repository was archived.
+Remote-destructive actions executed: eleven checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6, #5, and #15; `bolt-cos-matic` #72), four additional evidence-backed branch deletions (`portal-core` #1/#2 branches, `Rumble-LM` #47 branch, and patch-equivalent `rumble-ai-practices/docs/plan-2026-07`), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive actions executed: created public repository `constantin-jais/dioxus-app-template` and enabled its GitHub Pages demo. No repository was archived.
 
 ## Summary
 
@@ -92,7 +93,7 @@ Remote-destructive actions executed: ten checked PR merges with their PR branch 
 | `rumble-ai-benchmark` | Done benchmark artifact | DECIDE | 2 | 0 | 0 | MIT | `rumble-ai-benchmark` on `feat/rumble-v1` | Decide public archive vs maintained benchmark; reconcile local branch. |
 | `rumble-ai-practices` | Rumble product | KEEP | 4 | 0 | 0 | MIT | `rumble-ai-practices` on `main` | Patch-equivalent docs branch deleted; inspect remaining product feature branches before PR/prune. |
 | `Rumble-Canvas` | Rumble product | KEEP | 1 | 0 | 0 | MIT | `rumble-canvas` | No immediate cleanup. |
-| `rumble-cos` | Rumble content/product site | KEEP | 1 | 0 | 0 | MIT | `rumble-cos` on `main` | PR stack #6/#5 merged; follow up Dependabot-reported default-branch advisories. |
+| `rumble-cos` | Rumble content/product site | KEEP | 1 | 0 | 0 | MIT | `rumble-cos` on `main` | PR stack #6/#5 and Rust advisory fix #15 merged; Dependabot open alerts now zero. |
 | `Rumble-Crew` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-crew` | No immediate cleanup. |
 | `rumble-feed-mind` | Rumble product / active cleanup wave | KEEP | 2 | 0 | 2 | MIT | `rumble-feed-mind` on `main` | PR cleanup complete; archive branch intentionally retained; keep issues #1/#4 open. |
 | `Rumble-LM` | Rumble flagship slice | KEEP | 1 | 0 | 7 | MIT | `rumble-lm` | Superseded branch #47 deleted; keep product mobile/WebView issues #31-#37. |
