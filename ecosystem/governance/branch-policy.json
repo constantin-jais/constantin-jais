@@ -27,7 +27,8 @@
     },
     "constantin-jais/rumble-cos": {
       "required_checks": [
-        "Astro quality gates",
+        "quality",
+        "e2e",
         "npm supply-chain gates",
         "Playwright product smoke"
       ],
