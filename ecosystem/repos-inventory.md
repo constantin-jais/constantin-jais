@@ -57,8 +57,9 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `dioxus-template`: checked fork purpose before archive; it is a fork of `DioxusLabs/dioxus-template` and still backs upstream PR [DioxusLabs/dioxus-template#92](https://github.com/DioxusLabs/dioxus-template/pull/92) from `fix/jumpstart-template-polish`, so it remains public as a non-canonical upstream reference until that PR is resolved.
 - `portal-core`: deleted merged PR branches `docs/plan-2026-07` (#1) and `feat/plan-2026-07-i1-deny-gate` (#2) after verifying their remote heads matched the merged PR head SHAs.
 - `Rumble-LM`: deleted closed/superseded branch `i3-biscuit-auth-middleware` after verifying it matched closed PR #47 head SHA and the supersession decision was already recorded in `specs/shared/decision-log.md`.
+- `dioxus-app-template`: enabled GitHub Pages from `gh-pages` and smoke-checked `https://constantin-jais.github.io/dioxus-app-template/` (`200`, DOCTYPE, prerendered `Notes lab` content).
 
-Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), three additional evidence-backed branch deletions (`portal-core` #1/#2 branches and `Rumble-LM` #47 branch), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive action executed: created public repository `constantin-jais/dioxus-app-template`. No repository was archived.
+Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), three additional evidence-backed branch deletions (`portal-core` #1/#2 branches and `Rumble-LM` #47 branch), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive actions executed: created public repository `constantin-jais/dioxus-app-template` and enabled its GitHub Pages demo. No repository was archived.
 
 ## Summary
 
@@ -76,7 +77,7 @@ Remote-destructive actions executed: nine checked PR merges with their PR branch
 | `bolt-harness` | Bolt proof surface | KEEP | 1 | 0 | 0 | MIT | `bolt-harness` | No immediate cleanup. |
 | `constantin-jais` | Control plane / profile repo | KEEP | 1 | 0 | 0 | Missing on GitHub | `constantin-jais` | Decide profile-repo license exemption or add license. |
 | `dioxus` | External fork / upstream PR base | KEEP-REFERENCE | 19 | 0 | 0 | Apache-2.0 | `dioxus` remote points to `DioxusLabs/dioxus` | Keep while upstream PRs are active; later prune fork branches deliberately. |
-| `dioxus-app-template` | Canonical Dioxus fullstack app starter | KEEP-CANONICAL | 2 | 0 | 0 | MIT | `dioxus-app-template` on `main` | Public repo created; CI and static demo deploy are green. Keep `gh-pages` while serving the template demo. |
+| `dioxus-app-template` | Canonical Dioxus fullstack app starter | KEEP-CANONICAL | 2 | 0 | 0 | MIT | `dioxus-app-template` on `main` | Public repo created; CI, static demo deploy, and public Pages smoke are green. Keep `gh-pages` while serving the template demo. |
 | `dioxus-template` | Upstream `dx new` template fork / non-canonical app starter | KEEP-REFERENCE | 8 | 0 | 0 | Missing on GitHub | no matching local checkout | Keep while upstream PR #92 is open; after resolution, re-check branches and archive/prune if no reference purpose remains. |
 | `gear-cable` | Gear release substrate | KEEP | 1 | 0 | 0 | MIT | `gear-cable` | No immediate cleanup. |
 | `gear-depot` | Gear artifact substrate | KEEP | 1 | 0 | 0 | MIT | `gear-depot` | No immediate cleanup. |
