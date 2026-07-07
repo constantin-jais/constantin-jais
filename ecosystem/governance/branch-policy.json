@@ -127,6 +127,7 @@
       "strict_up_to_date": true
     },
     "constantin-jais/constantin-jais": {
+      "ruleset_name": "forge-standard",
       "required_checks": ["Stack workflow conventions", "json-schema-fixtures"],
       "strict_up_to_date": true
     },
