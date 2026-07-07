@@ -1,6 +1,6 @@
 # Public Repository Inventory & Cleanup Ledger
 
-Status date: 2026-07-06
+Status date: 2026-07-07
 Purpose: operational ledger for public repository hygiene: visibility, disposition, branch cleanup, PR cleanup, and issue cleanup.
 
 This file is intentionally **not** the architecture source of truth:
@@ -54,6 +54,7 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `Rumble-LM` issue triage: closed stale CI incident issues #26 and #41 because their referenced branches are gone; kept product mobile/WebView issues #31-#37 open.
 - `bolt-cos-matic` issue triage: closed stale empty smoke issue #17; kept product-feedback issues #41-#43 open.
 - `dioxus-app-template`: accepted as the canonical Dioxus fullstack app starter, cleaned its local diff, fixed deterministic `dioxus-cli` install/static-smoke CI sequencing, verified local gates, created the public repository, and confirmed `CI` plus `Deploy static demo` passed on the first public push (`935bc2658f81205c3fed4afe4435bc130a4bc09d`).
+- `dioxus-template`: checked fork purpose before archive; it is a fork of `DioxusLabs/dioxus-template` and still backs upstream PR [DioxusLabs/dioxus-template#92](https://github.com/DioxusLabs/dioxus-template/pull/92) from `fix/jumpstart-template-polish`, so it remains public as a non-canonical upstream reference until that PR is resolved.
 
 Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive action executed: created public repository `constantin-jais/dioxus-app-template`. No repository was archived.
 
@@ -63,7 +64,7 @@ Remote-destructive actions executed: nine checked PR merges with their PR branch
 - Public archived repositories: **0**.
 - Public open PRs found: **0**.
 - Public open issues found: **12** (`bolt-cos-matic`: 3, `rumble-feed-mind`: 2, `Rumble-LM`: 7).
-- Main cleanup hotspots: branch cleanup watchlist, issue triage, branch-policy/ruleset drift, non-canonical `dioxus-template` disposition, `dioxus` fork branches, `rumble-ai-practices`, `portal-core`, `Rumble-LM`.
+- Main cleanup hotspots: branch cleanup watchlist, issue triage, branch-policy/ruleset drift, `dioxus-template` upstream PR #92 follow-up, `dioxus` fork branches, `rumble-ai-practices`, `portal-core`, `Rumble-LM`.
 
 ## Public repository inventory
 
@@ -74,7 +75,7 @@ Remote-destructive actions executed: nine checked PR merges with their PR branch
 | `constantin-jais` | Control plane / profile repo | KEEP | 1 | 0 | 0 | Missing on GitHub | `constantin-jais` | Decide profile-repo license exemption or add license. |
 | `dioxus` | External fork / upstream PR base | KEEP-REFERENCE | 19 | 0 | 0 | Apache-2.0 | `dioxus` remote points to `DioxusLabs/dioxus` | Keep while upstream PRs are active; later prune fork branches deliberately. |
 | `dioxus-app-template` | Canonical Dioxus fullstack app starter | KEEP-CANONICAL | 2 | 0 | 0 | MIT | `dioxus-app-template` on `main` | Public repo created; CI and static demo deploy are green. Keep `gh-pages` while serving the template demo. |
-| `dioxus-template` | Upstream `dx new` template fork / non-canonical app starter | ARCHIVE-CANDIDATE | 8 | 0 | 0 | Missing on GitHub | no matching local checkout | Not the canonical starter; archive only after confirming no upstream/reference branch is still needed. |
+| `dioxus-template` | Upstream `dx new` template fork / non-canonical app starter | KEEP-REFERENCE | 8 | 0 | 0 | Missing on GitHub | no matching local checkout | Keep while upstream PR #92 is open; after resolution, re-check branches and archive/prune if no reference purpose remains. |
 | `gear-cable` | Gear release substrate | KEEP | 1 | 0 | 0 | MIT | `gear-cable` | No immediate cleanup. |
 | `gear-depot` | Gear artifact substrate | KEEP | 1 | 0 | 0 | MIT | `gear-depot` | No immediate cleanup. |
 | `gear-loader` | Gear ingestion substrate | KEEP | 1 | 0 | 0 | MIT | `gear-loader` | No immediate cleanup. |
@@ -117,7 +118,7 @@ Branches with no open PR need explicit review before deletion:
 - `rumble-feed-mind`: `archive-2026-07-legacy-nextjs`; intentionally retained by #21 as legacy Next.js reference, even though it has no commits ahead of `main`.
 - `dioxus`: `blitz`, `copilot/update-dioxus-reference`, `dependabot/github_actions/actions/cache-6`, `devin/*`, `docs/login-form-cookie-hardening`, `fix/server-fn-untyped-error-status`, `hook-docs`, `jk/*`, `v0.4`, `v0.5`, `v0.6`, `v0.7`; do not prune until fork purpose is re-checked.
 - `dioxus-app-template`: `gh-pages`; intentionally retained while it serves the static template demo.
-- `dioxus-template`: `fix/jumpstart-template-polish`, `fix-fullstack-workspace`, `native-platform`, `v0.5`, `v0.6`, `v0.7`, `v0.8`; non-canonical now, but archive/prune only after checking for upstream/reference branch purpose.
+- `dioxus-template`: `fix/jumpstart-template-polish`, `fix-fullstack-workspace`, `native-platform`, `v0.5`, `v0.6`, `v0.7`, `v0.8`; non-canonical for apps, but `fix/jumpstart-template-polish` backs open upstream PR #92, so do not archive/prune until that PR closes and branch purpose is rechecked.
 - `rumble-ai-benchmark`: `gh-pages`; keep if it serves the benchmark artifact, otherwise archive after verification.
 - `wrench-dioxus-lab`: `gh-pages`; keep if it serves evidence artifacts, otherwise prune after Pages decision.
 
@@ -132,7 +133,7 @@ Branches with no open PR need explicit review before deletion:
 
 | Decision | Recommended default | Reason |
 | --- | --- | --- |
-| `dioxus-template` follow-up | Keep `dioxus-app-template` as the canonical public app starter; treat `dioxus-template` as a non-canonical upstream/template fork and archive only after checking branch/reference purpose. | User decision selected `dioxus-app-template`; the public repo now exists and its CI/static demo are green. |
+| `dioxus-template` follow-up | Keep `dioxus-app-template` as the canonical public app starter; keep `dioxus-template` public only as an upstream PR/reference fork while DioxusLabs/dioxus-template#92 remains open. | User decision selected `dioxus-app-template`; later evidence showed `dioxus-template` still backs upstream PR #92, so immediate archive would drop active contribution context. |
 | `wrench-inspect` visibility | Make public if it is part of the public forge; otherwise document as private/internal. | Inventory goal is public repos; governance already references it. |
 | `rumble-ai-benchmark` | Archive once branch `feat/rumble-v1` is reconciled, unless benchmark maintenance is active. | Architecture notes call it a done benchmark artifact. |
 | `dioxus` fork | Keep as reference while upstream PRs are in flight; prune only after PR closure. | External fork has many upstream/reference branches that may be useful evidence. |
@@ -141,7 +142,7 @@ Branches with no open PR need explicit review before deletion:
 ## Recommended cleanup order
 
 1. Resolve branch-policy/ruleset drift in a dedicated governance pass before editing `branch-policy.json` again.
-2. Check `dioxus-template` branch/reference purpose, then archive or explicitly keep as an upstream-template fork.
+2. Watch upstream `dioxus-template` PR #92; after it closes, re-check branch/reference purpose and archive or prune if no longer needed.
 3. Clean branches that have no open PR after checking unique commits, starting with low-risk evidence branches (`rumble-feed-mind` archive branch, `wrench-dioxus-lab` `gh-pages`) only after purpose is confirmed.
 4. Triage issues in `Rumble-LM`, `rumble-feed-mind`, then `bolt-cos-matic`.
 5. Decide archive/public status for `rumble-ai-benchmark` and `wrench-inspect`.
