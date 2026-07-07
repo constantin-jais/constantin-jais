@@ -55,8 +55,9 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `bolt-cos-matic` issue triage: closed stale empty smoke issue #17; kept product-feedback issues #41-#43 open.
 - `dioxus-app-template`: accepted as the canonical Dioxus fullstack app starter, cleaned its local diff, fixed deterministic `dioxus-cli` install/static-smoke CI sequencing, verified local gates, created the public repository, and confirmed `CI` plus `Deploy static demo` passed on the first public push (`935bc2658f81205c3fed4afe4435bc130a4bc09d`).
 - `dioxus-template`: checked fork purpose before archive; it is a fork of `DioxusLabs/dioxus-template` and still backs upstream PR [DioxusLabs/dioxus-template#92](https://github.com/DioxusLabs/dioxus-template/pull/92) from `fix/jumpstart-template-polish`, so it remains public as a non-canonical upstream reference until that PR is resolved.
+- `portal-core`: deleted merged PR branches `docs/plan-2026-07` (#1) and `feat/plan-2026-07-i1-deny-gate` (#2) after verifying their remote heads matched the merged PR head SHAs.
 
-Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive action executed: created public repository `constantin-jais/dioxus-app-template`. No repository was archived.
+Remote-destructive actions executed: nine checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6 and #5), two additional merged-PR branch deletions (`portal-core` #1/#2), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote non-destructive action executed: created public repository `constantin-jais/dioxus-app-template`. No repository was archived.
 
 ## Summary
 
@@ -82,7 +83,7 @@ Remote-destructive actions executed: nine checked PR merges with their PR branch
 | `gear-memory` | Gear memory/provenance substrate | KEEP | 1 | 0 | 0 | MIT | `gear-memory` | No immediate cleanup. |
 | `portal-android` | Portal Android shell | KEEP/FREEZE | 1 | 0 | 0 | MIT | `portal-android` | Keep frozen until Android need + SDK/NDK proof. |
 | `portal-apple` | Portal Apple shell | KEEP/FREEZE | 1 | 0 | 0 | MIT | `portal-apple` | Keep frozen at proven bridge. |
-| `portal-core` | Portal Rust client core | KEEP | 3 | 0 | 0 | MIT | `portal-core` | Inspect `docs/plan-2026-07` and `feat/plan-2026-07-i1-deny-gate`; PR or prune. |
+| `portal-core` | Portal Rust client core | KEEP | 1 | 0 | 0 | MIT | `portal-core` | Merged PR branches #1/#2 deleted; no immediate branch cleanup. |
 | `portal-forge` | Portal token compiler | KEEP | 1 | 0 | 0 | MIT | `portal-forge` | No immediate cleanup. |
 | `rumble-ai-benchmark` | Done benchmark artifact | DECIDE | 2 | 0 | 0 | MIT | `rumble-ai-benchmark` on `feat/rumble-v1` | Decide public archive vs maintained benchmark; reconcile local branch. |
 | `rumble-ai-practices` | Rumble product | KEEP | 5 | 0 | 0 | MIT | `rumble-ai-practices` with no upstream tracking shown | PR or prune feature branches; set upstream tracking if needed. |
@@ -112,7 +113,6 @@ No public open PR remains after the 2026-07-06 cleanup pass.
 Branches with no open PR need explicit review before deletion:
 
 - `bolt-cos-matic`: `feat/stack-rule-check`.
-- `portal-core`: `docs/plan-2026-07`, `feat/plan-2026-07-i1-deny-gate`.
 - `rumble-ai-practices`: `docs/plan-2026-07`, `feat/consolidate-prototype`, `feat/keycap-design-app`, `slice-b-cohort-online`.
 - `Rumble-LM`: `i3-biscuit-auth-middleware`.
 - `rumble-feed-mind`: `archive-2026-07-legacy-nextjs`; intentionally retained by #21 as legacy Next.js reference, even though it has no commits ahead of `main`.
@@ -146,7 +146,7 @@ Branches with no open PR need explicit review before deletion:
 3. Clean branches that have no open PR after checking unique commits, starting with low-risk evidence branches (`rumble-feed-mind` archive branch, `wrench-dioxus-lab` `gh-pages`) only after purpose is confirmed.
 4. Triage issues in `Rumble-LM`, `rumble-feed-mind`, then `bolt-cos-matic`.
 5. Decide archive/public status for `rumble-ai-benchmark` and `wrench-inspect`.
-6. Reconcile `portal-core` and `rumble-ai-practices` local/public branch divergence.
+6. Reconcile `rumble-ai-practices` local/public branch divergence.
 7. Refresh this file and update `status.md` only with changed high-level state.
 
 ## Safe branch deletion checklist
