@@ -21,6 +21,7 @@ import dataclasses
 import json
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 GITHUB_ACTIONS_APP_ID = 15368
@@ -93,13 +94,23 @@ def desired_ruleset(policy: dict, repo: str) -> dict:
         )
 
     return {
-        "name": policy["ruleset_name"],
+        "name": ruleset_name(policy, repo),
         "target": "branch",
         "enforcement": "active",
         "bypass_actors": [],
         "conditions": {"ref_name": {"include": ["~DEFAULT_BRANCH"], "exclude": []}},
         "rules": rules,
     }
+
+
+def ruleset_name(policy: dict, repo: str) -> str:
+    """Return the live ruleset name this repo is governed by.
+
+    Most repos use the policy default. The control repo may keep a historical
+    ruleset name when the rule content is identical and CI lacks permission to
+    rename it; the versioned policy still owns the expected rule shape.
+    """
+    return policy["repos"][repo].get("ruleset_name", policy["ruleset_name"])
 
 
 def desired_repo_settings(policy: dict) -> dict:
@@ -235,11 +246,22 @@ def gh_api(path: str, method: str = "GET", payload: dict | None = None) -> dict 
     if payload is not None:
         command += ["--input", "-"]
         stdin = json.dumps(payload)
-    result = subprocess.run(command, input=stdin, capture_output=True, text=True)
-    if result.returncode != 0:
+    transient_markers = (
+        "TLS handshake timeout",
+        "unexpected EOF",
+        "connection reset",
+        "stream error",
+    )
+    for attempt in range(3):
+        result = subprocess.run(command, input=stdin, capture_output=True, text=True)
+        if result.returncode == 0:
+            return json.loads(result.stdout) if result.stdout.strip() else {}
         detail = (result.stderr or result.stdout or "").strip()
+        if any(marker in detail for marker in transient_markers) and attempt < 2:
+            time.sleep(2 ** attempt)
+            continue
         raise GhApiError(f"gh api -X {method} {path}: {detail}", detail)
-    return json.loads(result.stdout) if result.stdout.strip() else {}
+    raise AssertionError("unreachable retry loop exit")
 
 
 def _gh_api_or_none(path: str) -> dict | list | None:
@@ -257,19 +279,57 @@ def _gh_api_or_none(path: str) -> dict | list | None:
         raise
 
 
+def fetch_repo_settings(policy: dict, repo: str) -> dict:
+    """Fetch repository settings required by policy.
+
+    The REST repository endpoint omits admin settings when a fine-grained PAT
+    can read public metadata but is not scoped to repository administration.
+    GraphQL exposes the equivalent public booleans, so use it as a read-only
+    fallback before reporting drift.
+    """
+    desired_keys = desired_repo_settings(policy)
+    repo_info = gh_api(f"repos/{repo}")
+    settings = {key: repo_info.get(key) for key in desired_keys}
+    missing = [key for key, value in settings.items() if value is None]
+    if not missing:
+        return settings
+
+    owner, name = repo.split("/", 1)
+    graphql_keys = {
+        "allow_auto_merge": "autoMergeAllowed",
+        "delete_branch_on_merge": "deleteBranchOnMerge",
+    }
+    if any(key not in graphql_keys for key in missing):
+        return settings
+    query = """
+    query($owner: String!, $name: String!) {
+      repository(owner: $owner, name: $name) {
+        autoMergeAllowed
+        deleteBranchOnMerge
+      }
+    }
+    """
+    response = gh_api(
+        "graphql",
+        method="POST",
+        payload={"query": query, "variables": {"owner": owner, "name": name}},
+    )
+    repository = response.get("data", {}).get("repository") or {}
+    for rest_key in missing:
+        settings[rest_key] = repository.get(graphql_keys[rest_key])
+    return settings
+
+
 def fetch_state(policy: dict, repo: str) -> RepoState:
     branch = policy["defaults"]["target_branch"]
     ruleset = None
     listed = gh_api(f"repos/{repo}/rulesets")
+    desired_name = ruleset_name(policy, repo)
     for candidate in listed:
-        if candidate["name"] == policy["ruleset_name"]:
+        if candidate["name"] == desired_name:
             ruleset = gh_api(f"repos/{repo}/rulesets/{candidate['id']}")
             break
-    repo_info = gh_api(f"repos/{repo}")
-    settings = {
-        key: repo_info.get(key)
-        for key in desired_repo_settings(policy)
-    }
+    settings = fetch_repo_settings(policy, repo)
     protection = _gh_api_or_none(f"repos/{repo}/branches/{branch}/protection")
     return RepoState(
         ruleset=ruleset,
@@ -283,19 +343,27 @@ def apply_repo(policy: dict, repo: str) -> None:
     desired = desired_ruleset(policy, repo)
 
     existing_id = None
+    actual = None
     for candidate in gh_api(f"repos/{repo}/rulesets"):
-        if candidate["name"] == policy["ruleset_name"]:
+        if candidate["name"] == desired["name"]:
             existing_id = candidate["id"]
+            actual = gh_api(f"repos/{repo}/rulesets/{existing_id}")
             break
     if existing_id is None:
         gh_api(f"repos/{repo}/rulesets", method="POST", payload=desired)
         print(f"{repo}: ruleset '{desired['name']}' created")
-    else:
+    elif diff_ruleset(desired, actual):
         gh_api(f"repos/{repo}/rulesets/{existing_id}", method="PUT", payload=desired)
         print(f"{repo}: ruleset '{desired['name']}' updated")
+    else:
+        print(f"{repo}: ruleset '{desired['name']}' already converged")
 
-    gh_api(f"repos/{repo}", method="PATCH", payload=desired_repo_settings(policy))
-    print(f"{repo}: repo settings converged")
+    wanted_settings = desired_repo_settings(policy)
+    if diff_repo_settings(wanted_settings, fetch_repo_settings(policy, repo)):
+        gh_api(f"repos/{repo}", method="PATCH", payload=wanted_settings)
+        print(f"{repo}: repo settings converged")
+    else:
+        print(f"{repo}: repo settings already converged")
 
     if policy["defaults"].get("remove_classic_protection", False):
         protection_path = f"repos/{repo}/branches/{branch}/protection"
@@ -346,6 +414,7 @@ def command_check(policy: dict, repo: str | None) -> int:
 
 
 def command_apply(policy: dict, repo: str | None) -> int:
+    failures: list[tuple[str, GhApiError]] = []
     for target in _selected_repos(policy, repo):
         try:
             apply_repo(policy, target)
@@ -353,9 +422,18 @@ def command_apply(policy: dict, repo: str | None) -> int:
             if "Upgrade to GitHub Pro" in error.stderr:
                 print(f"warning: {target}: rulesets unavailable (private repo without GitHub Pro); skipped")
                 continue
-            raise
+            print(f"error: {target}: {error}", file=sys.stderr)
+            failures.append((target, error))
+            continue
+    if failures:
+        print("apply completed with per-repository error(s):", file=sys.stderr)
+        for target, error in failures:
+            print(f"  - {target}: {error}", file=sys.stderr)
     print("post-apply verification:")
-    return command_check(policy, repo)
+    verification_status = command_check(policy, repo)
+    if failures and verification_status == 0:
+        return 1
+    return verification_status
 
 
 def command_dump(policy: dict, repo: str) -> int:

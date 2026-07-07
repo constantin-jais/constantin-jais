@@ -86,6 +86,16 @@ class DesiredRulesetTests(unittest.TestCase):
         for check in checks_params["required_status_checks"]:
             self.assertEqual(check["integration_id"], fp.GITHUB_ACTIONS_APP_ID)
 
+    def test_repo_can_override_ruleset_name(self) -> None:
+        policy = sample_policy()
+        policy["repos"]["constantin-jais/constantin-jais"]["ruleset_name"] = (
+            "forge-standard"
+        )
+        desired = fp.desired_ruleset(
+            policy, "constantin-jais/constantin-jais"
+        )
+        self.assertEqual(desired["name"], "forge-standard")
+
     def test_no_status_checks_rule_when_repo_declares_none(self) -> None:
         desired = fp.desired_ruleset(
             sample_policy(), "constantin-jais/no-checks-yet"
