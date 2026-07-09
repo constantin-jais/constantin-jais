@@ -51,12 +51,12 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `rumble-cos` #5: retargeted to `main` after #6, fixed deterministic `dioxus-cli` installation in CI, re-ran checks, merged normally (`9036c3435f20e08144eb8c10d0df1d7d7bce49f9`), and deleted the PR branch.
 - Realigned GitHub required status checks for `rumble-feed-mind` and `rumble-cos` to the active gates; no admin merge bypass was used. Versioned policy drift was later resolved in the dedicated governance pass on 2026-07-07.
 - `rumble-feed-mind` issue triage: closed stale/superseded issues #5 (Leptos/Tauri UI plan), #8 (Tauri-specific desktop bootstrap), and #7 (security findings now handled by passing advisory gate plus ADR 0005 temporary waivers); kept #1 and #4 open.
-- `Rumble-LM` issue triage: closed stale CI incident issues #26 and #41 because their referenced branches are gone; kept product mobile/WebView issues #31-#37 open.
+- `rumble-lm` issue triage: closed stale CI incident issues #26 and #41 because their referenced branches are gone; kept product mobile/WebView issues #31-#37 open.
 - `bolt-cos-matic` issue triage: closed stale empty smoke issue #17; kept product-feedback issues #41-#43 open.
 - `dioxus-app-template`: accepted as the canonical Dioxus fullstack app starter, cleaned its local diff, fixed deterministic `dioxus-cli` install/static-smoke CI sequencing, verified local gates, created the public repository, and confirmed `CI` plus `Deploy static demo` passed on the first public push (`935bc2658f81205c3fed4afe4435bc130a4bc09d`).
 - `dioxus-template`: checked fork purpose before archive; it is a fork of `DioxusLabs/dioxus-template` and still backs upstream PR [DioxusLabs/dioxus-template#92](https://github.com/DioxusLabs/dioxus-template/pull/92) from `fix/jumpstart-template-polish`, so it remains public as a non-canonical upstream reference until that PR is resolved.
 - `portal-core`: deleted merged PR branches `docs/plan-2026-07` (#1) and `feat/plan-2026-07-i1-deny-gate` (#2) after verifying their remote heads matched the merged PR head SHAs.
-- `Rumble-LM`: deleted closed/superseded branch `i3-biscuit-auth-middleware` after verifying it matched closed PR #47 head SHA and the supersession decision was already recorded in `specs/shared/decision-log.md`.
+- `rumble-lm`: deleted closed/superseded branch `i3-biscuit-auth-middleware` after verifying it matched closed PR #47 head SHA and the supersession decision was already recorded in `specs/shared/decision-log.md`.
 - `dioxus-app-template`: enabled GitHub Pages from `gh-pages` and smoke-checked `https://constantin-jais.github.io/dioxus-app-template/` (`200`, DOCTYPE, prerendered `Notes lab` content).
 - `bolt-cos-matic`: opened PR #72 from the orphan `feat/stack-rule-check` branch, verified local gates and GitHub checks, merged cleanly (`c39ff1f7b5b618065024b99ca9f340838c9276d2`), and deleted the PR branch.
 - `rumble-ai-practices`: deleted redundant branch `docs/plan-2026-07` after `git cherry` showed its patch is already integrated in `origin/main` and the plan file blob matched exactly; set local `main` upstream tracking to `origin/main`.
@@ -68,14 +68,14 @@ gh pr checks <number> --repo constantin-jais/<repo> --watch=false
 - `constantin-jais`: added MIT `LICENSE`; GitHub now detects the profile/control repo as MIT.
 - Governance/ruleset drift: merged PR #56 (`c58a0ec00b4c4f445b3c8aec24c7a30607e7fa55`) to align `rumble-cos` required checks with the Dioxus CI jobs, accept the control repo's already-equivalent historical `forge-standard` ruleset name, and make the policy apply idempotent/retry transient GitHub API failures. The post-merge Governance apply passed and verified all 21 governed repos as OK.
 
-Remote-destructive actions executed: fourteen checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6, #5, and #15; `bolt-cos-matic` #72; `wrench-inspect` #7; `constantin-jais` #55 and #56), eight additional evidence-backed branch deletions (`portal-core` #1/#2 branches, `Rumble-LM` #47 branch, patch-equivalent `rumble-ai-practices/docs/plan-2026-07`, and `wrench-inspect` #2-#5 branches), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `Rumble-LM` #26, #41; `bolt-cos-matic` #17). Remote visibility action executed: `wrench-inspect` private → public after tests and history secret scan. Remote non-destructive actions executed: created public repository `constantin-jais/dioxus-app-template` and enabled its GitHub Pages demo. No repository was archived.
+Remote-destructive actions executed: fourteen checked PR merges with their PR branch deletions (`rumble-feed-mind` #21, #22, #23, #24, #25, #26; `wrench-dioxus-lab` #1; `rumble-cos` #6, #5, and #15; `bolt-cos-matic` #72; `wrench-inspect` #7; `constantin-jais` #55 and #56), eight additional evidence-backed branch deletions (`portal-core` #1/#2 branches, `rumble-lm` #47 branch, patch-equivalent `rumble-ai-practices/docs/plan-2026-07`, and `wrench-inspect` #2-#5 branches), plus six evidence-backed issue closures (`rumble-feed-mind` #5, #7, #8; `rumble-lm` #26, #41; `bolt-cos-matic` #17). Remote visibility action executed: `wrench-inspect` private → public after tests and history secret scan. Remote non-destructive actions executed: created public repository `constantin-jais/dioxus-app-template` and enabled its GitHub Pages demo. No repository was archived.
 
 ## Summary
 
 - Public repositories found: **25**.
 - Public archived repositories: **0**.
 - Public open PRs found: **0**.
-- Public open issues found: **12** (`bolt-cos-matic`: 3, `rumble-feed-mind`: 2, `Rumble-LM`: 7).
+- Public open issues found: **12** (`bolt-cos-matic`: 3, `rumble-feed-mind`: 2, `rumble-lm`: 7).
 - Main cleanup hotspots: branch cleanup watchlist, issue triage, `dioxus-template` upstream PR #92 follow-up, `dioxus` fork branches, `rumble-ai-practices`, local-only `rumble-ai-benchmark` WIP.
 
 ## Public repository inventory
@@ -98,12 +98,12 @@ Remote-destructive actions executed: fourteen checked PR merges with their PR br
 | `portal-forge` | Portal token compiler | KEEP | 1 | 0 | 0 | MIT | `portal-forge` | No immediate cleanup. |
 | `rumble-ai-benchmark` | Done benchmark artifact | DECIDE | 2 | 0 | 0 | MIT | `rumble-ai-benchmark` on `feat/rumble-v1` | Decide public archive vs maintained benchmark; reconcile local branch. |
 | `rumble-ai-practices` | Rumble product | KEEP | 4 | 0 | 0 | MIT | `rumble-ai-practices` on `main` | Patch-equivalent docs branch deleted; inspect remaining product feature branches before PR/prune. |
-| `Rumble-Canvas` | Rumble product | KEEP | 1 | 0 | 0 | MIT | `rumble-canvas` | No immediate cleanup. |
+| `rumble-canvas` | Rumble product | KEEP | 1 | 0 | 0 | MIT | `rumble-canvas` | No immediate cleanup. |
 | `rumble-cos` | Rumble content/product site | KEEP | 1 | 0 | 0 | MIT | `rumble-cos` on `main` | PR stack #6/#5 and Rust advisory fix #15 merged; Dependabot open alerts now zero. |
-| `Rumble-Crew` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-crew` | No immediate cleanup. |
+| `rumble-crew` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-crew` | No immediate cleanup. |
 | `rumble-feed-mind` | Rumble product / active cleanup wave | KEEP | 2 | 0 | 2 | MIT | `rumble-feed-mind` on `main` | PR cleanup complete; archive branch intentionally retained; keep issues #1/#4 open. |
-| `Rumble-LM` | Rumble flagship slice | KEEP | 1 | 0 | 7 | MIT | `rumble-lm` | Superseded branch #47 deleted; keep product mobile/WebView issues #31-#37. |
-| `Rumble-Note` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-note` | No immediate cleanup. |
+| `rumble-lm` | Rumble flagship slice | KEEP | 1 | 0 | 7 | MIT | `rumble-lm` | Superseded branch #47 deleted; keep product mobile/WebView issues #31-#37. |
+| `rumble-note` | Rumble product spec | KEEP | 1 | 0 | 0 | MIT | `rumble-note` | No immediate cleanup. |
 | `wrench-db-inspect` | Wrench DB/security evidence | KEEP | 1 | 0 | 0 | MIT | `wrench-db-inspect` | No immediate cleanup. |
 | `wrench-inspect` | Wrench structural/policy evidence | KEEP | 1 | 0 | 0 | MIT OR Apache-2.0 (GitHub: Other) | `wrench-inspect` on `main` | Published after tests/history scan; PR #7 merged and stale merged PR branches #2-#5 deleted. |
 | `wrench-dioxus-lab` | Wrench evidence lab | KEEP | 2 | 0 | 0 | MIT | `wrench-dioxus-lab` | PR #1 merged; keep `gh-pages` only if serving proof artifacts, otherwise prune after Pages decision. |
@@ -118,7 +118,7 @@ No public open PR remains after the 2026-07-07 governance pass.
 | --- | --- | --- |
 | `bolt-cos-matic` | #41, #42, #43 | Keep product-feedback issues tied to mobile/WebView/Rust-core planning; stale smoke issue #17 was closed. |
 | `rumble-feed-mind` | #1, #4 | Keep #1 as the broad Rust-first rewrite epic and #4 as the CLI launch pipeline issue. Leptos/Tauri/security cleanup issues #5/#7/#8 were closed with evidence. |
-| `Rumble-LM` | #31, #32, #33, #34, #35, #36, #37 | Keep mobile/WebView product issues; stale CI incident issues #26/#41 were closed because referenced branches are gone. |
+| `rumble-lm` | #31, #32, #33, #34, #35, #36, #37 | Keep mobile/WebView product issues; stale CI incident issues #26/#41 were closed because referenced branches are gone. |
 
 ## Branch cleanup watchlist
 
@@ -150,7 +150,7 @@ Branches with no open PR need explicit review before deletion:
 
 1. Watch upstream `dioxus-template` PR #92; after it closes, re-check branch/reference purpose and archive or prune if no longer needed.
 2. Clean branches that have no open PR after checking unique commits, starting with low-risk evidence branches (`rumble-feed-mind` archive branch, `wrench-dioxus-lab` `gh-pages`) only after purpose is confirmed.
-3. Triage issues in `Rumble-LM`, `rumble-feed-mind`, then `bolt-cos-matic`.
+3. Triage issues in `rumble-lm`, `rumble-feed-mind`, then `bolt-cos-matic`.
 4. Decide whether local-only `rumble-ai-benchmark/feat/rumble-v1` becomes a public PR/branch or is archived elsewhere; do not archive the repo until that WIP is reconciled.
 5. Reconcile `rumble-ai-practices` local/public branch divergence.
 6. Refresh this file and update `status.md` only with changed high-level state.
