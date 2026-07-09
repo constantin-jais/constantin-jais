@@ -3,6 +3,8 @@
 Status: Accepted
 Date: 2026-06-30
 
+> Historical note (2026-07-09, DC-7): `wrench-loader` was renamed `gear-loader` (ADR 0023 fused / ADR 0033 layer model). Tool-name references below are kept as written; the contract decisions remain in force for `gear-loader`.
+
 ## Context
 
 Wrench Loader extracts and normalizes source material. Gear Memory owns durable source references, lifecycle state, indexing, retrieval, deletion, anonymisation, stale propagation, and revocation.

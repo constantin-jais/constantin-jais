@@ -3,7 +3,7 @@
 Status: Accepted
 Date: 2026-07-03
 Decision owner: Constantin (ecosystem architecture)
-Related: supersedes and merges the two colliding ADR 0023 files (`0023-layer-classification-by-client.md`, `0023-portal-client-platform-and-gear-loader-placement.md`); arbitration DA-3/DA-4 in `ecosystem/architecture-alignment-2026-07.md`; ADR 0024 (Portal design substrate), ADR 0028 (identity ownership)
+Related: supersedes ADR 0023 (the two colliding 0023 files were physically fused into `0023-layer-classification-and-portal-gear-loader-placement.md` on 2026-07-09, DA-3/DC-7 execution); arbitration DA-3/DA-4 in `ecosystem/architecture-alignment-2026-07.md`; ADR 0024 (Portal design substrate), ADR 0028 (identity ownership)
 
 ## Context
 
