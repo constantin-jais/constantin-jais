@@ -124,3 +124,22 @@ WIP git à statuer (aucune action agent sans go) : bolt-harness (doctrine sécur
 1. **Phase B** — une PR par repo : rebrand READMEs (DC-8), descriptions/topics (C5), SECURITY.md (DC-11), branches mortes (DC-12), réparation ADR (DC-7), dependabot (DC-4), docs pilotage cos → free-ai.fr ; renames de casse si DC-1a ; pull préalable des 13 clones.
 2. **Phase C** — refresh des 13 plans (clore wrench-inspect + feed-mind ; MAJ lm et cos [free-ai.fr] ; réamorcer bolt-cos-matic/ai-practices/harness ; créer wrench-db-inspect) + MAJ `remaining-work.md`.
 3. La ratification des DC se fait par commit decision-log **sur cette PR** (pattern habituel), puis merge.
+
+## Journal d'exécution (2026-07-09, arbitrage « go all reco »)
+
+| Décision | Sort | Détail |
+| --- | --- | --- |
+| Rebrand Free AI | ✅ exécuté (hors vitrine) | 10 READMEs (DC-8), docs pilotage cos (#16, free-ai.fr + `/blog`), plan cos retargeté ; le legacy Astro part au cutover |
+| DC-1 renames | ✅ | 4 repos en minuscules (redirects GitHub), remotes locaux re-pointés, fichiers vivants MAJ (#59), governance verte post-rename |
+| DC-2 forks | ✅ statu quo actée | 3 PRs upstream ouvertes |
+| DC-4 dependabot | ✅ avec **inversion factuelle** | majeures sha2/ed25519-dalek VERTES mergées (#73/#76 + #74) ; la mineure octocrab #75 ROUGE reste ouverte → increment de migration au plan Biscuit ; config déployée sur ~20 repos (premiers bumps déjà ouverts) |
+| DC-5 racine | ⚠ partiel | moves vers `~/Documents/backups/` faits ; `rm dioxus-v0.7.9` + `rm test-results` bloqués par la couche permissions → **à passer en `!`** |
+| DC-6 blog | ✅ | `/blog` en chemin, plan cos + domain-routing MAJ |
+| DC-7 ADR | ✅ | fusion 0023 (#60), notes historiques 0012/0014/0016, gate unicité étendue à TOUS les fichiers ADR |
+| DC-8 READMEs | ✅ | formulation (b) déployée |
+| DC-9 pinned | ⚠ manuel | aucune API GraphQL publique — épingler à la main : rumble-cos, dioxus-app-template, bolt-cos-matic, gear-memory, portal-forge, rumble-ai-benchmark |
+| DC-10 WIP | ⏸ Open | keycap (branche sans PR), consolidate-prototype, slice-b-cohort-online, doctrine sécurité bolt-harness, benchmark feat/rumble-v1 — décision par item |
+| DC-11 SECURITY.md | ✅ | 5 repos couverts |
+| DC-12 branches | ✅ | 7 branches supprimées (heads consignés au decision-log), tag `archive/2026-07-legacy-nextjs` posé |
+
+Corrections d'audit établies à l'exécution : les waivers stripe de feed-mind sont **toujours requis en CI** (retrait → cargo-deny FAILED, revert dans #30) ; la prémisse DC-4 « les majeures cassent » était inversée. Gouvernance étendue à 23 repos (dioxus-app-template, rumble-ai-benchmark). Phase C : plans wrench-inspect et feed-mind clos, lm (auth inline réelle) / cos (free-ai.fr) / bolt-cos-matic (octocrab) rafraîchis, notes ai-practices/harness, plan wrench-db-inspect créé.
