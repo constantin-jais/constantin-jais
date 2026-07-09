@@ -45,7 +45,7 @@ evidence_expectations: "each increment CI-gated: branch-policy.json validates ag
 
 This governance wave operationalizes three foundational decisions from the architecture alignment (architecture-alignment-2026-07.md):
 
-1. **DA-6: Governance onboarding** — The ecosystem contains ~20 repos across six layers (Rumble, Portal, Bolt, Wrench, Gear, control plane). Currently only 4 are under branch-policy governance (constantin-jais, gear-memory, Rumble-Note, dioxus-lab). No scalable workflow extension mechanism exists; policies are ad-hoc.
+1. **DA-6: Governance onboarding** — The ecosystem contains ~20 repos across six layers (Rumble, Portal, Bolt, Wrench, Gear, control plane). Currently only 4 are under branch-policy governance (constantin-jais, gear-memory, rumble-note, dioxus-lab). No scalable workflow extension mechanism exists; policies are ad-hoc.
 
 2. **M7: Maturity/stack coverage** — ADR 0033 (accepted 2026-07-03) introduces `deployment_class` (product-linkable | factory-only | build-time) as a **CI-gated claim in `ecosystem/maturity/stack/*.json`** (per target-version.md §1). Currently only bolt-cos-matic.json exists in stack/ (with `maturity_mode` field, not `deployment_class`). The remaining ~19 repos lack stack claims, blocking cockpit generation and CI enforcement of the layer model.
 
@@ -54,13 +54,13 @@ This governance wave operationalizes three foundational decisions from the archi
 **Evidence:**
 - target-version.md §1: "deployment class is a CI-gated claim in maturity/stack/*.json, never a naming convention"; layer model defined with permitted deployment_classes per layer.
 - architecture-alignment-2026-07.md §3.2: root hygiene table; §6 open decisions DA-6/DA-10; addendum arbitration (DA-6 ratified, DA-10 ratified as proposed).
-- branch-policy.json: currently 4 repos (constantin-jais/constantin-jais, gear-memory, Rumble-Note, dioxus-lab).
+- branch-policy.json: currently 4 repos (constantin-jais/constantin-jais, gear-memory, rumble-note, dioxus-lab).
 - ecosystem/maturity/stack/: only bolt-cos-matic.json present (has `maturity_mode`, not `deployment_class`).
 - ~/Documents: dioxus-template/, specs/, overview.md, .patch, Codex/, github-date-normalization/ present.
 
 ## Target state
 
-1. **Governance onboarded:** All ~20 repos listed in ecosystem/governance/branch-policy.json with CI-checkable required_checks reflecting each repo's stack layer. Case corrections applied (Rumble-Note GitHub name verified and matched in branch-policy.json). wrench-dioxus-lab rename (GitHub step executed by repo owner) followed by branch-policy.json key update in single commit.
+1. **Governance onboarded:** All ~20 repos listed in ecosystem/governance/branch-policy.json with CI-checkable required_checks reflecting each repo's stack layer. Case corrections applied (rumble-note GitHub name verified and matched in branch-policy.json). wrench-dioxus-lab rename (GitHub step executed by repo owner) followed by branch-policy.json key update in single commit.
 
 2. **Maturity/stack complete:** ecosystem/maturity/stack/*.json exists for all ~20 repos with `deployment_class` field conforming to ADR 0033 (product-linkable | factory-only | build-time). Schema stack.project_maturity.v0.1.schema.json created (new; captures repo-level deployment_class claim, distinct from layer model's permitted classes). Existing bolt-cos-matic.json migrated to include deployment_class. Cockpit generation unblocked.
 
@@ -110,7 +110,7 @@ This governance wave operationalizes three foundational decisions from the archi
 
 1. **Verify repo names and casing against GitHub org:**
    - Manually spot-check 3–5 repos via `gh repo list constantin-jais --limit 25` to confirm exact GitHub casing.
-   - Verify "Rumble-Note": check if GitHub URL is `github.com/constantin-jais/rumble-note` or `github.com/constantin-jais/Rumble-Note`. Use exact match in branch-policy.json.
+   - Verify "rumble-note": check if GitHub URL is `github.com/constantin-jais/rumble-note` or `github.com/constantin-jais/rumble-note`. Use exact match in branch-policy.json.
    - Verify "dioxus-lab" is current; DA-5 rename to "wrench-dioxus-lab" pending (do not add wrench-dioxus-lab key yet; see mitigation R3).
 
 2. **Add missing repos to branch-policy.json:**
@@ -122,7 +122,7 @@ This governance wave operationalizes three foundational decisions from the archi
      - **Wrench** (wrench-*): `["Rust quality gates", "supply-chain gates", "shared fixture validation"]`.
      - **Gear** (gear-*): `["Rust quality gates", "contract tests", "provenance gates"]`.
    - Each entry: `"required_checks": [...], "strict_up_to_date": true`.
-   - Preserve existing 4 repos (no overwrite; review casing for "Rumble-Note").
+   - Preserve existing 4 repos (no overwrite; review casing for "rumble-note").
 
 3. **Defer DA-5 wrench-dioxus-lab rename:**
    - Add a comment in branch-policy.json:
@@ -145,14 +145,14 @@ This governance wave operationalizes three foundational decisions from the archi
 python3 -c "import json; json.load(open('ecosystem/governance/branch-policy.json')); print('✓ JSON valid')"
 
 # All expected repos present (verify count and key format)
-EXPECTED_REPOS='constantin-jais|gear-memory|rumble-|portal-|bolt-|wrench-|Rumble-Note|dioxus-lab'
+EXPECTED_REPOS='constantin-jais|gear-memory|rumble-|portal-|bolt-|wrench-|rumble-note|dioxus-lab'
 grep -oE '"constantin-jais/[^"]*"' ecosystem/governance/branch-policy.json | wc -l | awk '{print ($1 >= 19 ? "✓ " $1 " repos >= 19" : "⚠ " $1 " < 19")}'
 
 # No machine-local paths
 ! grep -qE 'Documents|home|/tmp|/var' ecosystem/governance/branch-policy.json && echo "✓ No local paths"
 
-# Rumble-Note casing checked against GitHub (manual verification, not automated)
-echo "⚠ Verify Rumble-Note casing manually via: gh repo view constantin-jais/rumble-note (or Rumble-Note)"
+# rumble-note casing checked against GitHub (manual verification, not automated)
+echo "⚠ Verify rumble-note casing manually via: gh repo view constantin-jais/rumble-note (or rumble-note)"
 ```
 
 ---

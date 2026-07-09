@@ -25,10 +25,10 @@ The product layer: things people can read, run, touch, or eventually use directl
 | [rumble-cos](https://github.com/constantin-jais/rumble-cos)                   | education blog and public knowledge surface | `usable`         |
 | [rumble-feed-mind](https://github.com/constantin-jais/rumble-feed-mind)       | intelligent feed/watch pipeline             | `dojo`           |
 | [rumble-ai-practices](https://github.com/constantin-jais/rumble-ai-practices) | professional AI-practice training           | `dojo`           |
-| [Rumble-LM](https://github.com/constantin-jais/Rumble-LM)                     | grounded learning sessions and facilitation | `contract-first` |
-| [Rumble-Canvas](https://github.com/constantin-jais/Rumble-Canvas)             | product-conception workspace                | `contract-first` |
-| [Rumble-Crew](https://github.com/constantin-jais/Rumble-Crew)                 | agentic teamwork board                      | `contract-first` |
-| [Rumble-Note](https://github.com/constantin-jais/Rumble-Note)                 | local-first personal knowledge              | `contract-first` |
+| [rumble-lm](https://github.com/constantin-jais/rumble-lm)                     | grounded learning sessions and facilitation | `contract-first` |
+| [rumble-canvas](https://github.com/constantin-jais/rumble-canvas)             | product-conception workspace                | `contract-first` |
+| [rumble-crew](https://github.com/constantin-jais/rumble-crew)                 | agentic teamwork board                      | `contract-first` |
+| [rumble-note](https://github.com/constantin-jais/rumble-note)                 | local-first personal knowledge              | `contract-first` |
 
 _`maturity` is honest, not aspirational: `dojo` = runs, still being documented; `contract-first` = designed and specified, not yet built; `usable` = credible for real use, operational maturity not claimed._
 
