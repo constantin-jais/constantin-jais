@@ -54,23 +54,20 @@ jobs:
             echo "No spec-contract-relevant paths changed; reporting success."
           fi
 
-      - name: ADR number uniqueness (active ADRs only)
+      - name: ADR number uniqueness (all ADR files)
         if: steps.relevant.outputs.changed == 'true'
         run: |
           set -euo pipefail
           cd ecosystem/specs/shared/adrs
-          active=""
-          for f in [0-9][0-9][0-9][0-9]-*.md; do
-            if ! grep -qiE '^-? ?Status: *Superseded' "$f"; then
-              active="$active ${f%%-*}"
-            fi
-          done
-          dups=$(printf '%s\n' $active | sort | uniq -d)
+          # DC-7 hardening (2026-07-09): superseded ADRs used to escape this
+          # check, which let two 0023 files coexist for a week. Duplicate
+          # numbers are now rejected across ALL files — fuse or renumber.
+          dups=$(ls [0-9][0-9][0-9][0-9]-*.md | cut -d- -f1 | sort | uniq -d)
           if [ -n "$dups" ]; then
-            echo "Duplicate ADR numbers among non-superseded ADRs:$dups" >&2
+            echo "Duplicate ADR numbers (superseded included — fuse or renumber):$dups" >&2
             exit 1
           fi
-          echo "ADR numbering unique across active ADRs."
+          echo "ADR numbering unique across all ADR files."
 
       - name: Set up Python
         if: steps.relevant.outputs.changed == 'true'

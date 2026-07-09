@@ -3,6 +3,8 @@
 Status: Accepted
 Date: 2026-06-30
 
+> Historical note (2026-07-09, DC-7): `wrench-loader` was renamed `gear-loader` (ADR 0023 fused / ADR 0033 layer model). Tool-name references below are kept as written; the contract decisions remain in force for `gear-loader`.
+
 ## Context
 
 Rumble products need HTML, Markdown, PDF, Office, feed, URL, code, and text ingestion. If each product normalizes content locally, citations, source spans, PII handling, prompt-injection evidence, and hashes will diverge.
