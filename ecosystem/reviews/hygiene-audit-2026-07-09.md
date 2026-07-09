@@ -1,6 +1,6 @@
 # Audit d'hygiène forge + surface de rebrand Free AI — 2026-07-09
 
-Statut : **Proposé** — la porte d'alignement de la vague hygiène/rebrand/plans. L'arbitrage des décisions DC-1..DC-12 (fin de document) déclenche la Phase B (PRs de cleanup + rebrand hors-vitrine) puis la Phase C (refresh des plans par repo).
+Statut : **Accepté** (2026-07-09, arbitrage « go all reco » — 13 lignes au decision-log : rebrand Free AI + DC-1..DC-12 aux recommandations ; **DC-10 reste Open**, décision par item de Constantin). La Phase B (PRs de cleanup + rebrand hors-vitrine) et la Phase C (refresh des plans par repo) sont déclenchées.
 
 Méthode : 1 agent macro compte + 23 fiches par repo (bounded-context strict, un agent par repo) + 3 sceptiques adversariaux (auth lm, surface Daidalos remote, claims macro). Chaque affirmation est sourcée par une commande reproductible (`gh api`, `gh pr list`, `git ls-remote`, grep) ; les claims réfutés par les sceptiques sont corrigés ici, pas reportés.
 
