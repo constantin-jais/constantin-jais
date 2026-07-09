@@ -3,6 +3,8 @@
 Status: Accepted
 Date: 2026-06-30
 
+> Historical note (2026-07-09, DC-7): `wrench-loader` was renamed `gear-loader` (ADR 0023 fused / ADR 0033 layer model). Tool-name references below are kept as written; the contract decisions remain in force for `gear-loader`.
+
 ## Context
 
 `rumble-feed-mind`, `rumble-note`, `rumble-lm`, and `rumble-cos` need feed item normalization. But subscription management, triage rules, ranking, curation, and polling workflows are product/orchestration concerns.
