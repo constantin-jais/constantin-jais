@@ -123,19 +123,19 @@ jobs:
               "rumble-feed-mind": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/rust-ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
               },
-              "Rumble-LM": {
+              "rumble-lm": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
               },
               "rumble-cos": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
               },
-              "Rumble-Canvas": {
+              "rumble-canvas": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml", ".github/workflows/ci.yml"],
               },
-              "Rumble-Crew": {
+              "rumble-crew": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
               },
-              "Rumble-Note": {
+              "rumble-note": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
               },
           }
@@ -213,11 +213,11 @@ jobs:
               "gear-depot": ["Rust quality gates", "Rust supply-chain gates", "Artifact manifest contracts"],
               "gear-cable": ["Rust quality gates", "Rust supply-chain gates", "Release manifest and plan contracts"],
               "rumble-feed-mind": ["Rust quality gates", "Rust supply-chain gates", "CuratedItemExport contract"],
-              "Rumble-LM": ["Rust quality gates", "Repository guardrails", "Integration + coverage", "Rust supply-chain gates"],
+              "rumble-lm": ["Rust quality gates", "Repository guardrails", "Integration + coverage", "Rust supply-chain gates"],
               "rumble-cos": ["Astro quality gates", "npm supply-chain gates", "Playwright product smoke"],
-              "Rumble-Canvas": ["Repository hygiene", "Rust quality gates"],
-              "Rumble-Crew": ["Repository hygiene"],
-              "Rumble-Note": ["Repository hygiene"],
+              "rumble-canvas": ["Repository hygiene", "Rust quality gates"],
+              "rumble-crew": ["Repository hygiene"],
+              "rumble-note": ["Repository hygiene"],
           }
 
           def request(path: str):

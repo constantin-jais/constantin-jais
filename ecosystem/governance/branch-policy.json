@@ -21,7 +21,7 @@
       "required_checks": ["Rust quality gates", "Repository hygiene"],
       "strict_up_to_date": true
     },
-    "constantin-jais/Rumble-Canvas": {
+    "constantin-jais/rumble-canvas": {
       "required_checks": ["Rust quality gates", "Repository hygiene"],
       "strict_up_to_date": true
     },
@@ -34,7 +34,7 @@
       ],
       "strict_up_to_date": true
     },
-    "constantin-jais/Rumble-Crew": {
+    "constantin-jais/rumble-crew": {
       "required_checks": ["Repository hygiene"],
       "strict_up_to_date": true
     },
@@ -47,7 +47,7 @@
       ],
       "strict_up_to_date": true
     },
-    "constantin-jais/Rumble-LM": {
+    "constantin-jais/rumble-lm": {
       "required_checks": [
         "Rust quality gates",
         "Repository guardrails",
@@ -135,7 +135,7 @@
       "required_checks": ["quality", "e2e"],
       "strict_up_to_date": true
     },
-    "constantin-jais/Rumble-Note": {
+    "constantin-jais/rumble-note": {
       "required_checks": ["Repository hygiene"],
       "strict_up_to_date": true
     }
