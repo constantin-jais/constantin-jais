@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 set -eu
 
-VENV_DIR="${SPEC_CONTRACTS_VENV:-.venv-spec-contracts}"
-python3 -m venv "$VENV_DIR"
-"$VENV_DIR/bin/python" -m pip install -r ecosystem/specs/requirements-ci.txt
-"$VENV_DIR/bin/python" ecosystem/specs/validate_spec_schemas.py
+command -v uv >/dev/null 2>&1 || {
+  echo "uv required: https://docs.astral.sh/uv/" >&2
+  exit 1
+}
+uv run --script ecosystem/specs/validate_spec_schemas.py

@@ -23,10 +23,12 @@ sh ecosystem/specs/ci-validate-contracts.sh
 Equivalent expanded command:
 
 ```bash
-python3 -m venv .venv-spec-contracts
-.venv-spec-contracts/bin/python -m pip install -r ecosystem/specs/requirements-ci.txt
-.venv-spec-contracts/bin/python ecosystem/specs/validate_spec_schemas.py
+uv run --script ecosystem/specs/validate_spec_schemas.py
 ```
+
+Dependencies are declared in the script's PEP 723 header and pinned in
+`ecosystem/specs/validate_spec_schemas.py.lock`. Refresh the lock after
+changing the header with `uv lock --script ecosystem/specs/validate_spec_schemas.py`.
 
 ## Fixture Semantics
 
@@ -48,8 +50,8 @@ The repository uses GitHub Actions as the active CI target for these personal pr
 
 Runner requirements:
 
-- Python 3.12 from `actions/setup-python`;
-- outbound package access for `jsonschema` and pinned transitive dependencies;
+- `uv` from `astral-sh/setup-uv` (provisions Python per the script's `requires-python`);
+- outbound package access for `jsonschema` and the transitive dependencies pinned in `validate_spec_schemas.py.lock`;
 - no access to project secrets is required.
 
 ## GitLab / self-hosted compatibility
