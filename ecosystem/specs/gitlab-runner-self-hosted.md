@@ -9,8 +9,7 @@ Active CI for this repository is GitHub Actions: root `.github/workflows/spec-co
 On this workstation:
 
 - `gitlab-runner` is installed;
-- `python3` is installed;
-- `python3 -m venv` works;
+- `uv` is installed (provisions Python per the validation script's PEP 723 header);
 - a future optional GitLab CI job could use tag `self-hosted`.
 
 ## Register the runner, only if GitLab becomes active later
@@ -53,7 +52,7 @@ sh ecosystem/specs/ci-validate-contracts.sh
 Expected result:
 
 ```text
-OK: 6 positive fixtures and 8 negative fixtures validated.
+OK: 12 positive fixtures and 15 negative fixtures validated.
 ```
 
 ## Start the runner

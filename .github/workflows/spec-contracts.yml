@@ -10,7 +10,7 @@ on:
       - "ecosystem/specs/**/*.json"
       - "ecosystem/specs/**/*.py"
       - "ecosystem/specs/**/*.sh"
-      - "ecosystem/specs/requirements-ci.txt"
+      - "ecosystem/specs/validate_spec_schemas.py.lock"
       - "ecosystem/specs/contract-validation.md"
       - "ecosystem/specs/shared/adrs/*.md"
       - "ecosystem/target-version.v1.json"
@@ -43,7 +43,7 @@ jobs:
             'ecosystem/specs/**/*.py' \
             'ecosystem/specs/**/*.sh' \
             'ecosystem/specs/shared/adrs/*.md' \
-            ecosystem/specs/requirements-ci.txt \
+            ecosystem/specs/validate_spec_schemas.py.lock \
             ecosystem/specs/contract-validation.md \
             ecosystem/target-version.v1.json \
             .github/workflows/spec-contracts.yml \
@@ -69,11 +69,9 @@ jobs:
           fi
           echo "ADR numbering unique across all ADR files."
 
-      - name: Set up Python
+      - name: Set up uv
         if: steps.relevant.outputs.changed == 'true'
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: "3.12"
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
 
       - name: Validate JSON Schemas and fixtures
         if: steps.relevant.outputs.changed == 'true'
