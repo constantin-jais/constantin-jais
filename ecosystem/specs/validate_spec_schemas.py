@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["jsonschema==4.23.0"]
+# ///
 """Validate ecosystem JSON Schema contracts and fixtures.
 
 The CI installs `jsonschema` and validates Draft 2020-12 schemas. Invalid
@@ -19,8 +23,9 @@ try:
     import jsonschema
 except ModuleNotFoundError as exc:  # pragma: no cover - local developer hint
     raise SystemExit(
-        "Missing dependency: jsonschema. Install with `python3 -m pip install -r "
-        "ecosystem/specs/requirements-ci.txt` or run the CI workflow."
+        "Missing dependency: jsonschema. Run via `uv run --script "
+        "ecosystem/specs/validate_spec_schemas.py` (or `sh "
+        "ecosystem/specs/ci-validate-contracts.sh`)."
     ) from exc
 
 ROOT = Path(__file__).resolve().parents[2]
