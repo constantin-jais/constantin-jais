@@ -46,21 +46,21 @@ Rumble delivery maturity is also contract-first: commercializable, multi-platfor
 
 ## P0 Work Items
 
-| Priority | Item | Owner layer | Output |
-| --- | --- | --- | --- |
-| P0 | `ImplementationHandoff v0.1` contract | Shared / Bolt seam | `specs/shared/contracts/implementation-handoff.v0.1.md` |
-| P0 | Bolt/cos-matic hardening doctrine | Bolt / `cos-matic` | `specs/harness/01-bolt-cosmatic-hardening.md` |
-| P0 | Handoff validator | Bolt / `cos-matic` | CLI validates/refuses payloads |
-| P0 | Dry-run planner | Bolt / `cos-matic` | `PlanReport`, no execution |
-| P0 | Evidence-gated planning contract | Bolt / `cos-matic` | `cosmatic.planning_bundle.v0.1` schema + fixtures |
-| P0 | Minimal fixtures | Shared specs | valid/invalid JSON examples |
-| P0 | Refusal model | Bolt / `cos-matic` | structured reason codes, findings, remediation |
-| P0 | Gate model | Bolt / `cos-matic` | typed gates for human approval, sovereignty, Wrench reports, artifact integrity |
-| P0 | Traceability checker | Wrench Inspect | coverage report |
-| P0 | Waiver policy checker | Bolt + Wrench | accepted/refused gates |
-| P0 | SpecPackage artifact rules | Gear candidate | hash/provenance/export rules |
-| P0 | Rumble delivery maturity claims | Harness / Bolt consumes | `rumble.delivery_maturity.v0.1` schema + valid/invalid fixtures |
-| P0 | Stack validation tooling spec | Harness / Bolt + Wrench seam | `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, `local_smoke` contracts |
+| Priority | Item                                  | Owner layer                  | Output                                                                                           |
+| -------- | ------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------ |
+| P0       | `ImplementationHandoff v0.1` contract | Shared / Bolt seam           | `specs/shared/contracts/implementation-handoff.v0.1.md`                                          |
+| P0       | Bolt/cos-matic hardening doctrine     | Bolt / `cos-matic`           | `specs/harness/01-bolt-cosmatic-hardening.md`                                                    |
+| P0       | Handoff validator                     | Bolt / `cos-matic`           | CLI validates/refuses payloads                                                                   |
+| P0       | Dry-run planner                       | Bolt / `cos-matic`           | `PlanReport`, no execution                                                                       |
+| P0       | Evidence-gated planning contract      | Bolt / `cos-matic`           | `cosmatic.planning_bundle.v0.1` schema + fixtures                                                |
+| P0       | Minimal fixtures                      | Shared specs                 | valid/invalid JSON examples                                                                      |
+| P0       | Refusal model                         | Bolt / `cos-matic`           | structured reason codes, findings, remediation                                                   |
+| P0       | Gate model                            | Bolt / `cos-matic`           | typed gates for human approval, sovereignty, Wrench reports, artifact integrity                  |
+| P0       | Traceability checker                  | Wrench Inspect               | coverage report                                                                                  |
+| P0       | Waiver policy checker                 | Bolt + Wrench                | accepted/refused gates                                                                           |
+| P0       | SpecPackage artifact rules            | Gear candidate               | hash/provenance/export rules                                                                     |
+| P0       | Rumble delivery maturity claims       | Harness / Bolt consumes      | `rumble.delivery_maturity.v0.1` schema + valid/invalid fixtures                                  |
+| P0       | Stack validation tooling spec         | Harness / Bolt + Wrench seam | `project_status`, `stack_detect`, `stack_scorecard`, `dependency_audit`, `local_smoke` contracts |
 
 ## Definition of Ready for Rumble Development
 
@@ -97,7 +97,7 @@ cosmatic handoff plan specs/harness/fixtures/handoffs/canvas-minimal.valid.json 
 Maturity contract smoke fixtures:
 
 ```bash
-python3 specs/validate_spec_schemas.py
+uv run --script specs/validate_spec_schemas.py
 ```
 
 Recommended pre-execution evidence flow:
