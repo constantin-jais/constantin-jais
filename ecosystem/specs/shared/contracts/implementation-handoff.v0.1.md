@@ -79,6 +79,9 @@ Any payload that permits execution must be rejected.
     "data_residency": "EU/local-first where applicable",
     "non_goals": []
   },
+  "database_inspection": {
+    "applicability": "not_applicable"
+  },
   "requested_outputs": [
     "implementation_plan",
     "task_breakdown",
@@ -108,6 +111,38 @@ Any payload that permits execution must be rejected.
 8. traceability coverage is below policy threshold.
 9. active waivers are expired, self-approved when separation is required, or missing rationale.
 10. capability candidates have no proposed owner layer when they affect implementation scope.
+11. database applicability is omitted once the DB gate rollout is enforced.
+12. `database_inspection.applicability` is `postgres` but the report reference is missing, unhashed, failed, quarantined, redacted, or does not match supplied Wrench DB evidence.
+
+## Database Inspection Applicability
+
+Every handoff must converge toward one explicit state:
+
+```json
+{
+  "database_inspection": {
+    "applicability": "postgres",
+    "report": {
+      "artifact_ref": "artifact:wrench-db-report-product-sha",
+      "sha256": "sha256:<64-lowercase-hex>",
+      "profile": "protected_branch",
+      "wrench_version": "0.1.0-alpha.2"
+    }
+  }
+}
+```
+
+or:
+
+```json
+{
+  "database_inspection": {
+    "applicability": "not_applicable"
+  }
+}
+```
+
+The field remains schema-optional during the observation rollout so existing v0.1 handoffs stay valid. Bolt's enforcement mode treats omission as blocking. `postgres` references metadata only: Bolt verifies the supplied report bytes against `sha256`, reads the Wrench report contract fields needed by the gate, and never records raw SQL, DSNs, or the report body.
 
 ## Expected Bolt Responses
 

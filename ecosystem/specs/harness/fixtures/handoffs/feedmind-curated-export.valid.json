@@ -147,6 +147,15 @@
     "requires_external_saas": false,
     "pii_in_logs_allowed": false
   },
+  "database_inspection": {
+    "applicability": "postgres",
+    "report": {
+      "artifact_ref": "artifact:wrench-db-report-feedmind-fixture",
+      "sha256": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "profile": "protected_branch",
+      "wrench_version": "0.1.0-alpha.2"
+    }
+  },
   "requested_outputs": [
     "implementation_plan",
     "task_breakdown",
