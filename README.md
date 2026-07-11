@@ -31,7 +31,7 @@ The infrastructure repositories are independently testable and communicate throu
 | [Proof Kit](https://github.com/libre-ai/proof-kit) | Reproducible non-formal inspection evidence | Runtime ownership or product decisions |
 | [Context Kit](https://github.com/libre-ai/context-kit) | Ingestion, source references, local memory and context provenance | Product semantics or artifact distribution |
 | [Artifact Supply](https://github.com/libre-ai/artifact-supply) | Manifests, packaging, provenance and deterministic distribution | Release decisions or source ingestion |
-| [Gear Compatibility](https://github.com/libre-ai/gear) | Full pre-split history during consumer migration | New feature ownership |
+| [Gear Compatibility](https://github.com/libre-ai/gear) | Archived full pre-split history and compatibility paths | New feature or release ownership |
 
 ## Governance entry points
 

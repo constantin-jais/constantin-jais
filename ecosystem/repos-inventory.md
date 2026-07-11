@@ -23,7 +23,7 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/spec-studio` | product | keep | profile, visual and handoff checks |
 | `libre-ai/agent-board` | product specification | keep | profile, visual and repository hygiene |
 | `libre-ai/notebook` | product specification | keep | profile, visual and repository hygiene |
-| `libre-ai/boussole-politique` | autonomous civic product | keep | profile, local-first boundary, Rust contracts and deterministic assets |
+| `libre-ai/boussole-politique` | autonomous civic product | keep | profile, local-first boundary, Rust contracts, deterministic assets and portable analytical dry-run |
 | `libre-ai/ai-practices` | product dojo | keep | profile, visual and protected quality gates |
 | `libre-ai/benchmarks` | evidence | keep | profile, visual and published Pages artifact |
 | `libre-ai/dioxus-app-template` | generated distribution | keep | Client Kit mirror check and deployed Pages smoke |
@@ -32,7 +32,7 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/proof-kit` | infrastructure | keep canonical | renamed with redirect; inspectors/lab histories and evidence checks |
 | `libre-ai/context-kit` | infrastructure | keep canonical | `context/` path history, independent workspace and supply-chain CI |
 | `libre-ai/artifact-supply` | infrastructure | keep canonical | `supply/` path history, independent workspace and supply-chain CI |
-| `libre-ai/gear` | compatibility infrastructure | retain during migration | full pre-split history and old paths; no new feature ownership |
+| `libre-ai/gear` | compatibility infrastructure | archived | full pre-split history and old paths; zero active consumers and no new feature ownership |
 
 Every row above has an entry in both the public repository profile catalogue and branch policy. The profile validator rejects private visibility, duplicate slugs, non-canonical URLs and profile/policy drift.
 
@@ -45,7 +45,7 @@ ADR 0045 ratifies these serial changes; a row remains `planned` until live metad
 | `libre-ai/portal` | `libre-ai/client-kit` | complete | GitHub redirect verified; crate/schema identifiers unchanged |
 | `libre-ai/bolt` | `libre-ai/agent-factory` | complete | GitHub redirect verified; engine/binary/contract identifiers unchanged |
 | `libre-ai/wrench` | `libre-ai/proof-kit` | complete | repository/release redirects verified; Pages moved to `/proof-kit/`; qualified release/archive names unchanged |
-| `libre-ai/gear` | `libre-ai/context-kit` + `libre-ai/artifact-supply` | extracted; consumer migration active | path histories and independent CI verified; full-history Gear retained until zero consumers, then archived |
+| `libre-ai/gear` | `libre-ai/context-kit` + `libre-ai/artifact-supply` | complete | path histories, independent CI and consumer migration verified; full-history Gear archived at `0c7f35f` |
 | `constantin-jais/constantin-jais` | `libre-ai/ecosystem` | blocked | GitHub Support privacy gate remains mandatory |
 
 ## Superseded source repositories
