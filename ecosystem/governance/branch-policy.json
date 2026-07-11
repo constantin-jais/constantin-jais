@@ -56,12 +56,14 @@
     "libre-ai/portal": {
       "required_checks": [
         "core Rust gates",
+        "ui Rust gates",
         "forge Rust gates",
         "Canonical Dioxus template",
         "Canonical template browser gates",
         "Apple adapter over in-repository core",
         "Android adapter over in-repository core",
         "core supply chain",
+        "ui supply chain",
         "forge supply chain",
         "template supply chain"
       ],
