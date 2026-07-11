@@ -23,6 +23,7 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/spec-studio` | product | keep | profile, visual and handoff checks |
 | `libre-ai/agent-board` | product specification | keep | profile, visual and repository hygiene |
 | `libre-ai/notebook` | product specification | keep | profile, visual and repository hygiene |
+| `libre-ai/boussole-politique` | autonomous civic product | keep | profile, local-first boundary, Rust contracts and deterministic assets |
 | `libre-ai/ai-practices` | product dojo | keep | profile, visual and protected quality gates |
 | `libre-ai/benchmarks` | evidence | keep | profile, visual and published Pages artifact |
 | `libre-ai/dioxus-app-template` | generated distribution | keep | Portal mirror check and deployed Pages smoke |
@@ -32,6 +33,18 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/gear` | infrastructure | keep canonical | Context/Supply histories and workspace isolation |
 
 Every row above has an entry in both the public repository profile catalogue and branch policy. The profile validator rejects private visibility, duplicate slugs, non-canonical URLs and profile/policy drift.
+
+## Ratified topology migration
+
+ADR 0045 ratifies these serial changes; a row remains `planned` until live metadata, policy, profiles, consumers and local paths all agree.
+
+| Current | Target | State | Compatibility rule |
+| --- | --- | --- | --- |
+| `libre-ai/portal` | `libre-ai/client-kit` | planned | GitHub redirect; crate/schema identifiers unchanged |
+| `libre-ai/bolt` | `libre-ai/agent-factory` | planned | GitHub redirect; engine/binary/contract identifiers unchanged |
+| `libre-ai/wrench` | `libre-ai/proof-kit` | planned | GitHub redirect; qualified release and archive names unchanged |
+| `libre-ai/gear` | `libre-ai/context-kit` + `libre-ai/artifact-supply` | planned split | path-history extraction; full-history Gear retained as archived compatibility repository |
+| `constantin-jais/constantin-jais` | `libre-ai/ecosystem` | blocked | GitHub Support privacy gate remains mandatory |
 
 ## Superseded source repositories
 

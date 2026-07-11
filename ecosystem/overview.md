@@ -1,8 +1,8 @@
 # Libre AI ecosystem overview and specification control plane
 
-This document owns stable architecture doctrine for the Libre AI product portfolio and its Portal, Bolt, Wrench and Gear infrastructure.
+This document owns stable architecture doctrine for the Libre AI product portfolio and its Client Kit, Agent Factory, Proof Kit, Context Kit and Artifact Supply infrastructure.
 
-> **Naming scope (2026-07-11):** Libre IA / Libre AI and the product names in [`governance/repo-profiles.json`](governance/repo-profiles.json) are the only public brands. `Rumble` and old repository slugs in this document are retained solely as internal layer classification or versioned compatibility identifiers; they do not name current public repositories.
+> **Naming scope (2026-07-11):** Libre IA / Libre AI and the product names in [`governance/repo-profiles.json`](governance/repo-profiles.json) are the only public brands. `Rumble` and old repository slugs in this document are retained solely as internal layer classification or versioned compatibility identifiers. ADR 0045 ratifies the migration from Portal/Bolt/Wrench/Gear to the descriptive public infrastructure names; historical prose remains compatibility context until its owning increment migrates.
 
 It has four jobs:
 
@@ -50,22 +50,23 @@ The odysseus decomposition (`specs/shared/odysseus-decomposition.md`) is useful 
 The ecosystem may rebuild selected ideas from odysseus, but never adopts its code, dependencies, or license posture. Every rebuild lands in the owning layer and must pass the same sovereignty, evidence, and boundary gates as any internal feature.
 
 ```text
-Products  meaning, workflows, user-facing pressure
-Portal    client substrate: tokens, primitives, accessibility, bindings
-Bolt      planning and orchestration gates, never product UX
-Wrench    inspection and evidence, never durable truth
-Gear      source/artifact/runtime substrate, provenance, distribution
+Products         meaning, workflows, user-facing pressure
+Client Kit       client substrate: tokens, primitives, accessibility, bindings
+Agent Factory    bounded planning and orchestration gates, never product UX
+Proof Kit        inspection evidence, never durable truth or formal proof claims
+Context Kit      source ingestion, references and memory
+Artifact Supply  manifests, provenance, packaging and distribution
 ```
 
 The target DoD loop is intentionally cross-layer:
 
 ```text
 Product need
-→ Portal client coherence when UI is needed
-→ Gear Context for source and provenance
-→ Gear Supply for artifacts and delivery
-→ Wrench evidence for inspection
-→ Bolt planning-only handoff and gates
+→ Client Kit coherence when UI is needed
+→ Context Kit for source references and memory
+→ Artifact Supply for artifacts and delivery
+→ Proof Kit evidence for inspection
+→ Agent Factory planning-only handoff and gates
 → Website or Notebook explains what was learned
 ```
 
@@ -81,27 +82,30 @@ PRODUCTS — independent user-facing meaning
 ├─ spec-studio          product conception → specs → handoff
 ├─ agent-board          human/agent teamwork, approvals and evidence
 ├─ notebook             local-first knowledge and context export
+├─ boussole-politique   local-first civic comparison without political labels
 ├─ ai-practices         professional AI-practice training
 └─ benchmarks           versioned comparison evidence
 
-PORTAL — one client-platform repository
+CLIENT KIT — client-platform infrastructure
 ├─ forge                DTCG tokens → CSS/Swift/Kotlin + WCAG
 ├─ core                 Rust UI contracts, i18n UI, a11y and bindings
 ├─ adapters/apple       SwiftUI adapter
 ├─ adapters/android     Jetpack Compose adapter
 └─ templates/dioxus-app canonical generated template source
 
-BOLT — one orchestration repository
+AGENT FACTORY — bounded orchestration infrastructure
 ├─ engine               deterministic planning, refusals and safe writes
 └─ harness              bounded sandbox and evidence bench
 
-WRENCH — one inspection repository
+PROOF KIT — inspection-evidence infrastructure
 ├─ inspect              structural, policy, spec and browser evidence
 ├─ db-inspect           Postgres/RLS/grants/migration evidence
-└─ labs/dioxus          Dioxus/PWA proof lab and template patterns
+└─ labs/dioxus          Dioxus/PWA experimental evidence and template patterns
 
-GEAR — one repository, two isolated workspaces
-├─ context              extraction, SourceRef, memory and provenance
+CONTEXT KIT — context infrastructure
+└─ context              extraction, SourceRef, memory and provenance
+
+ARTIFACT SUPPLY — artifact infrastructure
 └─ supply               ArtifactRef, manifests, release and distribution
 ```
 
@@ -109,10 +113,11 @@ Canonical rule:
 
 ```text
 Les produits expriment les besoins et possèdent leur expérience.
-Portal rend les clients cohérents.
-Bolt planifie et orchestre.
-Wrench inspecte et produit des preuves.
-Gear extrait, stocke, transporte, package et gouverne les artefacts.
+Client Kit rend les clients cohérents.
+Agent Factory planifie et orchestre dans un périmètre borné.
+Proof Kit inspecte et produit des preuves reproductibles, non formelles.
+Context Kit extrait et conserve les références et la mémoire.
+Artifact Supply transporte, package et atteste les artefacts.
 ```
 
 Current cross-project status lives in `status.md`. The target self-improving process loop lives in `loop.md`. The full accepted target version lives in `target-version.md` and `target-version.v1.json`.
