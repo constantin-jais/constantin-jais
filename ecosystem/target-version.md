@@ -21,11 +21,12 @@ The prefix carries the **owning domain**; the **deployment class** (`product-lin
 
 ## Elected stack (ADR 0032)
 
-- **Web/PWA shell**: Dioxus 0.7.9 fullstack — patterns bound to the `wrench-dioxus-lab` evidence (Primitives ARIA, Tailwind v4 via dx, HttpOnly SameSite=Strict session, wasm ≤ 450 KiB gzip, e2e 4 engines, tracing ids-only, tokens-only colors). Canonical starter: `dioxus-app-template`.
-- **Headless component library**: Dioxus Components (`dioxus-primitives`, git-pinned `bf007c15`, dual MIT/Apache-2.0) — unstyled WAI-ARIA primitives, appearance via Portal tokens only (ADR 0036). First application: `rumble-ai-practices`. crates.io un-pin is a demand-driven follow-up (F-006).
-- **Static publication**: Dioxus SSG for ecosystem products; the Astro exception ended with the cos rebuild decision (DA-2a).
-- **Native**: `portal-*` + UniFFI (SwiftUI / Compose); apple frozen at the proven-bridge tag, android frozen pending verifiable CI.
-- **Desktop**: re-opened; next spike, demand-driven.
+- **Application stack**: Dioxus 0.7.9 is the preferred shared shell across web/PWA, SSR/SSG, fullstack server functions, desktop, Android and iOS. Product-domain crates remain renderer-independent.
+- **Web/PWA evidence**: patterns are bound to the Dioxus lab evidence (Primitives ARIA, HttpOnly SameSite=Strict session, wasm ≤ 450 KiB gzip, e2e 4 engines, tracing ids-only, tokens-only colors). Canonical starter: `dioxus-app-template`.
+- **Headless component library**: Dioxus Components (`dioxus-primitives`, git-pinned `bf007c15`, dual MIT/Apache-2.0) — unstyled WAI-ARIA primitives, appearance via Portal tokens only (ADR 0036). The Git pin is temporary until a verifiable release exists.
+- **Static publication**: Dioxus SSG for ecosystem products; the Astro exception ended with the website rebuild decision.
+- **Desktop and mobile**: Dioxus WebView shells are the default convergence target. Portal owns adaptive components and native integration contracts. SwiftUI/Compose adapters remain escape hatches and evidence labs, not duplicate default UIs.
+- **Support claims**: web, desktop, Android, iOS, fullstack and UI each require the matrix in [`specs/shared/dioxus-target-evidence.md`](specs/shared/dioxus-target-evidence.md). Until a target passes it, that target is `experimental`, not supported.
 - **Data/backing**: Rust service GO; PostgreSQL/SQLx and OIDC/Biscuit conditional; Redis and native mobile shells WAIT; paid provisioning NO-GO (ADR 0034 discipline unchanged).
 
 ## Visual contract (ADR 0037)

@@ -68,15 +68,15 @@
     "exceptions": "raw benchmark evidence stays immutable; CLI-only repositories have no visual surface",
     "adr": "ADR 0037"
   },
-  "native_delivery": "portal + UniFFI (SwiftUI / Jetpack Compose shells); portal-apple frozen at proven-bridge tag, portal-android frozen pending SDK/NDK-verifiable CI",
-  "desktop": "deferred - next spike, demand-driven (ADR 0032 s4; the Tauri-2 choice was Leptos-coupled and is re-opened)",
+  "native_delivery": "Dioxus-first Android/iOS WebView shells with direct native API access; Portal owns adaptive UI and native integration contracts; SwiftUI/Compose remain escape hatches until separately justified",
+  "desktop": "Dioxus desktop is the preferred shell, experimental per OS until Wrench proves WebView availability, sandboxing, install/update/rollback, accessibility and size budgets",
   "static_publication": "Dioxus SSG for ecosystem products (ADR 0032 s3); Astro remains permitted tooling outside ecosystem products",
   "session_runtime_owner": "rumble-lm (ADR 0029): any live session - generic or ai-practices - runs on lm's engine",
   "identity_ownership": "Gear (identity primitives, D11-gated extraction) + shared Rumble (workspace container); portal-core excluded (ADR 0028)",
   "stack_matrix": {
     "go": [
       "Rust service: Tokio, Axum, SQLx-ready, tracing (ids-only)",
-      "Dioxus 0.7.9 fullstack + PWA as the web shell (ADR 0032)",
+      "Dioxus 0.7.9 across web/PWA, SSR/SSG, fullstack, desktop, Android and iOS; support is claimed per target only after Wrench evidence",
       "DB security gate whenever PostgreSQL is used (wrench-db-inspect)"
     ],
     "conditional_go": [
@@ -85,11 +85,11 @@
     ],
     "spike_local": [
       "RAG / pgvector beyond fixture-level proofs",
-      "Dioxus desktop shell (re-opened by ADR 0032 s4)"
+      "Dioxus desktop/mobile target evidence until each OS passes its Wrench matrix"
     ],
     "wait": [
       "Redis / persisted queues - until a product slice proves fanout/retry durability",
-      "Native mobile shells - per-product demand (portal-apple/android stay frozen)"
+      "Duplicate SwiftUI/Compose product UIs - escape hatch only after explicit product evidence"
     ],
     "no_go": [
       "Paid provisioning or live providers without a separate human-approved ADR",

@@ -1,5 +1,7 @@
 # Ecosystem governance — branch policy as code
 
+Public interactions with third-party repositories follow the two-stage human gate in [`upstream-contributions.md`](upstream-contributions.md). Branch policy governs repositories we own; upstream approval governs publication to repositories we do not.
+
 Branch protection for ecosystem repositories is defined in `branch-policy.json`,
 applied and drift-checked by `ecosystem_policy.py`. Nobody edits Settings → Rules
 by hand: **agents propose policy changes via pull request, a human merges,
