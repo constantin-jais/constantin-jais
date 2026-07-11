@@ -1,16 +1,16 @@
 # Contract — DelegatedAuthorizationBiscuit v0.1
 
-Status: Draft / P0 shared auth contract.  
-Owner: Shared Rumble auth contract; product adapters enforce locally; Gear stores safe policy/audit references only.  
+Status: Accepted by ADR 0041.
+Owner: Shared Libre AI authorization contract; product adapters enforce locally; Gear stores safe policy/audit references only.
 Contract index: `README.md`.  
 Conformance tests: `delegated-authorization-biscuit.v0.1.tests.md`.  
 Prototype plan: `delegated-authorization-biscuit.v0.1.prototype.md`.  
-ADRs: `../adrs/0001-biscuit-shared-delegated-authorization.md`, `../adrs/0009-biscuit-public-key-distribution.md`, `../adrs/0010-biscuit-revocation-storage.md`.  
+ADRs: `../adrs/0001-biscuit-shared-delegated-authorization.md`, `../adrs/0009-biscuit-public-key-distribution.md`, `../adrs/0010-biscuit-revocation-storage.md`, `../adrs/0041-biscuit-canonical-authorization.md`.
 Reference implementation inspiration: `eclipse-biscuit/biscuit` (Apache-2.0, Rust, capability authorization). This spec uses Biscuit concepts; it does not copy repository content.
 
 ## Purpose
 
-Biscuit tokens are the shared delegation contract for Rumble products. They express bounded, attenuable rights across `rumble-canvas`, `rumble-crew`, `rumble-lm`, and later collaborative `rumble-note`.
+Biscuit tokens are the shared delegation contract for Libre AI products. They express bounded, attenuable rights across Spec Studio, Agent Board, Sessions and later collaborative Notebook.
 
 The goal is to prevent each product from inventing its own delegation token, approval token, run token, export token, or source-access token.
 
@@ -21,7 +21,7 @@ The goal is to prevent each product from inventing its own delegation token, app
 - A Biscuit token carries facts and checks; product authorization policies stay in local authorizers.
 - Tokens must include tenant, actor, expiry, delegation purpose, and revocation reference.
 - Services must never log raw tokens or secrets. Logs may include hashes, block IDs, revocation refs, and decision IDs.
-- Rumble products apply product-specific decisions locally, but the delegation vocabulary remains shared.
+- Products apply product-specific decisions locally, but the delegation vocabulary remains shared.
 - Gear may store safe references to policy, audit, revocation, artifacts, and events. Gear is not a full identity provider.
 
 ## Boundary
@@ -30,7 +30,7 @@ The goal is to prevent each product from inventing its own delegation token, app
 | --- | --- |
 | Human account identity, login, SSO, local account lifecycle | Future identity/auth adapter, not this contract |
 | Delegated right vocabulary and token shape | Shared Biscuit contract |
-| Product role-to-action mapping | Each Rumble product |
+| Product role-to-action mapping | Each product |
 | Runtime execution | Bolt / `cos-matic` |
 | Source/artifact/audit references | Gear Memory / Gear Depot / Gear EventLog candidates |
 | Policy decisions for a specific request | Local service authorizer |
@@ -42,13 +42,13 @@ Rights are expressed with `action($name)` facts/checks. Shared names are intenti
 
 Priority meanings:
 
-- **P0**: required for first shared contract adoption or already needed by active Rumbles.
+- **P0**: required for first shared contract adoption or already needed by active products.
 - **P1**: expected soon or sensitive enough to reserve now.
 - **P2**: future/collaborative expansion; should not drive P0 implementation.
 
 | Right | Priority | Meaning | Typical resources |
 | --- | --- | --- | --- |
-| `handoff:prepare` | P0 | Prepare a Rumble-to-Bolt handoff payload. | spec package, task bundle |
+| `handoff:prepare` | P0 | Prepare a product-to-Bolt handoff payload. | spec package, task bundle |
 | `handoff:submit` | P0 | Submit a validated planning handoff to Bolt. | implementation handoff |
 | `run:request` | P0 | Request a bounded Bolt run/execution attempt. | task, agent assignment |
 | `approval:decide` | P0 | Decide a gate/approval request. | gate, evidence review |
@@ -66,7 +66,7 @@ Priority meanings:
 | `log:raw:read` | P1 | Read privileged runtime raw logs. | runtime log ref |
 | `audit:export` | P1 | Export audit timeline/report metadata. | workspace, session, task |
 
-Product-specific actions may exist, but must either map to one of these shared actions or be proposed as a v0.2 shared action if reused by more than one Rumble.
+Product-specific actions may exist, but must either map to one of these shared actions or be proposed as a v0.2 shared action if reused by more than one product.
 
 ## P0 Biscuit Token Facts
 
@@ -86,7 +86,7 @@ Token facts use stable opaque IDs, never emails, names, raw content, source exce
 | `delegation_id($id)` | Yes | `delegation_id("del_123")` | Safe audit correlation ID, not a secret. |
 | `revocation_ref($ref)` | Yes | `revocation_ref("rev_123")` | Stable DB/Gear reference for revocation lookup. |
 | `policy_ref($ref)` | Optional | `policy_ref("pol_canvas_handoff_v1")` | Safe policy version/reference. |
-| `audit_ref($ref)` | Optional | `audit_ref("evt_123")` | Gear/Rumble event reference, no raw token. |
+| `audit_ref($ref)` | Optional | `audit_ref("evt_123")` | Gear/product event reference, no raw token. |
 | `parent_delegation($id)` | Optional | `parent_delegation("del_parent")` | Delegation chain without storing token material. |
 | `chain_depth($n)` | Optional | `chain_depth(1)` | Authorizers should cap depth for sensitive actions. |
 | `artifact_ref($id)` | Optional | `artifact_ref("art_123")` | For export/handoff/evidence. |
@@ -146,7 +146,7 @@ A product authorizer must still inject local context facts such as current works
 | `delegation_id` | Stable ID for the delegated authorization grant. | Yes. |
 | `revocation_ref` | Lookup reference used to revoke one delegation or a revocation scope. | Yes. |
 | `policy_ref` | Version/reference of the policy used when issuing or evaluating delegation. | Yes. |
-| `audit_ref` | Rumble/Gear event reference correlating a decision or issuance. | Yes. |
+| `audit_ref` | Product/Gear event reference correlating a decision or issuance. | Yes. |
 | `root_block_id` | Biscuit authority/root block identifier or hash used for revocation/debug. | Yes, if not token material. |
 | `block_id` | Biscuit block identifier or hash for authority/attenuation blocks. | Yes, if not token material. |
 | `artifact_ref` | Safe reference to Gear Depot or product export artifact. | Yes. |
@@ -156,7 +156,7 @@ A product authorizer must still inject local context facts such as current works
 
 ## Authorizer Contract
 
-Every Rumble/Bolt service receiving a Biscuit token must:
+Every product or Bolt service receiving a Biscuit token must:
 
 1. Verify signature with an accepted public key.
 2. Reject if root block ID or revocation reference is revoked.
@@ -265,7 +265,7 @@ Authorizers check revocation before running product policy. A short cache TTL (3
 
 ## Safe Audit and Gear References
 
-Gear/Rumble may store:
+Gear and products may store:
 
 - `delegation_id`, `revocation_ref`, `policy_ref`, `audit_ref`;
 - Biscuit root/block IDs or hashes;
@@ -274,7 +274,7 @@ Gear/Rumble may store:
 - decision result and error class;
 - payload hashes, artifact refs, source refs, run refs.
 
-Gear/Rumble must not store in audit metadata:
+Gear and products must not store in audit metadata:
 
 - raw Biscuit token base64/bytes;
 - private keys;

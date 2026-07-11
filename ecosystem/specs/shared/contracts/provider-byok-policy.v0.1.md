@@ -1,26 +1,26 @@
 # Policy Contract — Provider/BYOK v0.1
 
-Status: Draft / shared security blocker for FeedMind and LM.  
+Status: Accepted by ADR 0043; product instantiation remains required.
 Schema: future `provider-byok-policy.v0.1.schema.json` if automation needs it.
 
 ## Purpose
 
-Provider/BYOK policy defines how Rumble products may use user-provided model/provider credentials and external AI providers without leaking secrets, violating sovereignty constraints, or creating hidden product dependencies.
+Provider/BYOK policy defines how Libre AI products may use user-provided model/provider credentials and external AI providers without leaking secrets, violating sovereignty constraints, or creating hidden product dependencies.
 
 ## Applies To
 
-- `rumble-feed-mind` natural-language rules and explanations;
-- `rumble-lm` source-grounded generation;
-- `rumble-canvas` AI-assisted spec drafting;
+- Feed Radar natural-language rules and explanations;
+- Sessions source-grounded generation;
+- Spec Studio AI-assisted spec drafting;
 - any Bolt-mediated provider call using product context.
 
 ## Required Defaults
 
 | Area | Rule |
 | --- | --- |
-| Sovereign default | Prefer local/self-hosted or EU provider; Clever AI first where available, Mistral API acceptable fallback when documented. |
+| Sovereign default | Prefer local/self-hosted or Clever AI; no direct-provider or implicit fallback. |
 | BYOK | User/provider keys are encrypted at rest, never exported, never logged, never embedded in artifacts or handoffs. |
-| Delegation | Provider use across service boundaries requires attenuated delegated authorization; Biscuit is the shared direction. |
+| Delegation | Provider use across service boundaries requires attenuated delegated authorization; Biscuit is the canonical shared format. |
 | Logging | Logs may contain provider class, model ref, token counts, safe request id, and hashes; never prompt body if private, never raw credentials. |
 | Retention | Provider request/response retention must be explicit per product and purpose. |
 | Deletion | User can delete provider credentials and derived cached provider metadata. |
@@ -33,8 +33,7 @@ Provider/BYOK policy defines how Rumble products may use user-provided model/pro
 | --- | --- | --- | --- |
 | `local` | local model/runtime | Preferred | Must not silently exfiltrate prompts or telemetry. |
 | `eu_open_or_sovereign` | Clever AI, self-hosted OSS, EU-hosted open stack | Preferred | DPA/data residency documented for hosted providers. |
-| `eu_commercial` | Mistral API | Allowed with documentation | Data residency/DPA/retention documented. |
-| `us_proprietary` | OpenAI, Anthropic, Google, AWS Bedrock, Azure OpenAI | Blocked by default | Requires explicit product waiver, user notice, and no sensitive/default routing. |
+| `direct_model_provider` | Mistral API, OpenAI, Anthropic, Google, AWS Bedrock, Azure OpenAI | Blocked | No default, direct call or implicit fallback; a future exception requires a separate ADR. |
 | `payment_provider` | Stripe | Not an AI provider; isolate | Must not be required for local/self-hosted core use. |
 
 ## BYOK Storage Requirements
@@ -59,9 +58,9 @@ A product is not `READY_FOR_HARNESS_PACKAGE` for model-backed features until it 
 7. Wrench inspection profile for secrets/PII;
 8. Bolt delegation boundary if a provider call crosses services.
 
-## FeedMind-specific Application
+## Feed Radar-specific Application
 
-`rumble-feed-mind` remains blocked until this policy is instantiated with:
+Feed Radar remains blocked until this policy is instantiated with:
 
 - provider allowlist for rule explanation;
 - key storage and deletion workflow;
@@ -69,9 +68,9 @@ A product is not `READY_FOR_HARNESS_PACKAGE` for model-backed features until it 
 - no BYOK material in `CuratedItemExport`;
 - Stripe isolated from core curation/export features.
 
-## LM-specific Application
+## Sessions-specific Application
 
-`rumble-lm` remains warning until this policy is instantiated with:
+Sessions remains warning until this policy is instantiated with:
 
 - source-grounded prompt minimization;
 - citation/provenance requirements;
