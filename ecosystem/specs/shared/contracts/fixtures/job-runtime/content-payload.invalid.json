@@ -1,0 +1,24 @@
+{
+  "format": "sessions.job_runtime.v0.1",
+  "jobs": [
+    {
+      "organization_id": "org_synthetic",
+      "workspace_id": "ws_synthetic",
+      "job_id": "job_synthetic_01",
+      "kind": "source_ingestion",
+      "idempotency_key": "sha256:synthetic-idempotency",
+      "state": "queued",
+      "revision": 1,
+      "attempts": 0,
+      "max_attempts": 3,
+      "lease_owner": null,
+      "lease_expires_at_ms": null,
+      "cancel_requested": false,
+      "result_ref": null,
+      "failure_code": null,
+      "payload": "forbidden document content"
+    }
+  ],
+  "events": [],
+  "claims": []
+}

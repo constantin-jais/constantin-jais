@@ -1,0 +1,11 @@
+{
+  "format": "gear.parser_runtime_attestation.v0.1",
+  "process_isolated": true,
+  "network_disabled": true,
+  "filesystem_write_isolated": false,
+  "hard_kill": true,
+  "wall_timeout_ms": 30000,
+  "cpu_time_limit_ms": 10000,
+  "max_rss_bytes": 536870912,
+  "sandbox": "unconfined"
+}

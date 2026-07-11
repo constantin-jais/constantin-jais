@@ -1,0 +1,51 @@
+{
+  "format": "sessions.job_runtime.v0.1",
+  "jobs": [
+    {
+      "organization_id": "org_synthetic",
+      "workspace_id": "ws_synthetic",
+      "job_id": "job_synthetic_01",
+      "kind": "source_ingestion",
+      "idempotency_key": "sha256:synthetic-idempotency",
+      "state": "leased",
+      "revision": 2,
+      "attempts": 1,
+      "max_attempts": 3,
+      "lease_owner": "worker_synthetic",
+      "lease_expires_at_ms": 10000,
+      "cancel_requested": false,
+      "result_ref": null,
+      "failure_code": null
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_synthetic_01",
+      "organization_id": "org_synthetic",
+      "workspace_id": "ws_synthetic",
+      "job_id": "job_synthetic_01",
+      "revision": 2,
+      "event_type": "job_leased",
+      "actor_ref": "worker_synthetic",
+      "occurred_at_ms": 100
+    }
+  ],
+  "claims": [
+    {
+      "event": {
+        "event_id": "evt_synthetic_01",
+        "organization_id": "org_synthetic",
+        "workspace_id": "ws_synthetic",
+        "job_id": "job_synthetic_01",
+        "revision": 2,
+        "event_type": "job_leased",
+        "actor_ref": "worker_synthetic",
+        "occurred_at_ms": 100
+      },
+      "publisher_id": "publisher_synthetic",
+      "claim_id": "claim_synthetic_01",
+      "claim_expires_at_ms": 11000,
+      "delivery_attempt": 1
+    }
+  ]
+}
