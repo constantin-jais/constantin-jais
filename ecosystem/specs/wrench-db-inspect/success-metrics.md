@@ -101,9 +101,9 @@ These keep the tool usable in CI.
 | `fixture_pass_rate` | Contract fixture suite pass rate. | 100%. |
 | `profile_config_validation_failures` | Invalid gate config detected before run. | 0 in committed CI configs. |
 
-## Suggested Report Additions
+## Required Report Metrics
 
-Future reports should include safe aggregate metrics under `data.metrics`:
+Current reports include safe aggregate metrics under `data.metrics`. `parser_error_count` is computed from complete PostgreSQL-aware statements and must never be hardcoded or silently truncated:
 
 ```json
 {
