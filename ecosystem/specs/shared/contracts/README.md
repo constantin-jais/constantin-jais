@@ -17,6 +17,11 @@ This directory contains cross-product contracts that Rumble/Bolt/Wrench/Gear con
 | `delegated-authorization-biscuit.v0.1.tests.md`     | Draft / P0 | Product-neutral conformance tests for Biscuit delegation.                                                                                           |
 | `delegated-authorization-biscuit.v0.1.prototype.md` | Draft      | Pre-implementation spike plan for verifier/authorizer behavior.                                                                                     |
 | `workspace-identity.v0.1.md`                        | Accepted   | Shared actor/workspace/membership/role model ratified by ADR 0028 and closed by rumble-canvas #4 tenant emission/schema sync.                        |
+| `authorization-registries.v0.1.schema.json`         | Draft / P2 | Public Ed25519 keyset and Biscuit revocation registry consumed by Bolt.                                                                              |
+| `parser-runtime-attestation.v0.1.schema.json`       | Draft / P2 | Gear worker isolation/resource-limit attestation consumed as Wrench evidence.                                                                        |
+| `progress-snapshot.v0.1.schema.json`                | Draft / P2 | Portal's accessible metadata-only projection; no workflow ownership.                                                                                 |
+| `job-runtime.v0.1.schema.json`                      | Draft / P2 | Product-local job, event and leased outbox metadata envelope.                                                                                         |
+| `phase2-runtime-contracts.v0.1.md`                  | Draft / P2 | Ownership, non-goals, safe fields and conformance rules for the four Phase 2 schemas.                                                                 |
 | `../gear-loader/gear-loader.v0.1.schema.json`       | Draft / P0 | JSON Schema bundle for Gear Loader (formerly wrench-loader) extraction requests, canonical documents, Gear source candidates, and evidence reports. |
 | `../../harness/cosmatic-planning.v0.1.schema.json`  | Draft / P0 | JSON Schema bundle for Bolt/cos-matic planning requests, evidence refs, gates, plan reports, run intents, refusals, and audit events.               |
 

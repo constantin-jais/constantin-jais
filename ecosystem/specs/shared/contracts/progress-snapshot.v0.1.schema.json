@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://libre-ai.local/ecosystem/contracts/progress-snapshot.v0.1.schema.json",
+  "title": "Portal progress snapshot v0.1",
+  "description": "Accessible metadata-only projection. Portal does not own job lifecycle.",
+  "type": "object",
+  "required": [
+    "operation_ref",
+    "revision",
+    "phase",
+    "completed_units",
+    "total_units",
+    "message_key",
+    "cancellable",
+    "retryable"
+  ],
+  "properties": {
+    "operation_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^(?!.*\\.\\.)[A-Za-z0-9_:/-]+$"
+    },
+    "revision": { "type": "integer", "minimum": 0 },
+    "phase": { "enum": ["queued", "running", "succeeded", "failed", "cancelled"] },
+    "completed_units": { "type": "integer", "minimum": 0 },
+    "total_units": { "type": ["integer", "null"], "minimum": 0 },
+    "message_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[a-z0-9._-]+$"
+    },
+    "cancellable": { "type": "boolean" },
+    "retryable": { "type": "boolean" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "phase": { "enum": ["succeeded", "failed", "cancelled"] } } },
+      "then": { "properties": { "cancellable": { "const": false } } }
+    },
+    {
+      "if": { "properties": { "phase": { "enum": ["queued", "running", "succeeded", "cancelled"] } } },
+      "then": { "properties": { "retryable": { "const": false } } }
+    }
+  ],
+  "additionalProperties": false
+}

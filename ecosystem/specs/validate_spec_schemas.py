@@ -17,6 +17,7 @@ import re
 import sys
 from copy import deepcopy
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -83,6 +84,26 @@ SUITES = [
         name="workspace-identity",
         schema=SPECS / "shared" / "contracts" / "workspace-identity.v0.1.schema.json",
         fixtures=SPECS / "shared" / "contracts" / "fixtures" / "workspace-identity",
+    ),
+    Suite(
+        name="authorization-registries",
+        schema=SPECS / "shared" / "contracts" / "authorization-registries.v0.1.schema.json",
+        fixtures=SPECS / "shared" / "contracts" / "fixtures" / "authorization-registries",
+    ),
+    Suite(
+        name="parser-runtime-attestation",
+        schema=SPECS / "shared" / "contracts" / "parser-runtime-attestation.v0.1.schema.json",
+        fixtures=SPECS / "shared" / "contracts" / "fixtures" / "parser-runtime-attestation",
+    ),
+    Suite(
+        name="progress-snapshot",
+        schema=SPECS / "shared" / "contracts" / "progress-snapshot.v0.1.schema.json",
+        fixtures=SPECS / "shared" / "contracts" / "fixtures" / "progress-snapshot",
+    ),
+    Suite(
+        name="job-runtime",
+        schema=SPECS / "shared" / "contracts" / "job-runtime.v0.1.schema.json",
+        fixtures=SPECS / "shared" / "contracts" / "fixtures" / "job-runtime",
     ),
 ]
 
@@ -185,6 +206,91 @@ def has_maturity_semantic_violation(obj: Any) -> bool:
     return False
 
 
+def has_authorization_registry_semantic_violation(obj: Any) -> bool:
+    if not isinstance(obj, dict):
+        return False
+    if obj.get("format") == "bolt.biscuit_keyset.v0.1":
+        key_ids: set[str] = set()
+        public_keys: set[str] = set()
+        for key in obj.get("keys", []):
+            if not isinstance(key, dict):
+                continue
+            key_id = key.get("key_id")
+            public_key = key.get("public_key_hex")
+            if isinstance(key_id, str):
+                if key_id in key_ids:
+                    return True
+                key_ids.add(key_id)
+            if isinstance(public_key, str):
+                normalized = public_key.lower()
+                if normalized in public_keys:
+                    return True
+                public_keys.add(normalized)
+            try:
+                not_before = datetime.fromisoformat(
+                    key.get("not_before", "").replace("Z", "+00:00")
+                )
+                not_after = datetime.fromisoformat(
+                    key.get("not_after", "").replace("Z", "+00:00")
+                )
+            except (AttributeError, TypeError, ValueError):
+                return True
+            if not_before >= not_after:
+                return True
+        return False
+    if obj.get("format") == "bolt.biscuit_revocations.v0.1":
+        revocation_refs: set[str] = set()
+        root_block_ids: set[str] = set()
+        for entry in obj.get("entries", []):
+            if not isinstance(entry, dict):
+                continue
+            revocation_ref = entry.get("revocation_ref")
+            root_block_id = entry.get("root_block_id")
+            if isinstance(revocation_ref, str):
+                if revocation_ref in revocation_refs:
+                    return True
+                revocation_refs.add(revocation_ref)
+            if isinstance(root_block_id, str):
+                normalized = root_block_id.lower()
+                if normalized in root_block_ids:
+                    return True
+                root_block_ids.add(normalized)
+    return False
+
+
+def has_progress_semantic_violation(obj: Any) -> bool:
+    if not isinstance(obj, dict):
+        return False
+    completed = obj.get("completed_units")
+    total = obj.get("total_units")
+    return isinstance(completed, int) and isinstance(total, int) and completed > total
+
+
+def has_job_runtime_semantic_violation(obj: Any) -> bool:
+    if not isinstance(obj, dict) or obj.get("format") != "sessions.job_runtime.v0.1":
+        return False
+    jobs = obj.get("jobs", [])
+    if any(
+        isinstance(job, dict)
+        and isinstance(job.get("attempts"), int)
+        and isinstance(job.get("max_attempts"), int)
+        and job["attempts"] > job["max_attempts"]
+        for job in jobs
+    ):
+        return True
+    event_ids = {
+        event.get("event_id")
+        for event in obj.get("events", [])
+        if isinstance(event, dict) and isinstance(event.get("event_id"), str)
+    }
+    return any(
+        isinstance(claim, dict)
+        and isinstance(claim.get("event"), dict)
+        and claim["event"].get("event_id") not in event_ids
+        for claim in obj.get("claims", [])
+    )
+
+
 def has_ocr_text_without_policy(obj: Any) -> bool:
     requests = obj.get("extraction_requests", []) if isinstance(obj, dict) else []
     ocr_disabled = any(
@@ -203,15 +309,24 @@ def has_ocr_text_without_policy(obj: Any) -> bool:
     return False
 
 
-def semantic_negative_guard(path: Path, obj: Any) -> bool:
-    """Return true when an invalid fixture violates a non-schema contract guard."""
+def has_semantic_contract_violation(obj: Any) -> bool:
     return (
-        has_unsafe_key(obj)
-        or has_invalid_hash(obj)
+        has_invalid_hash(obj)
         or has_timestamp_without_offset(obj)
         or has_ocr_text_without_policy(obj)
         or has_duplicate_approval_key_ref(obj)
         or has_maturity_semantic_violation(obj)
+        or has_authorization_registry_semantic_violation(obj)
+        or has_progress_semantic_violation(obj)
+        or has_job_runtime_semantic_violation(obj)
+    )
+
+
+def semantic_negative_guard(path: Path, obj: Any) -> bool:
+    """Return true when an invalid fixture violates a non-schema contract guard."""
+    return (
+        has_unsafe_key(obj)
+        or has_semantic_contract_violation(obj)
         or "execution-forbidden" in path.name
     )
 
@@ -223,7 +338,9 @@ def suffix_matches(path: Path, suffixes: tuple[str, ...]) -> bool:
 def validate_suite(suite: Suite) -> tuple[int, int]:
     schema_obj = load_json(suite.schema)
     jsonschema.Draft202012Validator.check_schema(schema_obj)
-    validator = jsonschema.Draft202012Validator(schema_obj)
+    validator = jsonschema.Draft202012Validator(
+        schema_obj, format_checker=jsonschema.Draft202012Validator.FORMAT_CHECKER
+    )
 
     passed = 0
     negative = 0
@@ -236,8 +353,11 @@ def validate_suite(suite: Suite) -> tuple[int, int]:
         errors = sorted(validator.iter_errors(obj), key=lambda err: list(err.path))
 
         if suffix_matches(fixture, suite.pass_suffixes):
-            if errors:
+            semantic_violation = has_semantic_contract_violation(obj)
+            if errors or semantic_violation:
                 details = "; ".join(error.message for error in errors[:3])
+                if semantic_violation:
+                    details = f"{details}; semantic contract violation".lstrip("; ")
                 raise AssertionError(f"{suite.name}: expected pass but failed {fixture}: {details}")
             passed += 1
             print(f"PASS schema {suite.name}: {fixture.relative_to(ROOT)}")
@@ -269,7 +389,9 @@ STANDALONE = [
 def validate_standalone(schema_path: Path, document: Path) -> int:
     schema_obj = load_json(schema_path)
     jsonschema.Draft202012Validator.check_schema(schema_obj)
-    validator = jsonschema.Draft202012Validator(schema_obj)
+    validator = jsonschema.Draft202012Validator(
+        schema_obj, format_checker=jsonschema.Draft202012Validator.FORMAT_CHECKER
+    )
     obj = load_json(document)
     errors = sorted(validator.iter_errors(obj), key=lambda err: list(err.path))
     if errors:

@@ -1,0 +1,14 @@
+{
+  "format": "bolt.biscuit_keyset.v0.1",
+  "version": 1,
+  "keys": [
+    {
+      "key_id": "key_synthetic_01",
+      "algorithm": "ed25519",
+      "public_key_hex": "0101010101010101010101010101010101010101010101010101010101010101",
+      "state": "active",
+      "not_before": "2026-08-11T00:00:00Z",
+      "not_after": "2026-07-11T00:00:00Z"
+    }
+  ]
+}

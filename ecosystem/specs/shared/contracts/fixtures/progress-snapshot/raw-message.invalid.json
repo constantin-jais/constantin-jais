@@ -1,0 +1,10 @@
+{
+  "operation_ref": "job:synthetic-01",
+  "revision": 2,
+  "phase": "running",
+  "completed_units": 4,
+  "total_units": 10,
+  "message_key": "Processing customer contract ACME",
+  "cancellable": true,
+  "retryable": false
+}
