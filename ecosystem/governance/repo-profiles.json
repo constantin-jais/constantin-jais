@@ -93,6 +93,21 @@
     },
     {
       "schema_version": 1,
+      "slug": "boussole-politique",
+      "public_name_fr": "Boussole Politique",
+      "public_name_en": "Boussole Politique",
+      "domain": "product",
+      "maturity": "contract-first",
+      "summary_en": "Local-first civic application comparing private citizen positions with public parliamentary votes, without political labels.",
+      "canonical_url": "https://github.com/libre-ai/boussole-politique",
+      "visibility": "public",
+      "license_expression": "MIT",
+      "visual_id": "boussole-politique",
+      "historical_identifiers": ["mes-elus"],
+      "required_checks": ["Rust contracts", "Deterministic brand assets"]
+    },
+    {
+      "schema_version": 1,
       "slug": "ai-practices",
       "public_name_fr": "Pratiques IA",
       "public_name_en": "Libre AI Practices",

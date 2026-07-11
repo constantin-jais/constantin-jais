@@ -41,6 +41,10 @@
       "required_checks": ["Repository hygiene"],
       "strict_up_to_date": true
     },
+    "libre-ai/boussole-politique": {
+      "required_checks": ["Rust contracts", "Deterministic brand assets"],
+      "strict_up_to_date": true
+    },
     "libre-ai/ai-practices": {
       "required_checks": ["Rust quality gates", "Repository hygiene", "Database inspection gate"],
       "strict_up_to_date": true
