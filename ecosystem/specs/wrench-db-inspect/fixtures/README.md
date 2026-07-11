@@ -24,6 +24,10 @@ Fixtures must not contain real secrets, DSNs, row data, raw embeddings, prompts,
 | `fail/grant_to_unknown_role` | Grant to role absent from manifest. |
 | `fail/pgvector_global_embedding_leak` | Embedding search without enforceable tenant filter. |
 | `unknown/unclassified_table` | Schema table missing manifest classification. |
+| `fail/unparsable_statement` | Complete malformed SQL remains a generic fail-closed parser error. |
+| `fail/unsupported_do_block` | Recognized procedural block becomes a focused blocking review finding without exposing its body. |
+| `pass/custom_operator_schema_qualified` | Bounded `CREATE OPERATOR` declaration with schema-qualified implementation function. |
+| `fail/custom_operator_unqualified` | Custom operator implementation function lacks an explicit schema. |
 | `waiver/critical_with_valid_expiring_waiver` | Critical finding remains visible but gate passes due to bounded waiver. |
 | `waiver/critical_with_expired_waiver` | Release profile blocks an expired waiver. |
 | `waiver/critical_with_incomplete_waiver` | Release profile blocks a waiver missing required reviewer metadata. |

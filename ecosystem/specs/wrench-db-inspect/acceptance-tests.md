@@ -35,7 +35,8 @@ For every fixture run:
 - parser/inspection uncertainty is represented as `inspection_integrity` or `manifest_coverage`, never silently ignored;
 - `data.scope.inspected_at` is RFC3339 and fixture runs inject a deterministic clock;
 - `data.metrics.parser_error_count` equals the number of complete PostgreSQL-aware statements that emitted `SQL_STATEMENT_UNPARSED`;
-- raw failing SQL and parser messages never appear in findings;
+- recognized procedural statements that still require semantic review emit focused blocking `inspection_integrity` findings without incrementing `parser_error_count`;
+- raw failing SQL, procedural bodies and parser messages never appear in findings;
 - exit code follows the selected gate profile;
 - report includes input content hashes or stable fixture-relative references.
 
@@ -50,7 +51,9 @@ For every fixture run:
 | `fail/pgvector_global_embedding_leak` | `failed` | true | `PGVECTOR_TENANT_FILTER_REQUIRED` |
 | `unknown/unclassified_table` | `failed` for `protected_branch` | true | `TABLE_CLASSIFICATION_REQUIRED` |
 | `fail/unparsable_statement` | `failed` | true | one `SQL_STATEMENT_UNPARSED` per complete malformed statement |
-| `fail/unsupported_do_block` | `failed` | true | one `SQL_STATEMENT_UNPARSED` for the whole dollar-quoted `DO` block; following supported DDL remains inspected |
+| `fail/unsupported_do_block` | `failed` | true | one `SQL_DO_BLOCK_REQUIRES_REVIEW` for the whole dollar-quoted `DO` block; `parser_error_count=0`; following supported DDL remains inspected |
+| `pass/custom_operator_schema_qualified` | `passed` | false | schema-qualified `CREATE OPERATOR` is structurally covered |
+| `fail/custom_operator_unqualified` | `failed` | true | `CUSTOM_OPERATOR_FUNCTION_SCHEMA_REQUIRED` |
 | `waiver/critical_with_valid_expiring_waiver` | `passed_with_waiver` | false | `RLS_REQUIRED_TENANT_TABLE` marked waived |
 | `waiver/critical_with_expired_waiver` with `release` | `failed` | true | waiver reason `expired` |
 | `waiver/critical_with_incomplete_waiver` with `release` | `failed` | true | waiver reason `missing reviewer` |
