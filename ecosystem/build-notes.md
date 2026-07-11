@@ -22,7 +22,7 @@ Do not write a build note just because time passed.
 - **GitHub Releases** own release-specific notes: what shipped, how to try it, checksums/artifacts when relevant, known limitations, and next steps.
 - **ADRs** own durable technical decisions: context, options, decision, consequences, and rollback path.
 - **Issues / PRs** own implementation discussion and evidence: failing cases, fixtures, test output, review history, and acceptance criteria.
-- **rumble-cos** may publish public essays only when the lesson is useful outside one repository.
+- **rumble-libre-ia** may publish public essays only when the lesson is useful outside one repository.
 
 ## Minimal format
 

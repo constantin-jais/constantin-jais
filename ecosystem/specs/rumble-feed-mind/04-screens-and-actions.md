@@ -81,7 +81,7 @@ Contract mapping:
 Actions:
 
 - Select curated items.
-- Select target: `rumble-note`, `rumble-lm`, `rumble-cos`, Gear, local export.
+- Select target: `rumble-note`, `rumble-lm`, `rumble-libre-ia`, Gear, local export.
 - Select data classes.
 - Run export validation.
 - Request human approval.

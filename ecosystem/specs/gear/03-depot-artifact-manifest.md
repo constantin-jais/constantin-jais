@@ -15,7 +15,7 @@ revocation, and distribution metadata.
   "artifact": {
     "artifact_id": "art_01",
     "artifact_type": "spec_package | handoff_payload | curated_export | learning_export | release_asset | inspection_report",
-    "producer": "rumble-canvas | rumble-lm | rumble-feed-mind | rumble-cos | wrench-inspect | gear-cable",
+    "producer": "rumble-canvas | rumble-lm | rumble-feed-mind | rumble-libre-ia | wrench-inspect | gear-cable",
     "version": "1.0.0",
     "hash": "sha256:...",
     "created_at": "2026-06-30T00:00:00Z"

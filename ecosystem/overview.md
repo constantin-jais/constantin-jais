@@ -74,7 +74,7 @@ Operational decisions are evaluated in order: **Security > Quality > Performance
 ```text
 RUMBLE — products / user-facing meaning
 ├─ rumble-canvas        product conception → specs → handoff
-├─ rumble-cos           public education and ecosystem explanations
+├─ rumble-libre-ia           public education and ecosystem explanations
 ├─ rumble-crew          human/agent teamwork, approvals, evidence
 ├─ rumble-feed-mind     feed/watch curation and explainable rules
 ├─ rumble-lm            source-grounded learning and live facilitation
@@ -195,7 +195,7 @@ Rumble projects own product experience, workflows, screens, and user-facing mean
 | Product | Mission | Hard boundary |
 | --- | --- | --- |
 | `rumble-canvas` | Product-conception workspace: conversation → decisions → specs → screens → implementation-ready deliverables. | Not the agent runtime, not merely a visual design canvas. |
-| `rumble-cos` | Personal education and sharing blog for essays, courses, resources, and ecosystem explanations. | Not a monolithic CMS or internal workflow backend. |
+| `rumble-libre-ia` | Personal education and sharing blog for essays, courses, resources, and ecosystem explanations. | Not a monolithic CMS or internal workflow backend. |
 | `rumble-crew` | Agentic team workspace for humans and agents: tasks, blockers, skills, status, approvals, evidence. | Not the orchestration brain. |
 | `rumble-lm` | Sovereign learning/facilitation platform for source-grounded sessions, activities, and group engagement. | Not a generic chatbot. |
 | `rumble-note` | Local-first block-based personal knowledge system that feeds the agentic harness. | Not the ingestion engine or orchestrator. |
@@ -283,7 +283,7 @@ specs/
     10-non-functional-requirements.md
     11-acceptance-tests.md
     12-open-questions.md
-  rumble-cos/
+  rumble-libre-ia/
     ...same structure...
   rumble-crew/
     ...same structure...
@@ -501,7 +501,7 @@ Specs should produce testable acceptance criteria:
 | Product | Current status | Immediate objective | Main risk |
 | --- | --- | --- | --- |
 | `rumble-canvas` | Drafting / harness-critical | Finalize data/events/tests and use it to validate `ImplementationHandoff v0.1`. | Building UI before the product-to-harness flow is validated. |
-| `rumble-cos` | Not started | Define education-first content model and artifact publication flow. | Becoming a generic CMS. |
+| `rumble-libre-ia` | Not started | Define education-first content model and artifact publication flow. | Becoming a generic CMS. |
 | `rumble-crew` | Drafting | Define human/agent task lifecycle, board UX, approvals, evidence, and `cos-matic` boundary. | Reimplementing orchestration instead of displaying/controlling it. |
 | `rumble-feed-mind` | Imported / needs alignment | Decide product-vs-pipeline boundary, feed ingestion ownership, license policy, and curated-item export. | Becoming a generic feed reader or duplicating Wrench/Gear primitives. |
 | `rumble-lm` | Drafting / advanced | Consolidate source-grounded live sessions, activities, citations, summaries, exports, analytics, and retention. | Over-expanding into LMS/asynchronous learning or generic chatbot behavior. |
@@ -515,7 +515,7 @@ Specs should produce testable acceptance criteria:
 4. **`rumble-feed-mind`** — because it creates curated external sources that can feed Note/LM/COS/agents.
 5. **`rumble-lm`** — because it depends on sources, sessions, participants, and facilitation flows.
 6. **`rumble-crew`** — because it depends on agent task lifecycle and Bolt integration.
-7. **`rumble-cos`** — because it can publish lessons, specs, and ecosystem outputs once the content model is clear.
+7. **`rumble-libre-ia`** — because it can publish lessons, specs, and ecosystem outputs once the content model is clear.
 
 ---
 
@@ -533,7 +533,7 @@ Status values:
 | Capability | Needed by | Candidate owner | Status | Notes |
 | --- | --- | --- | --- | --- |
 | Workspace / project space | All Rumbles | Discuss: shared Rumble vs Gear | Candidate | Common boundary for users, permissions, content, runs, and settings. |
-| Source | `rumble-note`, `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-feed-mind` | Gear Loader + Gear Memory | Candidate | URL, file, note, transcript, feed item, document, dataset; extraction goes through Gear Loader and durable references through Gear Memory. |
+| Source | `rumble-note`, `rumble-lm`, `rumble-canvas`, `rumble-libre-ia`, `rumble-feed-mind` | Gear Loader + Gear Memory | Candidate | URL, file, note, transcript, feed item, document, dataset; extraction goes through Gear Loader and durable references through Gear Memory. |
 | Artifact | All Rumbles | Gear Depot + Gear Memory | Candidate | Spec, article, quiz, screen map, execution report, exported package. |
 | Decision record | `rumble-canvas`, `rumble-crew`, `rumble-lm` | Bolt for operational decisions; Rumble shared for product decisions | Discuss | Must distinguish product decisions from execution decisions. |
 | Activity/event log | All Rumbles | Gear | Candidate | Immutable-ish history for audit, collaboration, and agent readability. |
@@ -543,16 +543,16 @@ Status values:
 | Skill/capability card | `rumble-crew`, `rumble-canvas`, `rumble-note` | Bolt or shared Rumble | Discuss | Reusable agent/tool capabilities exposed to users. |
 | Notification | All Rumbles | Shared Rumble or service | Candidate | User-facing delivery; events likely come from Gear/Bolt. |
 | Permission/audit policy | All Rumbles | Gear + app-level adapters | Candidate | Must support local-first and self-hosted operation. |
-| Source-grounded generation | `rumble-lm`, `rumble-canvas`, `rumble-cos`, `rumble-note` | Bolt + Wrench + Gear Memory | Candidate | Needs citations, provenance, and validation. |
-| Import pipeline | `rumble-note`, `rumble-lm`, `rumble-cos`, `rumble-feed-mind` | Gear Loader | Candidate | Files/URLs/transcripts/feed items into canonical content; parser runtime may be linked by products and agents, so it is Gear rather than Wrench. |
-| Feed ingestion | `rumble-feed-mind`, maybe `rumble-note`, `rumble-cos` | Gear Loader for parsing/normalization; Rumble/Bolt for polling/rules/scheduling | Candidate | Feed polling/ranking remains product/orchestration logic; deterministic parsing and canonical extraction belong in Gear Loader if reused. |
+| Source-grounded generation | `rumble-lm`, `rumble-canvas`, `rumble-libre-ia`, `rumble-note` | Bolt + Wrench + Gear Memory | Candidate | Needs citations, provenance, and validation. |
+| Import pipeline | `rumble-note`, `rumble-lm`, `rumble-libre-ia`, `rumble-feed-mind` | Gear Loader | Candidate | Files/URLs/transcripts/feed items into canonical content; parser runtime may be linked by products and agents, so it is Gear rather than Wrench. |
+| Feed ingestion | `rumble-feed-mind`, maybe `rumble-note`, `rumble-libre-ia` | Gear Loader for parsing/normalization; Rumble/Bolt for polling/rules/scheduling | Candidate | Feed polling/ranking remains product/orchestration logic; deterministic parsing and canonical extraction belong in Gear Loader if reused. |
 | Rule explanation | `rumble-feed-mind`, maybe `rumble-lm`, `rumble-canvas` | Rumble UX + Wrench validation | Candidate | Natural-language rule decisions need inspectable explanation and evidence. |
 | BYOK/provider policy | `rumble-feed-mind`, `rumble-lm`, `rumble-canvas` | Shared security policy + Bolt/Gear adapters | Candidate | Model routing, key storage, redaction, and provider constraints must be consistent. |
-| Citation support validation | `rumble-lm`, `rumble-canvas`, `rumble-cos` | Wrench validator/inspector + Rumble UX | Candidate | Assess whether cited source excerpts support generated claims; human validation remains product-owned where needed. |
+| Citation support validation | `rumble-lm`, `rumble-canvas`, `rumble-libre-ia` | Wrench validator/inspector + Rumble UX | Candidate | Assess whether cited source excerpts support generated claims; human validation remains product-owned where needed. |
 | Live participation / presence | `rumble-lm`, `rumble-crew`, maybe `rumble-canvas` | Shared Rumble vs Gear transport | Candidate | Current activity state, presence, response submission, reconnect, and aggregate updates. |
-| Learning/facilitation analytics | `rumble-lm`, maybe `rumble-cos` | Shared Rumble first | Candidate | Aggregate participation, comprehension, confusion, consensus/divergence; avoid hidden individual profiling. |
-| Export package | `rumble-lm`, `rumble-canvas`, `rumble-cos` | Gear artifact + Rumble UX | Candidate | Audience-scoped export with included data classes, provenance, checksum, and retention/revocation metadata. |
-| Inspector reports | `rumble-canvas`, `rumble-crew`, `rumble-cos`, `rumble-lm` | Wrench Inspect | Candidate | Validate specs, content, design, policy, citation support, privacy, or readiness. |
+| Learning/facilitation analytics | `rumble-lm`, maybe `rumble-libre-ia` | Shared Rumble first | Candidate | Aggregate participation, comprehension, confusion, consensus/divergence; avoid hidden individual profiling. |
+| Export package | `rumble-lm`, `rumble-canvas`, `rumble-libre-ia` | Gear artifact + Rumble UX | Candidate | Audience-scoped export with included data classes, provenance, checksum, and retention/revocation metadata. |
+| Inspector reports | `rumble-canvas`, `rumble-crew`, `rumble-libre-ia`, `rumble-lm` | Wrench Inspect | Candidate | Validate specs, content, design, policy, citation support, privacy, or readiness. |
 | Evidence report | Rumbles, Bolt gates, CI/harness | Wrench Inspect + domain Wrench inspectors | Candidate | Shared evidence model for API/browser/eval/clean-room/DB checks; `wrench-db-inspect` produces the DB-security specialization consumed by the ecosystem/harness. |
 | Agent/run policy gate | `cos-matic`, `rumble-crew`, `rumble-canvas`, Wrench checks | `cos-matic` | Candidate | Versioned gates for secrets, destructive actions, network, license, sovereignty, citations, and human approval. |
 | Source catalog | `rumble-note`, `rumble-feed-mind`, `rumble-lm`, Gear Loader, Wrench Inspect | Gear Memory | Candidate | Catalog over `SourceRef`; avoids separate `gear-source` until extraction criteria are met. |
@@ -579,7 +579,7 @@ Do not name a shared brick after a single product unless it truly belongs only t
 
 | Date | Decision | Reason | Status |
 | --- | --- | --- | --- |
-| 2026-06-30 | Active Rumble products in scope: `rumble-canvas`, `rumble-cos`, `rumble-crew`, `rumble-feed-mind`, `rumble-lm`, `rumble-note`. | `rumble-feed-mind` is added as a feed/watch product that must align with shared Wrench/Gear/Bolt boundaries. | Accepted |
+| 2026-06-30 | Active Rumble products in scope: `rumble-canvas`, `rumble-libre-ia`, `rumble-crew`, `rumble-feed-mind`, `rumble-lm`, `rumble-note`. | `rumble-feed-mind` is added as a feed/watch product that must align with shared Wrench/Gear/Bolt boundaries. | Accepted |
 | 2026-06-30 | External inspirations are private discovery context, not public spec content. | Avoid cloning language and keep product identity original. | Accepted |
 | 2026-06-30 | `overview.md` becomes the specification control plane. | Need one visible place to log doctrine, roadmap, shared bricks, and decisions. | Accepted |
 | 2026-06-30 | `rumble-canvas` should be specified first. | It can become the internal method/tool for producing the other product specs. | Proposed |
@@ -624,7 +624,7 @@ Do not name a shared brick after a single product unless it truly belongs only t
 - What is the first deliverable: PRD, screen map, user story map, data model, or implementation plan?
 - How strict should the human validation gates be before Bolt can execute?
 
-#### `rumble-cos`
+#### `rumble-libre-ia`
 
 - Is the primary unit an article, course, resource, project page, or learning path?
 - Does it need a private editorial workflow or only static/public publishing?

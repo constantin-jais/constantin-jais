@@ -12,7 +12,7 @@ Purpose: identify source material without importing product semantics.
 {
   "source_id": "src_01",
   "source_type": "file | url | feed_item | note_block | transcript | document | dataset | artifact",
-  "origin_product": "rumble-feed-mind | rumble-note | rumble-lm | rumble-canvas | rumble-cos | gear-loader | gear-depot",
+  "origin_product": "rumble-feed-mind | rumble-note | rumble-lm | rumble-canvas | rumble-libre-ia | gear-loader | gear-depot",
   "uri": "optional",
   "content_hash": "sha256:...",
   "provenance_id": "prov_01",
@@ -44,7 +44,7 @@ revoked, or distributed.
 {
   "artifact_id": "art_01",
   "artifact_type": "spec_package | handoff_payload | curated_export | learning_export | release_asset | inspection_report",
-  "producer": "rumble-canvas | rumble-lm | rumble-feed-mind | rumble-cos | wrench-inspect | gear-cable",
+  "producer": "rumble-canvas | rumble-lm | rumble-feed-mind | rumble-libre-ia | wrench-inspect | gear-cable",
   "version": "1.0.0",
   "hash": "sha256:...",
   "manifest_ref": "manifest_01",

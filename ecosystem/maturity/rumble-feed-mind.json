@@ -71,7 +71,7 @@
   "extraction_pressure": [
     {
       "capability": "Feed ingestion",
-      "seen_in": ["rumble-feed-mind", "rumble-note", "rumble-cos"],
+      "seen_in": ["rumble-feed-mind", "rumble-note", "rumble-libre-ia"],
       "suggested_owner": "Wrench",
       "status": "accepted"
     }

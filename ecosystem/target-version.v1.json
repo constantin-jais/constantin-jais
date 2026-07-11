@@ -60,7 +60,7 @@
   "design_system": {
     "name": "Libre IA Design System",
     "version": "2.0.0",
-    "source": "libre-ia.fr/tokens/tokens.json",
+    "source": "libre-ia-design-system/design-system/tokens/tokens.json",
     "compiler": "portal-forge",
     "palette": "black, white, neutral grays and Vert Libre #22C55E as the only accent",
     "typography": "self-hosted Inter and Plus Jakarta Sans",
@@ -107,7 +107,7 @@
     "gear-cable (packaging when distribution is needed)",
     "wrench inspection evidence (+ db-inspect when SQL-backed)",
     "bolt planning-only handoff with evidence refs",
-    "rumble-cos explanation (public or private learning notes)"
+    "rumble-libre-ia explanation (public or private learning notes)"
   ],
   "flagship_slice": "rumble-lm",
   "wave": {

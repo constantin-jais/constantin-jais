@@ -32,7 +32,7 @@ License rule: direct dependencies must remain MIT / Apache-2.0 / BSD / ISC / MPL
 - `rumble-note`: import documents/sources without becoming an ingestion engine.
 - `rumble-lm`: build source sets for sessions, activities, summaries, and citations.
 - `rumble-feed-mind`: parse feeds and normalize fetched items before curation.
-- `rumble-cos`: ingest reusable sources for articles/courses/resources.
+- `rumble-libre-ia`: ingest reusable sources for articles/courses/resources.
 - `rumble-canvas`: consume source-grounded specs and evidence packages.
 - Bolt / `cos-matic`: call deterministic extraction as one step in a plan.
 - `gear-memory`: receive normalized sources, chunks, hashes, provenance, and indexing hints.

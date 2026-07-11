@@ -62,7 +62,7 @@ Users can define understandable rules, process large volumes of incoming content
 - Team/shared feed spaces.
 - Advanced scoring and semantic clustering.
 - Multi-source channels beyond RSS.
-- Deeper integration with `rumble-note`, `rumble-lm`, and `rumble-cos`.
+- Deeper integration with `rumble-note`, `rumble-lm`, and `rumble-libre-ia`.
 - Offline/mobile client if stack decision remains valid.
 
 ## Dependencies on Bolt/Wrench/Gear

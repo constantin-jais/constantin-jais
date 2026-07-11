@@ -126,7 +126,7 @@ jobs:
               "rumble-lm": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
               },
-              "rumble-cos": {
+              "rumble-libre-ia": {
                   "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
               },
               "rumble-canvas": {
@@ -214,7 +214,7 @@ jobs:
               "gear-cable": ["Rust quality gates", "Rust supply-chain gates", "Release manifest and plan contracts"],
               "rumble-feed-mind": ["Rust quality gates", "Rust supply-chain gates", "CuratedItemExport contract"],
               "rumble-lm": ["Rust quality gates", "Repository guardrails", "Integration + coverage", "Rust supply-chain gates"],
-              "rumble-cos": ["Astro quality gates", "npm supply-chain gates", "Playwright product smoke"],
+              "rumble-libre-ia": ["quality", "e2e", "npm supply-chain gates", "Playwright product smoke"],
               "rumble-canvas": ["Repository hygiene", "Rust quality gates"],
               "rumble-crew": ["Repository hygiene"],
               "rumble-note": ["Repository hygiene"],

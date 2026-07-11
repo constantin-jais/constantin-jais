@@ -9,4 +9,4 @@
 | Is the current Rust backend + Expo client target still desired, or should it converge with interactive Rumble stack decisions? | High | Architecture | Accepted: Rust/Dioxus convergence; legacy client is migration reference. |
 | What model/provider policy is allowed for natural-language rules and explanations? | High | Security/Sovereignty | Drafted: instantiate `shared/contracts/provider-byok-policy.v0.1.md`; provider-backed features blocked until accepted. |
 | How are BYOK secrets stored, rotated, exported, and deleted? | Critical | Security | Drafted in `09-permissions-security-rgpd.md`; product tests/implementation still required. |
-| What is the minimum export/handoff format from curated item to `rumble-note`, `rumble-lm`, `rumble-cos`, and Gear Memory? | High | Architecture | Drafted: `shared/contracts/curated-item-export.v0.1.md` instantiated in FeedMind specs. |
+| What is the minimum export/handoff format from curated item to `rumble-note`, `rumble-lm`, `rumble-libre-ia`, and Gear Memory? | High | Architecture | Drafted: `shared/contracts/curated-item-export.v0.1.md` instantiated in FeedMind specs. |
