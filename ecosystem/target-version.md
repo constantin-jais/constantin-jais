@@ -22,7 +22,7 @@ The prefix carries the **owning domain**; the **deployment class** (`product-lin
 ## Elected stack (ADR 0032)
 
 - **Application stack**: Dioxus 0.7.9 is the preferred shared shell across web/PWA, SSR/SSG, fullstack server functions, desktop, Android and iOS. Product-domain crates remain renderer-independent.
-- **Web/PWA evidence**: patterns are bound to `libre-ai/wrench/labs/dioxus` evidence (Primitives ARIA, HttpOnly SameSite=Strict session, wasm ≤ 450 KiB gzip, e2e 4 engines, tracing ids-only, tokens-only colors). Canonical starter: `dioxus-app-template`.
+- **Web/PWA evidence**: patterns are bound to `libre-ai/proof-kit/labs/dioxus` evidence (Primitives ARIA, HttpOnly SameSite=Strict session, wasm ≤ 450 KiB gzip, e2e 4 engines, tracing ids-only, tokens-only colors). Canonical starter: `dioxus-app-template`.
 - **Headless component library**: Dioxus Components (`dioxus-primitives`, git-pinned `bf007c15`, dual MIT/Apache-2.0) — unstyled WAI-ARIA primitives, appearance via Portal tokens only (ADR 0036). The Git pin is temporary until a verifiable release exists.
 - **Static publication**: Dioxus SSG for ecosystem products; the Astro exception ended with the Website rebuild decision.
 - **Desktop and mobile**: Dioxus WebView shells are the default convergence target. Portal owns adaptive components and native integration contracts. SwiftUI/Compose adapters remain escape hatches and evidence labs, not duplicate default UIs.

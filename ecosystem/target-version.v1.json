@@ -66,7 +66,7 @@
   "web_shell": {
     "framework": "dioxus",
     "framework_version": "0.7.9",
-    "evidence": "libre-ai/wrench/labs/dioxus ADR 0001 (2026-07-03): wasm 386 KiB gzip vs 450 budget, e2e 22 specs x 4 engines, HttpOnly session proven, a11y/token gates green",
+    "evidence": "libre-ai/proof-kit/labs/dioxus ADR 0001 (2026-07-03): wasm 386 KiB gzip vs 450 budget, e2e 22 specs x 4 engines, HttpOnly session proven, a11y/token gates green",
     "adr": "ADR 0032"
   },
   "component_library": {
@@ -97,7 +97,7 @@
     "go": [
       "Rust service: Tokio, Axum, SQLx-ready, tracing (ids-only)",
       "Dioxus 0.7.9 across web/PWA, SSR/SSG, fullstack, desktop, Android and iOS; support is claimed per target only after Wrench evidence",
-      "DB security gate whenever PostgreSQL is used (libre-ai/wrench/db-inspect)"
+      "DB security gate whenever PostgreSQL is used (libre-ai/proof-kit/db-inspect)"
     ],
     "conditional_go": [
       "PostgreSQL + SQLx - only when durable persistence is required",
@@ -128,7 +128,7 @@
     "libre-ai/gear/context/memory (source refs/provenance)",
     "libre-ai/gear/supply/depot (ArtifactRef/Manifest export)",
     "libre-ai/gear/supply/cable (packaging when needed)",
-    "libre-ai/wrench evidence (+ db-inspect for SQL)",
+    "libre-ai/proof-kit evidence (+ db-inspect for SQL)",
     "libre-ai/agent-factory planning-only handoff with evidence refs",
     "product explanation/publication"
   ],
