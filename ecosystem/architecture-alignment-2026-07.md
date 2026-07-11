@@ -127,7 +127,6 @@ Explicitly **not** missing (refuted candidates): central search server (meilisea
 | `revue-ecosysteme-2026-07-02.md`     | authoritative review record, uncommitted                                                      | **commit to ecosystem/** (history record) alongside this document                 |
 | `github-date-normalization/`         | ad-hoc archive utility, no git                                                                | **archive** (or move under ecosystem/tools if load-bearing)                       |
 | `Codex/`                             | near-empty, purpose unclear                                                                   | **ask owner** (adopt or delete)                                                   |
-| `DealFlow/`                          | live local infra (Postgres/Grafana/Loki/Restate; postmaster active)                           | out of ecosystem scope — keep; recommend a compose file for reproducibility           |
 | `backups/`                           | tombstone backups + ecosystem snapshots                                                           | keep; automate (M11)                                                              |
 
 ---
