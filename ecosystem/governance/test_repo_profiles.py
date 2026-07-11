@@ -32,6 +32,18 @@ class RepositoryProfileTests(unittest.TestCase):
             finally:
                 MODULE.CATALOG = previous
 
+    def test_unprofiled_organization_url_is_rejected_without_echoing_slug(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "README.md").write_text(
+                "See https://github.com/libre-ai/" + "not-profiled for details.\n"
+            )
+            errors = MODULE.find_unprofiled_org_urls(root, {"website"})
+            self.assertEqual(
+                ["README.md:1: unprofiled Libre AI repository URL"], errors
+            )
+            self.assertNotIn("not-profiled", errors[0])
+
     def test_policy_check_drift_is_rejected(self):
         policy = json.loads((HERE / "branch-policy.json").read_text())
         policy["repos"]["libre-ai/website"]["required_checks"] = ["invented"]

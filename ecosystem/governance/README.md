@@ -68,7 +68,10 @@ the weekly drift check fails loudly when the token dies.
    (readable with `gh run view <id> --log`). Paste it in the PR description.
 
 2. For a public repository, add the matching entry to `repo-profiles.json`.
-   Private repository names and metadata do not belong in that catalogue.
+   Private repository names and metadata do not belong in that catalogue. The
+   validator also rejects any `github.com/libre-ai/<slug>` URL in this public
+   tree when `<slug>` has no public profile; its error deliberately does not
+   echo the unprofiled slug.
 3. Add its entry under `repos` in `branch-policy.json`, declaring its
    `required_checks` (the CI contexts that must stay green). Make sure those
    workflows run on every pull request (no `paths:` filter on the

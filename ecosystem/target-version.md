@@ -5,13 +5,15 @@ Ratified by: ADR 0032, ADR 0033, ADR 0037, ADR 0028 (amended), ADR 0029 (with ad
 
 This file is the human summary of the accepted target. When it disagrees with the ADRs, the ADRs win; when the machine file disagrees with this file, fix whichever drifted and note it in the decision log. Re-deciding any element below mid-wave requires an explicit stop (big-bang posture makes a moving target expensive).
 
+Public repository names and maturity are governed by [`governance/repo-profiles.json`](governance/repo-profiles.json). Historical `rumble-*`, `portal-*`, `bolt-*`, `wrench-*`, and `gear-*` strings below are compatibility identifiers for versioned contracts, crates, fixtures and imported paths; they are not a public naming scheme for new repositories.
+
 ## Layer model (ADR 0033)
 
 The prefix carries the **owning domain**; the **deployment class** (`product-linkable` | `factory-only` | `build-time`) is a CI-gated claim in `maturity/stack/*.json`, never a naming convention.
 
 | Prefix     | Role                     | One-line definition                                                                                                                           |
 | ---------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rumble-*` | Products                 | User-facing workflows, delivered natively on 6 targets; owns UX, product state, publication gates                                             |
+| `rumble-*` | Product compatibility IDs | Historical/versioned identifiers for user-facing workflows; new public repositories use their product slugs                                  |
 | `portal-*` | Client platform          | Tokens, primitives, a11y, i18n UI, native bindings; also the agents' UI-production capability (tokens-only); never actor/tenant authorization |
 | `bolt-*`   | Factory                  | Orchestration, planning, handoff evaluation, execution coordination + the factory's own proof surfaces                                        |
 | `wrench-*` | Transverse factory tools | Inspection, audit, and evaluation labs serving ≥ 2 domains; never ship in products                                                            |
@@ -29,7 +31,7 @@ The prefix carries the **owning domain**; the **deployment class** (`product-lin
 ## Visual contract (ADR 0037)
 
 - **Identity**: Libre IA Design System 2.0 on every active client surface.
-- **Source**: canonical DTCG in `libre-ia-design-system/design-system/tokens/tokens.json`; compilation and WCAG evidence through `portal-forge`.
+- **Source**: versioned distribution `urn:libre-ai:design-system:2.0.0`, path `design-system/tokens/tokens.json`; compilation and WCAG evidence through `portal/forge`.
 - **Palette**: black, white, neutral grays and Vert Libre `#22C55E` as the only accent; status meaning never depends on color alone.
 - **Typography**: self-hosted Inter and Plus Jakarta Sans; no remote font request.
 - **Distribution**: generated CSS/Swift/Kotlin plus SHA-256 manifest, vendored at build time with no runtime network dependency.

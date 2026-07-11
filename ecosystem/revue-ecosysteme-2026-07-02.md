@@ -130,7 +130,7 @@ Criticité = exigence de solidité **dès maintenant** compte tenu du rôle dans
 9. **LICENSE files** (canvas, feed-mind, + décision pour crew/note spec-only) + extension du gate hygiene (LICENSE, maturity.json).
 10. **Fixtures exécutables** pour une sélection d'acceptance tests (crew/note) — 5-10 scénarios critiques en JSON + validation CI.
 11. **Premier consommateur E2E de gear-cable** — un produit désigné dont le binaire passe par plan → release → checksum → install.
-12. _(conditionnel à la décision souveraineté)_ **Exit path ecosystem** — miroir Gitea/Forgejo + inventaire de ce qui survit à un outage GitHub.
+12. _(conditionnel à la décision souveraineté)_ **Exit path ecosystem** — miroir sur une forge européenne + inventaire de ce qui survit à une indisponibilité GitHub.
 
 ---
 
@@ -184,7 +184,7 @@ Séquencées par dépendances (pas de planning calendaire). La seule échéance 
 16. Capacités partagées : appliquer les critères D11 aux ~5 candidates à ≥ 2 demandeurs (Workspace, Source, Artifact, Identity, Agent-task) ; les autres restent Candidate sans honte.
 17. Premier canal réel gear-cable + premier consommateur E2E ; ArtifactRef (ou redéfinition du rôle).
 18. Multi-user/collaboration (canvas UI, crew runtime) **après** validation des personas par au moins un utilisateur externe réel.
-19. Exit path ecosystem (miroir Gitea/Forgejo) si D2 = exigence dure ; sandbox d'exécution (gVisor/Firecracker, déjà identifié par cos-matic readiness) avant toute expansion de l'autonomie d'exécution.
+19. Exit path ecosystem (miroir sur une forge européenne) si D2 = exigence dure ; sandbox d'exécution (gVisor/Firecracker, déjà identifié par cos-matic readiness) avant toute expansion de l'autonomie d'exécution.
 20. Cockpit web : seulement si la charge de navigation du cockpit Markdown devient un point de douleur mesuré — la décision actuelle (Markdown) est saine.
 
 ---

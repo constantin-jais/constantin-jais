@@ -1,19 +1,14 @@
 name: Ecosystem health
 
-# The "Stack workflow conventions" job is a required status check on main.
-# Required checks must run on EVERY pull request or the merge waits forever
-# on an `expected` check (ADR 0031). So: no `paths:` filter on pull_request;
-# an in-job guard no-ops quickly when nothing relevant changed.
+# This job is a required status check. It must report on every pull request;
+# do not add a pull_request path filter.
 on:
   push:
     branches: [main]
     paths:
-      - "docs/ecosystem.md"
-      - "docs/branch-protection.md"
-      - "docs/agent-merge-policy.md"
-      - "ecosystem/health.md"
-      - "ecosystem/status.md"
-      - "ecosystem/maturity/*.json"
+      - "README.md"
+      - "docs/**"
+      - "ecosystem/**"
       - "SECURITY.md"
       - ".github/CODEOWNERS"
       - ".github/workflows/**"
@@ -31,275 +26,48 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
-          fetch-depth: 0
-      - name: Detect relevant changes
-        id: relevant
+          python-version: "3.12"
+
+      - name: Current ecosystem documents exist
         run: |
           set -euo pipefail
-          if [ "${{ github.event_name }}" != "pull_request" ]; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          git fetch --no-tags origin "${{ github.base_ref }}"
-          if git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- \
-            docs/ecosystem.md \
-            docs/branch-protection.md \
-            docs/agent-merge-policy.md \
-            ecosystem/health.md \
-            ecosystem/status.md \
-            'ecosystem/maturity/*.json' \
-            SECURITY.md \
-            .github/CODEOWNERS \
-            .github/workflows/ \
-            | grep -q .; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No ecosystem-health-relevant paths changed; reporting success."
-          fi
-      - name: Local ecosystem docs and maturity criteria exist
-        if: steps.relevant.outputs.changed == 'true'
-        run: |
-          set -euo pipefail
-          test -s docs/ecosystem.md
-          test -s docs/branch-protection.md
-          test -s docs/agent-merge-policy.md
-          test -s ecosystem/health.md
+          test -s README.md
           test -s ecosystem/status.md
+          test -s ecosystem/repos-inventory.md
+          test -s ecosystem/target-version.md
+          test -s ecosystem/governance/repo-profiles.json
+          test -s ecosystem/governance/branch-policy.json
           test -s SECURITY.md
           test -s .github/CODEOWNERS
           grep -q "## Promotion criteria" ecosystem/status.md
           grep -q "trusted.*scale-ready" ecosystem/status.md
-      - name: Local workflow actions are SHA-pinned
-        if: steps.relevant.outputs.changed == 'true'
+
+      - name: Public repository profiles are coherent
+        run: python3 ecosystem/governance/validate_repo_profiles.py
+
+      - name: Policy file is valid against the engine
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import sys
+
+          sys.path.insert(0, "ecosystem/governance")
+          import ecosystem_policy
+
+          policy = ecosystem_policy.load_policy(
+              pathlib.Path("ecosystem/governance/branch-policy.json")
+          )
+          for repo in policy["repos"]:
+              ecosystem_policy.desired_ruleset(policy, repo)
+          print(f"policy OK: {len(policy['repos'])} repo(s)")
+          PY
+
+      - name: Workflow actions are SHA-pinned
         run: |
           set -euo pipefail
           if grep -RInE 'uses: [^#]+@(v[0-9]+|stable|main|master|cargo-[a-z-]+)' .github/workflows; then
-            echo "::error::local workflow action is not pinned to a commit SHA"
+            echo "::error::workflow action is not pinned to a commit SHA"
             exit 1
           fi
-      - name: Public ecosystem inventory hard-fail
-        if: steps.relevant.outputs.changed == 'true'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          import json
-          import os
-          import sys
-          import urllib.error
-          import urllib.request
-          import time
-
-          owner = "constantin-jais"
-          token = os.environ.get("GITHUB_TOKEN", "")
-
-          repos = {
-              "constantin-jais": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ecosystem-health.yml", ".github/workflows/spec-contracts.yml"],
-              },
-              "bolt-harness": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
-              },
-              "bolt-cos-matic": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-              },
-              "wrench-db-inspect": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
-              },
-              "gear-loader": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-              },
-              "gear-memory": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-              },
-              "gear-depot": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-              },
-              "gear-cable": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-              },
-              "rumble-feed-mind": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/rust-ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-              },
-              "rumble-lm": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml"],
-              },
-              "rumble-libre-ia": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/ci.yml", ".github/workflows/security.yml", ".github/workflows/contracts.yml"],
-              },
-              "rumble-canvas": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml", ".github/workflows/ci.yml"],
-              },
-              "rumble-crew": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
-              },
-              "rumble-note": {
-                  "files": ["SECURITY.md", ".github/CODEOWNERS", ".github/workflows/hygiene.yml"],
-              },
-          }
-
-          def request(path: str):
-              url = f"https://api.github.com{path}"
-              req = urllib.request.Request(url)
-              req.add_header("Accept", "application/vnd.github+json")
-              req.add_header("User-Agent", "constantin-jais-ecosystem-health")
-              if token:
-                  req.add_header("Authorization", f"Bearer {token}")
-              for attempt in range(4):
-                  try:
-                      with urllib.request.urlopen(req, timeout=20) as response:
-                          if response.status == 204:
-                              return None
-                          body = response.read().decode("utf-8")
-                          return json.loads(body) if body else None
-                  except urllib.error.HTTPError as exc:
-                      detail = exc.read().decode("utf-8", errors="replace")
-                      if exc.code >= 500 and attempt < 3:
-                          delay = 2**attempt
-                          print(f"::warning::{url} returned HTTP {exc.code}; retrying in {delay}s")
-                          time.sleep(delay)
-                          continue
-                      raise RuntimeError(f"{url} -> HTTP {exc.code}: {detail}") from exc
-                  except urllib.error.URLError as exc:
-                      if attempt < 3:
-                          delay = 2**attempt
-                          print(f"::warning::{url} network error; retrying in {delay}s")
-                          time.sleep(delay)
-                          continue
-                      raise RuntimeError(f"{url} -> network error: {exc.reason}") from exc
-              raise AssertionError("unreachable")
-
-          failures = []
-
-          current_repo = os.environ.get("GITHUB_REPOSITORY", "")
-          for repo, expected in repos.items():
-              print(f"== {repo} ==")
-              # For the repo we run in, read the local checkout instead of the
-              # remote default branch, so that a rename of an inventoried file
-              # validates inside its own PR (no self-referential main deadlock).
-              if f"{owner}/{repo}" == current_repo:
-                  for file_path in expected["files"]:
-                      if not os.path.exists(file_path):
-                          failures.append(f"{repo}: missing {file_path} (local checkout)")
-                  continue
-              meta = request(f"/repos/{owner}/{repo}")
-              if meta.get("visibility") != "public":
-                  failures.append(f"{repo}: repository is not public")
-
-              for file_path in expected["files"]:
-                  request(f"/repos/{owner}/{repo}/contents/{file_path}")
-
-          if failures:
-              for failure in failures:
-                  print(f"::error::{failure}")
-              sys.exit(1)
-          print("ecosystem inventory ok")
-          PY
-      - name: Admin ecosystem settings hard-fail
-        if: steps.relevant.outputs.changed == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        env:
-          ECOSYSTEM_HEALTH_ADMIN_TOKEN: ${{ secrets.ECOSYSTEM_HEALTH_ADMIN_TOKEN }}
-        run: |
-          set -euo pipefail
-          if [ -z "${ECOSYSTEM_HEALTH_ADMIN_TOKEN:-}" ]; then
-            echo "::warning::admin-only repo settings, secret scanning, and branch protection audit skipped; configure ECOSYSTEM_HEALTH_ADMIN_TOKEN for full hard-fail checks"
-            exit 0
-          fi
-          python3 - <<'PY'
-          import json
-          import os
-          import sys
-          import urllib.error
-          import urllib.request
-          import time
-
-          owner = "constantin-jais"
-          token = os.environ["ECOSYSTEM_HEALTH_ADMIN_TOKEN"]
-
-          repos = {
-              "constantin-jais": ["Stack workflow conventions", "json-schema-fixtures"],
-              "bolt-harness": ["Harness hygiene"],
-              "bolt-cos-matic": ["Rust quality gates", "Coverage floor", "Rust supply-chain gates", "Canvas handoff contract smoke", "Dogfood drift gate"],
-              "wrench-db-inspect": ["Rust quality gates", "Rust supply-chain gates"],
-              "gear-loader": ["Rust quality gates", "Rust supply-chain gates", "Canonical ingestion fixtures"],
-              "gear-memory": ["Rust quality gates", "Rust supply-chain gates", "Memory and provenance bundle contracts"],
-              "gear-depot": ["Rust quality gates", "Rust supply-chain gates", "Artifact manifest contracts"],
-              "gear-cable": ["Rust quality gates", "Rust supply-chain gates", "Release manifest and plan contracts"],
-              "rumble-feed-mind": ["Rust quality gates", "Rust supply-chain gates", "CuratedItemExport contract"],
-              "rumble-lm": ["Rust quality gates", "Repository guardrails", "Integration + coverage", "Rust supply-chain gates"],
-              "rumble-libre-ia": ["quality", "e2e", "npm supply-chain gates", "Playwright product smoke"],
-              "rumble-canvas": ["Repository hygiene", "Rust quality gates"],
-              "rumble-crew": ["Repository hygiene"],
-              "rumble-note": ["Repository hygiene"],
-          }
-
-          def request(path: str):
-              url = f"https://api.github.com{path}"
-              req = urllib.request.Request(url)
-              req.add_header("Accept", "application/vnd.github+json")
-              req.add_header("User-Agent", "constantin-jais-ecosystem-health-admin")
-              req.add_header("Authorization", f"Bearer {token}")
-              for attempt in range(4):
-                  try:
-                      with urllib.request.urlopen(req, timeout=20) as response:
-                          if response.status == 204:
-                              return None
-                          body = response.read().decode("utf-8")
-                          return json.loads(body) if body else None
-                  except urllib.error.HTTPError as exc:
-                      detail = exc.read().decode("utf-8", errors="replace")
-                      if exc.code >= 500 and attempt < 3:
-                          delay = 2**attempt
-                          print(f"::warning::{url} returned HTTP {exc.code}; retrying in {delay}s")
-                          time.sleep(delay)
-                          continue
-                      raise RuntimeError(f"{url} -> HTTP {exc.code}: {detail}") from exc
-                  except urllib.error.URLError as exc:
-                      if attempt < 3:
-                          delay = 2**attempt
-                          print(f"::warning::{url} network error; retrying in {delay}s")
-                          time.sleep(delay)
-                          continue
-                      raise RuntimeError(f"{url} -> network error: {exc.reason}") from exc
-              raise AssertionError("unreachable")
-
-          failures = []
-
-          for repo, expected_contexts in repos.items():
-              print(f"== admin {repo} ==")
-              admin_meta = request(f"/repos/{owner}/{repo}")
-              if admin_meta.get("allow_auto_merge") is not True:
-                  failures.append(f"{repo}: allow_auto_merge is not enabled")
-              if admin_meta.get("delete_branch_on_merge") is not True:
-                  failures.append(f"{repo}: delete_branch_on_merge is not enabled")
-              security = admin_meta.get("security_and_analysis", {})
-              if security.get("secret_scanning", {}).get("status") != "enabled":
-                  failures.append(f"{repo}: secret scanning is not enabled")
-              if security.get("secret_scanning_push_protection", {}).get("status") != "enabled":
-                  failures.append(f"{repo}: secret scanning push protection is not enabled")
-
-              protection = request(f"/repos/{owner}/{repo}/branches/main/protection")
-              checks = protection.get("required_status_checks") or {}
-              contexts = set(checks.get("contexts") or [])
-              if checks.get("strict") is not True:
-                  failures.append(f"{repo}: required status checks are not strict")
-              missing = [context for context in expected_contexts if context not in contexts]
-              if missing:
-                  failures.append(f"{repo}: missing required check contexts: {', '.join(missing)}")
-              reviews = protection.get("required_pull_request_reviews") or {}
-              if reviews.get("require_code_owner_reviews") is not True:
-                  failures.append(f"{repo}: CODEOWNERS review is not required")
-              if (reviews.get("required_approving_review_count") or 0) < 1:
-                  failures.append(f"{repo}: at least one approving review is not required")
-              if protection.get("enforce_admins", {}).get("enabled") is not True:
-                  failures.append(f"{repo}: admins are not enforced")
-
-          if failures:
-              for failure in failures:
-                  print(f"::error::{failure}")
-              sys.exit(1)
-          print("ecosystem admin settings ok")
-          PY

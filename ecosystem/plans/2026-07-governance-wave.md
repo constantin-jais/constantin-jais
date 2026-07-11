@@ -110,7 +110,7 @@ This governance wave operationalizes three foundational decisions from the archi
 
 1. **Verify repo names and casing against GitHub org:**
    - Manually spot-check 3–5 repos via `gh repo list constantin-jais --limit 25` to confirm exact GitHub casing.
-   - Verify "rumble-note": check if GitHub URL is `github.com/constantin-jais/rumble-note` or `github.com/constantin-jais/rumble-note`. Use exact match in branch-policy.json.
+   - Verify the Notebook historical identifier mapping against `governance/repo-profiles.json`; do not reintroduce a legacy repository URL into branch policy.
    - Verify "dioxus-lab" is current; DA-5 rename to "wrench-dioxus-lab" pending (do not add wrench-dioxus-lab key yet; see mitigation R3).
 
 2. **Add missing repos to branch-policy.json:**
