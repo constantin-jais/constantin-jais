@@ -73,7 +73,7 @@
       ],
       "strict_up_to_date": true
     },
-    "libre-ai/bolt": {
+    "libre-ai/agent-factory": {
       "required_checks": ["Engine quality gates", "Engine supply chain", "Harness boundary and negative fixtures"],
       "strict_up_to_date": true
     },

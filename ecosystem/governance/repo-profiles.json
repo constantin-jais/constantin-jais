@@ -180,17 +180,17 @@
     },
     {
       "schema_version": 1,
-      "slug": "bolt",
-      "public_name_fr": "Bolt",
-      "public_name_en": "Bolt",
+      "slug": "agent-factory",
+      "public_name_fr": "Agent Factory",
+      "public_name_en": "Agent Factory",
       "domain": "infrastructure",
       "maturity": "consolidated",
-      "summary_en": "Bounded orchestration engine and evidence-driven agentic harness infrastructure.",
-      "canonical_url": "https://github.com/libre-ai/bolt",
+      "summary_en": "Bounded planning and orchestration with explicit approvals, refusals, handoffs, and evidence.",
+      "canonical_url": "https://github.com/libre-ai/agent-factory",
       "visibility": "public",
       "license_expression": "MIT",
       "visual_id": "bolt",
-      "historical_identifiers": ["bolt-cos-matic", "bolt-harness"],
+      "historical_identifiers": ["bolt", "bolt-cos-matic", "bolt-harness"],
       "required_checks": ["Engine quality gates", "Engine supply chain", "Harness boundary and negative fixtures"]
     },
     {

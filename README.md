@@ -27,7 +27,7 @@ The infrastructure repositories are independently testable and communicate throu
 | Repository | Owns | Does not own |
 | --- | --- | --- |
 | [Client Kit](https://github.com/libre-ai/client-kit) | Client primitives, adapters, token compilation and templates | Product workflows or artifact distribution |
-| [Bolt](https://github.com/libre-ai/bolt) | Bounded planning, orchestration and execution gates | Product UX, storage or inspection truth |
+| [Agent Factory](https://github.com/libre-ai/agent-factory) | Bounded planning, orchestration and execution gates | Product UX, storage or inspection truth |
 | [Wrench](https://github.com/libre-ai/wrench) | Independent inspection and evidence | Runtime ownership or product decisions |
 | [Gear](https://github.com/libre-ai/gear) | Context, ingestion, artifacts and supply/distribution | Product semantics or orchestration |
 
