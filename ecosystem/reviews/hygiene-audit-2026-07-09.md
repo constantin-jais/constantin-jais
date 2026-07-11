@@ -132,6 +132,7 @@ WIP git à statuer (aucune action agent sans go) : bolt-harness (doctrine sécur
 | Rebrand Free AI | ✅ exécuté (hors vitrine) | 10 READMEs (DC-8), docs pilotage cos (#16, free-ai.fr + `/blog`), plan cos retargeté ; le legacy Astro part au cutover |
 | DC-1 renames | ✅ | 4 repos en minuscules (redirects GitHub), remotes locaux re-pointés, fichiers vivants MAJ (#59), governance verte post-rename |
 | DC-2 forks | ✅ statu quo actée | 3 PRs upstream ouvertes |
+| DC-3 archives | ✅ | archive pré-publique → Archived ; projets personnels exclus de l’inventaire public |
 | DC-4 dependabot | ✅ avec **inversion factuelle** | majeures sha2/ed25519-dalek VERTES mergées (#73/#76 + #74) ; la mineure octocrab #75 ROUGE reste ouverte → increment de migration au plan Biscuit ; config déployée sur ~20 repos (premiers bumps déjà ouverts) |
 | DC-5 racine | ⚠ partiel | moves vers `~/Documents/backups/` faits ; `rm dioxus-v0.7.9` + `rm test-results` bloqués par la couche permissions → **à passer en `!`** |
 | DC-6 blog | ✅ | `/blog` en chemin, plan cos + domain-routing MAJ |
