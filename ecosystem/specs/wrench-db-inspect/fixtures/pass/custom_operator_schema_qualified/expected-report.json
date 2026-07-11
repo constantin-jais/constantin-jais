@@ -1,27 +1,18 @@
 {
   "data": {
     "format": "wrench.db_inspect.report.v0.1",
-    "status": "failed",
+    "status": "passed",
     "summary": {
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
       "low": 0,
       "info": 0,
-      "gate_blocked": true
+      "gate_blocked": false
     },
     "scope": { "inspected_at": "2026-07-11T00:00:00Z" },
     "metrics": { "parser_error_count": 0 },
-    "findings": [
-      {
-        "rule_id": "SQL_DO_BLOCK_REQUIRES_REVIEW",
-        "category": "inspection_integrity",
-        "severity": "high",
-        "confidence": "high",
-        "subject": { "type": "statement", "name": "1" },
-        "gate": { "blocks": true }
-      }
-    ]
+    "findings": []
   },
   "meta": {
     "schema_version": "0.1",

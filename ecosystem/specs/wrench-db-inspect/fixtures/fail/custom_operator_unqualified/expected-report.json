@@ -14,11 +14,11 @@
     "metrics": { "parser_error_count": 0 },
     "findings": [
       {
-        "rule_id": "SQL_DO_BLOCK_REQUIRES_REVIEW",
+        "rule_id": "CUSTOM_OPERATOR_FUNCTION_SCHEMA_REQUIRED",
         "category": "inspection_integrity",
         "severity": "high",
         "confidence": "high",
-        "subject": { "type": "statement", "name": "1" },
+        "subject": { "type": "operator", "name": "?>" },
         "gate": { "blocks": true }
       }
     ]
