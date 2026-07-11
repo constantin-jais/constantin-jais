@@ -1,0 +1,2 @@
+CREATE TABLE public.safe_table (id bigint PRIMARY KEY);
+THIS IS NOT VALID POSTGRES SQL;

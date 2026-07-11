@@ -26,8 +26,20 @@
             "gate_blocked": { "type": "boolean" }
           }
         },
-        "scope": { "type": "object" },
-        "metrics": { "type": "object" },
+        "scope": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "inspected_at": { "type": "string", "format": "date-time" }
+          }
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "parser_error_count": { "type": "integer", "minimum": 0 }
+          }
+        },
         "report_gate": { "type": "object" },
         "findings": {
           "type": "array",
@@ -50,7 +62,15 @@
                 }
               },
               "gate": { "type": "object" },
-              "waiver": { "type": "object" }
+              "waiver": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "expires_at": { "type": ["string", "null"], "format": "date-time" },
+                  "expiry_valid": { "type": "boolean" },
+                  "expired": { "type": "boolean" }
+                }
+              }
             }
           }
         }

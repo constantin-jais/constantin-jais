@@ -1,0 +1,18 @@
+{
+  "data": {
+    "format": "wrench.db_inspect.manifest.v0.1",
+    "product": "parser-integrity-fixture",
+    "tenant": { "canonical_name": "organization", "column": "organization_id" },
+    "roles": { "app": [], "readonly": [], "migration": [] },
+    "tables": [
+      {
+        "name": "public.visible_after_do",
+        "classification": "public_reference",
+        "contains_personal_data": false,
+        "contains_embeddings": false
+      }
+    ],
+    "waivers": []
+  },
+  "meta": { "schema_version": "0.1", "generated_at": "2026-07-11T00:00:00Z" }
+}

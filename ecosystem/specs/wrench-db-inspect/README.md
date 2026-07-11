@@ -1,10 +1,10 @@
 # Wrench DB Inspect — SQL/Database Security Inspector
 
-Status: Draft accepted for P0/P1 prototype scoping.
+Status: Dedicated implementation active; fail-loud parser rollout staged.
 
 ## Quick Summary
 
-`wrench-db-inspect` is the shared Wrench inspector for PostgreSQL database security evidence across Rumble products. It centralizes checks that would be dangerous to duplicate locally: tenant isolation, RLS, grants, unsafe migrations, `pgvector` leakage, and DB-adapter safety signals.
+`wrench-db-inspect` is the shared Wrench inspector for PostgreSQL database security evidence across Rumble products. Its canonical implementation is [`constantin-jais/wrench-db-inspect`](https://github.com/constantin-jais/wrench-db-inspect); the directory name, Cargo package and Git repository all use `wrench-db-inspect`. It centralizes checks that would be dangerous to duplicate locally: tenant isolation, RLS, grants, unsafe migrations, `pgvector` leakage, and DB-adapter safety signals.
 
 It produces safe CI/Bolt/harness evidence for humans and agents. It does not execute migrations, proxy database traffic, store credentials, replace application authorization, or become an ORM.
 
@@ -38,7 +38,8 @@ Companion contracts:
 - `pilot-plan.md` defines how to pilot the inspector on the first real Rumble.
 - `examples/security-manifest.rumble-lm.example.json` seeds the first LM manifest.
 - `pilots/rumble-lm/` contains the initial pilot workspace.
-- `../../prototypes/wrench-db-inspect/` contains a Rust prototype for the first fixture gates.
+- `../../prototypes/wrench-db-inspect/` is a deprecated historical prototype; do not extend or synchronize implementation code there.
+- The dedicated repository's ADR-0002 defines fail-loud SQL coverage, the PostgreSQL-aware splitter, explicit inspection clocks and staged gate rollout.
 
 ## Mission
 
