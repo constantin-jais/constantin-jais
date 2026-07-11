@@ -28,7 +28,7 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/benchmarks` | evidence | keep | profile, visual and published Pages artifact |
 | `libre-ai/dioxus-app-template` | generated distribution | keep | Client Kit mirror check and deployed Pages smoke |
 | `libre-ai/client-kit` | infrastructure | keep canonical | renamed with redirect; four imported histories, adapters, forge and template |
-| `libre-ai/agent-factory` | infrastructure | keep canonical | renamed with redirect; engine/harness histories and boundary checks |
+| `libre-ai/agent-factory` | infrastructure | keep canonical | renamed with redirect; engine/harness histories, boundary checks and installable `engine-v0.1.0-alpha.6` release |
 | `libre-ai/proof-kit` | infrastructure | keep canonical | renamed with redirect; inspectors/lab histories and evidence checks |
 | `libre-ai/context-kit` | infrastructure | keep canonical | `context/` path history, independent workspace and supply-chain CI |
 | `libre-ai/artifact-supply` | infrastructure | keep canonical | `supply/` path history, independent workspace and supply-chain CI |
@@ -53,7 +53,7 @@ ADR 0045 ratifies these serial changes; a row remains `planned` until live metad
 | Family | State | Exit condition |
 | --- | --- | --- |
 | Portal sources (4) | archived | complete — histories, checks and consumers verified in `libre-ai/client-kit` |
-| Bolt sources (2) | migration freeze | release/manual workflow continuity from `libre-ai/agent-factory` |
+| Bolt sources (2) | retired after verified consolidation | engine release continuity restored in `libre-ai/agent-factory`; historical alpha.1–alpha.5 remain source-only |
 | Wrench sources (3) | retired or archived | release and evidence-Pages continuity moved to `libre-ai/proof-kit` |
 | Gear sources (4) | deleted after verified bundles; no published releases | active code and path history preserved in Gear, Context Kit and Artifact Supply |
 
