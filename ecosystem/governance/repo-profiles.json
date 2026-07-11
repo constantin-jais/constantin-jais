@@ -179,7 +179,17 @@
       "license_expression": "NOASSERTION",
       "visual_id": "wrench",
       "historical_identifiers": ["wrench-inspect", "wrench-db-inspect", "wrench-dioxus-lab"],
-      "required_checks": ["General inspection CLI", "Database inspection CLI", "Dioxus evidence lab", "inspect supply chain", "database supply chain", "dioxus-lab supply chain"]
+      "required_checks": [
+        "General inspection CLI",
+        "Database inspection CLI",
+        "Dioxus evidence lab",
+        "inspect supply chain",
+        "database supply chain",
+        "dioxus-lab supply chain",
+        "Dioxus desktop compile (linux)",
+        "Dioxus desktop compile (macos)",
+        "Dioxus desktop compile (windows)"
+      ]
     },
     {
       "schema_version": 1,

@@ -31,9 +31,9 @@ Dioxus desktop/mobile render through native WebViews. JNI or native API access d
 
 | Target | State | Evidence / gap |
 | --- | --- | --- |
-| Web/PWA | `evidence-backed` for the bounded lab and Website publication path | four-engine lab evidence, accessibility/token checks, SSG and deployed asset smoke |
+| Web/PWA | `evidence-backed` for the bounded lab and Website publication path | four-engine lab evidence, accessibility/token checks, SSG, plus Wrench Pages HTML/JavaScript/WASM base-path smoke |
 | Fullstack | `experimental` to partial evidence | server functions and auth paths exist, but one cross-product operational matrix is not complete |
-| Desktop macOS/Windows/Linux | `experimental` | no protected three-OS package/install/rollback matrix |
+| Desktop macOS/Windows/Linux | `experimental` | protected compile and test-build checks pass on all three OSes; no WebView runtime, package, install/update/rollback or platform-accessibility evidence |
 | Android | `experimental` | no physical-device, signed-package and TalkBack evidence |
 | iOS | `experimental` | no physical-device, archive/signing and VoiceOver evidence |
 | UI system | `evidence-backed` on bounded web primitives | native/adaptive and visual-regression coverage remains incomplete |
