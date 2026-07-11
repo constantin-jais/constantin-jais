@@ -78,7 +78,10 @@
         "Dioxus evidence lab",
         "inspect supply chain",
         "database supply chain",
-        "dioxus-lab supply chain"
+        "dioxus-lab supply chain",
+        "Dioxus desktop compile (linux)",
+        "Dioxus desktop compile (macos)",
+        "Dioxus desktop compile (windows)"
       ],
       "strict_up_to_date": true
     },
