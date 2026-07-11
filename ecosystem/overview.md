@@ -212,7 +212,7 @@ Each solution owns its experience, workflows, screens and user-facing meaning.
 
 ### 3.2 Portal — client platform
 
-The single `libre-ai/portal` repository owns the cross-platform client substrate that makes products shippable with coherent UI, accessibility, tokens, i18n UI and Rust-first platform bindings. Portal is not a product and not Gear distribution infrastructure.
+The single `libre-ai/client-kit` repository owns the cross-platform client substrate that makes products shippable with coherent UI, accessibility, tokens, i18n UI and Rust-first platform bindings. Client Kit is not a product and not Artifact Supply distribution infrastructure.
 
 | Path | Mission | Hard boundary |
 | --- | --- | --- |

@@ -57,7 +57,7 @@
       "required_checks": ["quality", "e2e", "Portal mirror parity"],
       "strict_up_to_date": true
     },
-    "libre-ai/portal": {
+    "libre-ai/client-kit": {
       "required_checks": [
         "core Rust gates",
         "ui Rust gates",

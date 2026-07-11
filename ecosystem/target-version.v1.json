@@ -81,7 +81,7 @@
     "name": "Libre IA Design System",
     "version": "2.0.0",
     "source": "urn:libre-ai:design-system:2.0.0#design-system/tokens/tokens.json",
-    "compiler": "libre-ai/portal/forge",
+    "compiler": "libre-ai/client-kit/forge",
     "palette": "black, white, neutral grays and Vert Libre #22C55E as the only accent",
     "typography": "self-hosted Inter and Plus Jakarta Sans",
     "distribution": "generated CSS, Swift and Kotlin with SHA-256 manifest; no runtime network fetch",
@@ -123,7 +123,7 @@
     ]
   },
   "dod_chain": [
-    "libre-ai/portal (tokens/primitives consumed)",
+    "libre-ai/client-kit (tokens/primitives consumed)",
     "libre-ai/gear/context/loader (canonical ingestion)",
     "libre-ai/gear/context/memory (source refs/provenance)",
     "libre-ai/gear/supply/depot (ArtifactRef/Manifest export)",
