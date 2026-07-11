@@ -172,6 +172,9 @@
       },
       "additionalProperties": true
     },
+    "database_inspection": {
+      "$ref": "#/$defs/databaseInspection"
+    },
     "requested_outputs": {
       "type": "array",
       "minItems": 1,
@@ -213,6 +216,38 @@
     "sha256": {
       "type": "string",
       "pattern": "^sha256:[0-9a-fA-F]{64}$"
+    },
+    "databaseInspection": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["applicability"],
+          "properties": {
+            "applicability": { "const": "not_applicable" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["applicability", "report"],
+          "properties": {
+            "applicability": { "const": "postgres" },
+            "report": { "$ref": "#/$defs/databaseInspectionReportRef" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "databaseInspectionReportRef": {
+      "type": "object",
+      "required": ["artifact_ref", "sha256", "profile", "wrench_version"],
+      "properties": {
+        "artifact_ref": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "profile": { "type": "string", "minLength": 1 },
+        "wrench_version": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
     },
     "rfc3339Timestamp": {
       "type": "string",
