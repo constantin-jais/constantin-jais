@@ -68,7 +68,7 @@ That compatibility is nice-to-have, not the active CI target for this repository
 
 GitHub Actions is accepted here because these are personal GitHub-hosted projects and this job validates only public-ish specs/fixtures with fake IDs, no secrets, no PII, and no runtime artifacts. Core ecosystem truth remains exportable and the validation command remains self-hostable.
 
-If Forgejo/Woodpecker/GitLab bindings are added later, they must preserve:
+If alternate forge or CI bindings are added later, they must preserve:
 
 - self-hostable runner path;
 - no opaque storage of artifacts containing PII/secrets;

@@ -11,9 +11,33 @@ ROOT = Path(__file__).resolve().parent
 CATALOG = ROOT / "repo-profiles.json"
 SCHEMA = ROOT / "repo-profile.v1.schema.json"
 POLICY = ROOT / "branch-policy.json"
+REPOSITORY_ROOT = ROOT.parents[1]
 SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+ORG_REPO_URL = re.compile(
+    r"https://github\.com/libre-ai/([a-z0-9]+(?:-[a-z0-9]+)*)"
+)
 DOMAINS = {"institutional", "product", "evidence", "distribution", "infrastructure"}
 MATURITY = {"specification", "contract-first", "dojo", "usable", "recurring", "consolidated"}
+
+
+def find_unprofiled_org_urls(base: Path, allowed_slugs: set[str]) -> list[str]:
+    """Reject public links to an organization repository absent from the catalogue."""
+    errors: list[str] = []
+    for path in sorted(base.rglob("*")):
+        if not path.is_file() or ".git" in path.parts:
+            continue
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except (OSError, UnicodeDecodeError):
+            continue
+        for line_number, line in enumerate(lines, 1):
+            for match in ORG_REPO_URL.finditer(line):
+                if match.group(1) not in allowed_slugs:
+                    relative = path.relative_to(base)
+                    errors.append(
+                        f"{relative}:{line_number}: unprofiled Libre AI repository URL"
+                    )
+    return errors
 
 
 def validate() -> list[str]:
@@ -73,6 +97,7 @@ def validate() -> list[str]:
     for name in sorted(set(policy_repos) & set(by_repo)):
         if policy_repos[name].get("required_checks") != by_repo[name].get("required_checks"):
             errors.append(f"{name}: required checks drift between profile and policy")
+    errors.extend(find_unprofiled_org_urls(REPOSITORY_ROOT, seen))
     return errors
 
 

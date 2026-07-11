@@ -1,61 +1,54 @@
-# Hey 👋 I'm Constantin
+# Libre AI ecosystem control plane
 
 [![Spec contracts](https://github.com/constantin-jais/constantin-jais/actions/workflows/spec-contracts.yml/badge.svg?branch=main)](https://github.com/constantin-jais/constantin-jais/actions/workflows/spec-contracts.yml)
 
-I build **open-source, product-shaped tools for learning, knowledge work, agentic teamwork, and trustworthy automation**.
+This repository governs the public Libre AI portfolio: product boundaries, shared contracts, maturity evidence, repository profiles, and branch policy. It is not a product runtime and does not make a design or implementation repository public.
 
-The visible layer is **Rumble**: products people can use. Underneath, **Portal**, **Bolt**, **Wrench**, and **Gear** are small sovereign tools — one identity across web and native, deterministic orchestration, inspection with evidence, and memory with provenance. Each does one thing well; together they stack.
+## Public portfolio
 
-## Start here
+Maturity is evidence-based, not aspirational. `contract-first` and `specification` do not mean that a product is available to end users.
 
-| If you want to...                    | Start with                                                                | Status   |
-| ------------------------------------ | ------------------------------------------------------------------------- | -------- |
-| see the public product surface       | [rumble-libre-ia](https://github.com/constantin-jais/rumble-libre-ia)               | `usable` |
-| try the feed-to-knowledge pipeline   | [rumble-feed-mind](https://github.com/constantin-jais/rumble-feed-mind)   | `dojo`   |
-| inspect the orchestration core       | [bolt-cos-matic](https://github.com/constantin-jais/bolt-cos-matic)       | `usable` |
-| explore DB/security evidence         | [wrench-db-inspect](https://github.com/constantin-jais/wrench-db-inspect) | `dojo`   |
-| see the multi-platform design system | [portal-core](https://github.com/constantin-jais/portal-core)             | `usable` |
+| Surface | Responsibility | Maturity |
+| --- | --- | --- |
+| [Libre AI Website](https://github.com/libre-ai/website) | Institutional and educational publication | `usable` |
+| [Sessions](https://github.com/libre-ai/sessions) | Source-grounded learning and facilitation | `contract-first` |
+| [Feed Radar](https://github.com/libre-ai/feed-radar) | Explainable feed-to-knowledge curation | `dojo` |
+| [Spec Studio](https://github.com/libre-ai/spec-studio) | Product conception and specification handoffs | `contract-first` |
+| [Agent Board](https://github.com/libre-ai/agent-board) | Human/agent teamwork and approvals | `specification` |
+| [Notebook](https://github.com/libre-ai/notebook) | Local-first personal knowledge | `specification` |
+| [AI Practices](https://github.com/libre-ai/ai-practices) | Professional AI-practice training | `dojo` |
+| [Benchmarks](https://github.com/libre-ai/benchmarks) | Versioned comparison evidence | `recurring` |
+| [Dioxus App Template](https://github.com/libre-ai/dioxus-app-template) | Generated Portal template distribution | `usable` |
 
-## Rumble products
+## Infrastructure
 
-The product layer: things people can read, run, touch, or eventually use directly.
+The infrastructure repositories are independently testable and communicate through explicit handoffs. They are not public product brands.
 
-| Product                                                                       | Purpose                                     | Maturity         |
-| ----------------------------------------------------------------------------- | ------------------------------------------- | ---------------- |
-| [rumble-libre-ia](https://github.com/constantin-jais/rumble-libre-ia)                   | education blog and public knowledge surface | `usable`         |
-| [rumble-feed-mind](https://github.com/constantin-jais/rumble-feed-mind)       | intelligent feed/watch pipeline             | `dojo`           |
-| [rumble-ai-practices](https://github.com/constantin-jais/rumble-ai-practices) | professional AI-practice training           | `dojo`           |
-| [rumble-lm](https://github.com/constantin-jais/rumble-lm)                     | grounded learning sessions and facilitation | `contract-first` |
-| [rumble-canvas](https://github.com/constantin-jais/rumble-canvas)             | product-conception workspace                | `contract-first` |
-| [rumble-crew](https://github.com/constantin-jais/rumble-crew)                 | agentic teamwork board                      | `contract-first` |
-| [rumble-note](https://github.com/constantin-jais/rumble-note)                 | local-first personal knowledge              | `contract-first` |
+| Repository | Owns | Does not own |
+| --- | --- | --- |
+| [Portal](https://github.com/libre-ai/portal) | Client primitives, adapters, token compilation and templates | Product workflows or artifact distribution |
+| [Bolt](https://github.com/libre-ai/bolt) | Bounded planning, orchestration and execution gates | Product UX, storage or inspection truth |
+| [Wrench](https://github.com/libre-ai/wrench) | Independent inspection and evidence | Runtime ownership or product decisions |
+| [Gear](https://github.com/libre-ai/gear) | Context, ingestion, artifacts and supply/distribution | Product semantics or orchestration |
 
-_`maturity` is honest, not aspirational: `dojo` = runs, still being documented; `contract-first` = designed and specified, not yet built; `usable` = credible for real use, operational maturity not claimed._
+## Governance entry points
 
-## The tools underneath
+- [`ecosystem/governance/repo-profiles.json`](ecosystem/governance/repo-profiles.json) — public names, canonical URLs, maturity and required checks for all 13 public repositories.
+- [`ecosystem/governance/branch-policy.json`](ecosystem/governance/branch-policy.json) — branch rules and required checks for the governed repositories.
+- [`ecosystem/status.md`](ecosystem/status.md) — current migration and verification status.
+- [`ecosystem/target-version.md`](ecosystem/target-version.md) — accepted architecture target and compatibility rules.
+- [`ecosystem/specs/shared/decision-log.md`](ecosystem/specs/shared/decision-log.md) — cross-repository decisions.
 
-Small tools that keep Rumble products reliable without turning any product into a monolith.
+## Naming compatibility
 
-| Tool       | Role                                              | Main repos                                                                                                                                                                                                                                                           |
-| ---------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Portal** | one design system, web and native                 | [portal-core](https://github.com/constantin-jais/portal-core), [portal-forge](https://github.com/constantin-jais/portal-forge), [portal-apple](https://github.com/constantin-jais/portal-apple), [portal-android](https://github.com/constantin-jais/portal-android) |
-| **Bolt**   | safe orchestration: plans, gates, evidence        | [bolt-cos-matic](https://github.com/constantin-jais/bolt-cos-matic), [bolt-harness](https://github.com/constantin-jais/bolt-harness)                                                                                                                                 |
-| **Wrench** | inspection, validation, reports                   | [wrench-inspect](https://github.com/constantin-jais/wrench-inspect), [wrench-db-inspect](https://github.com/constantin-jais/wrench-db-inspect), [wrench-dioxus-lab](https://github.com/constantin-jais/wrench-dioxus-lab)                                             |
-| **Gear**   | memory, ingestion, artifacts, release, provenance | [gear-memory](https://github.com/constantin-jais/gear-memory), [gear-loader](https://github.com/constantin-jais/gear-loader), [gear-depot](https://github.com/constantin-jais/gear-depot), [gear-cable](https://github.com/constantin-jais/gear-cable)               |
+**Libre IA** is used on French public surfaces and **Libre AI** on GitHub and English surfaces. The historical `rumble-*` vocabulary remains only where it is a versioned crate, schema, fixture, path, or contract identifier. It is not a public brand and must not be introduced in new repository names or user-facing copy.
 
-## Principles
+## Local verification
 
-- **Products first.** Rumble is what people touch; the tools underneath exist to make it reliable.
-- **Determinism over magic.** Reproducible outputs, no silent overwrites, no hidden state.
-- **No silent failures.** Failure modes should be explicit, inspectable, and testable.
-- **Sovereign by default.** Self-hostable, permissive OSS, no unnecessary vendor lock-in.
-- **Evidence over claims.** Maturity, releases, and decisions point to tests, fixtures, CI, ADRs, or demos.
+```sh
+python3 ecosystem/governance/validate_repo_profiles.py
+python3 -m unittest discover ecosystem/governance -v
+python3 ecosystem/governance/ecosystem_policy.py check
+```
 
-## Reach me
-
-- **LinkedIn** — [linkedin.com/in/constj](https://www.linkedin.com/in/constj/)
-- Open to discussing sovereign/self-hosted AI, Rust tooling, agentic systems, and reliable software for regulated environments.
-
----
-
-_Building in the open. MIT · Rust · ADR-driven · deterministic. The process is the product._
+Operational decisions are evaluated in this order: **Security > Quality > Performance > Completeness**. Sovereignty, privacy and license compatibility are release gates.

@@ -1,12 +1,14 @@
-# Ecosystem Overview & Specification Control Plane
+# Libre AI ecosystem overview and specification control plane
 
-This document is the strategic control plane for the Rumble / Portal / Bolt / Wrench / Gear ecosystem.
+This document owns stable architecture doctrine for the Libre AI product portfolio and its Portal, Bolt, Wrench and Gear infrastructure.
+
+> **Naming scope (2026-07-11):** Libre IA / Libre AI and the product names in [`governance/repo-profiles.json`](governance/repo-profiles.json) are the only public brands. `Rumble` and old repository slugs in this document are retained solely as internal layer classification or versioned compatibility identifiers; they do not name current public repositories.
 
 It has four jobs:
 
 1. Define the architectural doctrine and ownership boundaries.
-2. Track the product-specification work for each Rumble product.
-3. Log shared capability candidates that may become Portal, Bolt, Wrench, Gear, or shared Rumble bricks.
+2. Track product-specification work for each Libre AI solution.
+3. Log shared capability candidates that may become Portal, Bolt, Wrench, Gear, or shared product contracts.
 4. Keep decisions, open questions, and remaining work visible.
 
 External projects are not listed here as product inspirations to copy. When one appears in this control plane, it is an explicit decomposition, anti-model, or capability map; public specs must still describe the ecosystem’s own product intent, language, and architecture.
@@ -17,7 +19,7 @@ External projects are not listed here as product inspirations to copy. When one 
 
 The ecosystem exists to build sovereign, deterministic, agent-readable tools and products where user-facing needs generate reusable capabilities.
 
-It is primarily a personal ecosystem for intellectual enjoyment, learning, process quality, and robust working tools. The first-order goal is not market traction or startup-style prioritization. Rumble projects are dojos: they create real constraints for improving the stack, but the reliable process is more important than any single Rumble product.
+It is primarily a personal ecosystem for intellectual enjoyment, learning, process quality, and robust working tools. The first-order goal is not market traction or startup-style prioritization. Product projects are dojos: they create real constraints for improving the stack, but the reliable process is more important than any single product.
 
 The center of gravity is:
 
@@ -27,7 +29,7 @@ idea → specification → inspection → planning → controlled execution → 
 
 The product layer does not hard-code everything. Instead:
 
-> Rumble products express real user needs. Repeated needs become shared primitives. Shared primitives are placed in Portal, Bolt, Wrench, Gear, or a shared Rumble layer according to ownership.
+> Libre AI products express real user needs. Repeated needs become shared primitives. Shared primitives are placed in Portal, Bolt, Wrench, Gear, or a shared product-contract layer according to ownership.
 
 This keeps products useful, the harness reusable, and the architecture resistant to scope creep.
 
@@ -48,23 +50,23 @@ The odysseus decomposition (`specs/shared/odysseus-decomposition.md`) is useful 
 The ecosystem may rebuild selected ideas from odysseus, but never adopts its code, dependencies, or license posture. Every rebuild lands in the owning layer and must pass the same sovereignty, evidence, and boundary gates as any internal feature.
 
 ```text
-Rumble  product meaning, workflows, user-facing pressure
-Portal  client substrate: tokens, primitives, accessibility, bindings
-Bolt    planning and orchestration gates, never product UX
-Wrench  inspection and evidence, never durable truth
-Gear    source/artifact/runtime substrate, provenance, distribution
+Products  meaning, workflows, user-facing pressure
+Portal    client substrate: tokens, primitives, accessibility, bindings
+Bolt      planning and orchestration gates, never product UX
+Wrench    inspection and evidence, never durable truth
+Gear      source/artifact/runtime substrate, provenance, distribution
 ```
 
 The target DoD loop is intentionally cross-layer:
 
 ```text
-Rumble need
+Product need
 → Portal client coherence when UI is needed
-→ Gear Loader / Gear Memory for source and provenance
-→ Gear Depot / Gear Cable for artifacts and delivery
+→ Gear Context for source and provenance
+→ Gear Supply for artifacts and delivery
 → Wrench evidence for inspection
 → Bolt planning-only handoff and gates
-→ Rumble Cos / notes explain what was learned
+→ Website or Notebook explains what was learned
 ```
 
 Operational decisions are evaluated in order: **Security > Quality > Performance > Completeness**. Sovereignty, privacy/RGPD, and license compatibility are gates, not afterthoughts.
@@ -72,42 +74,41 @@ Operational decisions are evaluated in order: **Security > Quality > Performance
 ## Target stack map
 
 ```text
-RUMBLE — products / user-facing meaning
-├─ rumble-canvas        product conception → specs → handoff
-├─ rumble-libre-ia           public education and ecosystem explanations
-├─ rumble-crew          human/agent teamwork, approvals, evidence
-├─ rumble-feed-mind     feed/watch curation and explainable rules
-├─ rumble-lm            source-grounded learning and live facilitation
-├─ rumble-note          local-first personal knowledge and context export
-├─ rumble-ai-practices  professional AI-practice training
-└─ rumble-ai-benchmark  done benchmark artifact and playable comparison
+PRODUCTS — independent user-facing meaning
+├─ website              public education and ecosystem explanations
+├─ sessions             source-grounded learning and live facilitation
+├─ feed-radar           feed/watch curation and explainable rules
+├─ spec-studio          product conception → specs → handoff
+├─ agent-board          human/agent teamwork, approvals and evidence
+├─ notebook             local-first knowledge and context export
+├─ ai-practices         professional AI-practice training
+└─ benchmarks           versioned comparison evidence
 
-PORTAL — client platform / design system substrate
-├─ portal-forge         DTCG tokens → CSS/Swift/Kotlin + WCAG
-├─ portal-core          Rust UI contracts, i18n UI, a11y, bindings
-├─ portal-apple         SwiftUI adapter
-└─ portal-android       Jetpack Compose adapter
+PORTAL — one client-platform repository
+├─ forge                DTCG tokens → CSS/Swift/Kotlin + WCAG
+├─ core                 Rust UI contracts, i18n UI, a11y and bindings
+├─ adapters/apple       SwiftUI adapter
+├─ adapters/android     Jetpack Compose adapter
+└─ templates/dioxus-app canonical generated template source
 
-BOLT — orchestration / plans / gates
-├─ bolt-cos-matic       deterministic planning, refusals, safe writes
-└─ bolt-harness         public sandbox and evidence bench
+BOLT — one orchestration repository
+├─ engine               deterministic planning, refusals and safe writes
+└─ harness              bounded sandbox and evidence bench
 
-WRENCH — inspection / validation / evidence
-├─ wrench-inspect       structural, policy, spec, browser/a11y evidence
-├─ wrench-db-inspect    Postgres/RLS/grants/migration/pgvector evidence
-└─ wrench-dioxus-lab    Dioxus/PWA proof lab and template patterns
+WRENCH — one inspection repository
+├─ inspect              structural, policy, spec and browser evidence
+├─ db-inspect           Postgres/RLS/grants/migration evidence
+└─ labs/dioxus          Dioxus/PWA proof lab and template patterns
 
-GEAR — runtime substrate / memory / artifacts / release
-├─ gear-loader          canonical extraction and source candidates
-├─ gear-memory          SourceRef, memory entries, event log, provenance
-├─ gear-depot           ArtifactRef, manifests, policy, cache/proxy
-└─ gear-cable           release plans, checksums, install floors, app-store adapters
+GEAR — one repository, two isolated workspaces
+├─ context              extraction, SourceRef, memory and provenance
+└─ supply               ArtifactRef, manifests, release and distribution
 ```
 
 Canonical rule:
 
 ```text
-Rumble exprime le produit.
+Les produits expriment les besoins et possèdent leur expérience.
 Portal rend les clients cohérents.
 Bolt planifie et orchestre.
 Wrench inspecte et produit des preuves.
@@ -170,7 +171,7 @@ Documentation is part of the architecture. To avoid dispersion:
 - `specs/shared/` owns reusable contracts, shared capabilities, decisions, and open questions.
 - Product/tool repository READMEs own local usage, local boundary, and local commands only.
 - Repository ADRs own repo-local decisions; cross-project decisions belong in `specs/shared/decision-log.md`.
-- A Rumble spec may express the need for a primitive, but must not duplicate the owner primitive if it belongs in Bolt, Wrench, or Gear.
+- A product spec may express the need for a primitive, but must not duplicate the owner primitive if it belongs in Bolt, Wrench, or Gear.
 
 ### 2.4 Strategic Directives
 
@@ -181,62 +182,67 @@ Documentation is part of the architecture. To avoid dispersion:
 - **Sovereignty first:** core truth — data, registry, model policy, release pipeline, logic — must remain self-hostable, inspectable, and independent from US hyperscalers.
 - **Offline-first where possible:** network access may improve the experience, but must not be required for core truth.
 - **Evidence over claims:** specs, tests, ADRs, provenance, and audit logs matter more than informal trust.
-- **Product demand drives platform work:** Portal/Bolt/Wrench/Gear bricks should be justified by at least one concrete Rumble need, preferably more than one.
-- **Interactive Rumble convergence:** interactive Rumble products converge on Rust-first product cores plus the Portal client platform. Dioxus/PWA is the fast default path; SwiftUI/Compose native paths are first-class when a product need justifies them and local verification exists.
+- **Product demand drives platform work:** Portal/Bolt/Wrench/Gear capabilities should be justified by at least one concrete product need, preferably more than one.
+- **Interactive product convergence:** interactive products converge on Rust-first product cores plus the Portal client platform. Dioxus/PWA is the fast default path; SwiftUI/Compose native paths are first-class when a product need justifies them and local verification exists.
 
 ---
 
 ## 3. Ecosystem Map
 
-### 3.1 Rumble — Product Layer
+### 3.1 Products
 
-Rumble projects own product experience, workflows, screens, and user-facing meaning.
+Each solution owns its experience, workflows, screens and user-facing meaning.
 
-| Product | Mission | Hard boundary |
+| Public product | Mission | Hard boundary |
 | --- | --- | --- |
-| `rumble-canvas` | Product-conception workspace: conversation → decisions → specs → screens → implementation-ready deliverables. | Not the agent runtime, not merely a visual design canvas. |
-| `rumble-libre-ia` | Personal education and sharing blog for essays, courses, resources, and ecosystem explanations. | Not a monolithic CMS or internal workflow backend. |
-| `rumble-crew` | Agentic team workspace for humans and agents: tasks, blockers, skills, status, approvals, evidence. | Not the orchestration brain. |
-| `rumble-lm` | Sovereign learning/facilitation platform for source-grounded sessions, activities, and group engagement. | Not a generic chatbot. |
-| `rumble-note` | Local-first block-based personal knowledge system that feeds the agentic harness. | Not the ingestion engine or orchestrator. |
-| `rumble-feed-mind` | Intelligent feed/watch pipeline that turns high-volume feeds into curated, explainable, reusable knowledge. | Not a generic feed reader, not the shared ingestion substrate, not long-term memory. |
+| `spec-studio` | Product conception: conversation → decisions → specs → implementation-ready handoff. | Not the agent runtime or merely a visual canvas. |
+| `website` | Education, essays, resources and ecosystem explanations. | Not a monolithic CMS or internal workflow backend. |
+| `agent-board` | Human/agent tasks, approvals and evidence. | Not the orchestration brain. |
+| `sessions` | Source-grounded learning, activities and facilitation. | Not a generic chatbot. |
+| `notebook` | Local-first personal knowledge and context export. | Not the ingestion engine or orchestrator. |
+| `feed-radar` | Explainable feed/watch curation and reusable knowledge handoff. | Not a generic reader, ingestion substrate or long-term memory. |
+| `ai-practices` | Professional AI-practice training and scoring. | Not the shared session runtime. |
+| `benchmarks` | Immutable, versioned comparison evidence. | Not a general evaluation service. |
 
-### 3.2 Portal — Client Platform Layer
+### 3.2 Portal — client platform
 
-Portal projects own the cross-platform client substrate that makes Rumble products shippable with coherent UI, accessibility, tokens, i18n UI, and Rust-first platform bindings. Portal is not a Rumble product and not Gear distribution infrastructure.
+The single `libre-ai/portal` repository owns the cross-platform client substrate that makes products shippable with coherent UI, accessibility, tokens, i18n UI and Rust-first platform bindings. Portal is not a product and not Gear distribution infrastructure.
 
-| Project | Mission | Hard boundary |
+| Path | Mission | Hard boundary |
 | --- | --- | --- |
-| `portal-forge` | Compile DTCG design tokens into CSS, Swift, and Kotlin artifacts with deterministic validation such as WCAG contrast checks. | Not a design-token authoring UI, registry, runtime theme host, or product design owner. |
-| `portal-core` | Shared Rust UI/client core for cross-platform design-system contracts, i18n UI, accessibility helpers, and native bindings. | Not product domain logic, product content i18n, orchestration, storage, or release packaging. |
-| `portal-apple` | SwiftUI adapter and native Apple shell consuming Portal core/tokens. | Not the canonical Rumble product logic or App Store release pipeline. |
-| `portal-android` | Jetpack Compose adapter and native Android shell consuming Portal core/tokens. | Not the canonical Rumble product logic or Play Store release pipeline. |
+| `forge/` | Compile DTCG tokens into CSS, Swift and Kotlin artifacts with WCAG evidence. | Not a token-authoring UI, registry, runtime host or product design owner. |
+| `core/` | Shared Rust UI/client contracts, i18n UI, accessibility helpers and bindings. | Not product logic, orchestration, storage or release packaging. |
+| `adapters/apple/` | SwiftUI adapter consuming Portal core and generated tokens. | Not product logic or App Store release ownership. |
+| `adapters/android/` | Compose adapter consuming Portal core and generated tokens. | Not product logic or Play Store release ownership. |
+| `templates/dioxus-app/` | Canonical Dioxus application template source. | Not the independently generated distribution repository. |
 
-Portal produces client artifacts and platform adapters. Gear Cable assembles/publishes release plans, and Gear Depot verifies/caches/distributes artifacts. The boundary rule is: **Portal makes client surfaces coherent; Gear governs delivery artifacts.**
+Portal produces client artifacts and adapters. Gear Supply assembles, verifies and distributes release artifacts. The boundary rule is: **Portal makes client surfaces coherent; Gear governs delivery artifacts.**
 
-### 3.3 Bolt — Orchestration Layer
+### 3.3 Bolt — orchestration
 
-| Project | Mission | Hard boundary |
+| Path | Mission | Hard boundary |
 | --- | --- | --- |
-| `cos-matic` | Deterministic agentic orchestrator and config/code-ops harness. | Not a product UI, storage substrate, extractor, or registry. |
+| `engine/` | Deterministic planning, refusals, safe writes and evidence gates. | Not a product UI, storage substrate, extractor or registry. |
+| `harness/` | Bounded execution and platform evidence. | Not an unbounded autonomous runtime. |
 
-### 3.4 Wrench — Tooling Layer
+### 3.4 Wrench — inspection and evidence
 
-| Project | Mission | Hard boundary |
+| Path | Mission | Hard boundary |
 | --- | --- | --- |
-| `wrench-inspect` | General structural, design, and policy inspection. | Not a domain-specific DB security owner. |
-| `wrench-db-inspect` | SQL/database security inspection and ecosystem/harness evidence for Postgres-backed `rumble-*`: pgvector, RLS, grants, migrations, tenant isolation. | Not a user-facing vault app, secrets manager, ORM, DB proxy, migration runner, or replacement for `wrench-inspect`. |
+| `inspect/` | General structural, design and policy inspection. | Not a domain-specific database security owner. |
+| `db-inspect/` | SQL and database-security evidence for Postgres/RLS/grants/migrations. | Not a secrets manager, ORM, proxy or migration runner. |
+| `labs/dioxus/` | Dioxus/PWA evidence and reusable pattern experiments. | Not the canonical product template owner. |
 
-Naming clarification: `wrench-db-inspect` belongs to the Wrench tooling layer after the rename from `vault-inspector`. The former `vault-inspector` name was retired to remove ambiguity while preserving the same scope boundary.
+### 3.5 Gear — Context and Supply
 
-### 3.5 Gear — Infrastructure Layer
-
-| Project | Mission | Hard boundary |
+| Workspace/path | Mission | Hard boundary |
 | --- | --- | --- |
-| `gear-loader` | Runtime-capable ingestion substrate: canonical extraction, normalization, parser policy, and source-candidate handoff. | Not a knowledge product, memory owner, or inspection brain. |
-| `gear-memory` | Local agentic context and memory substrate: code maps, repo memory, document/search primitives. | Not an agent brain or product. |
-| `gear-depot` | Sovereign supply-chain depot: registry proxy/cache, policy, provenance, artifact verification. | Not a generic file store or design-system/client-platform owner. |
-| `gear-cable` | Rust-first release/distribution substrate: artifact plans, checksums, signatures, install floors. | Not application runtime logic or UI semantics. |
+| `context/loader/` | Canonical extraction, normalization and source-candidate handoff. | Not a knowledge product or memory owner. |
+| `context/memory/` | Source refs, local memory, code maps and provenance. | Not an agent brain or product. |
+| `supply/depot/` | Artifact manifests, policy, provenance and verification. | Not a generic file store or client platform. |
+| `supply/cable/` | Release plans, checksums, signatures and install floors. | Not application runtime logic or UI semantics. |
+
+Context and Supply keep separate workspaces, lockfiles, runners and secrets. Cross-zone communication uses explicit artifacts and contracts.
 
 ---
 

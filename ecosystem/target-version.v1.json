@@ -60,8 +60,8 @@
   "design_system": {
     "name": "Libre IA Design System",
     "version": "2.0.0",
-    "source": "libre-ia-design-system/design-system/tokens/tokens.json",
-    "compiler": "portal-forge",
+    "source": "urn:libre-ai:design-system:2.0.0#design-system/tokens/tokens.json",
+    "compiler": "libre-ai/portal/forge",
     "palette": "black, white, neutral grays and Vert Libre #22C55E as the only accent",
     "typography": "self-hosted Inter and Plus Jakarta Sans",
     "distribution": "generated CSS, Swift and Kotlin with SHA-256 manifest; no runtime network fetch",
