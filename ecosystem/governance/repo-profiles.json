@@ -104,7 +104,7 @@
       "license_expression": "MIT",
       "visual_id": "boussole-politique",
       "historical_identifiers": ["mes-elus"],
-      "required_checks": ["Rust contracts", "Deterministic brand assets"]
+      "required_checks": ["Rust contracts", "Deterministic brand assets", "Portable dry-run"]
     },
     {
       "schema_version": 1,
@@ -258,7 +258,7 @@
       "public_name_en": "Gear Compatibility",
       "domain": "infrastructure",
       "maturity": "consolidated",
-      "summary_en": "Full-history compatibility repository retained while Context Kit and Artifact Supply consumers migrate.",
+      "summary_en": "Archived full-history compatibility repository for the completed Context Kit and Artifact Supply split.",
       "canonical_url": "https://github.com/libre-ai/gear",
       "visibility": "public",
       "license_expression": "MIT",

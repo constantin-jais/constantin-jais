@@ -42,7 +42,7 @@
       "strict_up_to_date": true
     },
     "libre-ai/boussole-politique": {
-      "required_checks": ["Rust contracts", "Deterministic brand assets"],
+      "required_checks": ["Rust contracts", "Deterministic brand assets", "Portable dry-run"],
       "strict_up_to_date": true
     },
     "libre-ai/ai-practices": {
