@@ -53,6 +53,6 @@
     "How to integrate WCAG validation into the CI/CD pipeline?"
   ],
   "risk_notes": [
-    "First consumer is rumble-cos for design-system descriptor integration."
+    "First consumer is rumble-libre-ia for design-system descriptor integration."
   ]
 }

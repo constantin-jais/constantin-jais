@@ -17,7 +17,7 @@ Source de vérité légère pour suivre la maturité CI/CD de la stack.
 | `rumble-feed-mind` | Rumble | oui | oui | oui | tag/manual | oui | CLI + CuratedItemExport contract avec checksums/SBOM/attestation |
 | `rumble-lm` | Rumble | oui | oui | à créer | non | oui | intégration Postgres/Redis existante |
 | `rumble-note` | Rumble | hygiene | n/a | à créer | non | oui | repo public placeholder gouverné |
-| `rumble-cos` | Rumble | oui | oui | oui | non | oui | Astro + Playwright en contracts; repo public protégé |
+| `rumble-libre-ia` | Rumble | oui | oui | oui | non | oui | Astro + Playwright en contracts; repo public protégé |
 
 ## Légende
 

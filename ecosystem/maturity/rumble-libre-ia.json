@@ -1,0 +1,69 @@
+{
+  "format": "rumble.delivery_maturity.v0.1",
+  "project": {
+    "name": "rumble-libre-ia",
+    "layer": "Rumble",
+    "role": "Transmission, clarity, public documentation, and educational publishing surface.",
+    "maturity_mode": "usable"
+  },
+  "claimed_at": "2026-06-30T00:00:00Z",
+  "current_level": "R5",
+  "target_level": "R9",
+  "next_level": "R6",
+  "promotion_candidate": {
+    "from": "R5",
+    "to": "R6",
+    "status": "blocked",
+    "blocked_by": [
+      "desktop packaging is not relevant until a native shell is intentionally required",
+      "operational runbook and publication workflow guarantees are still limited"
+    ]
+  },
+  "axes": {
+    "spec": { "level": "R0", "status": "warn", "evidence": ["ecosystem/specs/rumble-libre-ia/00-product-charter.md"] },
+    "contracts": { "level": "R0", "status": "warn", "evidence": [], "notes": "Public static site does not yet need deep product contracts." },
+    "core": { "level": "R5", "status": "pass", "evidence": ["rumble-libre-ia/Cargo.toml", "rumble-libre-ia/src/lib.rs"], "notes": "Dioxus SSG application with a Rust content and routing core." },
+    "security": { "level": "R5", "status": "pass", "evidence": ["rumble-libre-ia/docs/adr/0001-rendu-ssg-pur.md", "rumble-libre-ia/docs/security-advisories.md"] },
+    "ux": { "level": "R5", "status": "pass", "evidence": ["rumble-libre-ia/README.md", "rumble-libre-ia/e2e/theme.spec.ts"] },
+    "persistence": { "level": "R0", "status": "not_applicable", "evidence": [], "notes": "Static publication requires no durable user state." },
+    "orchestration": { "level": "R0", "status": "not_applicable", "evidence": [] },
+    "inspection": { "level": "R5", "status": "pass", "evidence": ["rumble-libre-ia/.github/workflows/ci.yml", "rumble-libre-ia/e2e/theme.spec.ts"] },
+    "release": { "level": "R5", "status": "pass", "evidence": ["rumble-libre-ia/scripts/prerender.sh", "rumble-libre-ia/scripts/static-smoke.sh"] },
+    "operations": { "level": "R5", "status": "pass", "evidence": ["rumble-libre-ia/docs/publishing.md", "rumble-libre-ia/docs/deploy/clever-cloud-configuration.md"] },
+    "commercial_readiness": { "level": "R3", "status": "warn", "evidence": ["rumble-libre-ia/README.md"], "notes": "Public site is usable, but support/onboarding/commercial posture is not claimed." },
+    "learning_yield": { "level": "R5", "status": "pass", "evidence": ["rumble-libre-ia/README.md"] }
+  },
+  "platform_readiness": {
+    "cli": "none",
+    "api": "none",
+    "web": "usable",
+    "desktop": "none",
+    "mobile": "none",
+    "self_hosted": "usable",
+    "cloud_eu": "usable"
+  },
+  "evidence": [
+    { "kind": "doc", "ref": "rumble-libre-ia/README.md", "status": "present" },
+    { "kind": "command", "ref": "cargo test --no-default-features --features server", "status": "passing" },
+    { "kind": "command", "ref": "dx build --release --bin rumble-libre-ia", "status": "passing" },
+    { "kind": "command", "ref": "npx playwright test", "status": "passing" }
+  ],
+  "learning_yield": [
+    {
+      "kind": "evidence_produced",
+      "description": "Static publishing surface exposes ecosystem lessons without adding backend workflow scope.",
+      "owner": "rumble-libre-ia"
+    },
+    {
+      "kind": "shortcut_prevented",
+      "description": "Dioxus SSG removes the dual-framework exception while preserving static publication.",
+      "owner": "architecture"
+    }
+  ],
+  "open_questions": [
+    "Should ecosystem learnings get a dedicated publication workflow?"
+  ],
+  "risk_notes": [
+    "Do not turn the public site into an internal CMS or workflow backend."
+  ]
+}

@@ -31,7 +31,7 @@
       ],
       "strict_up_to_date": true
     },
-    "constantin-jais/rumble-cos": {
+    "constantin-jais/rumble-libre-ia": {
       "required_checks": [
         "quality",
         "e2e",

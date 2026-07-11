@@ -54,7 +54,7 @@ rumble-canvas
 rumble-note
 rumble-lm
 rumble-crew
-rumble-cos
+rumble-libre-ia
 rumble-feed-mind
 ```
 
@@ -129,7 +129,7 @@ Capacités critiques :
 Vérifier :
 
 - Rumble interactifs convergent Rust/Dioxus ;
-- `rumble-cos` Astro reste exception justifiée ;
+- `rumble-libre-ia` Astro reste exception justifiée ;
 - legacy TS/Expo/Next sont clairement migration refs, pas cible ;
 - Bolt/Wrench/Gear restent Rust-first ;
 - toute exception a ADR.

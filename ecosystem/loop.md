@@ -17,7 +17,7 @@ An idea appears in rumble-note
 → gear-memory keeps decisions, refs, events, and proofs
 → gear-depot verifies and retains artifacts
 → gear-cable makes release/distribution reproducible when needed
-→ rumble-cos explains what was learned
+→ rumble-libre-ia explains what was learned
 → the next idea starts from better memory and better contracts
 ```
 
@@ -34,7 +34,7 @@ An idea appears in rumble-note
 | Memory | `gear-memory` | Rumble exports, Wrench outputs | Gear stores/indexes references and provenance, not product meaning. |
 | Artifact trust | `gear-depot` | Gear Cable, Rumble exports, Wrench reports | Depot owns manifests, checksums, policy, revocation. |
 | Release | `gear-cable` | Gear Depot | Cable owns release plans and install floors, not runtime behavior. |
-| Teaching/publication | `rumble-cos` | All layers | COS explains lessons; it is not the workflow backend. |
+| Teaching/publication | `rumble-libre-ia` | All layers | COS explains lessons; it is not the workflow backend. |
 
 ## Missing chain links
 
@@ -47,7 +47,7 @@ An idea appears in rumble-note
 | Execution → Gear evidence | Gear contracts exist; integration not yet complete. | Store `ArtifactRef`, `ProvenanceRecord`, and `EventLogEntry` from real runs. |
 | Wrench Loader → Gear Memory | Contracts exist separately. | Implement `GearSourceCandidate` to `SourceRef` ingestion path. |
 | Gear Depot ↔ Gear Cable | Contracts exist separately. | Connect release plans to `ArtifactManifest` verification. |
-| Learnings → `rumble-cos` | Public site usable. | Add lightweight publishing workflow for project lessons and evidence summaries. |
+| Learnings → `rumble-libre-ia` | Public site usable. | Add lightweight publishing workflow for project lessons and evidence summaries. |
 
 ## Quality gates for the loop
 

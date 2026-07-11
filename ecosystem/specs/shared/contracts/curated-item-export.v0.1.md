@@ -63,7 +63,7 @@ A curated item can be:
 | --- | --- |
 | `rumble-note` | Add source-grounded note context. |
 | `rumble-lm` | Build source set for session preparation. |
-| `rumble-cos` | Prepare public content source candidate. |
+| `rumble-libre-ia` | Prepare public content source candidate. |
 | Bolt | Planning-only request after package/handoff validation. |
 | Gear Memory | Index source ref and provenance, not product workflow. |
 

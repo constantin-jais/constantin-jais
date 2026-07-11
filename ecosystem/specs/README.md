@@ -18,7 +18,7 @@ The goal is not to write static documentation or rank products by business poten
 | Product | Spec status | Learning role | Purpose |
 | --- | --- | --- | --- |
 | `rumble-canvas` | `contract-first` / harness producer | Specification, ambiguity, decisions, traceability, handoff. | Product-conception workspace: conversations → decisions → specs → packages → handoffs. |
-| `rumble-cos` | `usable` public site / ecosystem spec incomplete | Transmission, clarity, publication, public documentation. | Education and sharing blog. |
+| `rumble-libre-ia` | `usable` public site / ecosystem spec incomplete | Transmission, clarity, publication, public documentation. | Education and sharing blog. |
 | `rumble-crew` | `contract-first` | Human/agent tasks, approvals, evidence, recovery. | Human/agent teamwork workspace. |
 | `rumble-feed-mind` | `dojo` / ready for scoped implementation planning | Watch pipeline, ingestion pressure, rules, BYOK, export. | Intelligent feed/watch pipeline producing curated knowledge for the harness. |
 | `rumble-lm` | `contract-first` / P0 stub | Pedagogy, citations, live sessions, grounding. | Source-grounded learning and facilitation platform. |

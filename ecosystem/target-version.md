@@ -29,7 +29,7 @@ The prefix carries the **owning domain**; the **deployment class** (`product-lin
 ## Visual contract (ADR 0037)
 
 - **Identity**: Libre IA Design System 2.0 on every active client surface.
-- **Source**: canonical DTCG in `libre-ia.fr/tokens/tokens.json`; compilation and WCAG evidence through `portal-forge`.
+- **Source**: canonical DTCG in `libre-ia-design-system/design-system/tokens/tokens.json`; compilation and WCAG evidence through `portal-forge`.
 - **Palette**: black, white, neutral grays and Vert Libre `#22C55E` as the only accent; status meaning never depends on color alone.
 - **Typography**: self-hosted Inter and Plus Jakarta Sans; no remote font request.
 - **Distribution**: generated CSS/Swift/Kotlin plus SHA-256 manifest, vendored at build time with no runtime network dependency.

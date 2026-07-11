@@ -76,7 +76,7 @@ Targets:
 
 - `rumble-note` as note/context fragment;
 - `rumble-lm` as session source;
-- `rumble-cos` as article/resource seed;
+- `rumble-libre-ia` as article/resource seed;
 - Gear Memory as source/context;
 - Gear Depot as export artifact.
 

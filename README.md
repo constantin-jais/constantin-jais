@@ -10,7 +10,7 @@ The visible layer is **Rumble**: products people can use. Underneath, **Portal**
 
 | If you want to...                    | Start with                                                                | Status   |
 | ------------------------------------ | ------------------------------------------------------------------------- | -------- |
-| see the public product surface       | [rumble-cos](https://github.com/constantin-jais/rumble-cos)               | `usable` |
+| see the public product surface       | [rumble-libre-ia](https://github.com/constantin-jais/rumble-libre-ia)               | `usable` |
 | try the feed-to-knowledge pipeline   | [rumble-feed-mind](https://github.com/constantin-jais/rumble-feed-mind)   | `dojo`   |
 | inspect the orchestration core       | [bolt-cos-matic](https://github.com/constantin-jais/bolt-cos-matic)       | `usable` |
 | explore DB/security evidence         | [wrench-db-inspect](https://github.com/constantin-jais/wrench-db-inspect) | `dojo`   |
@@ -22,7 +22,7 @@ The product layer: things people can read, run, touch, or eventually use directl
 
 | Product                                                                       | Purpose                                     | Maturity         |
 | ----------------------------------------------------------------------------- | ------------------------------------------- | ---------------- |
-| [rumble-cos](https://github.com/constantin-jais/rumble-cos)                   | education blog and public knowledge surface | `usable`         |
+| [rumble-libre-ia](https://github.com/constantin-jais/rumble-libre-ia)                   | education blog and public knowledge surface | `usable`         |
 | [rumble-feed-mind](https://github.com/constantin-jais/rumble-feed-mind)       | intelligent feed/watch pipeline             | `dojo`           |
 | [rumble-ai-practices](https://github.com/constantin-jais/rumble-ai-practices) | professional AI-practice training           | `dojo`           |
 | [rumble-lm](https://github.com/constantin-jais/rumble-lm)                     | grounded learning sessions and facilitation | `contract-first` |

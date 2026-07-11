@@ -27,7 +27,7 @@
 | What is the first Bolt handoff format? | High | Accepted: planning-only `ImplementationHandoff` using `canvas.bolt_handoff.v0.1`, targeting `cos-matic` for MVP. |
 | Which spec completeness checks belong in Wrench? | Medium | Open |
 
-### rumble-cos
+### rumble-libre-ia
 
 | Question | Impact | Status |
 | --- | --- | --- |

@@ -79,7 +79,7 @@ This governance wave operationalizes three foundational decisions from the archi
 - `wrench-dioxus-lab` (remote; currently named dioxus-lab; awaiting GitHub rename DA-5)
 
 **Rumble (~11 repos, remote):**
-- `rumble-ai-practices`, `rumble-canvas`, `rumble-cos`, `rumble-crew`, `rumble-feed-mind`, `rumble-lm`, `rumble-note`
+- `rumble-ai-practices`, `rumble-canvas`, `rumble-libre-ia`, `rumble-crew`, `rumble-feed-mind`, `rumble-lm`, `rumble-note`
 
 **Portal (~5 repos, remote):**
 - `portal-android`, `portal-apple`, `portal-core`, `portal-forge`
