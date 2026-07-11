@@ -62,19 +62,27 @@ jobs:
     if: github.event_name == 'pull_request' || github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: "3.12"
-      - name: Compare live branch protection to the versioned policy
+      - name: Compare live branch protection to the merged policy
         env:
           GH_TOKEN: ${{ secrets.ECOSYSTEM_ADMIN_TOKEN }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           set -euo pipefail
           if [ -z "${GH_TOKEN}" ]; then
             echo "::warning::ECOSYSTEM_ADMIN_TOKEN not configured - drift check skipped (bootstrap: ecosystem/governance/README.md)"
             exit 0
           fi
-          if ! out="$(python3 ecosystem/governance/ecosystem_policy.py check 2>&1)"; then
+          policy_args=()
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            git show "${BASE_SHA}:ecosystem/governance/branch-policy.json" > /tmp/merged-branch-policy.json
+            policy_args=(--policy /tmp/merged-branch-policy.json)
+          fi
+          if ! out="$(python3 ecosystem/governance/ecosystem_policy.py check "${policy_args[@]}" 2>&1)"; then
             if printf '%s' "$out" | grep -qiE "bad credentials|HTTP 401"; then
               echo "::warning::ECOSYSTEM_ADMIN_TOKEN invalid or expired - drift check skipped; renew it in Settings > Secrets"
               exit 0

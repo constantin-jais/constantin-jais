@@ -79,7 +79,9 @@ the weekly drift check fails loudly when the token dies.
    workflows run on every pull request (no `paths:` filter on the
    `pull_request` trigger — use an in-job no-op guard instead, see
    `.github/workflows/ecosystem-health.yml` for the pattern).
-4. Run `validate_repo_profiles.py`, then open the PR; merging it applies the policy to the repo.
+4. Run `validate_repo_profiles.py`, then open the PR. Its drift gate checks the
+   currently merged policy, while unit tests validate the proposal; merging it
+   applies the new policy to the repository.
 
 A repo listed without `required_checks` gates on nothing but the
 pull-request rule — the check mode warns about it until its CI contexts are
@@ -106,6 +108,9 @@ stay on explicit human merge.
   every use in the GitHub audit log). Interactive agent sessions never call
   the administration API directly — they edit this policy file instead.
 - `check` runs on every PR touching `ecosystem/governance/` and weekly
-  (drift detection), `apply` runs on push to `main`.
+  (drift detection). On a pull request it checks the live state against the
+  merged base policy, so onboarding a new repository does not require an
+  unreviewed ruleset mutation; the proposed policy is validated by pure tests.
+  `apply` runs on push to `main` and converges the newly merged policy.
 - The policy is explicit-list only: applying to an unlisted repo is an
   error, never a fallback.
