@@ -1,0 +1,530 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stack-target-version.v0.2.schema.json",
+  "title": "Stack target version v0.2",
+  "description": "Machine-readable ratified target: layers, language ownership, clean-room, adapters, authorization, named infrastructure exceptions, panic policy and DoD.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "version",
+    "ratified_at",
+    "ratified_by",
+    "layers",
+    "web_shell",
+    "design_system",
+    "native_delivery",
+    "desktop",
+    "static_publication",
+    "session_runtime_owner",
+    "identity_ownership",
+    "language_ownership",
+    "clean_room",
+    "specialized_adapters",
+    "authorization",
+    "infrastructure",
+    "panic_policy",
+    "compromises",
+    "stack_matrix",
+    "dod_chain",
+    "flagship_slice",
+    "wave"
+  ],
+  "properties": {
+    "format": {
+      "const": "stack.target_version.v0.2"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "ratified_at": {
+      "type": "string"
+    },
+    "ratified_by": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "layers": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "prefix",
+          "role",
+          "definition",
+          "deployment_classes"
+        ],
+        "properties": {
+          "prefix": {
+            "enum": [
+              "product",
+              "portal",
+              "bolt",
+              "wrench",
+              "gear"
+            ]
+          },
+          "role": {
+            "type": "string"
+          },
+          "definition": {
+            "type": "string"
+          },
+          "deployment_classes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "product-linkable",
+                "factory-only",
+                "build-time"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "web_shell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "framework",
+        "framework_version",
+        "evidence",
+        "adr"
+      ],
+      "properties": {
+        "framework": {
+          "type": "string"
+        },
+        "framework_version": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "adr": {
+          "type": "string"
+        }
+      }
+    },
+    "component_library": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "source",
+        "styling",
+        "adr"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "styling": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "crates_io_follow_up": {
+          "type": "string"
+        },
+        "adr": {
+          "type": "string"
+        },
+        "first_application": {
+          "type": "string"
+        }
+      }
+    },
+    "design_system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "source",
+        "compiler",
+        "palette",
+        "typography",
+        "distribution",
+        "exceptions",
+        "adr"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "source": {
+          "type": "string"
+        },
+        "compiler": {
+          "type": "string"
+        },
+        "palette": {
+          "type": "string"
+        },
+        "typography": {
+          "type": "string"
+        },
+        "distribution": {
+          "type": "string"
+        },
+        "exceptions": {
+          "type": "string"
+        },
+        "adr": {
+          "type": "string"
+        }
+      }
+    },
+    "native_delivery": {
+      "type": "string"
+    },
+    "desktop": {
+      "type": "string"
+    },
+    "static_publication": {
+      "type": "string"
+    },
+    "session_runtime_owner": {
+      "type": "string"
+    },
+    "identity_ownership": {
+      "type": "string"
+    },
+    "stack_matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "go",
+        "conditional_go",
+        "spike_local",
+        "wait",
+        "no_go"
+      ],
+      "properties": {
+        "go": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "conditional_go": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "spike_local": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "wait": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "no_go": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "narrowed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dod_chain": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "string"
+      }
+    },
+    "flagship_slice": {
+      "type": "string"
+    },
+    "wave": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "posture",
+        "reference"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "posture": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        }
+      }
+    },
+    "language_ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "durable_core",
+        "web_shell",
+        "typescript_allowlist",
+        "forbidden_source_extensions"
+      ],
+      "properties": {
+        "durable_core": {
+          "const": "rust"
+        },
+        "web_shell": {
+          "const": "dioxus-0.7.9"
+        },
+        "typescript_allowlist": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "browser-presentation",
+              "playwright",
+              "generated-client",
+              "office-host",
+              "bounded-tooling"
+            ]
+          }
+        },
+        "forbidden_source_extensions": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              ".js",
+              ".jsx",
+              ".mjs",
+              ".cjs"
+            ]
+          }
+        }
+      }
+    },
+    "clean_room": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "fixtures",
+        "forbidden"
+      ],
+      "properties": {
+        "required": {
+          "const": true
+        },
+        "fixtures": {
+          "const": "synthetic-only"
+        },
+        "forbidden": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "specialized_adapters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "class",
+          "owner",
+          "isolation",
+          "fail_closed",
+          "adr"
+        ],
+        "properties": {
+          "class": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "isolation": {
+            "enum": [
+              "process",
+              "browser-host",
+              "provider-port"
+            ]
+          },
+          "fail_closed": {
+            "const": true
+          },
+          "adr": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "delegation",
+        "signature",
+        "tenant_fact",
+        "vocabulary",
+        "adr"
+      ],
+      "properties": {
+        "delegation": {
+          "const": "biscuit"
+        },
+        "signature": {
+          "const": "ed25519"
+        },
+        "tenant_fact": {
+          "const": "organization"
+        },
+        "vocabulary": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "organization",
+              "workspace",
+              "actor",
+              "resource",
+              "action",
+              "purpose",
+              "delegation_id",
+              "revocation_ref"
+            ]
+          }
+        },
+        "adr": {
+          "const": "ADR 0041"
+        }
+      }
+    },
+    "infrastructure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "compute",
+        "sql",
+        "object_storage",
+        "hosted_ai",
+        "forge",
+        "direct_model_providers",
+        "portability_adr"
+      ],
+      "properties": {
+        "compute": {
+          "type": "string"
+        },
+        "sql": {
+          "type": "string"
+        },
+        "object_storage": {
+          "type": "string"
+        },
+        "hosted_ai": {
+          "type": "string"
+        },
+        "forge": {
+          "type": "string"
+        },
+        "direct_model_providers": {
+          "type": "string"
+        },
+        "portability_adr": {
+          "type": "string"
+        }
+      }
+    },
+    "panic_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "server",
+        "supervisor",
+        "hostile_parser",
+        "cli",
+        "wasm",
+        "adr"
+      ],
+      "properties": {
+        "server": {
+          "type": "string"
+        },
+        "supervisor": {
+          "type": "string"
+        },
+        "hostile_parser": {
+          "type": "string"
+        },
+        "cli": {
+          "type": "string"
+        },
+        "wasm": {
+          "type": "string"
+        },
+        "adr": {
+          "type": "string"
+        }
+      }
+    },
+    "compromises": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "subject",
+          "adr"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "adr": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

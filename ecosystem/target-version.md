@@ -1,7 +1,7 @@
 # Target Version — accepted full target of the ecosystem stack
 
-Version: 2.0.0 · Ratified: 2026-07-10 · Machine version: [`target-version.v1.json`](target-version.v1.json) (validated against [`specs/harness/stack-target-version.v0.1.schema.json`](specs/harness/stack-target-version.v0.1.schema.json) by the spec-contracts gate)
-Ratified by: ADR 0032, ADR 0033, ADR 0037, ADR 0028 (amended), ADR 0029 (with addendum), and the DA-1..DA-12 arbitration recorded in [`architecture-alignment-2026-07.md`](architecture-alignment-2026-07.md).
+Version: 2.1.0 · Ratified: 2026-07-11 · Machine version: [`target-version.v1.json`](target-version.v1.json) (validated against [`specs/harness/stack-target-version.v0.2.schema.json`](specs/harness/stack-target-version.v0.2.schema.json) by the spec-contracts gate)
+Ratified by: ADR 0028, ADR 0029, ADR 0032, ADR 0033, ADR 0037 and ADR 0038–0044.
 
 This file is the human summary of the accepted target. When it disagrees with the ADRs, the ADRs win; when the machine file disagrees with this file, fix whichever drifted and note it in the decision log. Re-deciding any element below mid-wave requires an explicit stop (big-bang posture makes a moving target expensive).
 
@@ -13,7 +13,7 @@ The prefix carries the **owning domain**; the **deployment class** (`product-lin
 
 | Prefix     | Role                     | One-line definition                                                                                                                           |
 | ---------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rumble-*` | Product compatibility IDs | Historical/versioned identifiers for user-facing workflows; new public repositories use their product slugs                                  |
+| functional product slugs | Products                 | User-facing workflows; owns UX, product state, domain models and publication gates                                                            |
 | `portal-*` | Client platform          | Tokens, primitives, a11y, i18n UI, native bindings; also the agents' UI-production capability (tokens-only); never actor/tenant authorization |
 | `bolt-*`   | Factory                  | Orchestration, planning, handoff evaluation, execution coordination + the factory's own proof surfaces                                        |
 | `wrench-*` | Transverse factory tools | Inspection, audit, and evaluation labs serving ≥ 2 domains; never ship in products                                                            |
@@ -22,12 +22,14 @@ The prefix carries the **owning domain**; the **deployment class** (`product-lin
 ## Elected stack (ADR 0032)
 
 - **Application stack**: Dioxus 0.7.9 is the preferred shared shell across web/PWA, SSR/SSG, fullstack server functions, desktop, Android and iOS. Product-domain crates remain renderer-independent.
-- **Web/PWA evidence**: patterns are bound to the Dioxus lab evidence (Primitives ARIA, HttpOnly SameSite=Strict session, wasm ≤ 450 KiB gzip, e2e 4 engines, tracing ids-only, tokens-only colors). Canonical starter: `dioxus-app-template`.
+- **Web/PWA evidence**: patterns are bound to `libre-ai/wrench/labs/dioxus` evidence (Primitives ARIA, HttpOnly SameSite=Strict session, wasm ≤ 450 KiB gzip, e2e 4 engines, tracing ids-only, tokens-only colors). Canonical starter: `dioxus-app-template`.
 - **Headless component library**: Dioxus Components (`dioxus-primitives`, git-pinned `bf007c15`, dual MIT/Apache-2.0) — unstyled WAI-ARIA primitives, appearance via Portal tokens only (ADR 0036). The Git pin is temporary until a verifiable release exists.
-- **Static publication**: Dioxus SSG for ecosystem products; the Astro exception ended with the website rebuild decision.
+- **Static publication**: Dioxus SSG for ecosystem products; the Astro exception ended with the Website rebuild decision.
 - **Desktop and mobile**: Dioxus WebView shells are the default convergence target. Portal owns adaptive components and native integration contracts. SwiftUI/Compose adapters remain escape hatches and evidence labs, not duplicate default UIs.
 - **Support claims**: web, desktop, Android, iOS, fullstack and UI each require the matrix in [`specs/shared/dioxus-target-evidence.md`](specs/shared/dioxus-target-evidence.md). Until a target passes it, that target is `experimental`, not supported.
-- **Data/backing**: Rust service GO; PostgreSQL/SQLx and OIDC/Biscuit conditional; Redis and native mobile shells WAIT; paid provisioning NO-GO (ADR 0034 discipline unchanged).
+- **Data/backing**: Rust service GO; PostgreSQL/SQLx and OIDC/Biscuit conditional; Redis remains WAIT; paid provisioning remains a separate human operation.
+- **Language boundary**: durable logic stays in Rust; JavaScript source is forbidden; TypeScript is limited to browser presentation, Playwright, generated clients, bounded Office host interop and tooling (ADR 0038/0039).
+- **Hosted boundaries**: Clever Cloud/SQL/Cellar and Clever AI are named portable-adapter targets; GitHub is the canonical public forge. Provisioning remains separately approved (ADR 0043).
 
 ## Visual contract (ADR 0037)
 
@@ -40,12 +42,20 @@ The prefix carries the **owning domain**; the **deployment class** (`product-lin
 
 ## Ownership decisions
 
-- **Session runtime**: `rumble-lm` owns it; ai-practices is a content pack + scoring module (ADR 0029 + addendum — its local store is a frozen shim until convergence).
-- **Identity/Workspace**: identity primitives → Gear (contract-first, extraction D11-gated); workspace container → shared Rumble contract; `portal-core` excluded (ADR 0028 + amendments, closed permission vocabulary in `workspace-identity.v0.1`).
+- **Session runtime**: `libre-ai/sessions` owns it; AI Practices is a content pack + scoring module (ADR 0029 + addendum — its local store is a frozen shim until convergence).
+- **Identity/Workspace**: identity primitives → Gear (contract-first, extraction D11-gated); workspace container → shared product contract; Portal is excluded (ADR 0028 + amendments, closed permission vocabulary in `workspace-identity.v0.1`).
 
-## Definition of done (unchanged)
+## Cross-cutting authority (ADR 0038–0044)
 
-A stack slice is complete when **one real Rumble product** traverses: Portal → Gear Loader → Gear Memory → Gear Depot → Gear Cable → Wrench evidence → Bolt planning-only handoff → Cos explanation. Flagship slice of the 2026-07 wave: **rumble-lm**.
+- Specialized document/provider/browser adapters implement Rust-owned contracts, are replaceable and fail closed. Hostile parsers run in killable, networkless processes.
+- Clean-room adoption uses autonomous specifications and synthetic fixtures only; copying or transliterating private code, prompts, schemas or corpus is forbidden.
+- Biscuit/Ed25519 is the canonical delegated authorization contract with mandatory organization, resource, action, purpose, expiry and revocation scope.
+- Servers and supervisors unwind; hostile parser crashes become typed worker failures. Abort is limited to measured one-shot CLI/WASM artifacts.
+- Compromises are explicit: GitHub forge, Clever hosted boundaries and specialized adapters. No direct model-provider fallback.
+
+## Definition of done
+
+A stack slice is complete when **one real product** traverses: Portal → Gear Loader → Gear Memory → Gear Depot → Gear Cable → Wrench evidence → Bolt planning-only handoff → product explanation. Flagship slice: **Sessions**.
 
 ## Wave posture (DA-8)
 
