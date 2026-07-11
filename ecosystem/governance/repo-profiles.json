@@ -200,7 +200,10 @@
         "dioxus-lab supply chain",
         "Dioxus desktop compile (linux)",
         "Dioxus desktop compile (macos)",
-        "Dioxus desktop compile (windows)"
+        "Dioxus desktop compile (windows)",
+        "Dioxus Android compile",
+        "Dioxus iOS compile (simulator)",
+        "Dioxus iOS compile (device)"
       ]
     },
     {

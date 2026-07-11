@@ -34,8 +34,8 @@ Dioxus desktop/mobile render through native WebViews. JNI or native API access d
 | Web/PWA | `evidence-backed` for the bounded lab and Website publication path | four-engine lab evidence, accessibility/token checks, SSG, plus Wrench Pages HTML/JavaScript/WASM base-path smoke |
 | Fullstack | `experimental` to partial evidence | server functions and auth paths exist, but one cross-product operational matrix is not complete |
 | Desktop macOS/Windows/Linux | `experimental` | protected compile and test-build checks pass on all three OSes; no WebView runtime, package, install/update/rollback or platform-accessibility evidence |
-| Android | `experimental` | no physical-device, signed-package and TalkBack evidence |
-| iOS | `experimental` | no physical-device, archive/signing and VoiceOver evidence |
+| Android | `experimental` | protected arm64/x86_64 renderer-library compile passes with pinned SDK/NDK; no emulator/device run, signed package, lifecycle or TalkBack evidence |
+| iOS | `experimental` | protected arm64 simulator/device renderer-library compile passes; no simulator/device run, archive/signing, lifecycle or VoiceOver evidence |
 | UI system | `evidence-backed` on bounded web primitives | Portal now owns token-only Dioxus surfaces and adaptive navigation contracts shared through UniFFI; visual regression and real platform accessibility remain incomplete |
 
 No README or product page may turn `experimental` into “supported”, “native”, or “available”.
