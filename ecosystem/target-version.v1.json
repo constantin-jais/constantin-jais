@@ -129,7 +129,7 @@
     "libre-ai/gear/supply/depot (ArtifactRef/Manifest export)",
     "libre-ai/gear/supply/cable (packaging when needed)",
     "libre-ai/wrench evidence (+ db-inspect for SQL)",
-    "libre-ai/bolt planning-only handoff with evidence refs",
+    "libre-ai/agent-factory planning-only handoff with evidence refs",
     "product explanation/publication"
   ],
   "flagship_slice": "libre-ai/sessions",
