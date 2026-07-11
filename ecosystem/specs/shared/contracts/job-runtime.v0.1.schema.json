@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://libre-ai.local/ecosystem/contracts/job-runtime.v0.1.schema.json",
+  "title": "Sessions job runtime metadata v0.1",
+  "description": "Tenant-scoped job, event and outbox-claim metadata. Content and provider credentials are forbidden.",
+  "type": "object",
+  "required": ["format", "jobs", "events", "claims"],
+  "properties": {
+    "format": { "const": "sessions.job_runtime.v0.1" },
+    "jobs": { "type": "array", "items": { "$ref": "#/$defs/JobRecord" } },
+    "events": { "type": "array", "items": { "$ref": "#/$defs/JobEvent" } },
+    "claims": { "type": "array", "items": { "$ref": "#/$defs/OutboxClaim" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "SafeId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "SafeCode": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "SafeRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^(?!.*\\.\\.)(?!.*://)[A-Za-z0-9_:/.\\-]+$"
+    },
+    "JobRecord": {
+      "type": "object",
+      "required": [
+        "organization_id", "workspace_id", "job_id", "kind", "idempotency_key",
+        "state", "revision", "attempts", "max_attempts", "lease_owner",
+        "lease_expires_at_ms", "cancel_requested", "result_ref", "failure_code"
+      ],
+      "properties": {
+        "organization_id": { "$ref": "#/$defs/SafeId" },
+        "workspace_id": { "$ref": "#/$defs/SafeId" },
+        "job_id": { "$ref": "#/$defs/SafeId" },
+        "kind": { "$ref": "#/$defs/SafeCode" },
+        "idempotency_key": { "$ref": "#/$defs/SafeRef" },
+        "state": { "enum": ["queued", "leased", "succeeded", "failed", "cancelled"] },
+        "revision": { "type": "integer", "minimum": 1 },
+        "attempts": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "max_attempts": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "lease_owner": { "oneOf": [{ "$ref": "#/$defs/SafeId" }, { "type": "null" }] },
+        "lease_expires_at_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "cancel_requested": { "type": "boolean" },
+        "result_ref": { "oneOf": [{ "$ref": "#/$defs/SafeRef" }, { "type": "null" }] },
+        "failure_code": { "oneOf": [{ "$ref": "#/$defs/SafeCode" }, { "type": "null" }] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "state": { "const": "leased" } } },
+          "then": {
+            "properties": {
+              "lease_owner": { "$ref": "#/$defs/SafeId" },
+              "lease_expires_at_ms": { "type": "integer", "minimum": 0 }
+            }
+          },
+          "else": {
+            "properties": {
+              "lease_owner": { "type": "null" },
+              "lease_expires_at_ms": { "type": "null" }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "JobEvent": {
+      "type": "object",
+      "required": ["event_id", "organization_id", "workspace_id", "job_id", "revision", "event_type", "actor_ref", "occurred_at_ms"],
+      "properties": {
+        "event_id": { "$ref": "#/$defs/SafeId" },
+        "organization_id": { "$ref": "#/$defs/SafeId" },
+        "workspace_id": { "$ref": "#/$defs/SafeId" },
+        "job_id": { "$ref": "#/$defs/SafeId" },
+        "revision": { "type": "integer", "minimum": 1 },
+        "event_type": { "$ref": "#/$defs/SafeCode" },
+        "actor_ref": { "$ref": "#/$defs/SafeId" },
+        "occurred_at_ms": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "OutboxClaim": {
+      "type": "object",
+      "required": ["event", "publisher_id", "claim_id", "claim_expires_at_ms", "delivery_attempt"],
+      "properties": {
+        "event": { "$ref": "#/$defs/JobEvent" },
+        "publisher_id": { "$ref": "#/$defs/SafeId" },
+        "claim_id": { "$ref": "#/$defs/SafeId" },
+        "claim_expires_at_ms": { "type": "integer", "minimum": 0 },
+        "delivery_attempt": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://libre-ai.local/ecosystem/contracts/authorization-registries.v0.1.schema.json",
+  "title": "Bolt Biscuit authorization registries v0.1",
+  "oneOf": [
+    { "$ref": "#/$defs/Keyset" },
+    { "$ref": "#/$defs/Revocations" }
+  ],
+  "$defs": {
+    "SafeId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "Keyset": {
+      "type": "object",
+      "required": ["format", "version", "keys"],
+      "properties": {
+        "format": { "const": "bolt.biscuit_keyset.v0.1" },
+        "version": { "type": "integer", "minimum": 1 },
+        "keys": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": { "$ref": "#/$defs/KeyEntry" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "KeyEntry": {
+      "type": "object",
+      "required": ["key_id", "algorithm", "public_key_hex", "state", "not_before", "not_after"],
+      "properties": {
+        "key_id": { "$ref": "#/$defs/SafeId" },
+        "algorithm": { "const": "ed25519" },
+        "public_key_hex": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+        "state": { "enum": ["active", "retiring", "revoked"] },
+        "not_before": { "type": "string", "format": "date-time" },
+        "not_after": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "Revocations": {
+      "type": "object",
+      "required": ["format", "version", "entries"],
+      "properties": {
+        "format": { "const": "bolt.biscuit_revocations.v0.1" },
+        "version": { "type": "integer", "minimum": 1 },
+        "entries": {
+          "type": "array",
+          "maxItems": 100000,
+          "items": { "$ref": "#/$defs/RevocationEntry" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "RevocationEntry": {
+      "type": "object",
+      "required": ["revoked_at", "reason_code"],
+      "properties": {
+        "revocation_ref": { "$ref": "#/$defs/SafeId" },
+        "root_block_id": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+        "revoked_at": { "type": "string", "format": "date-time" },
+        "reason_code": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z0-9_-]+$" }
+      },
+      "anyOf": [
+        { "required": ["revocation_ref"] },
+        { "required": ["root_block_id"] }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

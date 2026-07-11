@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://libre-ai.local/ecosystem/contracts/parser-runtime-attestation.v0.1.schema.json",
+  "title": "Gear parser runtime attestation v0.1",
+  "type": "object",
+  "required": [
+    "format",
+    "process_isolated",
+    "network_disabled",
+    "filesystem_write_isolated",
+    "hard_kill",
+    "wall_timeout_ms",
+    "cpu_time_limit_ms",
+    "max_rss_bytes",
+    "sandbox"
+  ],
+  "properties": {
+    "format": { "const": "gear.parser_runtime_attestation.v0.1" },
+    "process_isolated": { "type": "boolean" },
+    "network_disabled": { "type": "boolean" },
+    "filesystem_write_isolated": { "type": "boolean" },
+    "hard_kill": { "type": "boolean" },
+    "wall_timeout_ms": { "type": "integer", "minimum": 1, "maximum": 3600000 },
+    "cpu_time_limit_ms": { "type": "integer", "minimum": 1, "maximum": 3600000 },
+    "max_rss_bytes": { "type": "integer", "minimum": 1048576 },
+    "sandbox": { "enum": ["unconfined", "macos-seatbelt"] }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "sandbox": { "const": "unconfined" } }, "required": ["sandbox"] },
+      "then": {
+        "properties": {
+          "network_disabled": { "const": false },
+          "filesystem_write_isolated": { "const": false }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "sandbox": { "const": "macos-seatbelt" } }, "required": ["sandbox"] },
+      "then": {
+        "properties": {
+          "process_isolated": { "const": true },
+          "network_disabled": { "const": true },
+          "filesystem_write_isolated": { "const": true },
+          "hard_kill": { "const": true }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

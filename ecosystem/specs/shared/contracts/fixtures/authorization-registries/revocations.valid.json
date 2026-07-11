@@ -1,0 +1,12 @@
+{
+  "format": "bolt.biscuit_revocations.v0.1",
+  "version": 1,
+  "entries": [
+    {
+      "revocation_ref": "rev_synthetic_01",
+      "root_block_id": "0202020202020202020202020202020202020202020202020202020202020202",
+      "revoked_at": "2026-07-11T00:05:00Z",
+      "reason_code": "synthetic_compromise"
+    }
+  ]
+}
