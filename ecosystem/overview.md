@@ -183,7 +183,8 @@ Documentation is part of the architecture. To avoid dispersion:
 - **Offline-first where possible:** network access may improve the experience, but must not be required for core truth.
 - **Evidence over claims:** specs, tests, ADRs, provenance, and audit logs matter more than informal trust.
 - **Product demand drives platform work:** Portal/Bolt/Wrench/Gear capabilities should be justified by at least one concrete product need, preferably more than one.
-- **Interactive product convergence:** interactive products converge on Rust-first product cores plus the Portal client platform. Dioxus/PWA is the fast default path; SwiftUI/Compose native paths are first-class when a product need justifies them and local verification exists.
+- **Dioxus-first application convergence:** interactive products converge on renderer-independent Rust domain crates plus Dioxus 0.7.9 for web/PWA, SSR/SSG, fullstack, desktop, Android and iOS. Portal owns adaptive UI and native integration contracts. SwiftUI/Compose are escape hatches, not duplicate default product UIs.
+- **Evidence per target:** Dioxus uses native WebViews on desktop/mobile; framework support is not product proof. Wrench validates accessibility, lifecycle, permissions, deep links, offline behavior, packaging/signing, rollback and size through [`specs/shared/dioxus-target-evidence.md`](specs/shared/dioxus-target-evidence.md).
 
 ---
 

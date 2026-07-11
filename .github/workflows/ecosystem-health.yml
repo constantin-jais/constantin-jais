@@ -39,6 +39,10 @@ jobs:
           test -s ecosystem/target-version.md
           test -s ecosystem/governance/repo-profiles.json
           test -s ecosystem/governance/branch-policy.json
+          test -s ecosystem/governance/upstream-contributions.md
+          test -s ecosystem/specs/shared/dioxus-target-evidence.md
+          grep -q "APPROVE_UPSTREAM_PUSH" ecosystem/governance/upstream-contributions.md
+          grep -q "APPROVE_READY_FOR_REVIEW" ecosystem/governance/upstream-contributions.md
           test -s SECURITY.md
           test -s .github/CODEOWNERS
           grep -q "## Promotion criteria" ecosystem/status.md

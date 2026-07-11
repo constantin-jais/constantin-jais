@@ -24,6 +24,8 @@ This cockpit reports the public topology and migration state. Canonical reposito
 
 `consolidated` describes repository topology, not production readiness.
 
+Dioxus is the preferred application stack across web, fullstack, desktop and mobile. Only the bounded web/SSG path is evidence-backed today; desktop, Android and iOS remain experimental under [`specs/shared/dioxus-target-evidence.md`](specs/shared/dioxus-target-evidence.md).
+
 ## Migration state
 
 - The 13 public target repositories have canonical URLs, repository profiles, branch policy, accessible cards and green protected checks.
