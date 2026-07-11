@@ -124,10 +124,10 @@
   },
   "dod_chain": [
     "libre-ai/client-kit (tokens/primitives consumed)",
-    "libre-ai/gear/context/loader (canonical ingestion)",
-    "libre-ai/gear/context/memory (source refs/provenance)",
-    "libre-ai/gear/supply/depot (ArtifactRef/Manifest export)",
-    "libre-ai/gear/supply/cable (packaging when needed)",
+    "libre-ai/context-kit/loader (canonical ingestion)",
+    "libre-ai/context-kit/memory (source refs/provenance)",
+    "libre-ai/artifact-supply/depot (ArtifactRef/Manifest export)",
+    "libre-ai/artifact-supply/cable (packaging when needed)",
     "libre-ai/proof-kit evidence (+ db-inspect for SQL)",
     "libre-ai/agent-factory planning-only handoff with evidence refs",
     "product explanation/publication"
@@ -169,7 +169,7 @@
   "specialized_adapters": [
     {
       "class": "document-parser",
-      "owner": "libre-ai/gear/context/loader",
+      "owner": "libre-ai/context-kit/loader",
       "isolation": "process",
       "fail_closed": true,
       "adr": "ADR 0038"

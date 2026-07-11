@@ -94,6 +94,14 @@
       ],
       "strict_up_to_date": true
     },
+    "libre-ai/context-kit": {
+      "required_checks": ["Context workspace", "Context supply chain"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/artifact-supply": {
+      "required_checks": ["Artifact Supply workspace", "Artifact Supply chain"],
+      "strict_up_to_date": true
+    },
     "libre-ai/gear": {
       "required_checks": ["Context workspace", "Supply workspace", "Context supply chain", "Supply supply chain", "Context / Supply isolation"],
       "strict_up_to_date": true

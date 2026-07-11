@@ -29,11 +29,13 @@ The infrastructure repositories are independently testable and communicate throu
 | [Client Kit](https://github.com/libre-ai/client-kit) | Client primitives, adapters, token compilation and templates | Product workflows or artifact distribution |
 | [Agent Factory](https://github.com/libre-ai/agent-factory) | Bounded planning, orchestration and execution gates | Product UX, storage or inspection truth |
 | [Proof Kit](https://github.com/libre-ai/proof-kit) | Reproducible non-formal inspection evidence | Runtime ownership or product decisions |
-| [Gear](https://github.com/libre-ai/gear) | Context, ingestion, artifacts and supply/distribution | Product semantics or orchestration |
+| [Context Kit](https://github.com/libre-ai/context-kit) | Ingestion, source references, local memory and context provenance | Product semantics or artifact distribution |
+| [Artifact Supply](https://github.com/libre-ai/artifact-supply) | Manifests, packaging, provenance and deterministic distribution | Release decisions or source ingestion |
+| [Gear Compatibility](https://github.com/libre-ai/gear) | Full pre-split history during consumer migration | New feature ownership |
 
 ## Governance entry points
 
-- [`ecosystem/governance/repo-profiles.json`](ecosystem/governance/repo-profiles.json) — public names, canonical URLs, maturity and required checks for all 13 public repositories.
+- [`ecosystem/governance/repo-profiles.json`](ecosystem/governance/repo-profiles.json) — public names, canonical URLs, maturity and required checks for all 16 public repositories.
 - [`ecosystem/governance/branch-policy.json`](ecosystem/governance/branch-policy.json) — branch rules and required checks for the governed repositories.
 - [`ecosystem/status.md`](ecosystem/status.md) — current migration and verification status.
 - [`ecosystem/target-version.md`](ecosystem/target-version.md) — accepted architecture target and compatibility rules.
