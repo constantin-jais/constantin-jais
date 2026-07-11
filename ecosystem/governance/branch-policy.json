@@ -26,7 +26,7 @@
       "strict_up_to_date": true
     },
     "libre-ai/feed-radar": {
-      "required_checks": ["Rust quality gates", "Rust supply-chain gates", "License file presence", "CuratedItemExport contract"],
+      "required_checks": ["Rust quality gates", "Rust supply-chain gates", "License file presence", "CuratedItemExport contract", "Database inspection gate"],
       "strict_up_to_date": true
     },
     "libre-ai/spec-studio": {
