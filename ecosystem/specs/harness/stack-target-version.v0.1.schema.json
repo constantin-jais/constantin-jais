@@ -12,6 +12,7 @@
     "ratified_by",
     "layers",
     "web_shell",
+    "design_system",
     "native_delivery",
     "desktop",
     "static_publication",
@@ -75,6 +76,22 @@
         "crates_io_follow_up": { "type": "string" },
         "adr": { "type": "string" },
         "first_application": { "type": "string" }
+      }
+    },
+    "design_system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "source", "compiler", "palette", "typography", "distribution", "exceptions", "adr"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "source": { "type": "string" },
+        "compiler": { "type": "string" },
+        "palette": { "type": "string" },
+        "typography": { "type": "string" },
+        "distribution": { "type": "string" },
+        "exceptions": { "type": "string" },
+        "adr": { "type": "string" }
       }
     },
     "native_delivery": { "type": "string" },

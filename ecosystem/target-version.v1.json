@@ -1,13 +1,14 @@
 {
   "format": "stack.target_version.v0.1",
-  "version": "1.1.0",
-  "ratified_at": "2026-07-03T12:00:00+02:00",
+  "version": "2.0.0",
+  "ratified_at": "2026-07-10T20:00:00+02:00",
   "ratified_by": [
     "ADR 0032 (web shell: Dioxus 0.7.9)",
     "ADR 0033 (layer model: domain prefixes + deployment classes)",
     "ADR 0028 (workspace/identity ownership, amended)",
     "ADR 0029 (ai-practices/lm boundary, with acceptance addendum)",
-    "architecture-alignment-2026-07 arbitration DA-1..DA-12"
+    "architecture-alignment-2026-07 arbitration DA-1..DA-12",
+    "ADR 0037 (Libre IA Design System 2.0 stack-wide visual contract)"
   ],
   "layers": [
     {
@@ -55,6 +56,17 @@
     "crates_io_follow_up": "un-pin to a semver range when a real (non-0.0.0) release exists on crates.io (lab friction F-006)",
     "adr": "ADR 0036",
     "first_application": "rumble-ai-practices"
+  },
+  "design_system": {
+    "name": "Libre IA Design System",
+    "version": "2.0.0",
+    "source": "libre-ia.fr/tokens/tokens.json",
+    "compiler": "portal-forge",
+    "palette": "black, white, neutral grays and Vert Libre #22C55E as the only accent",
+    "typography": "self-hosted Inter and Plus Jakarta Sans",
+    "distribution": "generated CSS, Swift and Kotlin with SHA-256 manifest; no runtime network fetch",
+    "exceptions": "raw benchmark evidence stays immutable; CLI-only repositories have no visual surface",
+    "adr": "ADR 0037"
   },
   "native_delivery": "portal + UniFFI (SwiftUI / Jetpack Compose shells); portal-apple frozen at proven-bridge tag, portal-android frozen pending SDK/NDK-verifiable CI",
   "desktop": "deferred - next spike, demand-driven (ADR 0032 s4; the Tauri-2 choice was Leptos-coupled and is re-opened)",
