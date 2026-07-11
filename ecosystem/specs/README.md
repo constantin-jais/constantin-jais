@@ -37,7 +37,7 @@ The goal is not to write static documentation or rank products by business poten
 
 Every product spec must identify when a need is product-specific and when it should become a shared capability.
 
-Do not copy shared primitive definitions into each Rumble spec. Link to the shared contract/registry and document only the product-specific instantiation, constraints, and open questions.
+Do not copy shared primitive definitions into each product spec. Link to the shared contract/registry and document only the product-specific instantiation, constraints, and open questions.
 
 `constantin-jais/ecosystem/specs/` is the canonical ecosystem specification root. Do not create or edit a parallel root-level `Documents/specs/` tree; use repository-local `docs/` only for local usage, ADRs, runbooks, implementation notes, and commands.
 
@@ -52,7 +52,8 @@ Shared contracts and release runbooks include:
 - `shared/runbooks/ios-appstore-release.md`
 - `harness/stack-project-maturity.v0.1.schema.json`
 - `harness/04-stack-validation-tooling.md`
-- `harness/stack-target-version.v0.1.schema.json`
+- `harness/stack-target-version.v0.2.schema.json` (current)
+- `harness/stack-target-version.v0.1.schema.json` (retained compatibility schema)
 
 Session doctrine, decisions, and unresolved questions are logged in:
 

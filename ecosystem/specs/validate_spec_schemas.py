@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -259,13 +260,13 @@ def validate_suite(suite: Suite) -> tuple[int, int]:
 # (single canonical instances living outside ecosystem/specs/).
 STANDALONE = [
     (
-        SPECS / "harness" / "stack-target-version.v0.1.schema.json",
+        SPECS / "harness" / "stack-target-version.v0.2.schema.json",
         ROOT / "ecosystem" / "target-version.v1.json",
     ),
 ]
 
 
-def validate_standalone(schema_path: Path, document: Path) -> None:
+def validate_standalone(schema_path: Path, document: Path) -> int:
     schema_obj = load_json(schema_path)
     jsonschema.Draft202012Validator.check_schema(schema_obj)
     validator = jsonschema.Draft202012Validator(schema_obj)
@@ -280,6 +281,27 @@ def validate_standalone(schema_path: Path, document: Path) -> None:
         raise AssertionError(f"standalone: {document.relative_to(ROOT)} contains an unsafe key")
     print(f"PASS schema standalone: {document.relative_to(ROOT)}")
 
+    negative = 0
+    required_cases = [([], field) for field in schema_obj.get("required", [])]
+    authorization_schema = schema_obj.get("properties", {}).get("authorization", {})
+    required_cases.extend(
+        (["authorization"], field) for field in authorization_schema.get("required", [])
+    )
+    for parent_path, field in required_cases:
+        mutated = deepcopy(obj)
+        parent = mutated
+        for segment in parent_path:
+            parent = parent[segment]
+        parent.pop(field)
+        if not any(validator.iter_errors(mutated)):
+            location = ".".join([*parent_path, field])
+            raise AssertionError(
+                f"standalone: deleting required field {location} unexpectedly passed"
+            )
+        negative += 1
+    print(f"PASS negative(required fields) standalone: {negative} removals refused")
+    return negative
+
 
 def main() -> int:
     total_passed = 0
@@ -289,7 +311,7 @@ def main() -> int:
         total_passed += passed
         total_negative += negative
     for schema_path, document in STANDALONE:
-        validate_standalone(schema_path, document)
+        total_negative += validate_standalone(schema_path, document)
         total_passed += 1
     print(f"OK: {total_passed} positive fixtures and {total_negative} negative fixtures validated.")
     return 0
