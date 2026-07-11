@@ -26,11 +26,13 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/boussole-politique` | autonomous civic product | keep | profile, local-first boundary, Rust contracts and deterministic assets |
 | `libre-ai/ai-practices` | product dojo | keep | profile, visual and protected quality gates |
 | `libre-ai/benchmarks` | evidence | keep | profile, visual and published Pages artifact |
-| `libre-ai/dioxus-app-template` | generated distribution | keep | Portal mirror check and deployed Pages smoke |
+| `libre-ai/dioxus-app-template` | generated distribution | keep | Client Kit mirror check and deployed Pages smoke |
 | `libre-ai/client-kit` | infrastructure | keep canonical | renamed with redirect; four imported histories, adapters, forge and template |
 | `libre-ai/agent-factory` | infrastructure | keep canonical | renamed with redirect; engine/harness histories and boundary checks |
 | `libre-ai/proof-kit` | infrastructure | keep canonical | renamed with redirect; inspectors/lab histories and evidence checks |
-| `libre-ai/gear` | infrastructure | keep canonical | Context/Supply histories and workspace isolation |
+| `libre-ai/context-kit` | infrastructure | keep canonical | `context/` path history, independent workspace and supply-chain CI |
+| `libre-ai/artifact-supply` | infrastructure | keep canonical | `supply/` path history, independent workspace and supply-chain CI |
+| `libre-ai/gear` | compatibility infrastructure | retain during migration | full pre-split history and old paths; no new feature ownership |
 
 Every row above has an entry in both the public repository profile catalogue and branch policy. The profile validator rejects private visibility, duplicate slugs, non-canonical URLs and profile/policy drift.
 
@@ -43,7 +45,7 @@ ADR 0045 ratifies these serial changes; a row remains `planned` until live metad
 | `libre-ai/portal` | `libre-ai/client-kit` | complete | GitHub redirect verified; crate/schema identifiers unchanged |
 | `libre-ai/bolt` | `libre-ai/agent-factory` | complete | GitHub redirect verified; engine/binary/contract identifiers unchanged |
 | `libre-ai/wrench` | `libre-ai/proof-kit` | complete | repository/release redirects verified; Pages moved to `/proof-kit/`; qualified release/archive names unchanged |
-| `libre-ai/gear` | `libre-ai/context-kit` + `libre-ai/artifact-supply` | planned split | path-history extraction; full-history Gear retained as archived compatibility repository |
+| `libre-ai/gear` | `libre-ai/context-kit` + `libre-ai/artifact-supply` | extracted; consumer migration active | path histories and independent CI verified; full-history Gear retained until zero consumers, then archived |
 | `constantin-jais/constantin-jais` | `libre-ai/ecosystem` | blocked | GitHub Support privacy gate remains mandatory |
 
 ## Superseded source repositories
@@ -53,7 +55,7 @@ ADR 0045 ratifies these serial changes; a row remains `planned` until live metad
 | Portal sources (4) | archived | complete — histories, checks and consumers verified in `libre-ai/client-kit` |
 | Bolt sources (2) | migration freeze | release/manual workflow continuity from `libre-ai/agent-factory` |
 | Wrench sources (3) | retired or archived | release and evidence-Pages continuity moved to `libre-ai/proof-kit` |
-| Gear sources (4) | migration freeze | package/release continuity from isolated Gear workspaces |
+| Gear sources (4) | deleted after verified bundles; no published releases | active code and path history preserved in Gear, Context Kit and Artifact Supply |
 
 A migration freeze permits security remediation only. It does not permit feature work or divergent documentation.
 
