@@ -91,6 +91,7 @@ jobs:
           import sys
           import urllib.error
           import urllib.request
+          import time
 
           owner = "constantin-jais"
           token = os.environ.get("GITHUB_TOKEN", "")
@@ -147,15 +148,29 @@ jobs:
               req.add_header("User-Agent", "constantin-jais-ecosystem-health")
               if token:
                   req.add_header("Authorization", f"Bearer {token}")
-              try:
-                  with urllib.request.urlopen(req, timeout=20) as response:
-                      if response.status == 204:
-                          return None
-                      body = response.read().decode("utf-8")
-                      return json.loads(body) if body else None
-              except urllib.error.HTTPError as exc:
-                  detail = exc.read().decode("utf-8", errors="replace")
-                  raise RuntimeError(f"{url} -> HTTP {exc.code}: {detail}") from exc
+              for attempt in range(4):
+                  try:
+                      with urllib.request.urlopen(req, timeout=20) as response:
+                          if response.status == 204:
+                              return None
+                          body = response.read().decode("utf-8")
+                          return json.loads(body) if body else None
+                  except urllib.error.HTTPError as exc:
+                      detail = exc.read().decode("utf-8", errors="replace")
+                      if exc.code >= 500 and attempt < 3:
+                          delay = 2**attempt
+                          print(f"::warning::{url} returned HTTP {exc.code}; retrying in {delay}s")
+                          time.sleep(delay)
+                          continue
+                      raise RuntimeError(f"{url} -> HTTP {exc.code}: {detail}") from exc
+                  except urllib.error.URLError as exc:
+                      if attempt < 3:
+                          delay = 2**attempt
+                          print(f"::warning::{url} network error; retrying in {delay}s")
+                          time.sleep(delay)
+                          continue
+                      raise RuntimeError(f"{url} -> network error: {exc.reason}") from exc
+              raise AssertionError("unreachable")
 
           failures = []
 
@@ -199,6 +214,7 @@ jobs:
           import sys
           import urllib.error
           import urllib.request
+          import time
 
           owner = "constantin-jais"
           token = os.environ["ECOSYSTEM_HEALTH_ADMIN_TOKEN"]
@@ -226,15 +242,29 @@ jobs:
               req.add_header("Accept", "application/vnd.github+json")
               req.add_header("User-Agent", "constantin-jais-ecosystem-health-admin")
               req.add_header("Authorization", f"Bearer {token}")
-              try:
-                  with urllib.request.urlopen(req, timeout=20) as response:
-                      if response.status == 204:
-                          return None
-                      body = response.read().decode("utf-8")
-                      return json.loads(body) if body else None
-              except urllib.error.HTTPError as exc:
-                  detail = exc.read().decode("utf-8", errors="replace")
-                  raise RuntimeError(f"{url} -> HTTP {exc.code}: {detail}") from exc
+              for attempt in range(4):
+                  try:
+                      with urllib.request.urlopen(req, timeout=20) as response:
+                          if response.status == 204:
+                              return None
+                          body = response.read().decode("utf-8")
+                          return json.loads(body) if body else None
+                  except urllib.error.HTTPError as exc:
+                      detail = exc.read().decode("utf-8", errors="replace")
+                      if exc.code >= 500 and attempt < 3:
+                          delay = 2**attempt
+                          print(f"::warning::{url} returned HTTP {exc.code}; retrying in {delay}s")
+                          time.sleep(delay)
+                          continue
+                      raise RuntimeError(f"{url} -> HTTP {exc.code}: {detail}") from exc
+                  except urllib.error.URLError as exc:
+                      if attempt < 3:
+                          delay = 2**attempt
+                          print(f"::warning::{url} network error; retrying in {delay}s")
+                          time.sleep(delay)
+                          continue
+                      raise RuntimeError(f"{url} -> network error: {exc.reason}") from exc
+              raise AssertionError("unreachable")
 
           failures = []
 
