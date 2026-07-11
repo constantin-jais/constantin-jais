@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "ruleset_name": "ecosystem-standard",
   "defaults": {
     "target_branch": "main",
@@ -17,175 +17,78 @@
     }
   },
   "repos": {
-    "constantin-jais/rumble-ai-practices": {
+    "libre-ai/website": {
+      "required_checks": ["quality", "e2e", "npm supply-chain gates", "Playwright product smoke"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/sessions": {
+      "required_checks": ["Rust quality gates", "Repository guardrails", "Integration + coverage", "Rust supply-chain gates"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/feed-radar": {
+      "required_checks": ["Rust quality gates", "Rust supply-chain gates", "License file presence", "CuratedItemExport contract"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/spec-studio": {
+      "required_checks": ["Rust quality gates", "Repository hygiene"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/agent-board": {
+      "required_checks": ["Repository hygiene"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/notebook": {
+      "required_checks": ["Repository hygiene"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/ai-practices": {
+      "required_checks": ["Rust quality gates", "Repository hygiene"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/benchmarks": {
+      "required_checks": ["claude-fable-5", "codex-5-5"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/dioxus-app-template": {
+      "required_checks": ["quality", "e2e", "Portal mirror parity"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/portal": {
       "required_checks": [
-        "Rust quality gates",
-        "Repository hygiene"
+        "core Rust gates",
+        "forge Rust gates",
+        "Canonical Dioxus template",
+        "Canonical template browser gates",
+        "Apple adapter over in-repository core",
+        "Android adapter over in-repository core",
+        "core supply chain",
+        "forge supply chain",
+        "template supply chain"
       ],
       "strict_up_to_date": true
     },
-    "constantin-jais/rumble-canvas": {
+    "libre-ai/bolt": {
+      "required_checks": ["Engine quality gates", "Engine supply chain", "Harness boundary and negative fixtures"],
+      "strict_up_to_date": true
+    },
+    "libre-ai/wrench": {
       "required_checks": [
-        "Rust quality gates",
-        "Repository hygiene"
+        "General inspection CLI",
+        "Database inspection CLI",
+        "Dioxus evidence lab",
+        "inspect supply chain",
+        "database supply chain",
+        "dioxus-lab supply chain"
       ],
       "strict_up_to_date": true
     },
-    "constantin-jais/rumble-libre-ia": {
-      "required_checks": [
-        "quality",
-        "e2e",
-        "npm supply-chain gates",
-        "Playwright product smoke"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/rumble-crew": {
-      "required_checks": [
-        "Repository hygiene"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/rumble-feed-mind": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates",
-        "License file presence",
-        "CuratedItemExport contract"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/rumble-lm": {
-      "required_checks": [
-        "Rust quality gates",
-        "Repository guardrails",
-        "Integration + coverage",
-        "Rust supply-chain gates"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/portal-core": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/portal-forge": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/portal-apple": {
-      "required_checks": [
-        "Swift package over Rust core",
-        "Security smoke"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/portal-android": {
-      "required_checks": [
-        "Android library over Rust core",
-        "Security smoke"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/bolt-cos-matic": {
-      "required_checks": [
-        "Rust quality gates",
-        "Coverage floor",
-        "Rust supply-chain gates",
-        "Canvas handoff contract smoke",
-        "Dogfood drift gate"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/bolt-harness": {
-      "required_checks": [
-        "Harness hygiene"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/wrench-db-inspect": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/wrench-inspect": {
-      "required_checks": [
-        "Rust quality gates"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/gear-cable": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates",
-        "Release manifest and plan contracts"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/gear-depot": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates",
-        "Artifact manifest contracts"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/gear-loader": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates",
-        "Canonical ingestion fixtures"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/gear-memory": {
-      "required_checks": [
-        "Rust quality gates",
-        "Rust supply-chain gates",
-        "Memory and provenance bundle contracts"
-      ],
+    "libre-ai/gear": {
+      "required_checks": ["Context workspace", "Supply workspace", "Context supply chain", "Supply supply chain", "Context / Supply isolation"],
       "strict_up_to_date": true
     },
     "constantin-jais/constantin-jais": {
       "ruleset_name": "forge-standard",
-      "required_checks": [
-        "Stack workflow conventions",
-        "json-schema-fixtures"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/wrench-dioxus-lab": {
-      "required_checks": [
-        "quality",
-        "e2e"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/rumble-note": {
-      "required_checks": [
-        "Repository hygiene"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/dioxus-app-template": {
-      "required_checks": [
-        "quality",
-        "e2e"
-      ],
-      "strict_up_to_date": true
-    },
-    "constantin-jais/rumble-ai-benchmark": {
-      "required_checks": [
-        "claude-fable-5",
-        "codex-5-5"
-      ],
+      "required_checks": ["Stack workflow conventions", "json-schema-fixtures"],
       "strict_up_to_date": true
     }
   }

@@ -36,6 +36,8 @@ jobs:
           python-version: "3.12"
       - name: Unit tests (pure policy core)
         run: python3 -m unittest discover ecosystem/governance -v
+      - name: Public repository profiles are coherent
+        run: python3 ecosystem/governance/validate_repo_profiles.py
       - name: Policy file is valid against the engine
         run: |
           python3 - <<'EOF'

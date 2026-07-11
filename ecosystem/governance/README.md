@@ -26,7 +26,8 @@ python3 ecosystem/governance/ecosystem_policy.py check            # all repos, e
 python3 ecosystem/governance/ecosystem_policy.py check --repo constantin-jais/constantin-jais
 python3 ecosystem/governance/ecosystem_policy.py apply            # converge + post-verify
 python3 ecosystem/governance/ecosystem_policy.py dump --repo OWNER/NAME   # onboarding aid
-python3 -m unittest discover ecosystem/governance             # unit tests (pure core)
+python3 ecosystem/governance/validate_repo_profiles.py         # public metadata + policy coherence
+python3 -m unittest discover ecosystem/governance              # unit tests (pure core)
 ```
 
 ## Bootstrap (one-time, human)
@@ -66,12 +67,14 @@ the weekly drift check fails loudly when the token dies.
    The state lands in the run log of the `Dump live state (onboarding)` job
    (readable with `gh run view <id> --log`). Paste it in the PR description.
 
-2. Add its entry under `repos` in `branch-policy.json`, declaring its
+2. For a public repository, add the matching entry to `repo-profiles.json`.
+   Private repository names and metadata do not belong in that catalogue.
+3. Add its entry under `repos` in `branch-policy.json`, declaring its
    `required_checks` (the CI contexts that must stay green). Make sure those
    workflows run on every pull request (no `paths:` filter on the
    `pull_request` trigger — use an in-job no-op guard instead, see
    `.github/workflows/ecosystem-health.yml` for the pattern).
-3. Open the PR; merging it applies the policy to the repo.
+4. Run `validate_repo_profiles.py`, then open the PR; merging it applies the policy to the repo.
 
 A repo listed without `required_checks` gates on nothing but the
 pull-request rule — the check mode warns about it until its CI contexts are
