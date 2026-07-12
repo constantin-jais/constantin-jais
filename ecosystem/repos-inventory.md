@@ -29,7 +29,7 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/dioxus-app-template` | generated distribution | keep | Client Kit mirror check and deployed Pages smoke |
 | `libre-ai/client-kit` | infrastructure | keep canonical | renamed with redirect; four imported histories, adapters, forge and template |
 | `libre-ai/agent-factory` | infrastructure | keep canonical | renamed with redirect; engine/harness histories, boundary checks and installable `engine-v0.1.0-alpha.6` release |
-| `libre-ai/proof-kit` | infrastructure | keep canonical | renamed with redirect; inspectors/lab histories and evidence checks |
+| `libre-ai/proof-kit` | infrastructure | keep canonical | renamed with redirect; inspectors/lab histories, evidence checks and corrected installable `db-inspect-v0.1.0-alpha.7` release |
 | `libre-ai/context-kit` | infrastructure | keep canonical | `context/` path history, independent workspace and supply-chain CI |
 | `libre-ai/artifact-supply` | infrastructure | keep canonical | `supply/` path history, independent workspace and supply-chain CI |
 | `libre-ai/gear` | compatibility infrastructure | archived | full pre-split history and old paths; zero active consumers and no new feature ownership |
@@ -61,7 +61,7 @@ A migration freeze permits security remediation only. It does not permit feature
 
 ## Control plane
 
-The control plane remains in its current namespace while GitHub Support processes inaccessible pull-request refs left by the privacy history rewrite. Transfer is allowed only after:
+The control plane remains in its current namespace. A fresh 2026-07-12 mirror audit confirms that 152 changed pre-rewrite commits remain reachable from GitHub pull-request refs, while zero remain reachable from public branches or tags. Transfer is allowed only after:
 
 1. Support confirms cache and hidden-ref cleanup;
 2. a fresh public-history privacy scan passes;

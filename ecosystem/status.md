@@ -8,31 +8,35 @@ This cockpit reports the public topology and migration state. Canonical reposito
 
 | Repository | Domain | Maturity | Current evidence |
 | --- | --- | --- | --- |
-| `website` | institutional | `usable` | Dioxus publication, CI and browser smoke |
-| `sessions` | product | `contract-first` | contracts and guarded Rust workspace |
-| `feed-radar` | product | `dojo` | executable curation pipeline and contracts |
-| `spec-studio` | product | `contract-first` | specification and handoff contracts |
+| `website` | institutional | `usable` | nine-product catalogue, five infrastructure boundaries, CI and multi-browser smoke |
+| `sessions` | product | `contract-first` | contracts, guarded Rust workspace and canonical Context Kit dependency |
+| `feed-radar` | product | `dojo` | executable curation pipeline, contracts and checksummed Proof Kit DB gate |
+| `spec-studio` | product | `contract-first` | specification and explicit handoff contracts |
 | `agent-board` | product | `specification` | product charter and roadmap; no availability claim |
 | `notebook` | product | `specification` | product charter and roadmap; no availability claim |
-| `ai-practices` | product | `dojo` | executable training surface under active hardening |
+| `boussole-politique` | autonomous civic product | `contract-first` | local-first boundary, Rust contracts, deterministic assets and portable dry-run |
+| `ai-practices` | product dojo | `dojo` | executable training surface and checksummed Proof Kit DB gate |
 | `benchmarks` | evidence | `recurring` | published versioned comparison evidence |
-| `dioxus-app-template` | distribution | `usable` | deterministic Portal mirror and deployed Pages smoke |
-| `portal` | infrastructure | `consolidated` | four full histories, adapters and canonical template |
-| `bolt` | infrastructure | `consolidated` | engine and harness histories with boundary gates |
-| `wrench` | infrastructure | `consolidated` | inspectors and evidence lab histories |
-| `gear` | infrastructure | `consolidated` | isolated Context and Supply workspaces |
+| `dioxus-app-template` | generated distribution | `usable` | deterministic Client Kit mirror and deployed Pages smoke |
+| `client-kit` | infrastructure | `consolidated` | four imported histories, adapters, Forge and canonical template |
+| `agent-factory` | infrastructure | `consolidated` | engine and harness histories, boundary gates and installable Engine alpha.6 |
+| `proof-kit` | infrastructure | `consolidated` | inspectors, evidence lab and corrected DB Inspect alpha.7 release |
+| `context-kit` | infrastructure | `consolidated` | extracted context history, isolated workspace and supply-chain CI |
+| `artifact-supply` | infrastructure | `consolidated` | extracted supply history, isolated workspace and supply-chain CI |
+| `gear` | compatibility infrastructure | `retired` | archived full history, migration guide and zero active consumers |
 
-`consolidated` describes repository topology, not production readiness.
+Policy is the ninth catalogue product but its source remains private, so it has no public repository profile. `consolidated` describes repository topology, not production readiness.
 
 Dioxus is the preferred application stack across web, fullstack, desktop and mobile. Only the bounded web/SSG path is evidence-backed today; desktop, Android and iOS remain experimental under [`specs/shared/dioxus-target-evidence.md`](specs/shared/dioxus-target-evidence.md).
 
 ## Migration state
 
-- The 13 public target repositories have canonical URLs, repository profiles, branch policy, accessible cards and green protected checks.
-- Four superseded Portal repositories are archived after history and CI continuity checks.
-- Nine superseded Bolt, Wrench and Gear source repositories remain in migration freeze until release and Pages continuity is proven from their consolidated targets. They must not receive feature work.
-- The control plane remains in its current namespace until GitHub Support removes inaccessible pull-request refs from the rewritten history.
-- Public distributable metadata uses a versioned Design System URN and an immutable `portal/forge` builder revision; no private repository URL is published.
+- Sixteen public repository profiles are governed: fifteen active repositories plus the archived Gear compatibility repository.
+- Client Kit, Agent Factory and Proof Kit are the canonical renamed repositories; their imported histories, redirects, protected checks and active consumers are verified.
+- The Gear split is complete: consumers use Context Kit or Artifact Supply, and Gear is archived after a zero-consumer scan and verified final bundle.
+- Agent Factory Engine alpha.6 and Proof Kit DB Inspect alpha.7 provide installable multi-platform releases with checksums, SBOM, provenance and attestations. DB Inspect alpha.7 corrects stale tool-version metadata in alpha.4–alpha.6; historical assets remain immutable.
+- A fresh 2026-07-12 mirror audit found zero changed pre-rewrite commits reachable from public branches or tags, but 152 remain reachable from GitHub pull-request refs. The control plane therefore remains in its current namespace until GitHub Support confirms hidden-ref and cache cleanup.
+- Public distributable metadata uses a versioned Design System URN and immutable canonical builder revisions; no private repository URL is published.
 - Automated dependency updates are reviewed separately from migration work and are never merged without their repository gates.
 
 ## Maturity vocabulary
