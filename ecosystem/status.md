@@ -20,14 +20,14 @@ This cockpit reports the public topology and migration state. Canonical reposito
 | `dioxus-app-template` | generated distribution | `usable` | deterministic Client Kit mirror and deployed Pages smoke |
 | `client-kit` | infrastructure | `consolidated` | four imported histories, adapters, Forge and canonical template |
 | `agent-factory` | infrastructure | `consolidated` | engine and harness histories, boundary gates and installable Engine alpha.6 |
-| `proof-kit` | infrastructure | `consolidated` | inspectors, evidence lab and corrected DB Inspect alpha.7 release |
+| `proof-kit` | infrastructure | `consolidated` | inspectors, healthy `/proof-kit/` Pages, bounded macOS runtime bootstrap evidence and corrected DB Inspect alpha.7 release |
 | `context-kit` | infrastructure | `consolidated` | extracted context history, isolated workspace and supply-chain CI |
 | `artifact-supply` | infrastructure | `consolidated` | extracted supply history, isolated workspace and supply-chain CI |
 | `gear` | compatibility infrastructure | `retired` | archived full history, migration guide and zero active consumers |
 
 Policy is the ninth catalogue product but its source remains private, so it has no public repository profile. `consolidated` describes repository topology, not production readiness.
 
-Dioxus is the preferred application stack across web, fullstack, desktop and mobile. Only the bounded web/SSG path is evidence-backed today; desktop, Android and iOS remain experimental under [`specs/shared/dioxus-target-evidence.md`](specs/shared/dioxus-target-evidence.md).
+Dioxus is the preferred application stack across web, fullstack, desktop and mobile. Web/SSG has deployed route and asset evidence. A bounded macOS arm64 probe now proves release-process bootstrap and one visible WebView window, but packaging, install, lifecycle, accessibility and rollback remain unproven; desktop, Android and iOS therefore remain experimental under [`specs/shared/dioxus-target-evidence.md`](specs/shared/dioxus-target-evidence.md).
 
 ## Migration state
 
@@ -35,6 +35,7 @@ Dioxus is the preferred application stack across web, fullstack, desktop and mob
 - Client Kit, Agent Factory and Proof Kit are the canonical renamed repositories; their imported histories, redirects, protected checks and active consumers are verified.
 - The Gear split is complete: consumers use Context Kit or Artifact Supply, and Gear is archived after a zero-consumer scan and verified final bundle.
 - Agent Factory Engine alpha.6 and Proof Kit DB Inspect alpha.7 provide installable multi-platform releases with checksums, SBOM, provenance and attestations. DB Inspect alpha.7 corrects stale tool-version metadata in alpha.4–alpha.6; historical assets remain immutable.
+- Proof Kit Pages now builds under its actual `/proof-kit/` project path and deploy-smokes root, JavaScript, CSS, fonts, WASM and the linked `blog/1/` deep route. The retired `/wrench/` asset path is absent from the deployed HTML.
 - A fresh 2026-07-12 mirror audit found zero changed pre-rewrite commits reachable from public branches or tags, but 152 remain reachable from GitHub pull-request refs. The control plane therefore remains in its current namespace until GitHub Support confirms hidden-ref and cache cleanup.
 - Public distributable metadata uses a versioned Design System URN and immutable canonical builder revisions; no private repository URL is published.
 - Twenty active Rust lockfile workspaces pass license/source inspection. Boussole Politique and Spec Studio now run SHA-pinned `cargo-deny` inside protected jobs; the deprecated control-plane prototype is not an active source.

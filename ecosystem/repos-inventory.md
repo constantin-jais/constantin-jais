@@ -29,7 +29,7 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/dioxus-app-template` | generated distribution | keep | Client Kit mirror check and deployed Pages smoke |
 | `libre-ai/client-kit` | infrastructure | keep canonical | renamed with redirect; four imported histories, adapters, forge and template |
 | `libre-ai/agent-factory` | infrastructure | keep canonical | renamed with redirect; engine/harness histories, boundary checks and installable `engine-v0.1.0-alpha.6` release |
-| `libre-ai/proof-kit` | infrastructure | keep canonical | renamed with redirect; inspectors/lab histories, evidence checks and corrected installable `db-inspect-v0.1.0-alpha.7` release |
+| `libre-ai/proof-kit` | infrastructure | keep canonical | renamed with redirect; inspectors/lab histories, healthy `/proof-kit/` Pages, bounded macOS runtime evidence and corrected installable `db-inspect-v0.1.0-alpha.7` release |
 | `libre-ai/context-kit` | infrastructure | keep canonical | `context/` path history, independent workspace and supply-chain CI |
 | `libre-ai/artifact-supply` | infrastructure | keep canonical | `supply/` path history, independent workspace and supply-chain CI |
 | `libre-ai/gear` | compatibility infrastructure | archived | full pre-split history and old paths; zero active consumers and no new feature ownership |
