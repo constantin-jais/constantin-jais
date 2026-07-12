@@ -21,15 +21,15 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/sessions` | product | keep | profile, visual and protected Rust gates |
 | `libre-ai/feed-radar` | product | keep | profile, visual and protected Rust gates |
 | `libre-ai/spec-studio` | product | keep | profile, visual, handoff checks and protected Rust supply-chain gate |
-| `libre-ai/agent-board` | product specification | keep | profile, visual and repository hygiene |
+| `libre-ai/agent-board` | product specification | keep | profile, visual, repository hygiene and REUSE/DCO pilot |
 | `libre-ai/notebook` | product specification | keep | profile, visual and repository hygiene |
-| `libre-ai/boussole-politique` | autonomous civic product | keep | profile, local-first boundary, Rust contracts, supply-chain gate, deterministic assets and portable analytical dry-run |
+| `libre-ai/boussole-politique` | autonomous civic product | keep | local-first contracts, deterministic M1 sensitivity evidence and conditional methodology gate |
 | `libre-ai/ai-practices` | product dojo | keep | profile, visual and protected quality gates |
 | `libre-ai/benchmarks` | evidence | keep | profile, visual and published Pages artifact |
 | `libre-ai/dioxus-app-template` | generated distribution | keep | Client Kit mirror check and deployed Pages smoke |
 | `libre-ai/client-kit` | infrastructure | keep canonical | renamed with redirect; four imported histories, adapters, forge and template |
-| `libre-ai/agent-factory` | infrastructure | keep canonical | renamed with redirect; engine/harness histories, boundary checks and installable `engine-v0.1.0-alpha.6` release |
-| `libre-ai/proof-kit` | infrastructure | keep canonical | renamed with redirect; inspectors/lab histories, healthy `/proof-kit/` Pages, bounded macOS runtime evidence and corrected installable `db-inspect-v0.1.0-alpha.7` release |
+| `libre-ai/agent-factory` | infrastructure | keep canonical | engine/harness histories, Engine alpha.6 and inactive PostgreSQL shared replay candidate |
+| `libre-ai/proof-kit` | infrastructure | keep canonical | healthy Pages, DB Inspect alpha.7 and bounded unsigned macOS bundle evidence |
 | `libre-ai/context-kit` | infrastructure | keep canonical | `context/` path history, independent workspace and supply-chain CI |
 | `libre-ai/artifact-supply` | infrastructure | keep canonical | `supply/` path history, independent workspace and supply-chain CI |
 | `libre-ai/gear` | compatibility infrastructure | archived | full pre-split history and old paths; zero active consumers and no new feature ownership |
