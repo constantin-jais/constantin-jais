@@ -11,10 +11,10 @@ This cockpit reports the public topology and migration state. Canonical reposito
 | `website` | institutional | `usable` | nine-product catalogue, five infrastructure boundaries, CI and multi-browser smoke |
 | `sessions` | product | `contract-first` | contracts, guarded Rust workspace and canonical Context Kit dependency |
 | `feed-radar` | product | `dojo` | executable curation pipeline, contracts and checksummed Proof Kit DB gate |
-| `spec-studio` | product | `contract-first` | specification and explicit handoff contracts |
+| `spec-studio` | product | `contract-first` | specification, explicit handoff contracts and protected Rust supply-chain gate |
 | `agent-board` | product | `specification` | product charter and roadmap; no availability claim |
 | `notebook` | product | `specification` | product charter and roadmap; no availability claim |
-| `boussole-politique` | autonomous civic product | `contract-first` | local-first boundary, Rust contracts, deterministic assets and portable dry-run |
+| `boussole-politique` | autonomous civic product | `contract-first` | local-first boundary, Rust contracts, supply-chain gate, deterministic assets and portable dry-run |
 | `ai-practices` | product dojo | `dojo` | executable training surface and checksummed Proof Kit DB gate |
 | `benchmarks` | evidence | `recurring` | published versioned comparison evidence |
 | `dioxus-app-template` | generated distribution | `usable` | deterministic Client Kit mirror and deployed Pages smoke |
@@ -37,6 +37,8 @@ Dioxus is the preferred application stack across web, fullstack, desktop and mob
 - Agent Factory Engine alpha.6 and Proof Kit DB Inspect alpha.7 provide installable multi-platform releases with checksums, SBOM, provenance and attestations. DB Inspect alpha.7 corrects stale tool-version metadata in alpha.4–alpha.6; historical assets remain immutable.
 - A fresh 2026-07-12 mirror audit found zero changed pre-rewrite commits reachable from public branches or tags, but 152 remain reachable from GitHub pull-request refs. The control plane therefore remains in its current namespace until GitHub Support confirms hidden-ref and cache cleanup.
 - Public distributable metadata uses a versioned Design System URN and immutable canonical builder revisions; no private repository URL is published.
+- Twenty active Rust lockfile workspaces pass license/source inspection. Boussole Politique and Spec Studio now run SHA-pinned `cargo-deny` inside protected jobs; the deprecated control-plane prototype is not an active source.
+- Feed Radar removed `RUSTSEC-2026-0173` by updating `validator_derive` to 0.20.1. Agent Factory and Sessions retain the waiver because `biscuit-auth 6.0.0` still fails to compile without its affected macro feature.
 - Automated dependency updates are reviewed separately from migration work and are never merged without their repository gates.
 
 ## Maturity vocabulary

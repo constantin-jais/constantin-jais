@@ -20,10 +20,10 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/website` | institutional | keep | profile, visual, Dioxus CI and browser smoke |
 | `libre-ai/sessions` | product | keep | profile, visual and protected Rust gates |
 | `libre-ai/feed-radar` | product | keep | profile, visual and protected Rust gates |
-| `libre-ai/spec-studio` | product | keep | profile, visual and handoff checks |
+| `libre-ai/spec-studio` | product | keep | profile, visual, handoff checks and protected Rust supply-chain gate |
 | `libre-ai/agent-board` | product specification | keep | profile, visual and repository hygiene |
 | `libre-ai/notebook` | product specification | keep | profile, visual and repository hygiene |
-| `libre-ai/boussole-politique` | autonomous civic product | keep | profile, local-first boundary, Rust contracts, deterministic assets and portable analytical dry-run |
+| `libre-ai/boussole-politique` | autonomous civic product | keep | profile, local-first boundary, Rust contracts, supply-chain gate, deterministic assets and portable analytical dry-run |
 | `libre-ai/ai-practices` | product dojo | keep | profile, visual and protected quality gates |
 | `libre-ai/benchmarks` | evidence | keep | profile, visual and published Pages artifact |
 | `libre-ai/dioxus-app-template` | generated distribution | keep | Client Kit mirror check and deployed Pages smoke |
