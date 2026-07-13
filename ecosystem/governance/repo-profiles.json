@@ -250,21 +250,6 @@
       "visual_id": "artifact-supply",
       "historical_identifiers": ["gear-cable", "gear-depot"],
       "required_checks": ["Artifact Supply workspace", "Artifact Supply chain"]
-    },
-    {
-      "schema_version": 1,
-      "slug": "gear",
-      "public_name_fr": "Gear Compatibility",
-      "public_name_en": "Gear Compatibility",
-      "domain": "infrastructure",
-      "maturity": "consolidated",
-      "summary_en": "Archived full-history compatibility repository for the completed Context Kit and Artifact Supply split.",
-      "canonical_url": "https://github.com/libre-ai/gear",
-      "visibility": "public",
-      "license_expression": "MIT",
-      "visual_id": "gear",
-      "historical_identifiers": ["gear-loader", "gear-memory", "gear-cable", "gear-depot"],
-      "required_checks": ["Context workspace", "Supply workspace", "Context supply chain", "Supply supply chain", "Context / Supply isolation"]
     }
   ]
 }

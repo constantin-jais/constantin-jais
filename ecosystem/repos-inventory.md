@@ -32,9 +32,8 @@ This file tracks public topology and disposition. It does not override [`governa
 | `libre-ai/proof-kit` | infrastructure | keep canonical | healthy Pages, DB Inspect alpha.7 and bounded unsigned macOS bundle evidence |
 | `libre-ai/context-kit` | infrastructure | keep canonical | `context/` path history, independent workspace and supply-chain CI |
 | `libre-ai/artifact-supply` | infrastructure | keep canonical | `supply/` path history, independent workspace and supply-chain CI |
-| `libre-ai/gear` | compatibility infrastructure | archived | full pre-split history and old paths; zero active consumers and no new feature ownership |
 
-Every row above has an entry in both the public repository profile catalogue and branch policy. The profile validator rejects private visibility, duplicate slugs, non-canonical URLs and profile/policy drift.
+Every live row above has an entry in both the public repository profile catalogue and branch policy. The deleted Gear compatibility repository remains only in the migration ledger below. The profile validator rejects private visibility, duplicate slugs, non-canonical URLs and profile/policy drift.
 
 ## Ratified topology migration
 
@@ -45,7 +44,7 @@ ADR 0045 ratifies these serial changes; a row remains `planned` until live metad
 | `libre-ai/portal` | `libre-ai/client-kit` | complete | GitHub redirect verified; crate/schema identifiers unchanged |
 | `libre-ai/bolt` | `libre-ai/agent-factory` | complete | GitHub redirect verified; engine/binary/contract identifiers unchanged |
 | `libre-ai/wrench` | `libre-ai/proof-kit` | complete | repository/release redirects verified; Pages moved to `/proof-kit/`; qualified release/archive names unchanged |
-| `libre-ai/gear` | `libre-ai/context-kit` + `libre-ai/artifact-supply` | complete | path histories, independent CI and consumer migration verified; full-history Gear archived at `0c7f35f` |
+| `libre-ai/gear` | `libre-ai/context-kit` + `libre-ai/artifact-supply` | complete, source deleted | path histories, independent CI and consumer migration verified; recovery bundle retained for final Gear revision `0c7f35f` |
 | `constantin-jais/constantin-jais` | `libre-ai/ecosystem` | blocked | GitHub Support privacy gate remains mandatory |
 
 ## Superseded source repositories
@@ -55,7 +54,7 @@ ADR 0045 ratifies these serial changes; a row remains `planned` until live metad
 | Portal sources (4) | archived | complete — histories, checks and consumers verified in `libre-ai/client-kit` |
 | Bolt sources (2) | retired after verified consolidation | engine release continuity restored in `libre-ai/agent-factory`; historical alpha.1–alpha.5 remain source-only |
 | Wrench sources (3) | retired or archived | release and evidence-Pages continuity moved to `libre-ai/proof-kit` |
-| Gear sources (4) | deleted after verified bundles; no published releases | active code and path history preserved in Gear, Context Kit and Artifact Supply |
+| Gear sources (4) and compatibility repository | deleted after verified bundles; no published releases | active code and path history preserved in Context Kit and Artifact Supply; recovery bundle records final compatibility revision |
 
 A migration freeze permits security remediation only. It does not permit feature work or divergent documentation.
 

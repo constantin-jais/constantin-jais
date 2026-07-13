@@ -8,17 +8,18 @@ This repository governs the public Libre AI portfolio: product boundaries, share
 
 Maturity is evidence-based, not aspirational. `contract-first` and `specification` do not mean that a product is available to end users.
 
-| Surface | Responsibility | Maturity |
-| --- | --- | --- |
-| [Libre AI Website](https://github.com/libre-ai/website) | Institutional and educational publication | `usable` |
-| [Sessions](https://github.com/libre-ai/sessions) | Source-grounded learning and facilitation | `contract-first` |
-| [Feed Radar](https://github.com/libre-ai/feed-radar) | Explainable feed-to-knowledge curation | `dojo` |
-| [Spec Studio](https://github.com/libre-ai/spec-studio) | Product conception and specification handoffs | `contract-first` |
-| [Agent Board](https://github.com/libre-ai/agent-board) | Human/agent teamwork and approvals | `specification` |
-| [Notebook](https://github.com/libre-ai/notebook) | Local-first personal knowledge | `specification` |
-| [AI Practices](https://github.com/libre-ai/ai-practices) | Professional AI-practice training | `dojo` |
-| [Benchmarks](https://github.com/libre-ai/benchmarks) | Versioned comparison evidence | `recurring` |
-| [Dioxus App Template](https://github.com/libre-ai/dioxus-app-template) | Generated Portal template distribution | `usable` |
+| Surface | Role | Responsibility | Maturity |
+| --- | --- | --- | --- |
+| [Libre AI Website](https://github.com/libre-ai/website) | gateway | Understand, choose, use and verify the portfolio | `usable` |
+| [Feed Radar](https://github.com/libre-ai/feed-radar) | product | Explainable feed selection and portable curation | `dojo` |
+| [Notebook](https://github.com/libre-ai/notebook) | product | Private local knowledge and controlled context export | `specification` |
+| [AI Practices](https://github.com/libre-ai/ai-practices) | product | Professional AI-practice training | `dojo` |
+| [Sessions](https://github.com/libre-ai/sessions) | product | Source-grounded collective learning and facilitation | `contract-first` |
+| [Boussole Politique](https://github.com/libre-ai/boussole-politique) | product | Private civic comparison against sourced public votes | `contract-first` |
+| [Spec Studio](https://github.com/libre-ai/spec-studio) | product | Product decisions, specifications and bounded handoffs | `contract-first` |
+| [Agent Board](https://github.com/libre-ai/agent-board) | product | Human governance of agentic missions | `specification` |
+| [Benchmarks](https://github.com/libre-ai/benchmarks) | evidence | Versioned comparison evidence | `recurring` |
+| [Dioxus App Template](https://github.com/libre-ai/dioxus-app-template) | distribution | Generated Client Kit template mirror | `usable` |
 
 ## Infrastructure
 
@@ -31,11 +32,11 @@ The infrastructure repositories are independently testable and communicate throu
 | [Proof Kit](https://github.com/libre-ai/proof-kit) | Reproducible non-formal inspection evidence | Runtime ownership or product decisions |
 | [Context Kit](https://github.com/libre-ai/context-kit) | Ingestion, source references, local memory and context provenance | Product semantics or artifact distribution |
 | [Artifact Supply](https://github.com/libre-ai/artifact-supply) | Manifests, packaging, provenance and deterministic distribution | Release decisions or source ingestion |
-| [Gear Compatibility](https://github.com/libre-ai/gear) | Archived full pre-split history and compatibility paths | New feature or release ownership |
 
 ## Governance entry points
 
-- [`ecosystem/governance/repo-profiles.json`](ecosystem/governance/repo-profiles.json) — public names, canonical URLs, maturity and required checks for all 16 public repositories.
+- [`ecosystem/product-portfolio.md`](ecosystem/product-portfolio.md) — challenged vision, boundaries and proof ladder for the seven products.
+- [`ecosystem/governance/repo-profiles.json`](ecosystem/governance/repo-profiles.json) — public names, canonical URLs, maturity and required checks for all 15 active public repositories.
 - [`ecosystem/governance/branch-policy.json`](ecosystem/governance/branch-policy.json) — branch rules and required checks for the governed repositories.
 - [`ecosystem/status.md`](ecosystem/status.md) — current migration and verification status.
 - [`ecosystem/target-version.md`](ecosystem/target-version.md) — accepted architecture target and compatibility rules.

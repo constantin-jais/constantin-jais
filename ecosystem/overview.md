@@ -7,7 +7,7 @@ This document owns stable architecture doctrine for the Libre AI product portfol
 It has four jobs:
 
 1. Define the architectural doctrine and ownership boundaries.
-2. Track product-specification work for each Libre AI solution.
+2. Track product-specification work for each Libre AI solution; the challenged portfolio contract lives in [`product-portfolio.md`](product-portfolio.md).
 3. Log shared capability candidates that may become Portal, Bolt, Wrench, Gear, or shared product contracts.
 4. Keep decisions, open questions, and remaining work visible.
 
@@ -75,15 +75,19 @@ Operational decisions are evaluated in order: **Security > Quality > Performance
 ## Target stack map
 
 ```text
-PRODUCTS — independent user-facing meaning
-├─ website              public education and ecosystem explanations
-├─ sessions             source-grounded learning and live facilitation
-├─ feed-radar           feed/watch curation and explainable rules
-├─ spec-studio          product conception → specs → handoff
-├─ agent-board          human/agent teamwork, approvals and evidence
-├─ notebook             local-first knowledge and context export
-├─ boussole-politique   local-first civic comparison without political labels
+PUBLIC GATEWAY
+└─ website              understand, choose, use and verify the portfolio
+
+PRODUCTS — seven autonomous user-facing capabilities
+├─ feed-radar           explainable selection from feeds
+├─ notebook             private memory and controlled context export
 ├─ ai-practices         professional AI-practice training
+├─ sessions             source-grounded learning and live facilitation
+├─ boussole-politique   local-first civic comparison without political labels
+├─ spec-studio          product conception → decisions → bounded handoff
+└─ agent-board          human governance of agentic missions
+
+EVIDENCE PROGRAM
 └─ benchmarks           versioned comparison evidence
 
 CLIENT KIT — client-platform infrastructure
@@ -197,18 +201,19 @@ Documentation is part of the architecture. To avoid dispersion:
 
 ### 3.1 Products
 
-Each solution owns its experience, workflows, screens and user-facing meaning.
+Each solution owns its experience, workflows, screens and user-facing meaning. Public discovery starts from three intentions — understand and monitor, learn and practise, design and govern — rather than from repository topology. `libre-ai.fr` explains, explicit product subdomains act, and `preuves.libre-ai.fr` verifies; ADR 0046 keeps every product URL inactive until its own public-alpha gate passes.
 
 | Public product | Mission | Hard boundary |
 | --- | --- | --- |
 | `spec-studio` | Product conception: conversation → decisions → specs → implementation-ready handoff. | Not the agent runtime or merely a visual canvas. |
-| `website` | Education, essays, resources and ecosystem explanations. | Not a monolithic CMS or internal workflow backend. |
-| `agent-board` | Human/agent tasks, approvals and evidence. | Not the orchestration brain. |
-| `sessions` | Source-grounded learning, activities and facilitation. | Not a generic chatbot. |
-| `notebook` | Local-first personal knowledge and context export. | Not the ingestion engine or orchestrator. |
-| `feed-radar` | Explainable feed/watch curation and reusable knowledge handoff. | Not a generic reader, ingestion substrate or long-term memory. |
-| `ai-practices` | Professional AI-practice training and scoring. | Not the shared session runtime. |
-| `benchmarks` | Immutable, versioned comparison evidence. | Not a general evaluation service. |
+| `website` | Public gateway for understanding, choosing, using and verifying the portfolio. | Not a media feed, training platform, product runtime or monolithic CMS. |
+| `agent-board` | Human governance of agentic missions, approvals, blockers and outcomes. | Not an agent profile board, orchestration brain or general project manager. |
+| `sessions` | Source-grounded collective learning, activities and facilitation. | Not a generic chatbot, LMS or individual course engine. |
+| `notebook` | Local-first personal knowledge and controlled context export. | Not the ingestion engine, orchestrator or implicit shared memory. |
+| `feed-radar` | Explainable feed selection and portable curated-item export. | Not a generic reader, truth arbiter, ingestion substrate or long-term memory. |
+| `ai-practices` | Professional AI-practice training with non-punitive feedback. | Not HR scoring, certification, a full ML curriculum or the shared session runtime. |
+| `boussole-politique` | Private civic comparison against sourced public votes. | Not a voting recommendation, moral ranking, representative poll or AI showcase. |
+| `benchmarks` | Immutable, versioned comparison evidence. | Evidence program, not an eighth product or general evaluation service. |
 
 ### 3.2 Portal — client platform
 
@@ -501,6 +506,8 @@ Specs should produce testable acceptance criteria:
 ---
 
 ## 5. Product Specification Roadmap
+
+> Historical planning below uses compatibility identifiers. Current product outcomes, proof ladders and dependency order are governed by [`product-portfolio.md`](product-portfolio.md) and current maturity by [`status.md`](status.md); this section must not be read as an availability claim.
 
 ### Status Legend
 

@@ -4,8 +4,8 @@ This file persists the target backlog for the Rumble / Portal / Bolt / Wrench / 
 
 ## Target definition of done
 
-> **MET on 2026-07-09 by `rumble-lm`** (first full traversal, every link CI-gated):
-> Portal tokens wrench-verified in CI · gear-loader real ingestion (contract-validated, hostile-content hardened) · SourceRefs in gear-memory (provenance + irreversible anonymization, pinned git dep) · depot-conformant ArtifactManifest emitted in CI (real sha256) · cable→depot E2E proven byte-identical (gear-cable #11/#12/#13, gear-depot #9) · Wrench evidence gate (lm #66) · planning-only Bolt handoff dry-run-validated by cos-matic, 10/10 gates (lm #69) · explained publicly in the cos corpus (`projets/corpus-dod-traversal`, fact-checked #27).
+> **TECHNICAL TRAVERSAL MET on 2026-07-09 by `sessions`** (first full traversal, every technical link CI-gated):
+> Client Kit tokens inspected in CI · Context Kit real ingestion and source provenance · Artifact Supply manifest and byte-identical packaging evidence · Proof Kit gate · planning-only Agent Factory handoff, 10/10 gates. The former public explanation `projets/corpus-dod-traversal` was intentionally retired during the Website rebuild because its narrative could drift from executable evidence. The technical traversal was replayed locally on 2026-07-13 with current Proof Kit, DB inspection, artifact and Agent Factory gates; its machine reports live in `sessions/docs/evidence/stack-traversal-2026-07-13/`. The target DoD remains reopened until the accompanying report receives human review and is published through Website.
 
 A stack slice is complete when one real Rumble product:
 
@@ -50,6 +50,14 @@ Plans authored against the frozen `target-version` 1.0.0, adversarially verified
 - Keep `rumble-lm-ui` as the Rumble LM local UI crate; shared UI/client-platform ownership remains Portal.
 - Maintain the stack-wide maturity schema `stack.project_maturity.v0.1` and claims in `ecosystem/maturity/stack/`.
 - Keep contract validation green after every rename or schema movement.
+
+## P0a — Public product topology
+
+- Keep `libre-ai.fr` as the only canonical Website origin; treat `libre-ia.fr`, `libreia.fr` and `libreai.fr` as future defensive 301 sources.
+- Keep all seven application hosts and `preuves.libre-ai.fr` without DNS or public URL until their own `public-alpha` gate passes.
+- Publish Website only with human approval and honest `discovery`/`private-alpha` states; never turn a repository maturity label into a launch CTA.
+- Require a canonical app URL, dated evidence URL, complete core journey, export/deletion posture and per-product attestation before public alpha.
+- Preserve explicit DNS, host-only cookies, same-origin product APIs and independent product data stores; reject wildcard routing, shared `.libre-ai.fr` cookies and a global API monolith.
 
 ## P0b — Stack validation and local-only gates
 
