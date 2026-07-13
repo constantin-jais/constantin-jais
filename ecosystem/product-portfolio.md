@@ -240,7 +240,7 @@ Constat du 2026-07-13, fondé sur les README et gates locaux des dépôts :
 
 | Produit | Preuve actuelle | Écart avant parcours public | Verdict de publication |
 | --- | --- | --- | --- |
-| Feed Radar | CLI déterministe, contrat portable, provenance Client Kit et revue Dioxus read-only prouvée sur Chromium/Firefox/WebKit mobile | import/fetch/règles modifiables, erreurs réseau et export utilisateur dans un même parcours | bloqué |
+| Feed Radar | OPML → fetch HTTPS allowlisté et borné → règle explicite → déduplication hash-only → export client-safe → revue Dioxus statique ; preuve locale datée sur Chromium/Firefox/WebKit | import interactif, stockage durable/scheduler, sandbox réseau hébergée, URL canonique et preuve publique revue | bloqué — reste `discovery` |
 | Notebook | frontières, sécurité et roadmap | aucun runtime de capture, lecture ou export | bloqué |
 | AI Practices | API/PWA, `activity.v1`, trois activités draft, outcome local sans score automatique et 78 tests avec PostgreSQL jetable | 0 contenu `approved`; parcours éditorialement publiable absent | bloqué |
 | Sessions | contrats, runtime partiel et traversée Proof Kit/DB/artefact/Agent Factory rejouée localement | session utilisateur réelle, rôle PostgreSQL cible, fournisseur et opérations de production | bloqué |

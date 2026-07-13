@@ -57,6 +57,7 @@ Plans authored against the frozen `target-version` 1.0.0, adversarially verified
 - Keep all seven application hosts and `preuves.libre-ai.fr` without DNS or public URL until their own `public-alpha` gate passes.
 - Publish Website only with human approval and honest `discovery`/`private-alpha` states; never turn a repository maturity label into a launch CTA.
 - Require a canonical app URL, dated evidence URL, complete core journey, export/deletion posture and per-product attestation before public alpha.
+- Keep Radar in `discovery` despite its dated live local traversal until import is user-facing, hosted fetch is network-sandboxed, durable replay/retention is specified and public evidence is reviewed.
 - Preserve explicit DNS, host-only cookies, same-origin product APIs and independent product data stores; reject wildcard routing, shared `.libre-ai.fr` cookies and a global API monolith.
 
 ## P0b — Stack validation and local-only gates
