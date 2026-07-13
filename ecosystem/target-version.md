@@ -1,7 +1,7 @@
 # Target Version — accepted full target of the ecosystem stack
 
 Version: 2.1.0 · Ratified: 2026-07-11 · Machine version: [`target-version.v1.json`](target-version.v1.json) (validated against [`specs/harness/stack-target-version.v0.2.schema.json`](specs/harness/stack-target-version.v0.2.schema.json) by the spec-contracts gate)
-Ratified by: ADR 0028, ADR 0029, ADR 0032, ADR 0033, ADR 0037 and ADR 0038–0044.
+Ratified by: ADR 0028, ADR 0029, ADR 0032, ADR 0033, ADR 0037 and ADR 0038–0046.
 
 This file is the human summary of the accepted target. When it disagrees with the ADRs, the ADRs win; when the machine file disagrees with this file, fix whichever drifted and note it in the decision log. Re-deciding any element below mid-wave requires an explicit stop (big-bang posture makes a moving target expensive).
 
@@ -42,6 +42,7 @@ The prefix carries the **owning domain**; the **deployment class** (`product-lin
 
 ## Ownership decisions
 
+- **Public domains**: `libre-ai.fr` explains the portfolio, explicit product subdomains act, and `preuves.libre-ai.fr` verifies. Every product host remains inactive until its own public-alpha gate passes; DNS activation is a separate human operation (ADR 0046).
 - **Session runtime**: `libre-ai/sessions` owns it; AI Practices is a content pack + scoring module (ADR 0029 + addendum — its local store is a frozen shim until convergence).
 - **Identity/Workspace**: identity primitives → Gear (contract-first, extraction D11-gated); workspace container → shared product contract; Portal is excluded (ADR 0028 + amendments, closed permission vocabulary in `workspace-identity.v0.1`).
 

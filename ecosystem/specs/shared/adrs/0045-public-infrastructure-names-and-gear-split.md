@@ -1,7 +1,8 @@
 # ADR 0045 — Public infrastructure names and Gear split
 
-Status: Accepted
+Status: Accepted, migration completed
 Date: 2026-07-11
+Completion note: 2026-07-12 — after the zero-consumer scan and verified recovery bundle, the Gear compatibility repository was deleted rather than kept as a live public archive.
 Decision owner: Constantin Jais
 Supersedes in naming only: ADR 0033 family labels
 Related: ADR 0028, ADR 0031, ADR 0033, ADR 0038, ADR 0043
@@ -25,7 +26,7 @@ The following target names are ratified:
 | `libre-ai/wrench` | `libre-ai/proof-kit` | Reproducible inspection evidence for structure, databases, accessibility and target experiments. “Proof” does not mean formal verification. |
 | `libre-ai/gear` | `libre-ai/context-kit` plus `libre-ai/artifact-supply` | Context owns ingestion, source references and memory; Artifact Supply owns manifests, packaging, provenance and distribution. |
 
-Simple renames use GitHub repository redirects. Gear is not renamed into one half: both workspaces are extracted with path history, while `libre-ai/gear` remains archived as the compatibility and full-history repository until every consumer and published URL has moved.
+Simple renames use GitHub repository redirects. Gear is not renamed into one half: both workspaces are extracted with path history. The temporary compatibility repository could remain archived until every consumer and published URL moved; after those exit conditions passed, it was deleted with its recovery bundle retained.
 
 Existing crate names, binary names, schema identifiers, release archive names and contract discriminants remain compatibility interfaces. They change only through separately versioned migrations; a repository rename alone never changes them.
 
@@ -42,7 +43,7 @@ The target control-plane location is `libre-ai/ecosystem`. Transfer remains bloc
 1. Freeze concurrent repository mutation for the repository being moved.
 2. Record all refs, rulesets, releases, Pages, environments, packages, topics and consumers; create and hash a full bundle.
 3. For a simple rename, rename one repository, update the local directory and remotes, then update policy, profiles, metadata and consumers before starting the next rename.
-4. For Gear, create path-history repositories for `context/` and `supply/`, verify their independent builds and supply-chain gates, migrate consumers and releases, then archive the full-history compatibility repository.
+4. For Gear, create path-history repositories for `context/` and `supply/`, verify their independent builds and supply-chain gates, migrate consumers and releases, then archive or delete the compatibility repository according to the recorded recovery and privacy decision.
 5. Keep `main` green between every operation. Required checks and rulesets must refer to contexts that actually run on pull requests.
 6. Preserve old public identifiers only in an explicit compatibility/historical allowlist. New documentation uses target names.
 7. Prefer archive to deletion. Deletion requires a privacy/security reason plus verified recovery bundles and a zero-release/zero-consumer record.
