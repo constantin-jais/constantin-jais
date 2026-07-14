@@ -1,16 +1,16 @@
 # Libre AI ecosystem status
 
-Status date: 2026-07-12
+Status date: 2026-07-14
 
-This cockpit reports the public topology and migration state. Canonical repository metadata lives in [`governance/repo-profiles.json`](governance/repo-profiles.json); architecture decisions live in [`target-version.md`](target-version.md) and [`specs/shared/decision-log.md`](specs/shared/decision-log.md).
+This cockpit reports the public topology and migration state. Canonical repository metadata lives in [`governance/repo-profiles.json`](governance/repo-profiles.json); the per-product readiness cockpit lives in [`product-readiness.md`](product-readiness.md). Architecture decisions live in [`target-version.md`](target-version.md) and [`specs/shared/decision-log.md`](specs/shared/decision-log.md).
 
 ## Current topology
 
 | Repository | Domain | Maturity | Current evidence |
 | --- | --- | --- | --- |
 | `website` | institutional | `usable` | v3 catalogue exposes three public journeys and honest per-product states; Website and every launch CTA have separate publication gates |
-| `sessions` | product | `contract-first` | contracts plus locally replayed Proof Kit, DB, artifact and Agent Factory evidence; complete user session still absent |
-| `feed-radar` | product | `dojo` | executable curation pipeline and read-only Dioxus proof with pinned Client Kit provenance across Chromium, Firefox and WebKit |
+| `sessions` | product | `contract-first` | contracts plus locally replayed Proof Kit, DB, artifact and Agent Factory evidence; owner/guest proof is now local (283 Rust + 41 browser), staging is absent and #109 remains the only open issue |
+| `feed-radar` | product | `dojo` | executable curation pipeline and read-only Dioxus proof with pinned Client Kit provenance across Chromium, Firefox and WebKit; scheduler remains bounded and no hosted workflow exists yet |
 | `spec-studio` | product | `contract-first` | specification, explicit handoff contracts and protected Rust supply-chain gate |
 | `agent-board` | product | `contract-first` | tested `MissionRecord v1` and local fail-closed transition engine; no board, persistence or hosted runtime claim |
 | `notebook` | product | `specification` | product charter and roadmap; no availability claim |
@@ -19,7 +19,7 @@ This cockpit reports the public topology and migration state. Canonical reposito
 | `benchmarks` | evidence | `recurring` | published versioned comparison evidence |
 | `dioxus-app-template` | generated distribution | `usable` | deterministic Client Kit mirror and deployed Pages smoke |
 | `client-kit` | infrastructure | `consolidated` | four imported histories, adapters, Forge and canonical template |
-| `agent-factory` | infrastructure | `consolidated` | engine/harness boundaries, Engine alpha.6 and an inactive PostgreSQL anti-replay candidate |
+| `agent-factory` | infrastructure | `consolidated` | engine/harness boundaries, plan/pagination support, Engine alpha.6 as the current checkpoint, latest features not yet captured there and no live sandbox proof |
 | `proof-kit` | infrastructure | `consolidated` | healthy Pages, DB Inspect alpha.7 and unsigned macOS bundle install/launch/removal evidence |
 | `context-kit` | infrastructure | `consolidated` | extracted context history, isolated workspace and supply-chain CI |
 | `artifact-supply` | infrastructure | `consolidated` | extracted supply history, isolated workspace and supply-chain CI |
@@ -35,7 +35,7 @@ Dioxus is the preferred application stack across web, fullstack, desktop and mob
 - Fifteen active public repository profiles are governed. The former Gear compatibility repository was deleted after verified recovery bundles and a zero-consumer scan; it is no longer queried by branch policy.
 - Client Kit, Agent Factory and Proof Kit are the canonical renamed repositories; their imported histories, redirects, protected checks and active consumers are verified.
 - The Gear split is complete: consumers use Context Kit or Artifact Supply, and the compatibility repository was deleted after a zero-consumer scan and verified final bundle.
-- Agent Factory Engine alpha.6 and Proof Kit DB Inspect alpha.7 provide installable multi-platform releases with checksums, SBOM, provenance and attestations. DB Inspect alpha.7 corrects stale tool-version metadata in alpha.4–alpha.6; historical assets remain immutable.
+- Agent Factory Engine alpha.6 and Proof Kit DB Inspect alpha.7 provide installable multi-platform releases with checksums, SBOM, provenance and attestations. DB Inspect alpha.7 corrects stale tool-version metadata in alpha.4–alpha.6; Agent Factory's latest feature set is still ahead of alpha.6, and historical assets remain immutable.
 - Proof Kit Pages now builds under its actual `/proof-kit/` project path and deploy-smokes root, JavaScript, CSS, fonts, WASM and the linked `blog/1/` deep route. The retired `/wrench/` asset path is absent from the deployed HTML.
 - A fresh 2026-07-12 mirror audit found zero changed pre-rewrite commits reachable from public branches or tags, but 152 remain reachable from 69 GitHub pull-request refs. A Support escalation has been submitted; its human case reference is still pending. The control plane remains in its current namespace until GitHub confirms cleanup and a fresh mirror audit passes.
 - Public distributable metadata uses a versioned Design System URN and immutable canonical builder revisions; no private repository URL is published.

@@ -124,7 +124,7 @@ Context Kit extrait et conserve les références et la mémoire.
 Artifact Supply transporte, package et atteste les artefacts.
 ```
 
-Current cross-project status lives in `status.md`. The target self-improving process loop lives in `loop.md`. The full accepted target version lives in `target-version.md` and `target-version.v1.json`.
+Current cross-project status lives in `status.md`, and the canonical per-product readiness cockpit lives in `product-readiness.md`. The target self-improving process loop lives in `loop.md`. The full accepted target version lives in `target-version.md` and `target-version.v1.json`.
 
 ---
 
