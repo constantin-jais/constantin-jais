@@ -234,21 +234,17 @@ Pour passer un produit à `public-alpha` :
 
 Website conserve sa propre approbation humaine, mais n’attend plus les sept produits. Le catalogue supprime le CTA de lancement et affiche l’hôte comme réservé tant que la gate locale n’est pas satisfaite.
 
-## 8. Réalité actuelle confrontée à la cible
+## 8. Réalité actuelle
 
-Constat du 2026-07-13, fondé sur les README et gates locaux des dépôts :
+Le cockpit détaillé canonique est [product-readiness.md](product-readiness.md). Cette section ne garde que la synthèse pour éviter la duplication entre la vision et l’audit quotidien.
 
-| Produit | Preuve actuelle | Écart avant parcours public | Verdict de publication |
-| --- | --- | --- | --- |
-| Feed Radar | OPML → fetch HTTPS allowlisté et borné → règle explicite → déduplication hash-only → export client-safe → revue Dioxus statique ; preuve locale datée sur Chromium/Firefox/WebKit | import interactif, stockage durable/scheduler, sandbox réseau hébergée, URL canonique et preuve publique revue | bloqué — reste `discovery` |
-| Notebook | frontières, sécurité et roadmap | aucun runtime de capture, lecture ou export | bloqué |
-| AI Practices | API/PWA, `activity.v1`, trois activités draft, outcome local sans score automatique et 78 tests avec PostgreSQL jetable | 0 contenu `approved`; parcours éditorialement publiable absent | bloqué |
-| Sessions | contrats, runtime partiel et traversée Proof Kit/DB/artefact/Agent Factory rejouée localement | session utilisateur réelle, rôle PostgreSQL cible, fournisseur et opérations de production | bloqué |
-| Boussole Politique | contrats de score et dry-run déterministe | gate méthodologique M1 conditionnelle, revue indépendante et shell public absents | bloqué |
-| Spec Studio | CLI locale et handoff planning-only testés | expérience durable multi-acteur et parcours utilisateur public absents | bloqué |
-| Agent Board | `MissionRecord v1`, fixtures et moteur local de transitions immuables avec verdict humain | projection locale, persistance et adapter Agent Factory | bloqué |
+| Fait transverse | Synthèse |
+| --- | --- |
+| Disponibilité | Les sept produits publics restent sous `public-alpha` ; aucun hôte public n’est activé. |
+| Couche d’infrastructure | Agent Factory reste une infrastructure habilitante, traitée séparément du catalogue produit. |
+| Doctrine de lecture | La maturité du dépôt, le nombre d’issues et la présence d’un parcours local ne suffisent pas à annoncer une disponibilité. |
 
-Conclusion : la vision des sept produits est cohérente comme cible, mais aucun produit n’atteint aujourd’hui `public-alpha`. L’ancienne attestation globale `LIBRE_AI_PRODUCTS_VERIFIED` est retirée : les statuts de dépôt ne sont jamais convertis automatiquement en disponibilité produit.
+Conclusion : la cible des sept produits reste cohérente, mais l’audit détaillé vit désormais dans le cockpit central. Website garde sa synthèse publique ; les statuts de dépôt ne sont jamais convertis automatiquement en disponibilité produit.
 
 ## 9. Ordre recommandé par dépendances de preuve
 
