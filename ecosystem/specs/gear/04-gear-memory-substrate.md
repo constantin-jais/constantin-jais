@@ -179,6 +179,9 @@ Gear Memory indexes progressively. Each layer must remain useful without the nex
 - Embedding model reference, dimensions, chunking strategy, and created timestamp are mandatory.
 - Vector hits must return source IDs, hashes, and provenance; never opaque answers.
 - Local/self-hostable vector backends are preferred; benchmark native options before adoption.
+- When this stage is due, the storage micro-benchmark includes `sqlite-vec` (MIT/Apache-2.0 dual) alongside USearch/fastembed-rs/candle, with **same-file inspectability** as an explicit criterion: `vec0` virtual tables live in the same SQLite file as catalog and FTS5, which keeps the whole ladder in one inspectable engine (production corroboration: `tencentdb-agent-memory-decomposition.md` T7).
+- Multi-index fusion, when both full-text and vector rungs exist, is a deterministic reciprocal-rank-fusion merge (~60 lines, no dependency; reference: same spec, T6). Fusion never bypasses the provenance requirements above.
+- The embedding model must carry a permissive license (Apache-2.0/MIT). Restricted-license model weights (e.g. Gemma terms) are excluded even when technically local, and model provisioning must be an explicit, recorded step — never a silent first-run network download.
 
 Default retrieval order for agents:
 
@@ -192,13 +195,13 @@ Default retrieval order for agents:
 
 ### 4.1 State semantics
 
-| State | Meaning | Required substrate behavior |
-| --- | --- | --- |
-| `active` | current and retrievable | indexes may return it if access allows |
-| `stale` | source/index changed or superseded | retrieval marks it non-current; agents must not treat it as truth without refresh |
-| `deleted` | content must no longer be searchable | remove payloads/chunks/embeddings; retain minimal legal/audit refs if policy allows |
-| `anonymized` | personal data removed or irreversibly transformed | remove or replace identifying fields and reindex only anonymized projection |
-| `revoked` | trust/access withdrawn | stop normal retrieval/export; keep provenance of revocation |
+| State        | Meaning                                           | Required substrate behavior                                                         |
+| ------------ | ------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `active`     | current and retrievable                           | indexes may return it if access allows                                              |
+| `stale`      | source/index changed or superseded                | retrieval marks it non-current; agents must not treat it as truth without refresh   |
+| `deleted`    | content must no longer be searchable              | remove payloads/chunks/embeddings; retain minimal legal/audit refs if policy allows |
+| `anonymized` | personal data removed or irreversibly transformed | remove or replace identifying fields and reindex only anonymized projection         |
+| `revoked`    | trust/access withdrawn                            | stop normal retrieval/export; keep provenance of revocation                         |
 
 ### 4.2 Propagation rules
 
@@ -262,14 +265,15 @@ Rules:
 
 The stack audit points to these usable design inputs, without cloning external product scope:
 
-| Audit input | Gear Memory implication | Boundary guardrail |
-| --- | --- | --- |
-| Egonex-AI/Understand-Anything | motivates code maps and explorable source/document graphs | store maps and references only; no explainer brain |
-| xberg-io/tree-sitter-language-pack | provides a plausible parser coverage direction for symbols | Wrench parses; Gear stores reproducible `CodeMap` snapshots |
-| unum-cloud/USearch | candidate class for fast vector/object search | optional index; never canonical truth |
-| tursodatabase/agentfs | reinforces local-first filesystem snapshots and replayable state | no hosted lock-in; no hidden mutable state |
-| toon-format/toon | useful compact agent-readable projection | projection only; canonical JSON/NDJSON remains authoritative |
-| agenticnotetaking/arscontexta | validates owned markdown/context memory workflows | explicit exports and human-auditable files; no silent note indexing |
+| Audit input                         | Gear Memory implication                                                                                                 | Boundary guardrail                                                                                                                                                        |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Egonex-AI/Understand-Anything       | motivates code maps and explorable source/document graphs                                                               | store maps and references only; no explainer brain                                                                                                                        |
+| xberg-io/tree-sitter-language-pack  | provides a plausible parser coverage direction for symbols                                                              | Wrench parses; Gear stores reproducible `CodeMap` snapshots                                                                                                               |
+| unum-cloud/USearch                  | candidate class for fast vector/object search                                                                           | optional index; never canonical truth                                                                                                                                     |
+| tursodatabase/agentfs               | reinforces local-first filesystem snapshots and replayable state                                                        | no hosted lock-in; no hidden mutable state                                                                                                                                |
+| toon-format/toon                    | useful compact agent-readable projection                                                                                | projection only; canonical JSON/NDJSON remains authoritative                                                                                                              |
+| agenticnotetaking/arscontexta       | validates owned markdown/context memory workflows                                                                       | explicit exports and human-auditable files; no silent note indexing                                                                                                       |
+| TencentCloud/TencentDB-Agent-Memory | proves catalog + FTS5 + sqlite-vec compose in one SQLite file; layered conversational memory with downward traceability | inspiration only (CN origin); conversational shapes enter `gear.memory` v0.2 only via the agent-factory producer; persona consolidation stays quarantined (Q4 constraint) |
 
 Licensing and sovereignty posture:
 
@@ -280,17 +284,17 @@ Licensing and sovereignty posture:
 
 ## 8. Security and RGPD Risks
 
-| Risk | Impact | Required mitigation |
-| --- | --- | --- |
-| Raw PII in logs/index metadata | RGPD breach, hard-to-delete replicas | metadata key rejection, no raw excerpts in events, privacy tests |
-| Vector index retaining deleted content | deletion/anonymisation failure | partition-level tombstones, rebuild/drop tests, state filters before retrieval |
-| Stale code/source returned as current | wrong agent or product action | explicit stale state, retrieval warnings, freshness acceptance tests |
-| Graph edge overreach | Gear infers product meaning | edges are producer-declared references with provenance; no decision logic |
-| Silent note indexing | user trust breach | explicit export/grant only for P0; privacy-by-default tests |
-| Secret/token capture in provenance | credential leak | reject secret-like metadata keys; never store raw tokens; audit debug output |
-| Offline replica resurrects deleted content | RGPD conflict failure | tombstone ordering, privacy-preserving conflict resolution, sync replay tests |
-| Opaque compact formats | unverifiable agent behavior | canonical JSON source of truth; projection round-trip tests |
-| Auth scope creep | incomplete insecure auth design | reference Biscuit rights/revocation refs only; do not design full auth here |
+| Risk                                       | Impact                               | Required mitigation                                                            |
+| ------------------------------------------ | ------------------------------------ | ------------------------------------------------------------------------------ |
+| Raw PII in logs/index metadata             | RGPD breach, hard-to-delete replicas | metadata key rejection, no raw excerpts in events, privacy tests               |
+| Vector index retaining deleted content     | deletion/anonymisation failure       | partition-level tombstones, rebuild/drop tests, state filters before retrieval |
+| Stale code/source returned as current      | wrong agent or product action        | explicit stale state, retrieval warnings, freshness acceptance tests           |
+| Graph edge overreach                       | Gear infers product meaning          | edges are producer-declared references with provenance; no decision logic      |
+| Silent note indexing                       | user trust breach                    | explicit export/grant only for P0; privacy-by-default tests                    |
+| Secret/token capture in provenance         | credential leak                      | reject secret-like metadata keys; never store raw tokens; audit debug output   |
+| Offline replica resurrects deleted content | RGPD conflict failure                | tombstone ordering, privacy-preserving conflict resolution, sync replay tests  |
+| Opaque compact formats                     | unverifiable agent behavior          | canonical JSON source of truth; projection round-trip tests                    |
+| Auth scope creep                           | incomplete insecure auth design      | reference Biscuit rights/revocation refs only; do not design full auth here    |
 
 ## 9. Acceptance Tests
 
