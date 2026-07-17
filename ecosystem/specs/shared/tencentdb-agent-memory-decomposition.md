@@ -1,6 +1,6 @@
 # TencentDB-Agent-Memory — Element Decomposition and Stack Mapping
 
-- Status: Proposed (pending review)
+- Status: Proposed — Q1–Q3 arbitrated 2026-07-17 (Constantin); Q4 standing-constraint confirmation pending
 - Date: 2026-07-17
 - Reference project: `TencentCloud/TencentDB-Agent-Memory` v0.3.6 (MIT, ~9k stars)
 - Standing disposition: **inspiration only** — no installation, no runtime dependency, no code reuse.
@@ -111,21 +111,20 @@ E21 (codebase-memory-mcp) gave us the two-conditions protocol for _codebase_ que
 - **RGPD / no-profiling stance (ADR 0022 usage-ledger)**: T5 quarantined; any persona-like feature is local-first, consent-explicit, deletable.
 - **Rumble-note boundary (`13-gear-memory-boundary.md`)**: T4's scene-block idea lands as a ROADMAP reference on the rumble-note side of the boundary, not as a gear feature.
 
-## Proposed increments (all gated on review of this spec)
+## Proposed increments (revised after the 2026-07-17 arbitration)
 
-Deliberately modest — no consumer, no code (contrast with codebase-memory-mcp, which had `gear-memory` P1 waiting):
-
-1. **N1 — need-captures (docs only)**: one paragraph each in rumble-note ROADMAP (layered PKM / scene blocks, T4), agent-factory notes (compaction invariants, T2/T11), `gear-cable` notes (agent-consumable SKILL runbook pattern, T19).
+1. **N1 — need-captures (docs only)**: one paragraph each in rumble-note ROADMAP (layered PKM / scene blocks, T4) and `gear-cable` notes (agent-consumable SKILL runbook pattern, T19). The agent-factory paragraph originally planned here is superseded by N4.
 2. **N2 — rung-5 design note (docs only)**: add sqlite-vec + RRF + permissive-embedding-model requirements to the existing gear-memory vector-rung notes (T6/T7), including the same-file inspectability criterion for the future micro-benchmark.
 3. **N3 — eval dimensions note (docs only)**: append the conversational benchmark dimensions (T17) to the E21 protocol notes in `proof-kit`.
-4. **Conditional only**: any `gear.memory` conversational contract work or harness canvas experiment waits on Q1–Q3 arbitration.
+4. **N4 — agent-factory conversational-memory design spec (unlocked by Q1/Q3)**: a dedicated spec defining the bolt/gear split — `context-kit/memory` side: L0/L1 conversational storage (session-scoped SQLite, same single-engine posture as the existing SqliteStore) plus the downward-traceability chain (T1 mapping table above) as `gear.memory` v0.2 candidate shapes; agent-factory side: capture/recall policy, compaction thresholds and canvas semantics (T2/T10/T11 invariants: externalize before summarizing, summaries carry addresses, one live summary slot, deletion leaves a resolvable pointer). Spec first, code gated on its review; its dogfooding benchmark reuses the E21 two-conditions skeleton with the T17 dimensions.
+5. **Persona-adjacent work (feed-mind preferences, any L3-like consolidation)** stays gated on Q4 confirmation.
 
-## Open questions (for arbitration)
+## Open questions — Q1–Q3 arbitrated 2026-07-17, Q4 pending
 
-- **Q1 — the consumer question (gates everything)**: who would consume conversational memory first? Candidates: agent-factory/harness (agent session memory — but storage would live in gear), rumble-note (layered PKM over captured notes — natural fit, but spec-only today), feed-mind (curation preferences — persona-adjacent, RGPD-sensitive). Default stance: nobody yet → patterns stay captured, nothing gets built. No abstraction without a producer.
-- **Q2 — contract locus**: if a consumer emerges, do conversational entries join the `gear.memory` contract family (ConversationRef/span-typed SourceRef), or stay a per-product schema? Leaning per-product until two consumers exist (extraction rule, ADR 0022).
-- **Q3 — canvas experiment locus**: the symbolic-canvas idea (T2) is cheapest to validate in the personal Claude Code harness (memory files + compaction already exist there), entirely outside the repos. Is that experiment worth running before any agent-factory consideration?
-- **Q4 — RGPD boundary for personas**: if a product ever wants T5-like profiles, the gate is: local-first only, explicit consent, deletion workflow proven, never hosted-default. Confirm this as the standing constraint now, so it doesn't get relitigated later.
+- **Q1 — resolved (Constantin, 2026-07-17)**: all three candidates (agent-factory, rumble-note, feed-mind) are in-principle consumers of conversational memory; **priority goes to agent-factory** because it is the ecosystem's rule book — memory-aware agent behavior (what to capture, what to recall, how to compact) is Bolt doctrine before it is any product feature. Boundary discipline still applies: agent-factory owns the _policy_ (capture/recall hooks, compaction thresholds, canvas semantics — T2/T10/T11); the _store_ lives in gear (`context-kit`), because Bolt refuses storage. Rebuilding Tencent's plugin-monolith shape would violate the layer model.
+- **Q2 — closed as non-blocking (challenged by Constantin, conceded)**: the original "per-product vs shared contract" framing was a sequencing rule, never a blocker — nothing about it prevents building. And under the Q1 arbitration it dissolves entirely: since Bolt cannot store, the very first implementation already crosses the bolt/gear repo boundary, so there is no "product-private" place for the schema to live — the schema is a `gear.memory` conversational extension from day one, and the 2026-07-02 rule is satisfied rather than bypassed: agent-factory is the real producer whose emitted shapes legitimately open contracts v0.2. The earlier "leaning per-product" stance is withdrawn as wrong for this path.
+- **Q3 — resolved (Constantin, 2026-07-17)**: the personal-harness experiment is rejected; the work lands **in-stack**, as new repo, enrichment of existing repos, or both. Topology recommendation applied per ADR 0022: **enrichment first** (agent-factory for policy, `context-kit/memory` for storage), extraction into a new repo **later and only via the five-condition extraction rule** (today 0/5 conditions are met — no consumers, no stable contract). "Both" is therefore the expected trajectory over time, in that order; a new repo now would contradict ADR 0022 without any condition met.
+- **Q4 — explained 2026-07-17, confirmation pending**: standing constraint proposal for any T5-like persona feature: local-first by default (profile in user custody), hosted only behind explicit consent with a stated purpose, deletion workflow proven end-to-end through derived layers (L0 erasure must invalidate derived L1 facts and persona lines — the ADR 0006 auditable-tombstones doctrine applied to conversations), never a hosted default. Rationale recorded in the decision-log entry; awaiting explicit confirmation so future products (feed-mind preferences are persona-adjacent) don't relitigate it.
 
 ## Sources
 
