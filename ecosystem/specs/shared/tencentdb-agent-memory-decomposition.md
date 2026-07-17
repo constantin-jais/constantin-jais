@@ -1,0 +1,134 @@
+# TencentDB-Agent-Memory — Element Decomposition and Stack Mapping
+
+- Status: Proposed (pending review)
+- Date: 2026-07-17
+- Reference project: `TencentCloud/TencentDB-Agent-Memory` v0.3.6 (MIT, ~9k stars)
+- Standing disposition: **inspiration only** — no installation, no runtime dependency, no code reuse.
+
+## Why this document
+
+Constantin flagged this project as potentially interesting for the personal stack. Per the established method (`codebase-memory-mcp-decomposition.md`, accepted 2026-07-02), every element is decomposed and mapped before any landing point is chosen.
+
+The central finding up front: this project covers **conversational agent memory** — layered long-term memory over conversations (L0 raw → L1 atomic facts → L2 semantic scenes → L3 consolidated profile) plus symbolic short-term context compaction. This is a different territory from `gear-memory` (codebase memory: SourceRef, CodeMap, provenance). The stack currently has **no conversational-memory layer and no identified consumer for one**, so unlike the codebase-memory-mcp decomposition, this one yields no immediate code increment: the useful outputs are patterns, design corroborations, and need-captures, all gated on the open consumer question (Q1).
+
+## Method
+
+Taxonomy reused from `github-stars-stack-audit.md`:
+
+- Disposition: `adopt` (use as-is), `rebuild` (reimplement the concept on our stack), `knowledge` (reference material only), `reject`, `quarantine`.
+- Layer: `rumble`, `portal`, `bolt`, `wrench`, `gear`, `cross-layer`, `outside`.
+
+Since the standing decision is inspiration-only, no element is `adopt`; the useful split is `rebuild` (concept worth reimplementing, with a target) vs `knowledge` (worth understanding, no increment) vs `reject`/`quarantine`.
+
+## Reference facts (verified 2026-07-17 against source, commit `fa830fa`)
+
+- TypeScript plugin for OpenClaw (+ Hermes adapter in Python, + standalone adapter). MIT confirmed in `LICENSE` (Copyright 2026 Tencent). Node ≥ 22.16.
+- **Layered memory**: L0 raw conversations and L1 extracted facts live in SQLite; L2 scene blocks and L3 personas are Markdown files. Heterogeneous storage is deliberate: DB for traces/evidence, files for human-inspectable consolidations.
+- **Single SQLite file combines all retrieval rungs**: `l0_conversations`/`l1_records` (catalog) + `l0_fts`/`l1_fts` (FTS5) + `l0_vec`/`l1_vec` (sqlite-vec `vec0`, 768-dim) — one inspectable file, WAL mode.
+- **Hybrid retrieval**: local BM25 (jieba-wasm tokenization, CJK-oriented, via their own `tcvdb-text` package) + vector search, merged by a clean ~60-line RRF utility (`rrfMerge`, `src/core/store/search-utils.ts`).
+- **Extraction cadence**: L1 every 5 conversations by default, with warm-up doubling (1→2→4→…→N); LLM-driven extraction + dedup with dedicated prompts (`src/core/prompts/`: l1-extraction, l1-dedup, scene-extraction, persona-generation).
+- **Symbolic short-term memory**: tool results are offloaded to `refs/*.md` files and journaled in `offload.jsonl` with `node_id`s; an L2 pipeline (threshold/timeout triggered) regenerates a Mermaid canvas (MMD) encoding state transitions; an injector maintains exactly one marked message in the agent context (`_mmdContextMessage`); L3 compression skips that marker and, after deleting tail messages, injects history MMDs as replacement. Node IDs (`NNN-Nx`) allow drill-down back to full externalized files.
+- **Context compaction defaults**: mild offload at 50% of context window (replace non-current-task tool results), aggressive compression at 85% (delete tail messages, replaced by history MMDs). Token accounting via js-tiktoken + fast estimators.
+- **Local-first with caveats**: embedding is local by default via `node-llama-cpp`, but the default model (`embeddinggemma-300m` Q8_0 GGUF, ~300 MB, 768-dim, 256-token context) is **downloaded from HuggingFace on first run** — provisioning is not zero-network, and the model is under the **Gemma license, not Apache-2.0**. Remote embedding/LLM paths exist via `@ai-sdk/openai`.
+- **Optional cloud backend**: Tencent Cloud Vector Database (`tcvdb.ts`), with sqlite→tcvdb migration tooling.
+- **Optional telemetry**: `opik` (Comet) optional dependency traces offload decisions and message snapshots to a configurable endpoint; gracefully absent when not installed.
+- **Supply-chain caveat**: npm `postinstall` patches the OpenClaw host runtime via a bash script (skippable via env var). A package mutating its host at install time is an anti-pattern worth remembering, not copying.
+- **Claimed results** (their README, not independently verified): −61.38% tokens (WideSearch), +51.52% relative pass-rate, PersonaMem accuracy 48%→76%.
+
+### Sovereignty audit (inspiration-only scope)
+
+- **PASS**: MIT license; local-first architecture (SQLite, local BM25, local embedding path); inspectable formats throughout (SQLite, JSONL, Markdown, Mermaid — no format lock-in); no installation planned, so CLOUD Act-equivalent and data-residency criteria are moot.
+- **WARN**: Tencent (CN) origin — fine for reading, blocking for any future `adopt`. Default embedding model under Gemma license with HuggingFace download at provisioning — any rebuild of a vector rung must pick a permissive model (Apache-2.0/MIT: nomic-embed, bge family) instead. `opik` tracing can ship conversational content to an external endpoint if configured — pattern requires a PII gate, not to be reproduced as-is. Host-patching `postinstall`.
+- **FAIL (any adoption scenario; moot under inspiration-only)**: Tencent Cloud VDB backend (non-EU cloud, conversational data = PII); remote LLM/embedding default path pointing at US providers; L3 persona consolidation as-is would be RGPD profiling in any hosted product.
+
+## Element map
+
+| #   | Element                                                                                                                                                     | What it is / solves                                           | Layer           | Disposition                  | Recommended action                                                                                                                                                                                                                          |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | --------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| T1  | Memory layering L0→L3 with full downward traceability (profile → scene → fact → raw conversation), heterogeneous storage (DB for L0-L1, Markdown for L2-L3) | Auditable long-term memory without irreversible summarization | gear (+ rumble) | **rebuild (pattern)**        | Strongest convergence with our provenance doctrine ("every hit resolves to canonical refs"). Candidate conversational contracts in `gear.memory` **only when a real producer exists** (Q1, Q2). Deep dive below.                            |
+| T2  | Symbolic short-term memory: Mermaid canvas + `refs/*.md` offload + `node_id` drill-down + single marked context message                                     | Context compaction that stays reversible                      | bolt / outside  | knowledge → need-capture     | The only "short-term" element; genuinely novel. Capture as a bolt-harness need; a personal-harness experiment outside repo scope is the cheapest validation path (Q3). Deep dive below.                                                     |
+| T3  | L1 extraction + dedup (LLM prompts, every-5-conversations cadence, warm-up doubling)                                                                        | Atomic fact distillation from raw dialogue                    | gear / bolt     | knowledge                    | LLM extraction is non-deterministic; any rebuild needs an explicit quality gate (dedup rate, contradiction checks). Prompt structure worth studying, not porting.                                                                           |
+| T4  | Scene blocks L2 (semantic Markdown units, scene-index, scene-navigation, filename normalization)                                                            | Mid-granularity memory between facts and profile              | rumble          | knowledge / need-capture     | Natural conceptual fit with `rumble-note` block-based capture (spec-only today). Record in rumble-note ROADMAP as a layered-PKM reference, no spec change.                                                                                  |
+| T5  | Persona L3 + profile-sync (consolidated user profile, auto-triggered)                                                                                       | Cross-session user model                                      | —               | **quarantine**               | User profiling. RGPD-heavy in any hosted product (profiling, minimization, art. 22). If ever needed: local-first only, explicit consent, deletion workflow, never a hosted default. Mirrors the ADR 0022 "no user profiling" ledger stance. |
+| T6  | Hybrid retrieval: local BM25 + vector + RRF fusion                                                                                                          | Recall robustness beyond a single index                       | gear            | knowledge                    | RRF is a trivially small, deterministic merge — good design note for when ladder rungs 2 (FTS) and 5 (vector) both exist in `gear-memory`. Their BM25 is CJK/jieba-oriented; ours would be FTS5. Deep dive below.                           |
+| T7  | sqlite-vec: `vec0` virtual tables in the same SQLite file as FTS5 and catalog                                                                               | All retrieval rungs in one inspectable engine                 | gear            | knowledge (rung-5 candidate) | Live proof of the 2026-07-02 "rungs are commutative within one SQLite engine" decision. When rung 5 is due, benchmark sqlite-vec (MIT/Apache dual) against USearch/fastembed/candle under the storage micro-benchmark protocol.             |
+| T8  | Dual-backend store factory (SQLite local default / cloud optional) with migration tooling                                                                   | Portability between local and hosted storage                  | gear            | knowledge                    | Corroborates `gear-memory`'s existing 2-backend design (FileStore/SqliteStore behind `Store` trait). Nothing to change.                                                                                                                     |
+| T9  | Tencent Cloud Vector Database backend (`tcvdb.ts`, tcvdb-client)                                                                                            | Managed vector storage                                        | —               | **reject**                   | Non-EU cloud, conversational PII. Sovereignty FAIL for any adoption; irrelevant as inspiration.                                                                                                                                             |
+| T10 | Auto-capture / auto-recall hooks (`before-prompt-build`, `after-tool-call`, `llm-input`)                                                                    | Transparent memory without agent cooperation                  | bolt            | knowledge                    | Clean hook taxonomy for memory-aware agent loops. Relevant vocabulary for future agent-factory evidence hooks; no increment.                                                                                                                |
+| T11 | Context-window compaction: mild 0.5 (replace offloaded tool results) / aggressive 0.85 (delete tail, inject history MMDs) + token tracking                  | Bounded context under long sessions                           | bolt            | knowledge                    | Coupled to T2. The two-tier threshold policy and "deleted content must remain reachable" invariant are the transferable ideas.                                                                                                              |
+| T12 | Agent tool surface: `tdai_memory_search`, `tdai_conversation_search` (RRF-backed, layered results)                                                          | Token-cheap memory access for the agent                       | bolt / gear     | knowledge                    | Two tools, not twenty — restraint worth noting for any future memory tool surface.                                                                                                                                                          |
+| T13 | HTTP Gateway `:8420` + optional Bearer token                                                                                                                | Cross-process memory service                                  | —               | reject                       | Our stack has no networked memory service and auth would be Biscuit, not Bearer. Localhost-surface hardening lessons already captured in the codebase-memory-mcp E22 row.                                                                   |
+| T14 | Adapter/plugin architecture (OpenClaw plugin, Hermes Python plugin + supervisor, standalone) + host-patching `postinstall`                                  | One core, several hosts                                       | gear            | knowledge                    | Distribution posture reference (cf. E20 precedent). The `postinstall` host patch is the anti-pattern to remember: never mutate the host at install time.                                                                                    |
+| T15 | Migration/export tooling: sqlite→tcvdb migration, `export-tencent-vdb`, `read-local-memory`, diagnostic export                                              | Data custody and portability                                  | gear            | knowledge                    | Corroborates the planned `gear-memory` P2 (bundle export/import CLI) and `gear-depot` custody split. Their `read-local-memory` standalone reader is a good inspectability proof idea.                                                       |
+| T16 | Local LLM offload: node-llama-cpp runners + dedicated L1/L1.5/L2 parsers and prompts for small local models                                                 | Extraction without remote LLM                                 | gear / bolt     | knowledge                    | Aligned with the sovereign posture; parser-per-layer design acknowledges small-model output fragility. Study when local extraction becomes relevant.                                                                                        |
+| T17 | Evaluation method: PersonaMem (48%→76%), WideSearch (−61% tokens, +51.5% relative pass-rate), token-reduction accounting                                    | Honest measurement of memory value                            | wrench          | **rebuild (method)**         | Extends the two-conditions protocol validated in E21. Conversational-memory benchmarks (persona QA, wide-context search, dual token metrics) become the template if a conversational consumer ever exists. Deep dive below.                 |
+| T18 | Seed runtime + `seed` CLI command (bootstrap memory from existing data)                                                                                     | Cold-start avoidance                                          | gear            | knowledge                    | Same idea as `gear-memory` fixture ingestion; nothing new to build.                                                                                                                                                                         |
+| T19 | `SKILL.md`: agent-consumable install/config/validate runbook with 6-point DoD checklist (+ SKILL-MIGRATION, SKILL-DIAGNOSTIC-EXPORT)                        | Agent-first operational documentation                         | gear (cable)    | knowledge                    | Distribution pattern: shipping the runbook _as an agent skill_ with explicit definition-of-done. Feed into `gear-cable` release-floor thinking alongside E20's install receipts.                                                            |
+| T20 | Production hardening: supervisor (Hermes), circuit-breakers, recovery/leak tests, 38 KB ctl shell script, checkpoint/backup/manifest utils                  | Operational resilience for a local plugin                     | gear            | knowledge                    | Design lessons only. The ctl-script-as-monolith is itself a warning sign; our equivalent stays in typed CLIs.                                                                                                                               |
+
+## Deep dives (implementation-relevant)
+
+### T1 — Layered memory vs our provenance doctrine
+
+Their core claim: never compress irreversibly; every consolidated statement must remain traceable to raw evidence. Concretely: L3 persona lines and L2 scene blocks carry references that resolve through L1 records (SQLite rows with session/scene/timestamp indexes) down to L0 raw conversation rows. This is structurally identical to our standing constraint "vector hits and derived views must resolve to canonical references, state, hash, provenance" (ADR 0006) — applied to conversations instead of code.
+
+Mapping onto `gear.memory` P0 contracts if a producer ever materializes (Q2):
+
+| Their concept               | Nearest existing contract        | Gap                                                                                                     |
+| --------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| L0 conversation row         | `EventLogEntry`                  | conversation/session identity, speaker roles                                                            |
+| L1 atomic fact              | `MemoryEntry`                    | fact typing, dedup lineage, source-span refs into L0                                                    |
+| L2 scene block / L3 persona | none (Markdown artifacts)        | deliberate: consolidations as reviewable files, not DB rows — matches our "ADRs stay as files" instinct |
+| downward reference chain    | `ProvenanceRecord` + `SourceRef` | SourceRef today points at repo content, not conversation spans                                          |
+
+No contract change now (contracts v0.2 opens only with a real producer — decision 2026-07-02).
+
+### T2 — Symbolic canvas vs harness/bolt context compaction
+
+The mechanism, verified in source: (1) tool results above a size threshold are externalized to `refs/*.md` and journaled in `offload.jsonl`; (2) an independent L2 pipeline (triggered by ≥ N un-mapped entries or timeout) asks an LLM to regenerate a Mermaid state graph whose nodes carry stable IDs; (3) exactly one marked message in the live context holds the active canvas — replaced in place, never duplicated; (4) aggressive compression deletes tail messages but injects historical canvases as their replacement, so nothing becomes unreachable (`node_id` → journal → file).
+
+Transferable invariants, independent of Mermaid: _externalize before you summarize_, _summaries carry addresses, not just prose_, _exactly one live summary slot in context_, _deletion always leaves a resolvable pointer_. These are compaction-policy ideas, not a storage feature — hence bolt/harness territory, not gear. Cheapest validation is a personal-harness experiment (Q3) before any agent-factory work.
+
+### T6/T7 — Hybrid retrieval and sqlite-vec vs the progressive-indexing ladder
+
+Their retrieval stack is our ladder's end-state, built in one engine: catalog tables + FTS5 + `vec0` virtual tables in a single WAL SQLite file, fused by RRF at query time. Two corroborations for standing decisions:
+
+- The 2026-07-02 amendment ("rungs between catalog and vector are commutative within a single SQLite engine") is exactly what this codebase demonstrates in production.
+- Their design honors "vector never sole truth" _de facto_: every vector hit is an L0/L1 row id whose full text and metadata live in the same file; RRF demotes anything only one index believes in.
+
+When rung 5 is eventually due: sqlite-vec (MIT/Apache-2.0 dual) joins USearch/fastembed-rs/candle in the storage micro-benchmark, with the added criterion "same-file inspectability" it uniquely satisfies. The embedding model must be permissive (their Gemma-licensed default is a WARN, not a template). RRF itself is a ~60-line deterministic merge — note it, don't dependency it.
+
+### T17 — Evaluation method vs the two-conditions protocol
+
+E21 (codebase-memory-mcp) gave us the two-conditions protocol for _codebase_ questions. This project contributes the _conversational_ variants: persona-consistency QA over long multi-session histories (PersonaMem-style), wide-context retrieval tasks (WideSearch-style), and dual accounting (task pass-rate + tokens consumed) so memory value is measured as _quality at bounded cost_, not quality alone. Their headline numbers are self-reported and unverified — the method is the takeaway, not the figures. If a conversational consumer emerges (Q1), its dogfooding benchmark reuses the E21 skeleton with these dimensions; per the 2026-07-02 decision, still one-shot, not an institutionalized Eval Lab.
+
+## Alignment with existing ecosystem decisions
+
+- **ADR 0022 (strengthen existing repos)**: no new repo. Every landing here routes to `gear-memory` (contracts/storage), agent-factory (compaction policy), `proof-kit` (eval method), rumble-note ROADMAP (need capture), `gear-cable` (distribution notes).
+- **ADR 0006 + 2026-07-02 amendment (progressive indexing)**: T6/T7 corroborate the ladder and the single-engine commutativity; vector stays rung 5, never sole truth. Nothing here justifies reordering.
+- **Contracts discipline (2026-07-02)**: no `gear.memory` v0.2 opening without a real producer — T1's contract mapping stays in this spec until Q1/Q2 resolve.
+- **Bounded-context rule**: conversational memory, if ever built, is per-product/per-context storage. No shared memory pool across products; mirrors the E14 quarantine.
+- **RGPD / no-profiling stance (ADR 0022 usage-ledger)**: T5 quarantined; any persona-like feature is local-first, consent-explicit, deletable.
+- **Rumble-note boundary (`13-gear-memory-boundary.md`)**: T4's scene-block idea lands as a ROADMAP reference on the rumble-note side of the boundary, not as a gear feature.
+
+## Proposed increments (all gated on review of this spec)
+
+Deliberately modest — no consumer, no code (contrast with codebase-memory-mcp, which had `gear-memory` P1 waiting):
+
+1. **N1 — need-captures (docs only)**: one paragraph each in rumble-note ROADMAP (layered PKM / scene blocks, T4), agent-factory notes (compaction invariants, T2/T11), `gear-cable` notes (agent-consumable SKILL runbook pattern, T19).
+2. **N2 — rung-5 design note (docs only)**: add sqlite-vec + RRF + permissive-embedding-model requirements to the existing gear-memory vector-rung notes (T6/T7), including the same-file inspectability criterion for the future micro-benchmark.
+3. **N3 — eval dimensions note (docs only)**: append the conversational benchmark dimensions (T17) to the E21 protocol notes in `proof-kit`.
+4. **Conditional only**: any `gear.memory` conversational contract work or harness canvas experiment waits on Q1–Q3 arbitration.
+
+## Open questions (for arbitration)
+
+- **Q1 — the consumer question (gates everything)**: who would consume conversational memory first? Candidates: agent-factory/harness (agent session memory — but storage would live in gear), rumble-note (layered PKM over captured notes — natural fit, but spec-only today), feed-mind (curation preferences — persona-adjacent, RGPD-sensitive). Default stance: nobody yet → patterns stay captured, nothing gets built. No abstraction without a producer.
+- **Q2 — contract locus**: if a consumer emerges, do conversational entries join the `gear.memory` contract family (ConversationRef/span-typed SourceRef), or stay a per-product schema? Leaning per-product until two consumers exist (extraction rule, ADR 0022).
+- **Q3 — canvas experiment locus**: the symbolic-canvas idea (T2) is cheapest to validate in the personal Claude Code harness (memory files + compaction already exist there), entirely outside the repos. Is that experiment worth running before any agent-factory consideration?
+- **Q4 — RGPD boundary for personas**: if a product ever wants T5-like profiles, the gate is: local-first only, explicit consent, deletion workflow proven, never hosted-default. Confirm this as the standing constraint now, so it doesn't get relitigated later.
+
+## Sources
+
+- Repository: <https://github.com/TencentCloud/TencentDB-Agent-Memory> — v0.3.6, commit `fa830fa` (2026-07-17), read-only clone inspected in session scratchpad; no code retained.
+- Files verified: `LICENSE`, `package.json`, `scripts/postinstall.mjs`, `src/core/store/{sqlite,embedding,search-utils,bm25-local}.ts`, `src/offload/{types,mmd-injector}.ts`, `src/offload/pipelines/l2-mermaid.ts`, `src/config.ts`, `src/core/prompts/`, `SKILL.md`.
+- Prior art in this repo: `codebase-memory-mcp-decomposition.md` (method + E-row cross-references), `adrs/0006-gear-memory-progressive-indexing.md`, `adrs/0022-starred-repos-strengthen-existing-repos.md`, `decision-log.md` entries of 2026-06-30 and 2026-07-02.
