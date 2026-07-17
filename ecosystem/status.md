@@ -1,28 +1,30 @@
 # Libre AI ecosystem status
 
-Status date: 2026-07-14
+> **⚠ FROZEN — pre-Big-Bang final snapshot (reconciled 2026-07-17, control-plane ADR 0047).** Every repository listed below was archived on 2026-07-16; the canonical live status is the monorepo's `libre-ai/libre-ai` — `STATUS.md` (current phase: G2) and `GOALS.md` (gates). This cockpit stays as the last accurate picture of the 14-repo topology and is no longer updated.
+
+Status date: 2026-07-14 (final)
 
 This cockpit reports the public topology and migration state. Canonical repository metadata lives in [`governance/repo-profiles.json`](governance/repo-profiles.json); the per-product readiness cockpit lives in [`product-readiness.md`](product-readiness.md). Architecture decisions live in [`target-version.md`](target-version.md) and [`specs/shared/decision-log.md`](specs/shared/decision-log.md).
 
 ## Current topology
 
-| Repository | Domain | Maturity | Current evidence |
-| --- | --- | --- | --- |
-| `website` | institutional | `usable` | v3 catalogue exposes three public journeys and honest per-product states; Website and every launch CTA have separate publication gates |
-| `sessions` | product | `contract-first` | contracts plus locally replayed Proof Kit, DB, artifact and Agent Factory evidence; owner/guest proof is now local (283 Rust + 41 browser), staging is absent and #109 remains the only open issue |
-| `feed-radar` | product | `dojo` | executable curation pipeline and read-only Dioxus proof with pinned Client Kit provenance across Chromium, Firefox and WebKit; scheduler remains bounded and no hosted workflow exists yet |
-| `spec-studio` | product | `contract-first` | specification, explicit handoff contracts and protected Rust supply-chain gate |
-| `agent-board` | product | `contract-first` | tested `MissionRecord v1` and local fail-closed transition engine; no board, persistence or hosted runtime claim |
-| `notebook` | product | `specification` | product charter and roadmap; no availability claim |
-| `boussole-politique` | autonomous civic product | `contract-first` | local-first boundary, Rust contracts and deterministic M1 sensitivity evidence with a conditional verdict |
-| `ai-practices` | product dojo | `dojo` | executable training surface, governed `activity.v1` drafts, PostgreSQL test proof and checksummed Proof Kit DB gate; no approved activity |
-| `benchmarks` | evidence | `recurring` | published versioned comparison evidence |
-| `dioxus-app-template` | generated distribution | `usable` | deterministic Client Kit mirror and deployed Pages smoke |
-| `client-kit` | infrastructure | `consolidated` | four imported histories, adapters, Forge and canonical template |
-| `agent-factory` | infrastructure | `consolidated` | engine/harness boundaries, plan/pagination support, Engine alpha.6 as the current checkpoint, latest features not yet captured there and no live sandbox proof |
-| `proof-kit` | infrastructure | `consolidated` | healthy Pages, DB Inspect alpha.7 and unsigned macOS bundle install/launch/removal evidence |
-| `context-kit` | infrastructure | `consolidated` | extracted context history, isolated workspace and supply-chain CI |
-| `artifact-supply` | infrastructure | `consolidated` | extracted supply history, isolated workspace and supply-chain CI |
+| Repository            | Domain                   | Maturity         | Current evidence                                                                                                                                                                                   |
+| --------------------- | ------------------------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `website`             | institutional            | `usable`         | v3 catalogue exposes three public journeys and honest per-product states; Website and every launch CTA have separate publication gates                                                             |
+| `sessions`            | product                  | `contract-first` | contracts plus locally replayed Proof Kit, DB, artifact and Agent Factory evidence; owner/guest proof is now local (283 Rust + 41 browser), staging is absent and #109 remains the only open issue |
+| `feed-radar`          | product                  | `dojo`           | executable curation pipeline and read-only Dioxus proof with pinned Client Kit provenance across Chromium, Firefox and WebKit; scheduler remains bounded and no hosted workflow exists yet         |
+| `spec-studio`         | product                  | `contract-first` | specification, explicit handoff contracts and protected Rust supply-chain gate                                                                                                                     |
+| `agent-board`         | product                  | `contract-first` | tested `MissionRecord v1` and local fail-closed transition engine; no board, persistence or hosted runtime claim                                                                                   |
+| `notebook`            | product                  | `specification`  | product charter and roadmap; no availability claim                                                                                                                                                 |
+| `boussole-politique`  | autonomous civic product | `contract-first` | local-first boundary, Rust contracts and deterministic M1 sensitivity evidence with a conditional verdict                                                                                          |
+| `ai-practices`        | product dojo             | `dojo`           | executable training surface, governed `activity.v1` drafts, PostgreSQL test proof and checksummed Proof Kit DB gate; no approved activity                                                          |
+| `benchmarks`          | evidence                 | `recurring`      | published versioned comparison evidence                                                                                                                                                            |
+| `dioxus-app-template` | generated distribution   | `usable`         | deterministic Client Kit mirror and deployed Pages smoke                                                                                                                                           |
+| `client-kit`          | infrastructure           | `consolidated`   | four imported histories, adapters, Forge and canonical template                                                                                                                                    |
+| `agent-factory`       | infrastructure           | `consolidated`   | engine/harness boundaries, plan/pagination support, Engine alpha.6 as the current checkpoint, latest features not yet captured there and no live sandbox proof                                     |
+| `proof-kit`           | infrastructure           | `consolidated`   | healthy Pages, DB Inspect alpha.7 and unsigned macOS bundle install/launch/removal evidence                                                                                                        |
+| `context-kit`         | infrastructure           | `consolidated`   | extracted context history, isolated workspace and supply-chain CI                                                                                                                                  |
+| `artifact-supply`     | infrastructure           | `consolidated`   | extracted supply history, isolated workspace and supply-chain CI                                                                                                                                   |
 
 Policy remains private and is not part of the seven-product public catalogue. Benchmarks is a separate evidence program, not an eighth product. `consolidated` describes repository topology, not production readiness.
 
@@ -48,15 +50,15 @@ Dioxus is the preferred application stack across web, fullstack, desktop and mob
 
 ## Maturity vocabulary
 
-| Status | Meaning |
-| --- | --- |
-| `specification` | Intent, boundaries and roadmap exist; no usable runtime is claimed. |
-| `contract-first` | Versioned contracts, fixtures or domain model exist; runtime is limited or absent. |
-| `dojo` | Executable experimentation surface that intentionally generates stack constraints. |
-| `usable` | A documented real workflow runs locally; operational maturity is not implied. |
-| `consolidated` | Historical repositories were assembled behind one canonical boundary. |
-| `trusted` | Tests, security, documentation, provenance and repeatable release evidence support routine reliance. |
-| `retired` | Archived, replaced or intentionally stopped. |
+| Status           | Meaning                                                                                              |
+| ---------------- | ---------------------------------------------------------------------------------------------------- |
+| `specification`  | Intent, boundaries and roadmap exist; no usable runtime is claimed.                                  |
+| `contract-first` | Versioned contracts, fixtures or domain model exist; runtime is limited or absent.                   |
+| `dojo`           | Executable experimentation surface that intentionally generates stack constraints.                   |
+| `usable`         | A documented real workflow runs locally; operational maturity is not implied.                        |
+| `consolidated`   | Historical repositories were assembled behind one canonical boundary.                                |
+| `trusted`        | Tests, security, documentation, provenance and repeatable release evidence support routine reliance. |
+| `retired`        | Archived, replaced or intentionally stopped.                                                         |
 
 Scale readiness is a separate evidence attribute. A repository never moves from `trusted` to `scale-ready` through wording alone.
 

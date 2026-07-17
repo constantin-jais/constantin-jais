@@ -1,5 +1,7 @@
 # Ecosystem Specifications
 
+> **⚠ Product spec trees frozen as historical inputs (2026-07-17, control-plane ADR 0047).** The product trees here (`rumble-*`, `gear*`, `harness`, `wrench-db-inspect`) fed the nine G1-standard application specifications of the `libre-ai/libre-ai` monorepo and are **superseded** — kept as trace, never amended again. New product needs go through the monorepo work-package regime, or land as meta need-captures (decompositions, `../plans/cold-backlog.md`) with re-route notes. **`specs/shared/` remains live** (decision-log, ADRs, decompositions, cross-layer design specs).
+
 This directory contains the product specifications for active Rumble dojos and selected shared Portal/Bolt/Wrench/Gear capability specs.
 
 The goal is not to write static documentation or rank products by business potential. The goal is to create implementation-ready learning and process contracts that connect:
@@ -15,23 +17,23 @@ The goal is not to write static documentation or rank products by business poten
 
 ## Active Rumble Dojos
 
-| Product | Spec status | Learning role | Purpose |
-| --- | --- | --- | --- |
-| `rumble-canvas` | `contract-first` / harness producer | Specification, ambiguity, decisions, traceability, handoff. | Product-conception workspace: conversations → decisions → specs → packages → handoffs. |
-| `rumble-libre-ia` | `usable` public site / ecosystem spec incomplete | Transmission, clarity, publication, public documentation. | Education and sharing blog. |
-| `rumble-crew` | `contract-first` | Human/agent tasks, approvals, evidence, recovery. | Human/agent teamwork workspace. |
-| `rumble-feed-mind` | `dojo` / ready for scoped implementation planning | Watch pipeline, ingestion pressure, rules, BYOK, export. | Intelligent feed/watch pipeline producing curated knowledge for the harness. |
-| `rumble-lm` | `contract-first` / P0 stub | Pedagogy, citations, live sessions, grounding. | Source-grounded learning and facilitation platform. |
-| `rumble-note` | `contract-first` | Local-first PKM, privacy, memory exports. | Local-first block-based personal knowledge system. |
+| Product            | Spec status                                       | Learning role                                               | Purpose                                                                                |
+| ------------------ | ------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `rumble-canvas`    | `contract-first` / harness producer               | Specification, ambiguity, decisions, traceability, handoff. | Product-conception workspace: conversations → decisions → specs → packages → handoffs. |
+| `rumble-libre-ia`  | `usable` public site / ecosystem spec incomplete  | Transmission, clarity, publication, public documentation.   | Education and sharing blog.                                                            |
+| `rumble-crew`      | `contract-first`                                  | Human/agent tasks, approvals, evidence, recovery.           | Human/agent teamwork workspace.                                                        |
+| `rumble-feed-mind` | `dojo` / ready for scoped implementation planning | Watch pipeline, ingestion pressure, rules, BYOK, export.    | Intelligent feed/watch pipeline producing curated knowledge for the harness.           |
+| `rumble-lm`        | `contract-first` / P0 stub                        | Pedagogy, citations, live sessions, grounding.              | Source-grounded learning and facilitation platform.                                    |
+| `rumble-note`      | `contract-first`                                  | Local-first PKM, privacy, memory exports.                   | Local-first block-based personal knowledge system.                                     |
 
 ## Shared Capability Specs
 
-| Capability | Spec status | Purpose |
-| --- | --- | --- |
-| `portal-*` | Accepted placement / repo-local specs | Client platform: design tokens, accessibility, i18n UI, Rust-first bindings, and web/native adapters for Rumble products. |
-| `gear-loader` | Accepted placement / migration from former `wrench-loader` specs | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports. Historical `wrench-loader` specs remain migration references until schema paths are renamed. |
-| `wrench-db-inspect` | Draft/prototype | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, tenant isolation, and ecosystem/harness evidence for Postgres-backed `rumble-*`. |
-| Stack validation tooling | P0 spec | Local-only tools for project status, stack detection, scorecards, dependency audit, and local smoke before implementation or provisioning. |
+| Capability               | Spec status                                                      | Purpose                                                                                                                                                                                             |
+| ------------------------ | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `portal-*`               | Accepted placement / repo-local specs                            | Client platform: design tokens, accessibility, i18n UI, Rust-first bindings, and web/native adapters for Rumble products.                                                                           |
+| `gear-loader`            | Accepted placement / migration from former `wrench-loader` specs | Canonical ingestion/extraction for files, URLs, feeds, code, OCR/STT candidates, and evidence reports. Historical `wrench-loader` specs remain migration references until schema paths are renamed. |
+| `wrench-db-inspect`      | Draft/prototype                                                  | SQL/database security inspection for PostgreSQL, RLS, grants, migrations, `pgvector`, tenant isolation, and ecosystem/harness evidence for Postgres-backed `rumble-*`.                              |
+| Stack validation tooling | P0 spec                                                          | Local-only tools for project status, stack detection, scorecards, dependency audit, and local smoke before implementation or provisioning.                                                          |
 
 ## Spec Rule
 
