@@ -87,14 +87,18 @@ Two-conditions protocol (E21 skeleton) with the T17 conversational dimensions: s
 
 C1 has no dependency on C2/C3 semantics beyond §3.3; C2/C3 must not start before C1's contract shapes are real (no abstraction without a producer).
 
-## 7. Alignment
+## 7. Topology note (Big Bang, discovered 2026-07-17)
+
+The libre-ai org was frozen into the `libre-ai/libre-ai` monorepo on 2026-07-16 (Big Bang: global freeze, reconstruction, single cutover; no git history imported). In this spec, "agent-factory" and "context-kit/memory" therefore name **layer roles, not live repos**: per the monorepo `REPOSITORY-MAP`, agent-factory becomes a future orchestrator/harness package behind its own dedicated Specification Lock, and context-kit is archive-only — no context crate exists without a newly approved package. Consequently the C1–C3 increments land in the monorepo under its work-package discipline once those packages open; this spec is a design input to that future lock, not a bypass of it. The layer split in §2 is unaffected — it is exactly the boundary the monorepo map preserves (Bolt orchestration vs Gear context/storage).
+
+## 8. Alignment
 
 - **Layer model (ADR 0033)** and Q1/Q3 arbitration: policy in bolt, storage in gear, enrichment of existing repos, extraction only via the ADR 0022 five-condition rule.
 - **ADR 0006**: ladder order untouched; single-engine posture extended, not forked; tombstones extended to conversational chains.
 - **Q4 standing constraint**: no persona consolidation anywhere in this design; agent session memory is the developer's own local data, which is precisely why it can proceed while persona-adjacent product work stays constrained.
 - **Bounded-context rule**: one store per workspace; no cross-workspace or cross-context recall surface.
 
-## 8. Sources
+## 9. Sources
 
 - `tencentdb-agent-memory-decomposition.md` — T1/T2/T10/T11/T12/T17 rows and deep dives; sovereignty audit.
 - Decision-log 2026-07-17 rows (arbitration Q1–Q3; Q4 confirmation + increments), 2026-07-02 rows (contracts v0.2 producer rule, rung commutativity, one-shot evaluation), 2026-06-30 (progressive indexing ladder).
