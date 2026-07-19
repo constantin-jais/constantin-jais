@@ -1,0 +1,38 @@
+name: Stack conventions
+
+# Successor of the retired ecosystem-health workflow (monorepo ADR-0008 cleanup):
+# same required check name, but it asserts the LIVING control-plane structure
+# instead of the retired pre-Big-Bang fleet machinery.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stack-conventions:
+    name: Stack workflow conventions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Living control-plane documents exist
+        run: |
+          set -euo pipefail
+          test -s README.md
+          test -s SECURITY.md
+          test -s .github/CODEOWNERS
+          test -s ecosystem/governance/upstream-contributions.md
+          grep -q "APPROVE_UPSTREAM_PUSH" ecosystem/governance/upstream-contributions.md
+          grep -q "APPROVE_READY_FOR_REVIEW" ecosystem/governance/upstream-contributions.md
+          test -s ecosystem/specs/shared/decision-log.md
+          test -s ecosystem/plans/cold-backlog.md
+          test -s ecosystem/plans/orchestrator-lock-inputs.md
+      - name: Frozen traces keep their banners
+        run: |
+          set -euo pipefail
+          grep -qi "FROZEN" ecosystem/status.md
+          grep -qi "SUPERSEDED" ecosystem/remaining-work.md
+          grep -qi "SUPERSEDED" ecosystem/specs/shared/open-questions.md
+          grep -qi "SUPERSEDED" ecosystem/specs/shared/shared-capabilities.md
