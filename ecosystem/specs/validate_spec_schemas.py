@@ -50,16 +50,8 @@ class Suite:
 
 
 SUITES = [
-    Suite(
-        name="gear-memory",
-        schema=SPECS / "gear" / "gear-memory.v0.1.schema.json",
-        fixtures=SPECS / "gear" / "fixtures" / "memory",
-    ),
-    Suite(
-        name="gear-loader",
-        schema=SPECS / "gear-loader" / "gear-loader.v0.1.schema.json",
-        fixtures=SPECS / "gear-loader" / "fixtures",
-    ),
+    # gear-memory and gear-loader suites retired with their spec trees
+    # (archive/pre-constellation-2026-07-19, wave 0 option B).
     Suite(
         name="cosmatic-planning",
         schema=SPECS / "harness" / "cosmatic-planning.v0.1.schema.json",
