@@ -36,3 +36,16 @@ jobs:
           grep -qi "SUPERSEDED" ecosystem/remaining-work.md
           grep -qi "SUPERSEDED" ecosystem/specs/shared/open-questions.md
           grep -qi "SUPERSEDED" ecosystem/specs/shared/shared-capabilities.md
+      - name: Retired brands stay out of living documents
+        run: |
+          set -euo pipefail
+          matches=$(grep -rn -E "Daidalos|free-ai\.fr" \
+            README.md ROADMAP.md CONTRIBUTING.md SECURITY.md \
+            ecosystem/plans/ ecosystem/target-version.md \
+            ecosystem/product-portfolio.md ecosystem/product-readiness.md \
+            2>/dev/null || true)
+          if [ -n "$matches" ]; then
+            echo "$matches"
+            echo "A retired brand resurfaced in a living control-plane document."
+            exit 1
+          fi
