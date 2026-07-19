@@ -29,13 +29,22 @@ jobs:
           test -s ecosystem/specs/shared/decision-log.md
           test -s ecosystem/plans/cold-backlog.md
           test -s ecosystem/plans/orchestrator-lock-inputs.md
-      - name: Frozen traces keep their banners
+      - name: Retired strata stay retired (option B — main is current truth only)
         run: |
           set -euo pipefail
-          grep -qi "FROZEN" ecosystem/status.md
-          grep -qi "SUPERSEDED" ecosystem/remaining-work.md
-          grep -qi "SUPERSEDED" ecosystem/specs/shared/open-questions.md
-          grep -qi "SUPERSEDED" ecosystem/specs/shared/shared-capabilities.md
+          for p in ecosystem/status.md ecosystem/remaining-work.md \
+                   ecosystem/repos-inventory.md ecosystem/target-version.md \
+                   ecosystem/product-portfolio.md ecosystem/product-readiness.md \
+                   ecosystem/maturity ecosystem/specs/rumble-note ecosystem/specs/gear; do
+            if [ -e "$p" ]; then
+              echo "$p reappeared on main; history lives in the archive tag"
+              exit 1
+            fi
+          done
+          git fetch --quiet --tags origin
+          git tag -l 'archive/pre-constellation-*' | grep -q . || {
+            echo "archive tag missing"; exit 1
+          }
       - name: Retired brands stay out of living documents
         run: |
           set -euo pipefail

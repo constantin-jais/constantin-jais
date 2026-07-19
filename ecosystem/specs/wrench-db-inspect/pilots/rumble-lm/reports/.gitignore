@@ -1,4 +1,0 @@
-# Reports may contain sensitive object names before review. Keep local by default.
-*
-!.gitignore
-!README.md
