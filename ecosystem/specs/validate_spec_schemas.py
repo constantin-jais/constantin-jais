@@ -370,12 +370,10 @@ def validate_suite(suite: Suite) -> tuple[int, int]:
 
 # Standalone documents validated against a schema without a fixtures directory
 # (single canonical instances living outside ecosystem/specs/).
-STANDALONE = [
-    (
-        SPECS / "harness" / "stack-target-version.v0.2.schema.json",
-        ROOT / "ecosystem" / "target-version.v1.json",
-    ),
-]
+# target-version.v1.json retired with the pre-constellation strata
+# (archive/pre-constellation-2026-07-19); its successor is the wave-0
+# machine-readable inventory ecosystem/repositories.v1.yaml.
+STANDALONE = []
 
 
 def validate_standalone(schema_path: Path, document: Path) -> int:
