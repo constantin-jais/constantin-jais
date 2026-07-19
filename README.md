@@ -25,7 +25,7 @@ Seven public products are being rebuilt from locked contracts: **Radar, Notebook
 
 ## Historical topology (frozen)
 
-The pre-monorepo multi-repository portfolio and its maturity ladder are preserved as a frozen snapshot for provenance in [`ecosystem/status.md`](ecosystem/status.md) (final: 2026-07-14). They are no longer individually governed.
+The pre-constellation strata (legacy product specifications, fleet cockpits, maturity ladders) are preserved in Git history under the archive tag [`archive/pre-constellation-2026-07-19`](https://github.com/constantin-jais/constantin-jais/tree/archive/pre-constellation-2026-07-19). `main` carries only the current truth (ADR-0009, wave 0).
 
 ## Operating principles
 

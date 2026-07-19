@@ -50,16 +50,8 @@ class Suite:
 
 
 SUITES = [
-    Suite(
-        name="gear-memory",
-        schema=SPECS / "gear" / "gear-memory.v0.1.schema.json",
-        fixtures=SPECS / "gear" / "fixtures" / "memory",
-    ),
-    Suite(
-        name="gear-loader",
-        schema=SPECS / "gear-loader" / "gear-loader.v0.1.schema.json",
-        fixtures=SPECS / "gear-loader" / "fixtures",
-    ),
+    # gear-memory and gear-loader suites retired with their spec trees
+    # (archive/pre-constellation-2026-07-19, wave 0 option B).
     Suite(
         name="cosmatic-planning",
         schema=SPECS / "harness" / "cosmatic-planning.v0.1.schema.json",
@@ -378,12 +370,10 @@ def validate_suite(suite: Suite) -> tuple[int, int]:
 
 # Standalone documents validated against a schema without a fixtures directory
 # (single canonical instances living outside ecosystem/specs/).
-STANDALONE = [
-    (
-        SPECS / "harness" / "stack-target-version.v0.2.schema.json",
-        ROOT / "ecosystem" / "target-version.v1.json",
-    ),
-]
+# target-version.v1.json retired with the pre-constellation strata
+# (archive/pre-constellation-2026-07-19); its successor is the wave-0
+# machine-readable inventory ecosystem/repositories.v1.yaml.
+STANDALONE = []
 
 
 def validate_standalone(schema_path: Path, document: Path) -> int:
