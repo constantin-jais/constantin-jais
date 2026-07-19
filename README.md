@@ -1,57 +1,32 @@
-# Libre AI ecosystem control plane
+# Constantin Jais — Libre AI control plane
 
 [![Spec contracts](https://github.com/constantin-jais/constantin-jais/actions/workflows/spec-contracts.yml/badge.svg?branch=main)](https://github.com/constantin-jais/constantin-jais/actions/workflows/spec-contracts.yml)
 
-This repository governs the public Libre AI portfolio: product boundaries, shared contracts, maturity evidence, repository profiles, and branch policy. It is not a product runtime and does not make a design or implementation repository public.
+Building resilient Rust and TypeScript systems for trustworthy AI, sovereign tooling, and auditable automation.
 
-## Public portfolio
+## Where the product truth lives
 
-Maturity is evidence-based, not aspirational. `contract-first` and `specification` do not mean that a product is available to end users.
+Since 2026-07-16, all Libre AI product work happens in the canonical base repository: **[`libre-ai/libre-ai`](https://github.com/libre-ai/libre-ai)** — specifications, contracts, architecture, work packages, and shared foundations. The target topology is multi-repository (monorepo ADR-0008): real product repositories will reopen on the preserved historical product URLs, consuming the base as a versioned dependency, while legacy tooling repositories are retired after verified capture. The authoritative freeze record is [`ecosystem/LEGACY-MANIFEST.yaml`](https://github.com/libre-ai/libre-ai/blob/main/ecosystem/LEGACY-MANIFEST.yaml).
 
-| Surface | Role | Responsibility | Maturity |
-| --- | --- | --- | --- |
-| [Libre AI Website](https://github.com/libre-ai/website) | gateway | Understand, choose, use and verify the portfolio | `usable` |
-| [Feed Radar](https://github.com/libre-ai/feed-radar) | product | Explainable feed selection and portable curation | `dojo` |
-| [Notebook](https://github.com/libre-ai/notebook) | product | Private local knowledge and controlled context export | `specification` |
-| [AI Practices](https://github.com/libre-ai/ai-practices) | product | Professional AI-practice training | `dojo` |
-| [Sessions](https://github.com/libre-ai/sessions) | product | Source-grounded collective learning and facilitation | `contract-first` |
-| [Boussole Politique](https://github.com/libre-ai/boussole-politique) | product | Private civic comparison against sourced public votes | `contract-first` |
-| [Spec Studio](https://github.com/libre-ai/spec-studio) | product | Product decisions, specifications and bounded handoffs | `contract-first` |
-| [Agent Board](https://github.com/libre-ai/agent-board) | product | Human governance of agentic missions | `specification` |
-| [Benchmarks](https://github.com/libre-ai/benchmarks) | evidence | Versioned comparison evidence | `recurring` |
-| [Dioxus App Template](https://github.com/libre-ai/dioxus-app-template) | distribution | Generated Client Kit template mirror | `usable` |
+## What this repository is
 
-## Infrastructure
+This repository is the **control plane** of the Libre AI forge (control-plane ADR 0047). It governs how work is decided, not what products do:
 
-The infrastructure repositories are independently testable and communicate through explicit handoffs. They are not public product brands.
+- forge doctrine ADRs (`ecosystem/specs/shared/adrs/`)
+- cross-project decision log and shared design studies
+- decompositions of external systems used as inspiration inputs
+- input manifests for future specification locks (e.g. orchestrator)
 
-| Repository | Owns | Does not own |
-| --- | --- | --- |
-| [Client Kit](https://github.com/libre-ai/client-kit) | Client primitives, adapters, token compilation and templates | Product workflows or artifact distribution |
-| [Agent Factory](https://github.com/libre-ai/agent-factory) | Bounded planning, orchestration and execution gates | Product UX, storage or inspection truth |
-| [Proof Kit](https://github.com/libre-ai/proof-kit) | Reproducible non-formal inspection evidence | Runtime ownership or product decisions |
-| [Context Kit](https://github.com/libre-ai/context-kit) | Ingestion, source references, local memory and context provenance | Product semantics or artifact distribution |
-| [Artifact Supply](https://github.com/libre-ai/artifact-supply) | Manifests, packaging, provenance and deterministic distribution | Release decisions or source ingestion |
+It is not a product runtime, and it contains no product specifications: those live in the base repository under its G1 specification standard, with doctrine bounded by its invariants register ([`docs/decisions/INVARIANTS.md`](https://github.com/libre-ai/libre-ai/blob/main/docs/decisions/INVARIANTS.md)).
 
-## Governance entry points
+## Product portfolio (rebuild in progress)
 
-- [`ecosystem/product-portfolio.md`](ecosystem/product-portfolio.md) — challenged vision, boundaries and proof ladder for the seven products.
-- [`ecosystem/governance/repo-profiles.json`](ecosystem/governance/repo-profiles.json) — public names, canonical URLs, maturity and required checks for all 15 active public repositories.
-- [`ecosystem/governance/branch-policy.json`](ecosystem/governance/branch-policy.json) — branch rules and required checks for the governed repositories.
-- [`ecosystem/status.md`](ecosystem/status.md) — current migration and verification status.
-- [`ecosystem/target-version.md`](ecosystem/target-version.md) — accepted architecture target and compatibility rules.
-- [`ecosystem/specs/shared/decision-log.md`](ecosystem/specs/shared/decision-log.md) — cross-repository decisions.
+Seven public products are being rebuilt from locked contracts: **Radar, Notebook, AI Practices, Sessions, Boussole Politique, Spec Studio, and Model Policy**. None is released yet — the transformation is gated (G0 freeze and G1 specification lock are complete; G2 canonical foundations is in progress). Status and evidence: [`STATUS.md`](https://github.com/libre-ai/libre-ai/blob/main/STATUS.md).
 
-## Naming compatibility
+## Historical topology (frozen)
 
-**Libre IA** is used on French public surfaces and **Libre AI** on GitHub and English surfaces. The historical `rumble-*` vocabulary remains only where it is a versioned crate, schema, fixture, path, or contract identifier. It is not a public brand and must not be introduced in new repository names or user-facing copy.
+The pre-monorepo multi-repository portfolio and its maturity ladder are preserved as a frozen snapshot for provenance in [`ecosystem/status.md`](ecosystem/status.md) (final: 2026-07-14). They are no longer individually governed.
 
-## Local verification
+## Operating principles
 
-```sh
-python3 ecosystem/governance/validate_repo_profiles.py
-python3 -m unittest discover ecosystem/governance -v
-python3 ecosystem/governance/ecosystem_policy.py check
-```
-
-Operational decisions are evaluated in this order: **Security > Quality > Performance > Completeness**. Sovereignty, privacy and license compatibility are release gates.
+Security > Quality > Performance > Completeness, with sovereignty, privacy, and license compatibility as release gates. Licensing policy: differentiated EUPL / Apache-2.0 / CC BY with DCO and REUSE compliance ([monorepo ADR-0004](https://github.com/libre-ai/libre-ai/blob/main/docs/adr/0004-licensing-governance.md)).
