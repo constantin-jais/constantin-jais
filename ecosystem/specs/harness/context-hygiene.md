@@ -30,7 +30,7 @@ Limites connues, documentées dans le workflow : fichiers texte uniquement (`-I`
 3. Promouvoir le tier en **échec bloquant** dans le même changement que le nettoyage — jamais de fenêtre où le compteur peut remonter.
 4. Ajouter le check aux **required status checks** de la branche par défaut quand le dépôt a une protection de branche — sans cela le rouge est visible mais non bloquant au merge.
 
-Sur un dépôt propre, les trois steps sont bloquants d'emblée. Preuve reproductible du rouge : ajouter un fichier fixture contenant un motif (ex. `/Users/jane/leak`), le stager, exécuter le grep du step — détection attendue ; retirer la fixture.
+Sur un dépôt propre, les trois steps sont bloquants d'emblée. Preuve reproductible du rouge : ajouter un fichier fixture contenant un motif (ex. `/Users/jane/leak`), le stager, exécuter le grep du step — détection attendue ; retirer la fixture. (Cette ligne d'exemple porte elle-même le marqueur `allow-local-path` — démonstration du mécanisme.)
 
 ## Famille de gates
 
