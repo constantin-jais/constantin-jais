@@ -17,6 +17,8 @@ Une gate unique exigeant les sept parcours avant toute publication de Website cr
 
 `https://libre-ai.fr` devient l’origine publique canonique. La marque affichée reste « Libre IA ».
 
+> Historical note (2026-07-19, monorepo ADR-0008 option C) : la graphie de la marque retenue est **« Libre AI »**, pas « Libre IA ». La ligne du 2026-07-19 du registre de décision (`Accepted`) ratifie « the target brand is **Libre AI** (org `libre-ai`, canonical domain `libre-ai.fr`) », et la ligne du 2026-07-24 (`Accepted`) la confirme « trans-surface » en qualifiant « Libre IA » de « retired variant ». Les deux sont datées après le présent ADR (2026-07-12) et le supersèdent sur ce point précis. **La ligne du 2026-07-19 prévaut ; « La marque affichée reste « Libre IA » » ci-dessus est une prose périmée, pas une règle vivante.** La divergence est étroite et ne touche que la graphie : l’origine canonique `libre-ai.fr` ci-dessus, le statut défensif de `libre-ia.fr` et l’ensemble des gates de publication de cet ADR restent en vigueur, inchangés. Consigné plutôt qu’effacé : le registre de décision est vivant, donc un énoncé supersédé porte son statut au lieu de disparaître.
+
 - `www.libre-ai.fr` redirigera en 301 vers `libre-ai.fr` ;
 - `libre-ia.fr`, `libreia.fr` et `libreai.fr` restent défensifs et redirigeront en 301 vers l’origine canonique ;
 - une seule origine produit des URLs canoniques, sitemap, OpenGraph et indexation ;
@@ -32,16 +34,16 @@ preuves.libre-ai.fr/<slug>        vérifier les preuves publiées
 
 Noms réservés dans la topologie :
 
-| Produit technique | Nom public | Hôte réservé |
-| --- | --- | --- |
-| Feed Radar | Radar | `radar.libre-ai.fr` |
-| Notebook | Carnet | `carnet.libre-ai.fr` |
-| AI Practices | Pratiques IA | `pratiques.libre-ai.fr` |
-| Sessions | Sessions | `sessions.libre-ai.fr` |
-| Boussole Politique | Boussole Politique | `boussole.libre-ai.fr` |
-| Spec Studio | Studio de spécification | `specs.libre-ai.fr` |
-| Agent Board | Missions | `missions.libre-ai.fr` |
-| Benchmarks | Preuves | `preuves.libre-ai.fr` |
+| Produit technique  | Nom public              | Hôte réservé            |
+| ------------------ | ----------------------- | ----------------------- |
+| Feed Radar         | Radar                   | `radar.libre-ai.fr`     |
+| Notebook           | Carnet                  | `carnet.libre-ai.fr`    |
+| AI Practices       | Pratiques IA            | `pratiques.libre-ai.fr` |
+| Sessions           | Sessions                | `sessions.libre-ai.fr`  |
+| Boussole Politique | Boussole Politique      | `boussole.libre-ai.fr`  |
+| Spec Studio        | Studio de spécification | `specs.libre-ai.fr`     |
+| Agent Board        | Missions                | `missions.libre-ai.fr`  |
+| Benchmarks         | Preuves                 | `preuves.libre-ai.fr`   |
 
 La réservation est un contrat de nommage, pas une déclaration DNS. Un hôte produit reste sans URL applicative tant que sa gate d’alpha publique n’est pas satisfaite.
 
@@ -57,12 +59,12 @@ Un produit peut appartenir à plusieurs parcours. Cette relation n’impose aucu
 
 ### États publics
 
-| État | Signification |
-| --- | --- |
-| `discovery` | vision, contrat ou prototype ; aucune disponibilité |
-| `private-alpha` | parcours réservé à un groupe borné ; aucune URL publique |
-| `public-alpha` | parcours cœur publiquement utilisable avec preuve datée |
-| `stable` | exploitation, restauration, retrait et incidents éprouvés |
+| État            | Signification                                             |
+| --------------- | --------------------------------------------------------- |
+| `discovery`     | vision, contrat ou prototype ; aucune disponibilité       |
+| `private-alpha` | parcours réservé à un groupe borné ; aucune URL publique  |
+| `public-alpha`  | parcours cœur publiquement utilisable avec preuve datée   |
+| `stable`        | exploitation, restauration, retrait et incidents éprouvés |
 
 `public-alpha` et `stable` exigent simultanément :
 
