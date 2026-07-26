@@ -18,25 +18,51 @@ own workflow would produce a non-required check — mergeable while red.
 | --------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------- |
 | `ecosystem/tools/checks/check-action-pinning.sh`    | `Stack workflow conventions` (required) | Every `uses:` in every tracked workflow is SHA-pinned.        |
 | `ecosystem/tools/checks/check-doc-paths.py`         | `Stack workflow conventions` (required) | Operational documents cite only paths that exist.             |
-| `ecosystem/tools/checks/check-workflow-location.sh` | not wired — see below                   | Workflow files live only under the root `.github/workflows/`. |
-| `ecosystem/tools/checks/check-repo-escape.py`       | not wired — see below                   | No tracked script resolves a path above the repo root.        |
+| `ecosystem/tools/checks/check-workflow-location.sh` | `Stack workflow conventions` (required) | Workflow files live only under the root `.github/workflows/`. |
+| `ecosystem/tools/checks/check-repo-escape.py`       | `Stack workflow conventions` (required) | No tracked script resolves a path above the repo root.        |
 | `ecosystem/tools/checks/check-schema-coverage.py`   | not wired — see below                   | Every versioned JSON Schema is covered by a validation suite. |
 
-Three controls are deliberately **placed but not wired**: each currently reports a
-real finding whose correction requires an owner decision, not a mechanical edit.
-Wiring them today would turn `main` red; weakening them with an allowlist to make
-them green would destroy the reason they exist. Run them by hand:
+### The frozen-trace exemption, and why it expires
+
+`check-workflow-location.sh` and `check-repo-escape.py` both reported exactly one
+finding, and the same one: the **Harness Vertical P0** stratum
+(`ecosystem/.github/workflows/harness-vertical-p0.yml` and
+`ecosystem/specs/harness/run_vertical_p0.py`). That stratum is inert — the
+workflow does not appear in `gh api .../actions/workflows`, its `paths:` filters
+name a layout that no longer exists, and its `cos-matic` / `wrench-inspect`
+checkouts are 404 — but control-plane ADR 0047 §3 freezes it _en l'état comme
+trace, plus jamais amendé_: it may be neither repaired nor deleted.
+
+Both controls are therefore wired with a **nominative exemption**: the exact
+paths, never a directory and never a pattern, each carrying its ADR reference in
+the source. The exemption is a two-way join against the findings, and both
+directions fail the build:
+
+- an offender that is **not** named — a second workflow outside the root, a
+  second escaping script, or even a second escaping line inside the exempted
+  file — fails. The exemption is line-scoped for `check-repo-escape.py`, so
+  exempting one line of a file does not shelter the rest of it.
+- a named path that is **no longer** an offender — deleted, renamed, moved to
+  the root, or whose fingerprinted line was edited — fails as an **expired**
+  exemption.
+
+The second direction is the reason the exemption is acceptable at all. An
+exemption that outlives the defect it describes is a permanent hole that reports
+itself as coverage: the control would keep printing `OK` while carrying an
+exception for something that no longer exists. Breaking the build the day it
+stops being true sends it back for arbitration instead of letting it rot. If the
+P0 stratum is ever unfrozen, these two controls are what will say so.
+
+One control remains deliberately **placed but not wired**:
 
 ```bash
-sh ecosystem/tools/checks/check-workflow-location.sh
-python3 ecosystem/tools/checks/check-repo-escape.py
 python3 ecosystem/tools/checks/check-schema-coverage.py
 ```
 
-The first two both report the dormant Harness Vertical P0 stratum, whose disposition
-is frozen as trace by control-plane ADR 0047. The third reports six schemas that no
-validation suite references; covering them means authoring contract fixtures, which
-the same ADR routes to the monorepo work-package regime.
+It reports six schemas that no validation suite references. Covering them means
+authoring contract fixtures — product work that the same ADR routes to the
+monorepo work-package regime — so wiring it is an owner decision, not a
+mechanical edit.
 
 ## readme_guardrail.py
 

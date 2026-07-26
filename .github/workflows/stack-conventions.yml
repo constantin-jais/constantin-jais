@@ -56,6 +56,17 @@ jobs:
       - name: Operational documents cite only paths that exist
         run: python3 ecosystem/tools/checks/check-doc-paths.py
 
+      # The next two carry a nominative exemption for the Harness Vertical P0
+      # stratum, frozen as trace by control-plane ADR 0047 §3. Each exemption is
+      # a two-way join: an unnamed offender fails the job, and so does a named
+      # path that has stopped being an offender. An exemption that cannot expire
+      # is a permanent hole reporting itself as coverage.
+      - name: Workflows live only under the root .github/workflows/
+        run: sh ecosystem/tools/checks/check-workflow-location.sh
+
+      - name: No tracked script resolves a path above the repository root
+        run: python3 ecosystem/tools/checks/check-repo-escape.py
+
       - name: Retired brands stay out of living documents
         run: |
           set -euo pipefail
