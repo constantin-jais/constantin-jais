@@ -18,14 +18,32 @@ Validated suites — this list is the declared mirror of the `SUITES` table in
 - Parser runtime attestation: `shared/contracts/parser-runtime-attestation.v0.1.schema.json` + `shared/contracts/fixtures/parser-runtime-attestation/`.
 - Progress snapshot: `shared/contracts/progress-snapshot.v0.1.schema.json` + `shared/contracts/fixtures/progress-snapshot/`.
 - Job runtime: `shared/contracts/job-runtime.v0.1.schema.json` + `shared/contracts/fixtures/job-runtime/`.
+- Implementation handoff: `shared/contracts/implementation-handoff.v0.1.schema.json` + `harness/fixtures/handoffs/`.
 
 The Gear Memory and Gear Loader suites were retired with their spec trees
 (`archive/pre-constellation-2026-07-19`, wave 0 option B) and are no longer
 validated here.
 
-Not every versioned schema in the tree is covered by a suite above. Coverage is
-measured by `ecosystem/tools/checks/check-schema-coverage.py`, which lists the
-schemas that no suite references.
+## Coverage tiers
+
+Every versioned schema in the tree is covered, and the tier says how strongly:
+
+- **Tier 1 — fixture-validated.** A suite above validates real instance data.
+- **Tier 2 — meta-validated only.** The schema has no instance data anywhere, so
+  it is compiled and checked as Draft 2020-12 on every run and declared in the
+  `META_ONLY` map of `validate_spec_schemas.py` **with the reason it has none**.
+
+Tier 2 is deliberately weaker. Naming it is the point: an uncovered schema must
+not read like a covered one. Fixtures were **not** invented to lift these into
+Tier 1 — instance data asserting facts no producer ever emitted would fabricate
+coverage, and a green suite would then vouch for it.
+
+Membership is enforced in both directions by
+`ecosystem/tools/checks/check-schema-coverage.py` (required job
+`Stack workflow conventions`) and by the validator itself: a schema in neither
+tier fails, a schema in both fails, a `META_ONLY` entry naming an absent schema
+fails, and a Tier-2 schema fails **the day instance data for its format appears**,
+forcing promotion to Tier 1. Coverage can only ratchet up.
 
 ## Local / CI Command
 
@@ -51,8 +69,31 @@ changing the header with `uv lock --script ecosystem/specs/validate_spec_schemas
 - `*.refusal.json` must pass schema validation because a structured refusal is a valid contract output.
 - `*.warning.json` must pass schema validation.
 - `*.invalid.json` must fail schema validation or one explicit semantic guard documented in `validate_spec_schemas.py`.
+- `*.gate.json` must pass schema validation: a gated handoff is structurally valid and blocked, not malformed. Used by the implementation-handoff suite only, where the fixture carrying it declares `expected_gate` exactly as refusal fixtures declare `expected_refusal`.
 
 Semantic guards cover cross-object constraints JSON Schema cannot express cleanly in the current bundle shape, such as “OCR text emitted while OCR policy is disabled”.
+
+Guards must be scoped by the instance `format` so a rule written for one contract
+cannot perturb another, and must never compare against the wall clock: a
+time-dependent guard turns a required job red on a date with no change to any
+file. The handoff waiver rule therefore measures expiry against the handoff's own
+`source.created_at`, not against `now`.
+
+## Quarantined fixtures
+
+A `quarantine` entry on a suite names a fixture whose disagreement with its schema
+is real, diagnosed, and **not ours to correct** — typically because control-plane
+ADR 0047 §3 freezes the fixture as trace while §1 routes the contract amendment to
+the monorepo work-package regime.
+
+This is not an allowlist. An allowlist mutes a case and reports the suite clean; a
+quarantine names the fixture, carries its diagnosis in source, prints
+`QUARANTINED` on every run, and **fails the build the day the fixture starts
+conforming** — because a quarantine outliving the divergence it describes is a
+permanent hole reporting itself as coverage. Editing a frozen fixture to green a
+gate is forbidden: it would destroy the only evidence of the disagreement.
+
+Currently quarantined: `harness/fixtures/handoffs/feedmind-curated-export.valid.json`.
 
 ## CI Binding
 
