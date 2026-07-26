@@ -9,11 +9,20 @@
 #   DEST_DIR  Destination directory for the tarball (default: ../ecosystem-snapshots relative to repo root).
 #
 # Description:
-#   Creates a timestamped tar.gz archive containing:
+#   Creates a timestamped tar.gz archive of the LIVING control-plane documents,
+#   i.e. exactly those the required "Stack workflow conventions" job asserts must
+#   exist, plus the ADR directory:
 #   - ecosystem/specs/shared/decision-log.md
 #   - ecosystem/specs/shared/adrs/
-#   - ecosystem/maturity/
-#   - ecosystem/status.md, readiness-report.md, health.md, overview.md
+#   - ecosystem/governance/upstream-contributions.md
+#   - ecosystem/plans/cold-backlog.md
+#   - ecosystem/plans/orchestrator-lock-inputs.md
+#
+#   The former candidates (ecosystem/maturity/, ecosystem/status.md,
+#   readiness-report.md, health.md, overview.md) belong to the pre-constellation
+#   strata retired by option B. Two of them (ecosystem/maturity/ and
+#   ecosystem/status.md) are actively REFUSED on main by that same required job,
+#   so this script could never archive them: it only ever warned and skipped.
 #
 #   Archives are named: ecosystem-snapshot-YYYY-MM-DDTHH-MM-SSZ.tar.gz
 #   Checksums (SHA256) are written to a companion .sha256 file.
@@ -44,11 +53,9 @@ CHECKSUM_PATH="${DEST_DIR}/${ARCHIVE_NAME}.sha256"
 CANDIDATES=(
   "ecosystem/specs/shared/decision-log.md"
   "ecosystem/specs/shared/adrs"
-  "ecosystem/maturity"
-  "ecosystem/status.md"
-  "ecosystem/readiness-report.md"
-  "ecosystem/health.md"
-  "ecosystem/overview.md"
+  "ecosystem/governance/upstream-contributions.md"
+  "ecosystem/plans/cold-backlog.md"
+  "ecosystem/plans/orchestrator-lock-inputs.md"
 )
 
 FILES_TO_ARCHIVE=()

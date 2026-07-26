@@ -8,7 +8,7 @@ This is a contribution map, not a startup roadmap or a delivery promise. It show
 - keep the ecosystem status and ecosystem docs accurate;
 - stabilize spec-contract fixtures;
 - document known limits and maturity honestly;
-- keep ecosystem-health and contract checks green.
+- keep the stack-convention and contract checks green.
 
 ## Next
 

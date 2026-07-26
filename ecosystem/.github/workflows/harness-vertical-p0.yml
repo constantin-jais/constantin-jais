@@ -19,24 +19,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ecosystem specs
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           path: ecosystem
 
       - name: Checkout cos-matic
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: constantin-jais/cos-matic
           path: cos-matic
 
       - name: Checkout wrench-inspect
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: constantin-jais/wrench-inspect
           path: wrench-inspect
 
       - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@4cda84d5c5c54efe2404f9d843567869ab1699d4 # stable
 
       - name: Check JSON fixtures and schemas
         working-directory: ecosystem
@@ -55,7 +55,7 @@ jobs:
             --output specs/harness/proofs/vertical-p0.proof.json
 
       - name: Upload vertical proof
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: vertical-p0-proof
           path: ecosystem/specs/harness/proofs/vertical-p0.proof.json

@@ -45,6 +45,17 @@ jobs:
           git tag -l 'archive/pre-constellation-*' | grep -q . || {
             echo "archive tag missing"; exit 1
           }
+      # Frontier controls. They are wired HERE, inside an already-required job,
+      # on purpose: a new workflow would produce a check that is not required and
+      # therefore mergeable while red — decoration, not a gate. Each control
+      # prints how many items it examined and fails when that number is zero, so
+      # "found nothing" can never be confused with "could not look".
+      - name: Actions pinned to commit SHAs (every tracked workflow)
+        run: sh ecosystem/tools/checks/check-action-pinning.sh
+
+      - name: Operational documents cite only paths that exist
+        run: python3 ecosystem/tools/checks/check-doc-paths.py
+
       - name: Retired brands stay out of living documents
         run: |
           set -euo pipefail

@@ -6,11 +6,26 @@ Status: P0 CI recipe.
 
 Validate JSON Schema Draft 2020-12 contracts and fixtures for ecosystem specs before implementation code consumes them.
 
-Validated suites:
+Validated suites — this list is the declared mirror of the `SUITES` table in
+`validate_spec_schemas.py`; the two must not drift:
 
-- Gear Memory: `gear/gear-memory.v0.1.schema.json` + `gear/fixtures/memory/`.
-- Gear Loader: `gear-loader/gear-loader.v0.1.schema.json` + `gear-loader/fixtures/`.
 - Bolt / cos-matic planning: `harness/cosmatic-planning.v0.1.schema.json` + `harness/fixtures/planning/`.
+- Human approval: `harness/human-approval.v0.1.schema.json` + `harness/fixtures/human-approval/`.
+- Approval key registry: `harness/approval-key-registry.v0.1.schema.json` + `harness/fixtures/approval-key-registry/`.
+- Rumble delivery maturity: `harness/rumble-delivery-maturity.v0.1.schema.json` + `harness/fixtures/maturity/`.
+- Workspace identity: `shared/contracts/workspace-identity.v0.1.schema.json` + `shared/contracts/fixtures/workspace-identity/`.
+- Authorization registries: `shared/contracts/authorization-registries.v0.1.schema.json` + `shared/contracts/fixtures/authorization-registries/`.
+- Parser runtime attestation: `shared/contracts/parser-runtime-attestation.v0.1.schema.json` + `shared/contracts/fixtures/parser-runtime-attestation/`.
+- Progress snapshot: `shared/contracts/progress-snapshot.v0.1.schema.json` + `shared/contracts/fixtures/progress-snapshot/`.
+- Job runtime: `shared/contracts/job-runtime.v0.1.schema.json` + `shared/contracts/fixtures/job-runtime/`.
+
+The Gear Memory and Gear Loader suites were retired with their spec trees
+(`archive/pre-constellation-2026-07-19`, wave 0 option B) and are no longer
+validated here.
+
+Not every versioned schema in the tree is covered by a suite above. Coverage is
+measured by `ecosystem/tools/checks/check-schema-coverage.py`, which lists the
+schemas that no suite references.
 
 ## Local / CI Command
 
