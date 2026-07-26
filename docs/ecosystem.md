@@ -2,13 +2,32 @@
 
 Objectif : construire un écosystème souveraine, auditable et reproductible sans publication automatique dangereuse.
 
-## Workflows standards
+## Plan de contrôle de ce dépôt
 
-- `.github/workflows/ci.yml` : qualité code, compilation, tests, documentation/build.
-- `.github/workflows/security.yml` : dépendances, advisories, licences, sources, audit de secrets simples.
-- `.github/workflows/contracts.yml` : preuves métier par couche, fixtures, snapshots, golden files, schémas.
-- `.github/workflows/release.yml` : artefacts distribuables uniquement, déclenchés par tag `v*.*.*` ou `workflow_dispatch`.
-- `.github/workflows/ecosystem-health.yml` : cockpit global dans `constantin-jais`.
+Les workflows réellement actifs ici vivent tous sous `.github/workflows/` — GitHub
+ne lit aucun autre emplacement. Trois d'entre eux portent un check **requis** sur
+`main` ; le quatrième est filtré par `paths:` et ne l'est donc pas, à raison.
+
+| Workflow                                  | Job (nom du check)                              | Requis |
+| ----------------------------------------- | ----------------------------------------------- | ------ |
+| `.github/workflows/context-hygiene.yml`   | `No private identifiers or machine-local paths` | oui    |
+| `.github/workflows/stack-conventions.yml` | `Stack workflow conventions`                    | oui    |
+| `.github/workflows/spec-contracts.yml`    | `json-schema-fixtures`                          | oui    |
+| `.github/workflows/readme-guardrail.yml`  | `README guardrail`                              | non    |
+
+Un contrôle qui n'est pas dans un de ces trois jobs requis produit un check
+non requis, donc mergeable en rouge : décoratif. Tout nouveau garde-fou se câble
+dans le job requis dont il partage le sujet, il ne fonde pas un workflow de plus.
+
+## Convention de nommage pour les dépôts produits
+
+Nomenclature attendue sous `.github/workflows/` dans les dépôts produits de
+l'écosystème (ces noms décrivent d'autres dépôts, pas celui-ci) :
+
+- `ci.yml` : qualité code, compilation, tests, documentation/build.
+- `security.yml` : dépendances, advisories, licences, sources, audit de secrets simples.
+- `contracts.yml` : preuves métier par couche, fixtures, snapshots, golden files, schémas.
+- `release.yml` : artefacts distribuables uniquement, déclenchés par tag `v*.*.*` ou `workflow_dispatch`.
 
 ## Règles communes
 

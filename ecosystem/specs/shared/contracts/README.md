@@ -6,24 +6,25 @@ This directory contains cross-product contracts that Rumble/Bolt/Wrench/Gear con
 
 ## Contracts
 
-| Contract                                            | Status     | Purpose                                                                                                                                             |
-| --------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `implementation-handoff.v0.1.md`                    | Draft / P0 | Planning-only Rumble-to-Bolt handoff contract.                                                                                                      |
-| `implementation-handoff.v0.1.schema.json`           | Draft / P0 | JSON Schema for `ImplementationHandoff v0.1`.                                                                                                       |
-| `bolt-refusal-codes.v0.1.md`                        | Draft / P0 | Canonical Bolt refusal/gate reason codes for handoff validation, planning, evidence, idempotency, and sovereignty.                                  |
-| `app-store-release.v0.1.md`                         | Accepted   | Stable Rumble-to-Gear Cable boundary for TestFlight/App Store publication through pinned `asc`.                                                     |
-| `app-store-release.v0.1.schema.json`                | Accepted   | JSON Schema for `App Store Release Contract v0.1`.                                                                                                  |
-| `delegated-authorization-biscuit.v0.1.md`           | Draft / P0 | Shared Biscuit delegated-authorization facts, rights, lifecycle, audit, and product matrix.                                                         |
-| `delegated-authorization-biscuit.v0.1.tests.md`     | Draft / P0 | Product-neutral conformance tests for Biscuit delegation.                                                                                           |
-| `delegated-authorization-biscuit.v0.1.prototype.md` | Draft      | Pre-implementation spike plan for verifier/authorizer behavior.                                                                                     |
-| `workspace-identity.v0.1.md`                        | Accepted   | Shared actor/workspace/membership/role model ratified by ADR 0028 and closed by rumble-canvas #4 tenant emission/schema sync.                        |
-| `authorization-registries.v0.1.schema.json`         | Draft / P2 | Public Ed25519 keyset and Biscuit revocation registry consumed by Bolt.                                                                              |
-| `parser-runtime-attestation.v0.1.schema.json`       | Draft / P2 | Gear worker isolation/resource-limit attestation consumed as Wrench evidence.                                                                        |
-| `progress-snapshot.v0.1.schema.json`                | Draft / P2 | Portal's accessible metadata-only projection; no workflow ownership.                                                                                 |
-| `job-runtime.v0.1.schema.json`                      | Draft / P2 | Product-local job, event and leased outbox metadata envelope.                                                                                         |
-| `phase2-runtime-contracts.v0.1.md`                  | Draft / P2 | Ownership, non-goals, safe fields and conformance rules for the four Phase 2 schemas.                                                                 |
-| `../gear-loader/gear-loader.v0.1.schema.json`       | Draft / P0 | JSON Schema bundle for Gear Loader (formerly wrench-loader) extraction requests, canonical documents, Gear source candidates, and evidence reports. |
-| `../../harness/cosmatic-planning.v0.1.schema.json`  | Draft / P0 | JSON Schema bundle for Bolt/cos-matic planning requests, evidence refs, gates, plan reports, run intents, refusals, and audit events.               |
+| Contract                                            | Status     | Purpose                                                                                                                               |
+| --------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `implementation-handoff.v0.1.md`                    | Draft / P0 | Planning-only Rumble-to-Bolt handoff contract.                                                                                        |
+| `implementation-handoff.v0.1.schema.json`           | Draft / P0 | JSON Schema for `ImplementationHandoff v0.1`.                                                                                         |
+| `bolt-refusal-codes.v0.1.md`                        | Draft / P0 | Canonical Bolt refusal/gate reason codes for handoff validation, planning, evidence, idempotency, and sovereignty.                    |
+| `app-store-release.v0.1.md`                         | Accepted   | Stable Rumble-to-Gear Cable boundary for TestFlight/App Store publication through pinned `asc`.                                       |
+| `app-store-release.v0.1.schema.json`                | Accepted   | JSON Schema for `App Store Release Contract v0.1`.                                                                                    |
+| `delegated-authorization-biscuit.v0.1.md`           | Draft / P0 | Shared Biscuit delegated-authorization facts, rights, lifecycle, audit, and product matrix.                                           |
+| `delegated-authorization-biscuit.v0.1.tests.md`     | Draft / P0 | Product-neutral conformance tests for Biscuit delegation.                                                                             |
+| `delegated-authorization-biscuit.v0.1.prototype.md` | Draft      | Pre-implementation spike plan for verifier/authorizer behavior.                                                                       |
+| `workspace-identity.v0.1.md`                        | Accepted   | Shared actor/workspace/membership/role model ratified by ADR 0028 and closed by rumble-canvas #4 tenant emission/schema sync.         |
+| `authorization-registries.v0.1.schema.json`         | Draft / P2 | Public Ed25519 keyset and Biscuit revocation registry consumed by Bolt.                                                               |
+| `parser-runtime-attestation.v0.1.schema.json`       | Draft / P2 | Gear worker isolation/resource-limit attestation consumed as Wrench evidence.                                                         |
+| `progress-snapshot.v0.1.schema.json`                | Draft / P2 | Portal's accessible metadata-only projection; no workflow ownership.                                                                  |
+| `job-runtime.v0.1.schema.json`                      | Draft / P2 | Product-local job, event and leased outbox metadata envelope.                                                                         |
+| `phase2-runtime-contracts.v0.1.md`                  | Draft / P2 | Ownership, non-goals, safe fields and conformance rules for the four Phase 2 schemas.                                                 |
+| `../../harness/cosmatic-planning.v0.1.schema.json`  | Draft / P0 | JSON Schema bundle for Bolt/cos-matic planning requests, evidence refs, gates, plan reports, run intents, refusals, and audit events. |
+
+The Gear Loader schema bundle (formerly wrench-loader) was retired with its spec tree (`archive/pre-constellation-2026-07-19`, wave 0 option B) and is no longer part of this index.
 
 ## Quality Rules
 

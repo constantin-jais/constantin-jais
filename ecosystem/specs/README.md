@@ -1,6 +1,6 @@
 # Ecosystem Specifications
 
-> **⚠ Product spec trees frozen as historical inputs (2026-07-17, control-plane ADR 0047).** The product trees here (`rumble-*`, `gear*`, `harness`, `wrench-db-inspect`) fed the nine G1-standard application specifications of the `libre-ai/libre-ai` monorepo and are **superseded** — kept as trace, never amended again. New product needs go through the monorepo work-package regime, or land as meta need-captures (decompositions, `../plans/cold-backlog.md`) with re-route notes. **`specs/shared/` remains live** (decision-log, ADRs, decompositions, cross-layer design specs).
+> **⚠ Product spec trees frozen as historical inputs (2026-07-17, control-plane ADR 0047).** The product trees here (`rumble-*`, `gear*`, `harness`, `wrench-db-inspect`) fed the nine G1-standard application specifications of the `libre-ai/libre-ai` monorepo and are **superseded** — kept as trace, never amended again. New product needs go through the monorepo work-package regime, or land as meta need-captures (decompositions, `../plans/cold-backlog.md`) with re-route notes. **`ecosystem/specs/shared/` remains live** (decision-log, ADRs, decompositions, cross-layer design specs).
 
 This directory contains the product specifications for active Rumble dojos and selected shared Portal/Bolt/Wrench/Gear capability specs.
 
@@ -41,18 +41,15 @@ Every product spec must identify when a need is product-specific and when it sho
 
 Do not copy shared primitive definitions into each product spec. Link to the shared contract/registry and document only the product-specific instantiation, constraints, and open questions.
 
-`constantin-jais/ecosystem/specs/` is the canonical ecosystem specification root. Do not create or edit a parallel root-level `Documents/specs/` tree; use repository-local `docs/` only for local usage, ADRs, runbooks, implementation notes, and commands.
+`ecosystem/specs/` (this directory) is the canonical ecosystem specification root. Do not create or edit a parallel specification tree outside it — in particular none at the workspace level, next to the repository. Use repository-local `docs/` only for local usage, ADRs, runbooks, implementation notes, and commands.
 
-Shared capabilities are logged in:
-
-- `shared/shared-capabilities.md`
+The shared-capabilities index was retired with the pre-constellation strata (`archive/pre-constellation-2026-07-19`, wave 0 option B); capability ownership now lives in the monorepo work-packages.
 
 Shared contracts and release runbooks include:
 
 - `shared/contracts/implementation-handoff.v0.1.md`
 - `shared/contracts/app-store-release.v0.1.md`
 - `shared/runbooks/ios-appstore-release.md`
-- `harness/stack-project-maturity.v0.1.schema.json`
 - `harness/04-stack-validation-tooling.md`
 - `harness/stack-target-version.v0.2.schema.json` (current)
 - `harness/stack-target-version.v0.1.schema.json` (retained compatibility schema)
@@ -61,7 +58,8 @@ Session doctrine, decisions, and unresolved questions are logged in:
 
 - `shared/session-design-principles.md`
 - `shared/decision-log.md`
-- `shared/open-questions.md`
+
+The standalone open-questions register was retired with the pre-constellation strata (`archive/pre-constellation-2026-07-19`); unresolved questions are now carried by the decision log and by the monorepo work-packages.
 
 ## Product Spec Structure
 
