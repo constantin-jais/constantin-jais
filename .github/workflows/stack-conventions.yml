@@ -67,16 +67,21 @@ jobs:
       - name: No tracked script resolves a path above the repository root
         run: python3 ecosystem/tools/checks/check-repo-escape.py
 
+      # Wired HERE rather than in json-schema-fixtures, which would be the
+      # topical home: that job carries a relevance guard that no-ops when no
+      # ecosystem/specs path changed, so a schema added anywhere else would not
+      # be examined. This control enumerates schemas repo-wide from git, so it
+      # must run on every pull request. Both jobs are required checks; this is
+      # the one that always executes. It is stdlib-only, so it needs no uv step.
+      - name: Every versioned JSON Schema is covered by a validation tier
+        run: python3 ecosystem/tools/checks/check-schema-coverage.py
+
+      # Was an inline grep over a hardcoded list of eight paths, three of which
+      # the step above FAILS the build for having. grep exited 2 on those and
+      # `2>/dev/null || true` discarded the message and the status, so the step
+      # reported a corpus of eight while examining five. It also looked at
+      # neither ecosystem/specs/ nor docs/ nor ecosystem/reviews/. The control
+      # now enumerates every tracked text file from git and carries its
+      # dated-record exemptions as a two-way join.
       - name: Retired brands stay out of living documents
-        run: |
-          set -euo pipefail
-          matches=$(grep -rn -E "Daidalos|free-ai\.fr" \
-            README.md ROADMAP.md CONTRIBUTING.md SECURITY.md \
-            ecosystem/plans/ ecosystem/target-version.md \
-            ecosystem/product-portfolio.md ecosystem/product-readiness.md \
-            2>/dev/null || true)
-          if [ -n "$matches" ]; then
-            echo "$matches"
-            echo "A retired brand resurfaced in a living control-plane document."
-            exit 1
-          fi
+        run: sh ecosystem/tools/checks/check-retired-brands.sh

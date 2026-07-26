@@ -20,7 +20,8 @@ own workflow would produce a non-required check — mergeable while red.
 | `ecosystem/tools/checks/check-doc-paths.py`         | `Stack workflow conventions` (required) | Operational documents cite only paths that exist.             |
 | `ecosystem/tools/checks/check-workflow-location.sh` | `Stack workflow conventions` (required) | Workflow files live only under the root `.github/workflows/`. |
 | `ecosystem/tools/checks/check-repo-escape.py`       | `Stack workflow conventions` (required) | No tracked script resolves a path above the repo root.        |
-| `ecosystem/tools/checks/check-schema-coverage.py`   | not wired — see below                   | Every versioned JSON Schema is covered by a validation suite. |
+| `ecosystem/tools/checks/check-schema-coverage.py`   | `Stack workflow conventions` (required) | Every versioned JSON Schema is covered by a validation tier.  |
+| `ecosystem/tools/checks/check-retired-brands.sh`    | `Stack workflow conventions` (required) | A retired brand appears only inside a dated record.           |
 
 ### The frozen-trace exemption, and why it expires
 
@@ -53,16 +54,51 @@ exception for something that no longer exists. Breaking the build the day it
 stops being true sends it back for arbitration instead of letting it rot. If the
 P0 stratum is ever unfrozen, these two controls are what will say so.
 
-One control remains deliberately **placed but not wired**:
+### Schema coverage: wired, in two tiers
 
 ```bash
 python3 ecosystem/tools/checks/check-schema-coverage.py
 ```
 
-It reports six schemas that no validation suite references. Covering them means
-authoring contract fixtures — product work that the same ADR routes to the
-monorepo work-package regime — so wiring it is an owner decision, not a
-mechanical edit.
+The owner decided (2026-07-26) to close the six-schema gap this control used to
+report, so it is now wired into the required `Stack workflow conventions` job. It
+is wired there rather than into `json-schema-fixtures`, the topical home, because
+that job carries a relevance guard that no-ops when no `ecosystem/specs` path
+changed — and this control enumerates schemas repo-wide, so it must run on every
+pull request.
+
+One of the six was closed properly: `implementation-handoff.v0.1` had 14 real
+fixtures that nothing had ever validated, and they now form a suite. The other
+five have no instance data at all, so they are declared **Tier 2** —
+meta-validated as Draft 2020-12 on every run, each carrying in source the reason
+it has no fixtures. Fixtures were not invented to lift them into Tier 1: instance
+data nobody produced would fabricate coverage. `ecosystem/specs/contract-validation.md`
+holds the full tier contract.
+
+The control reads the validator with `ast`, not a regex over its source. The
+previous regex matched quoted filenames anywhere in the file, so a schema named in
+a **comment** counted as covered — coverage claimed by prose, which is precisely
+what this control exists to prevent.
+
+### Retired brands
+
+```bash
+sh ecosystem/tools/checks/check-retired-brands.sh
+```
+
+Replaces an inline step that grepped a hardcoded list of eight paths, three of
+which the step above it fails the build for having. `grep` exited 2 on those and
+`2>/dev/null || true` discarded both the message and the status, so the step
+reported a corpus of eight while examining five — degraded, not blind, and silent
+about it. It also examined neither `ecosystem/specs/` nor `docs/` nor
+`ecosystem/reviews/`. The control now enumerates every tracked text file from
+git, so a new document joins the corpus by existing.
+
+It guards only brands whose retirement is **settled**. « Libre IA » is
+deliberately excluded: whether it is retired is an open owner arbitration
+(`ecosystem/reviews/positioning-diagnostic-confrontation-2026-07-24.md` §6.1),
+and a control that encoded it would settle by mechanism a question the owner kept
+open.
 
 ## readme_guardrail.py
 
