@@ -36,15 +36,45 @@
 # "Daidalos" (and daidalos.dev, never purchased) and "Free AI" (and free-ai.fr),
 # both flipped to Superseded on 2026-07-19 by monorepo ADR-0008.
 #
-# NOT guarded: « Libre IA ». Whether it is retired is an OPEN owner arbitration,
-# not a settled fact. Control-plane ADR 0046 (2026-07-12, Accepted) states "la
-# marque reste « Libre IA »"; the decision-log row of 2026-07-19 (Accepted)
-# ratifies "Libre AI". Both are live entries and they contradict each other;
-# `ecosystem/reviews/positioning-diagnostic-confrontation-2026-07-24.md` §5.1
-# records the clash and §6.1 reserves it to the owner, stating that the brand CI
-# guardrail "applique ensuite le verdict mécaniquement" — afterwards, not before.
-# Encoding « Libre IA » as retired here would settle by mechanism a question the
-# owner has explicitly kept open. Adding it is an owner decision, not a fix.
+# NOT guarded: « Libre IA ». The arbitration §6.1 reserved to the owner is now
+# SETTLED — the decision-log row of 2026-07-19 prevails by posteriority over
+# control-plane ADR 0046 (2026-07-12), which carries a historical note saying so.
+# The spelling question is closed; encoding it here is still refused, and the
+# reason changed from "the owner has not decided" to "this token cannot be
+# expressed without failing on live truth". Measured, not assumed:
+#
+#   token `libre ia` alone      -> 14 hits / 5 files, ALL legitimate
+#   tokens `libre ia`+`libre-ia`-> 23 hits / 8 files, ALL legitimate
+#
+# (Reproduce by adding the tokens to brand_files/brand_hits below and running.
+# The counts include the ADR 0046 historical note itself: the token would fail on
+# the very document that records the decision it claims to enforce.)
+#
+# Three reasons it stays out, each fatal on its own:
+#
+#   1. `libre-ia.fr` is NOT retired. ADR 0046 keeps it defensive and 301-redirected
+#      and no later decision withdrew it; the 2026-07-24 row corrected the org blog
+#      FIELD to libre-ai.fr, it did not retire the domain. `free-ai` subsumes
+#      free-ai.fr because that domain IS dead. The analogy breaks here.
+#   2. `rumble-libre-ia` is a live legacy product slug (ecosystem/specs/README.md,
+#      curated-item-export.v0.1.md, and a maturity fixture frozen as trace by
+#      ADR 0047 §3). The guard's own remedy line — "Rename it to the current
+#      brand" — would be actively wrong advice on all three.
+#   3. It would fail on its own documentation. ecosystem/tools/README.md names
+#      « Libre IA » precisely to say it is NOT guarded, and that file is a LIVING
+#      document — it cannot be exempted as a "dated record" without making the
+#      exemption list lie about what it contains. (This script escapes only
+#      because it is already exempt for naming Daidalos and Free AI.)
+#
+# And the EXEMPT list is brand-agnostic: exempting ADR 0037/0042/0046 for
+# « Libre IA » would also exempt them for Daidalos and Free AI — silently widening
+# the holes this control exists to keep narrow.
+#
+# What DOES enforce the spelling: « Libre IA » in a living document is caught by
+# review, and the monorepo runs its own doctrine guard for its own corpus
+# (2026-07-24 row, monorepo PR #239). Per-context replication, not a shared table.
+# Today no living document in THIS repo asserts « Libre IA » as the current brand:
+# every occurrence is a dated record or a negative citation like this one.
 #
 # ---------------------------------------------------------------------------
 # Dated-record exemptions

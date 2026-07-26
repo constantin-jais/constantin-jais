@@ -94,11 +94,17 @@ about it. It also examined neither `ecosystem/specs/` nor `docs/` nor
 `ecosystem/reviews/`. The control now enumerates every tracked text file from
 git, so a new document joins the corpus by existing.
 
-It guards only brands whose retirement is **settled**. « Libre IA » is
-deliberately excluded: whether it is retired is an open owner arbitration
-(`ecosystem/reviews/positioning-diagnostic-confrontation-2026-07-24.md` §6.1),
-and a control that encoded it would settle by mechanism a question the owner kept
-open.
+It guards only brands whose retirement is **settled**. « Libre IA » stays
+deliberately excluded, but the reason changed. The arbitration
+(`ecosystem/reviews/positioning-diagnostic-confrontation-2026-07-24.md` §6.1) is
+now closed — « Libre AI » prevails by posteriority, and control-plane ADR 0046
+carries a historical note recording it. The token is excluded because it cannot
+be expressed without failing on live truth: `libre-ia.fr` is a **still-defensive**
+domain, `rumble-libre-ia` is a live legacy product slug, and this very paragraph
+would be an offender the exemption list could not honestly absorb — it is a living
+document, not a dated record. Measured, not assumed: encoding the brand string
+alone fails on 14 lines across 5 files, all legitimate. The full reasoning and the
+counterfactual runs are in the script header.
 
 ## readme_guardrail.py
 
